@@ -14,7 +14,12 @@
       "matchManagers": ["bazel", "bazel-module", "nvm", "npm"],
       "matchDepTypes": ["packageManager"],
       "matchFiles": [".bazelversion", ".nvmrc", "package.json"],
-      "groupName": "Development tooling"
+      "groupName": "Development tooling",
+      "postUpgradeTasks": {
+        "commands": ["bazel build //..."],
+        "fileFilters": ["MODULE.bazel.lock"],
+        "executionMode": "branch"
+      }
     },
     {
       "description": "Group all app-affecting dependencies together (AndroidX, Google Android, Kotlin, etc.) to ensure atomic updates",
@@ -31,6 +36,24 @@
       "description": "Group GitHub Actions updates together",
       "matchManagers": ["github-actions"],
       "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Run spotlessApply after spotless plugin update to reformat code with new version",
+      "matchPackageNames": ["com.diffplug.spotless"],
+      "postUpgradeTasks": {
+        "commands": ["./gradlew spotlessApply"],
+        "fileFilters": ["**/*.java", "**/*.kt", "**/*.gradle", "**/*.md"],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "description": "Run error-prone auto-patch after error-prone updates to fix new warnings",
+      "matchPackageNames": ["net.ltgt.errorprone", "com.google.errorprone:error_prone_core"],
+      "postUpgradeTasks": {
+        "commands": ["scripts/error-prone-auto-patch.sh"],
+        "fileFilters": ["**/*.java"],
+        "executionMode": "branch"
+      }
     },
     {
       "description": "Group JavaScript dependencies and update Bazel MODULE lockfile",
