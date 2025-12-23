@@ -1,4 +1,5 @@
 plugins {
+    // Version kept in sync with main project's libs.versions.toml
     id "org.jetbrains.kotlin.jvm" version "2.2.0"
 }
 
@@ -12,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    // Versions kept in sync with main project's libs.versions.toml
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation gradleApi()
     implementation localGroovy()

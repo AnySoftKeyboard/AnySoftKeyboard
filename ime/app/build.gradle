@@ -117,28 +117,28 @@ dependencies {
     implementation project(':ime:permissions')
     implementation project(':ime:fileprovider')
 
-    implementation 'androidx.fragment:fragment:1.8.9'
-    implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.4.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.annotation:annotation:1.9.1'
-    implementation 'androidx.palette:palette:1.0.0'
-    implementation 'androidx.preference:preference:1.2.1'
-    implementation 'com.google.android.material:material:1.13.0'
-    implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
-    implementation 'androidx.autofill:autofill:1.3.0'
-    implementation 'androidx.viewpager2:viewpager2:1.1.0'
+    implementation libs.androidx.fragment
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.legacy.support.v13
+    implementation libs.androidx.recyclerview
+    implementation libs.androidx.cardview
+    implementation libs.androidx.annotation
+    implementation libs.androidx.palette
+    implementation libs.androidx.preference
+    implementation libs.material
+    implementation libs.materialtabstrip
+    implementation libs.androidx.autofill
+    implementation libs.androidx.viewpager2
 
-    implementation 'androidx.navigation:navigation-fragment:2.9.6'
-    implementation 'androidx.navigation:navigation-ui:2.9.6'
-    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.9.6'
+    implementation libs.androidx.navigation.fragment
+    implementation libs.androidx.navigation.ui
+    implementation libs.androidx.navigation.dynamic.features.fragment
 
-    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation libs.androidx.multidex
 
     testImplementation project(path: ':ime:base-test')
-    testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
-    testImplementation 'androidx.test.ext:junit:1.3.0'
+    testImplementation libs.simpleprovider
+    testImplementation libs.androidx.test.junit
 
     //allAddOns have all the add-ons packs as dependencies
     rootProject.findProject(":addons").subprojects.forEach {

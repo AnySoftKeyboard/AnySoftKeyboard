@@ -1,0 +1,140 @@
+[versions]
+# Android SDK and Build Tools
+androidBuildTools = "36.1.0"
+sdkTarget = "35"
+sdkCompile = "36"
+sdkMinimum = "21"
+
+# Android Gradle Plugin and Build Plugins
+agp = "8.13.2"
+kotlin = "2.2.0"
+spotless = "8.1.0"
+playPublisher = "3.7.0"
+errorpronePlugin = "4.3.0"
+navigationSafeArgs = "2.9.6"
+
+# AndroidX Libraries
+androidxAnnotation = "1.9.1"
+androidxAppcompat = "1.7.1"
+androidxAutofill = "1.3.0"
+androidxCardview = "1.0.0"
+androidxConstraintlayout = "2.2.0"
+androidxCore = "1.17.0"
+androidxFragment = "1.8.9"
+androidxLegacySupport = "1.0.0"
+androidxMultidex = "2.0.1"
+androidxNavigation = "2.9.6"
+androidxPalette = "1.0.0"
+androidxPreference = "1.2.1"
+androidxRecyclerview = "1.4.0"
+androidxViewpager2 = "1.1.0"
+
+# AndroidX Testing
+androidxTestCore = "1.7.0"
+androidxTestCoreOld = "1.5.0"
+androidxTestJunit = "1.3.0"
+androidxFragmentTesting = "1.6.1"
+
+# Google Libraries
+material = "1.13.0"
+
+# RxJava
+rxjava = "2.2.21"
+rxandroid = "2.1.1"
+rxPreferences = "2.0.1"
+copperRx2 = "1.0.0"
+rx2BroadcastReceiver = "1.0.6"
+
+# Other Dependencies
+relinker = "1.4.5"
+materialtabstrip = "1.1.1"
+easypermissions = "3.0.0"
+
+# ErrorProne
+errorproneCore = "2.45.0"
+errorproneAnnotations = "2.15.0"
+
+# Testing
+junit = "4.13.2"
+robolectric = "4.14.1"
+mockito = "2.23.0"
+mockitoKotlin = "1.5.0"
+systemRules = "1.16.1"
+simpleprovider = "1.1.0"
+
+# BuildSrc Dependencies
+gson = "2.10.1"
+httpclient = "4.5.14"
+kotlinReflect = "2.1.0"
+jsoup = "1.13.1"
+guava = "24.1-jre"
+
+[libraries]
+# AndroidX
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidxAnnotation" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppcompat" }
+androidx-autofill = { module = "androidx.autofill:autofill", version.ref = "androidxAutofill" }
+androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "androidxCardview" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidxConstraintlayout" }
+androidx-core = { module = "androidx.core:core", version.ref = "androidxCore" }
+androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
+androidx-legacy-support-core-utils = { module = "androidx.legacy:legacy-support-core-utils", version.ref = "androidxLegacySupport" }
+androidx-legacy-support-v13 = { module = "androidx.legacy:legacy-support-v13", version.ref = "androidxLegacySupport" }
+androidx-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "androidxLegacySupport" }
+androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "androidxMultidex" }
+androidx-navigation-dynamic-features-fragment = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "androidxNavigation" }
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "androidxNavigation" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "androidxNavigation" }
+androidx-palette = { module = "androidx.palette:palette", version.ref = "androidxPalette" }
+androidx-preference = { module = "androidx.preference:preference", version.ref = "androidxPreference" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidxRecyclerview" }
+androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "androidxViewpager2" }
+
+# AndroidX Testing
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidxTestCore" }
+androidx-test-core-old = { module = "androidx.test:core", version.ref = "androidxTestCoreOld" }
+androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTestJunit" }
+androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "androidxFragmentTesting" }
+
+# Google
+material = { module = "com.google.android.material:material", version.ref = "material" }
+
+# RxJava
+rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava" }
+rxandroid = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxandroid" }
+rx-preferences = { module = "com.f2prateek.rx.preferences2:rx-preferences", version.ref = "rxPreferences" }
+copper-rx2 = { module = "app.cash.copper:copper-rx2", version.ref = "copperRx2" }
+rx2-broadcast-receiver = { module = "com.github.karczews:rx2-broadcast-receiver", version.ref = "rx2BroadcastReceiver" }
+
+# Other
+relinker = { module = "com.getkeepsafe.relinker:relinker", version.ref = "relinker" }
+materialtabstrip = { module = "com.jpardogo.materialtabstrip:library", version.ref = "materialtabstrip" }
+easypermissions = { module = "pub.devrel:easypermissions", version.ref = "easypermissions" }
+
+# ErrorProne
+errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorproneCore" }
+errorprone-annotations = { module = "com.google.errorprone:error_prone_annotations", version.ref = "errorproneAnnotations" }
+
+# Testing
+junit = { module = "junit:junit", version.ref = "junit" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-kotlin = { module = "com.nhaarman:mockito-kotlin", version.ref = "mockitoKotlin" }
+system-rules = { module = "com.github.stefanbirkner:system-rules", version.ref = "systemRules" }
+simpleprovider = { module = "com.github.triplet.simpleprovider:simpleprovider", version.ref = "simpleprovider" }
+
+# BuildSrc
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+httpclient = { module = "org.apache.httpcomponents:httpclient", version.ref = "httpclient" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinReflect" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+play-publisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
+errorprone = { id = "net.ltgt.errorprone", version.ref = "errorpronePlugin" }
+navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "navigationSafeArgs" }
