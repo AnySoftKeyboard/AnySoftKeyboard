@@ -28,7 +28,6 @@ jobs:
         with:
           configurationFile: .github/renovate.json
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          renovate-version: 39.131.0
         env:
           LOG_LEVEL: debug
           RENOVATE_REPOSITORIES: ${{ github.repository }}
