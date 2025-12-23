@@ -1,0 +1,51 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "platform": "github",
+  "onboarding": false,
+  "requireConfig": "optional",
+  "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+  "packageRules": [
+    {
+      "description": "Group all app-affecting dependencies together (AndroidX, Google Android, Kotlin, etc.) to ensure atomic updates",
+      "matchManagers": ["gradle"],
+      "excludePackagePatterns": ["^gradle$"],
+      "groupName": "Android app dependencies"
+    },
+    {
+      "description": "Gradle wrapper updates separately",
+      "matchManagers": ["gradle-wrapper"],
+      "groupName": "Gradle wrapper"
+    },
+    {
+      "description": "Group GitHub Actions updates together",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Group JavaScript dependencies and update Bazel MODULE lockfile",
+      "matchManagers": ["npm"],
+      "groupName": "JavaScript dependencies",
+      "postUpgradeTasks": {
+        "commands": [
+          "bazel build //..."
+        ],
+        "fileFilters": ["MODULE.bazel.lock", "pnpm-lock.yaml"],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "description": "Update robolectric_jars_versions.txt when Robolectric version changes",
+      "matchPackageNames": ["org.robolectric:robolectric"],
+      "postUpgradeTasks": {
+        "commands": [
+          "scripts/update_robolectric_jars_versions.sh {{{newVersion}}}"
+        ],
+        "fileFilters": ["scripts/robolectric_jars_versions.txt"],
+        "executionMode": "branch"
+      }
+    }
+  ]
+}
