@@ -1,13 +1,21 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
   "platform": "github",
   "onboarding": false,
   "requireConfig": "optional",
   "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+  "bazel": {
+    "enabled": true
+  },
   "packageRules": [
+    {
+      "description": "Group development tooling updates together (Bazel, Node.js, pnpm)",
+      "matchManagers": ["bazel", "bazel-module", "nvm", "npm"],
+      "matchDepTypes": ["packageManager"],
+      "matchFiles": [".bazelversion", ".nvmrc", "package.json"],
+      "groupName": "Development tooling"
+    },
     {
       "description": "Group all app-affecting dependencies together (AndroidX, Google Android, Kotlin, etc.) to ensure atomic updates",
       "matchManagers": ["gradle"],
@@ -29,9 +37,7 @@
       "matchManagers": ["npm"],
       "groupName": "JavaScript dependencies",
       "postUpgradeTasks": {
-        "commands": [
-          "bazel build //..."
-        ],
+        "commands": ["bazel build //..."],
         "fileFilters": ["MODULE.bazel.lock", "pnpm-lock.yaml"],
         "executionMode": "branch"
       }
@@ -40,9 +46,7 @@
       "description": "Update robolectric_jars_versions.txt when Robolectric version changes",
       "matchPackageNames": ["org.robolectric:robolectric"],
       "postUpgradeTasks": {
-        "commands": [
-          "scripts/update_robolectric_jars_versions.sh {{{newVersion}}}"
-        ],
+        "commands": ["scripts/update_robolectric_jars_versions.sh {{{newVersion}}}"],
         "fileFilters": ["scripts/robolectric_jars_versions.txt"],
         "executionMode": "branch"
       }

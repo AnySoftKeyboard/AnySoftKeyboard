@@ -1,13 +1,11 @@
+---
 name: Renovate
-
 on:
   # Run on a schedule (every weekend at 6 AM UTC Saturday)
   schedule:
     - cron: '0 6 * * 6'
-
   # Allow manual triggers
   workflow_dispatch:
-
   # Run on pushes to renovate.json to validate configuration
   push:
     paths:
@@ -15,14 +13,12 @@ on:
       - '.github/renovate.json'
     branches:
       - main
-
 jobs:
   renovate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.1
-
       - name: Self-hosted Renovate
         uses: renovatebot/github-action@v44.2.1
         with:
