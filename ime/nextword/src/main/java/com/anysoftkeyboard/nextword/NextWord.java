@@ -30,7 +30,8 @@ public class NextWord {
 
     @Override
     public int compare(NextWord lhs, NextWord rhs) {
-      return lhs.mUsedCount - rhs.mUsedCount;
+      // sort by usage count descending (most frequent first)
+      return rhs.mUsedCount - lhs.mUsedCount;
     }
   }
 
