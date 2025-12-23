@@ -31,10 +31,10 @@ def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
 
 dependencies {
     implementation project(path: ':addons:base:apk')
-    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation libs.androidx.multidex
 
     testImplementation project(path: ':ime:base-test')
-    testImplementation 'androidx.test:core:1.5.0'
+    testImplementation libs.androidx.test.core.old
 }
 
 def activityResDir = "${buildDir.absolutePath}/generated/activity_res"

@@ -5,9 +5,9 @@ apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
     implementation project(path: ':api')
-    api 'androidx.appcompat:appcompat:1.7.1'
-    api 'com.google.android.material:material:1.13.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    api libs.androidx.appcompat
+    api libs.material
+    implementation libs.androidx.constraintlayout
     implementation project(path: ':ime:pixel')
 
     testImplementation project(path: ':ime:base-test')

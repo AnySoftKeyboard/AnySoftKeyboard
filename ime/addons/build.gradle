@@ -9,7 +9,7 @@ android {
 dependencies {
     implementation project(':ime:base')
     implementation project(':ime:pixel')
-    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation libs.androidx.appcompat
 
     testImplementation project(':ime:base-test')
 }

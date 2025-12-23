@@ -16,12 +16,12 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.13.2'
-        classpath 'com.github.triplet.gradle:play-publisher:3.7.0'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:4.3.0'
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.9.6'
-        classpath 'com.diffplug.spotless:spotless-plugin-gradle:8.1.0'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.0'
+        classpath "com.android.tools.build:gradle:${libs.versions.agp.get()}"
+        classpath "com.github.triplet.gradle:play-publisher:${libs.versions.playPublisher.get()}"
+        classpath "net.ltgt.gradle:gradle-errorprone-plugin:${libs.versions.errorpronePlugin.get()}"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${libs.versions.navigationSafeArgs.get()}"
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:${libs.versions.spotless.get()}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}"
     }
 }
 

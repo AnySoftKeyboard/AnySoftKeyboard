@@ -6,11 +6,11 @@ dependencies {
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
 
-    implementation 'androidx.preference:preference:1.2.1'
-    implementation 'androidx.core:core:1.17.0'
-    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation libs.androidx.preference
+    implementation libs.androidx.core
+    implementation libs.androidx.appcompat
 
-    api 'com.f2prateek.rx.preferences2:rx-preferences:2.0.1'
+    api libs.rx.preferences
 
     testImplementation project(':ime:base-test')
 }
