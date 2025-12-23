@@ -14,7 +14,12 @@
       "matchManagers": ["bazel", "bazel-module", "nvm", "npm"],
       "matchDepTypes": ["packageManager"],
       "matchFiles": [".bazelversion", ".nvmrc", "package.json"],
-      "groupName": "Development tooling"
+      "groupName": "Development tooling",
+      "postUpgradeTasks": {
+        "commands": ["bazel build //..."],
+        "fileFilters": ["MODULE.bazel.lock"],
+        "executionMode": "branch"
+      }
     },
     {
       "description": "Group all app-affecting dependencies together (AndroidX, Google Android, Kotlin, etc.) to ensure atomic updates",
