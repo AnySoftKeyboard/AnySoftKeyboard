@@ -4,7 +4,7 @@
   "platform": "github",
   "onboarding": false,
   "requireConfig": "optional",
-  "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+  "gitAuthor": "Polyglot <ask@evendanan.net>",
   "bazel": {
     "enabled": true
   },
