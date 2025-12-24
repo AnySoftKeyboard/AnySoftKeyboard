@@ -36,42 +36,54 @@ public class IMEUtil {
       final int length) {
     final int sl = lowerCaseWord.length();
     final int tl = length;
-    int[][] dp = new int[sl + 1][tl + 1];
-    for (int i = 0; i <= sl; i++) {
-      dp[i][0] = i;
-    }
+
+    // We only need 3 rows for Damerau-Levenshtein (Optimal String Alignment):
+    // current row (i), previous row (i-1), and pre-previous row (i-2).
+    // This reduces space from O(N*M) to O(M).
+    int[] prevPrev = new int[tl + 1];
+    int[] prev = new int[tl + 1];
+    int[] curr = new int[tl + 1];
+
+    // Initialize the first row (conceptually i=0, for empty source string)
     for (int j = 0; j <= tl; j++) {
-      dp[0][j] = j;
+      prev[j] = j;
     }
+
     for (int i = 0; i < sl; ++i) {
+      curr[0] = i + 1;
+      final char sc = lowerCaseWord.charAt(i);
       for (int j = 0; j < tl; ++j) {
-        final char sc = lowerCaseWord.charAt(i);
         final char tc = Character.toLowerCase(word[offset + j]);
         final int cost = sc == tc ? 0 : 1;
-        dp[i + 1][j + 1] = Math.min(dp[i][j + 1] + 1, Math.min(dp[i + 1][j] + 1, dp[i][j] + cost));
+
+        int min = prev[j + 1] + 1; // deletion: dp[i][j+1] + 1
+        min = Math.min(min, curr[j] + 1); // insertion: dp[i+1][j] + 1
+        min = Math.min(min, prev[j] + cost); // substitution: dp[i][j] + cost
+        curr[j + 1] = min;
+
         // Overwrite for transposition cases
         if (i > 0
             && j > 0
             && sc == Character.toLowerCase(word[offset + j - 1])
             && tc == lowerCaseWord.charAt(i - 1)) {
-          dp[i + 1][j + 1] = Math.min(dp[i + 1][j + 1], dp[i - 1][j - 1] + cost);
+          // dp[i + 1][j + 1] = Math.min(dp[i + 1][j + 1], dp[i - 1][j - 1] + cost);
+          // dp[i-1][j-1] is in prevPrev[j-1]
+          curr[j + 1] = Math.min(curr[j + 1], prevPrev[j - 1] + cost);
         }
       }
+
+      // Rotate rows: prevPrev becomes prev, prev becomes curr, curr becomes recycled prevPrev
+      int[] temp = prevPrev;
+      prevPrev = prev;
+      prev = curr;
+      curr = temp;
     }
+
+    // After the loop, the result is in prev[tl] because we rotated.
     if (BuildConfig.DEBUG) {
-      StringBuilder sb = new StringBuilder();
-      sb.append("editDistance: ").append(lowerCaseWord).append(", ").append(word, offset, length);
-      Logger.d(TAG, sb.toString());
-      for (int i = 0; i < dp.length; ++i) {
-        sb.setLength(0);
-        sb.append(i).append(':');
-        for (int j = 0; j < dp[i].length; ++j) {
-          sb.append(dp[i][j]).append(',');
-        }
-        Logger.d(TAG, sb.toString());
-      }
+      Logger.d(TAG, "editDistance: %s, %s -> %d", lowerCaseWord, new String(word, offset, length), prev[tl]);
     }
-    return dp[sl][tl];
+    return prev[tl];
   }
 
   /**
