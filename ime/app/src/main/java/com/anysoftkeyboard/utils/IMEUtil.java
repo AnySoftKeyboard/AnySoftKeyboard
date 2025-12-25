@@ -81,7 +81,12 @@ public class IMEUtil {
 
     // After the loop, the result is in prev[tl] because we rotated.
     if (BuildConfig.DEBUG) {
-      Logger.d(TAG, "editDistance: %s, %s -> %d", lowerCaseWord, new String(word, offset, length), prev[tl]);
+      Logger.d(
+          TAG,
+          "editDistance: %s, %s -> %d",
+          lowerCaseWord,
+          new String(word, offset, length),
+          prev[tl]);
     }
     return prev[tl];
   }
