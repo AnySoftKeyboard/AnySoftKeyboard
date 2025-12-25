@@ -242,6 +242,9 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     // Restart input to apply preference change
     simulateFinishInputFlow();
     simulateOnStartInputFlow();
+    // Force keyboard reload to update French punctuation behavior
+    mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
 
     TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -272,6 +275,9 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     // Restart input to apply preference change
     simulateFinishInputFlow();
     simulateOnStartInputFlow();
+    // Force keyboard reload to update French punctuation behavior
+    mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
 
     TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -1202,6 +1208,9 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     // Restart input to apply preference change
     simulateFinishInputFlow();
     simulateOnStartInputFlow();
+    // Force keyboard reload to update French punctuation behavior
+    mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
 
     TestInputConnection inputConnection = getCurrentTestInputConnection();
 
