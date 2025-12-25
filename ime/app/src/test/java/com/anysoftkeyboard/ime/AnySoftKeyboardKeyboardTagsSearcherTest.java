@@ -16,30 +16,13 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.robolectric.annotation.Config;
 
-@Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1 /*the first API level to have support for those*/)
+@Config(sdk = Build.VERSION_CODES.M /*testing with minimum Robolectric 4.16 supported API*/)
 public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBaseTest {
 
   @Before
   public void setUpTagsLoad() {
     com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
     TestRxSchedulers.foregroundFlushAllJobs();
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
-  public void testDefaultFalseBeforeAPI22() {
-    Assert.assertSame(
-        TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
-    Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher().isEnabled());
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1)
-  public void testDefaultTrueAtAPI22() {
-    Assert.assertNotNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
-    Assert.assertNotSame(
-        TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
-    Assert.assertTrue(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher().isEnabled());
   }
 
   @Test

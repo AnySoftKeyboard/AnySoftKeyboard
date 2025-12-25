@@ -10,6 +10,15 @@
   },
   "packageRules": [
     {
+      "description": "Update robolectric_jars_versions.txt when Robolectric version changes",
+      "matchPackageNames": ["org.robolectric:robolectric"],
+      "postUpgradeTasks": {
+        "commands": ["scripts/update_robolectric_jars_versions.sh {{{newVersion}}}"],
+        "fileFilters": ["scripts/robolectric_jars_versions.txt"],
+        "executionMode": "branch"
+      }
+    },
+    {
       "description": "Group development tooling updates together (Bazel, Node.js, pnpm)",
       "matchManagers": ["bazel", "bazel-module", "nvm", "npm"],
       "matchDepTypes": ["packageManager"],
@@ -24,7 +33,7 @@
     {
       "description": "Group all app-affecting dependencies together (AndroidX, Google Android, Kotlin, etc.) to ensure atomic updates",
       "matchManagers": ["gradle"],
-      "excludePackagePatterns": ["^gradle$"],
+      "excludePackagePatterns": ["^gradle$", "^org\\.robolectric:robolectric$"],
       "groupName": "Android app dependencies"
     },
     {
@@ -62,15 +71,6 @@
       "postUpgradeTasks": {
         "commands": ["bazel build //..."],
         "fileFilters": ["MODULE.bazel.lock", "pnpm-lock.yaml"],
-        "executionMode": "branch"
-      }
-    },
-    {
-      "description": "Update robolectric_jars_versions.txt when Robolectric version changes",
-      "matchPackageNames": ["org.robolectric:robolectric"],
-      "postUpgradeTasks": {
-        "commands": ["scripts/update_robolectric_jars_versions.sh {{{newVersion}}}"],
-        "fileFilters": ["scripts/robolectric_jars_versions.txt"],
         "executionMode": "branch"
       }
     }

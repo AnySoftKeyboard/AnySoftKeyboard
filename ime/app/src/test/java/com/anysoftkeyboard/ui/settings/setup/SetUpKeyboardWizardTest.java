@@ -65,7 +65,7 @@ public class SetUpKeyboardWizardTest {
 
   @Test
   /*I don't want to also verify the permissions page*/
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
+  @Config(sdk = Build.VERSION_CODES.M)
   public void testHappyPath() {
     mActivityScenarioRule.getScenario().moveToState(Lifecycle.State.STARTED);
     mActivityScenarioRule

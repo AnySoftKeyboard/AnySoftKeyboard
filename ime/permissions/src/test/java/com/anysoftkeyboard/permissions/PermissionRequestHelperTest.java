@@ -57,22 +57,6 @@ public class PermissionRequestHelperTest {
   }
 
   @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
-  public void testCheckAlreadyHasPermissionsBeforeM() {
-    try (var scenario = ActivityScenario.launch(TestFragmentActivity.class)) {
-      scenario.onActivity(
-          activity -> {
-            Assert.assertTrue(
-                PermissionRequestHelper.check(
-                    activity, PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE));
-            Assert.assertTrue(
-                PermissionRequestHelper.check(
-                    activity, PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE));
-          });
-    }
-  }
-
-  @Test
   @Config(sdk = Build.VERSION_CODES.M)
   public void testCheckAlreadyHasPermissionsWithM() {
     var appShadow = Shadows.shadowOf(RuntimeEnvironment.getApplication());
