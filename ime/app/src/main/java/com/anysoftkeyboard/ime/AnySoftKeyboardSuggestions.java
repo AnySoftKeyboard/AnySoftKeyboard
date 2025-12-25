@@ -755,11 +755,24 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
   private boolean isSpaceSwapCharacter(int primaryCode) {
     if (isSentenceSeparator(primaryCode)) {
       if (mFrenchSpacePunctuationBehavior) {
-        return switch (primaryCode) {
-          case '!', '?', ':', ';' -> false;
-          default -> true;
-        };
+        boolean result =
+            switch (primaryCode) {
+              case '!', '?', ':', ';' -> false;
+              default -> true;
+            };
+        android.util.Log.d(
+            "ASK_DEBUG",
+            "isSpaceSwapCharacter: primaryCode="
+                + (char) primaryCode
+                + " mFrenchSpacePunctuationBehavior=true result="
+                + result);
+        return result;
       } else {
+        android.util.Log.d(
+            "ASK_DEBUG",
+            "isSpaceSwapCharacter: primaryCode="
+                + (char) primaryCode
+                + " mFrenchSpacePunctuationBehavior=false result=true");
         return true;
       }
     } else {
@@ -1211,6 +1224,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     final Locale locale = keyboard.getLocale();
     mFrenchSpacePunctuationBehavior =
         mSwapPunctuationAndSpace && locale.toString().toLowerCase(Locale.US).startsWith("fr");
+
+    // Debug logging for test investigation
+    android.util.Log.d(
+        "ASK_DEBUG",
+        "onAlphabetKeyboardSet: locale="
+            + locale
+            + " mSwapPunctuationAndSpace="
+            + mSwapPunctuationAndSpace
+            + " mFrenchSpacePunctuationBehavior="
+            + mFrenchSpacePunctuationBehavior);
   }
 
   public void revertLastWord() {
