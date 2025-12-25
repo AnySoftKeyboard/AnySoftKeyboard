@@ -143,7 +143,9 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
   }
 
   private boolean isTagsSearchCharacter(int code) {
-    return mTagsExtractor.isEnabled() && code == WordComposer.START_TAGS_SEARCH_CHARACTER;
+    return mTagsExtractor.isEnabled()
+        && code == WordComposer.START_TAGS_SEARCH_CHARACTER
+        && !getCurrentComposedWord().isEmpty();
   }
 
   @Override
