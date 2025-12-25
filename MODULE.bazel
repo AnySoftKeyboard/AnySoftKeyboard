@@ -6,7 +6,7 @@
 # For bzlmod dependencies, this implements the "single version policy".
 
 bazel_dep(name = "bazel_lib", version = "3.0.0")
-bazel_dep(name = "rules_nodejs", version = "6.6.0")
+bazel_dep(name = "rules_nodejs", version = "6.6.2")
 bazel_dep(name = "aspect_rules_js", version = "2.1.2")
 bazel_dep(name = "aspect_rules_ts", version = "3.6.0")
 bazel_dep(name = "bazel_skylib", version = "1.8.2")
