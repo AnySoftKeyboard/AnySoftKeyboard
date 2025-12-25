@@ -250,6 +250,17 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
         getApplicationContext().getString(R.string.english_keyboard));
 
+    // Flush pending layout operations from configuration changes
+    // to avoid WindowInsets NPE in Robolectric API 23
+    try {
+      com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
+    } catch (NullPointerException e) {
+      // Ignore Robolectric WindowInsets dispatch issues on API 23
+      if (!e.getMessage().contains("WindowInsets")) {
+        throw e;
+      }
+    }
+
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),

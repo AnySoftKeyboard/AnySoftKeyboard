@@ -236,6 +236,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testVerifyVariousPunctuationsSwapping() {
+    // Ensure punctuation swap is enabled for this test
+    SharedPrefsHelper.setPrefsValue(
+        R.string.settings_key_bool_should_swap_punctuation_and_space, true);
+
     TestInputConnection inputConnection = getCurrentTestInputConnection();
 
     final var symbolsToVerify = Arrays.asList('.', ',', ':', ';', '?', '!', ')');
@@ -259,6 +263,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testVerifyVariousPunctuationsSwappingFromOtherKeyboard() {
+    // Ensure punctuation swap is enabled for this test
+    SharedPrefsHelper.setPrefsValue(
+        R.string.settings_key_bool_should_swap_punctuation_and_space, true);
+
     TestInputConnection inputConnection = getCurrentTestInputConnection();
 
     final var symbolsToVerify = Arrays.asList('.', ':', '?', '!', ')');
@@ -1182,6 +1190,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testSwapDoublePunctuationsWhenNotInFrLocale() {
+    // Ensure punctuation swap is enabled for this test
+    SharedPrefsHelper.setPrefsValue(
+        R.string.settings_key_bool_should_swap_punctuation_and_space, true);
+
     TestInputConnection inputConnection = getCurrentTestInputConnection();
 
     mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
