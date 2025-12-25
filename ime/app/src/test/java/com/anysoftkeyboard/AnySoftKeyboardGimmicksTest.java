@@ -239,6 +239,9 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     // Ensure punctuation swap is enabled for this test
     SharedPrefsHelper.setPrefsValue(
         R.string.settings_key_bool_should_swap_punctuation_and_space, true);
+    // Restart input to apply preference change
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
     TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -266,6 +269,9 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     // Ensure punctuation swap is enabled for this test
     SharedPrefsHelper.setPrefsValue(
         R.string.settings_key_bool_should_swap_punctuation_and_space, true);
+    // Restart input to apply preference change
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
     TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -1193,6 +1199,9 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     // Ensure punctuation swap is enabled for this test
     SharedPrefsHelper.setPrefsValue(
         R.string.settings_key_bool_should_swap_punctuation_and_space, true);
+    // Restart input to apply preference change
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
     TestInputConnection inputConnection = getCurrentTestInputConnection();
 
