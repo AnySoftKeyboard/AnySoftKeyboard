@@ -143,9 +143,34 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
   }
 
   private boolean isTagsSearchCharacter(int code) {
-    return mTagsExtractor.isEnabled()
-        && code == WordComposer.START_TAGS_SEARCH_CHARACTER
-        && !getCurrentComposedWord().isEmpty();
+    if (!mTagsExtractor.isEnabled() || code != WordComposer.START_TAGS_SEARCH_CHARACTER) {
+      return false;
+    }
+
+    // If currently composing a word, colon continues tags search
+    if (!getCurrentComposedWord().isEmpty()) {
+      return true;
+    }
+
+    // If not composing a word and immediately preceded by a space that follows a letter,
+    // colon is for punctuation swapping (like "hello :"). Otherwise, start tags search.
+    final android.view.inputmethod.InputConnection ic = getCurrentInputConnection();
+    if (ic != null) {
+      CharSequence textBefore = ic.getTextBeforeCursor(2, 0);
+      if (textBefore != null && textBefore.length() == 2) {
+        char lastChar = textBefore.charAt(1); // character right before cursor
+        char secondLastChar = textBefore.charAt(0); // character before that
+        // Pattern: letter+space before colon → punctuation swapping
+        // Not matching: space+space (multiple spaces) or emoji+space → start tags search
+        if ((lastChar == ' ' || lastChar == '\u00A0')
+            && Character.isLetterOrDigit(secondLastChar)) {
+          return false; // treat colon as word separator for swapping
+        }
+      }
+    }
+
+    // Otherwise, start a new tags search
+    return true;
   }
 
   @Override
