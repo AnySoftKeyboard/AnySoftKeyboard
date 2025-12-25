@@ -336,7 +336,8 @@ public class IMEUtilTest {
   @Test
   public void testShouldHonorNoSuggestionsFlag_GoogleKeepScenario() {
     // Real-world scenario: Google Keep uses 0xac000
-    // = NO_SUGGESTIONS (0x80000) + MULTI_LINE (0x20000) + AUTO_CORRECT (0x8000) + CAP_SENTENCES
+    // = NO_SUGGESTIONS (0x80000) + MULTI_LINE (0x20000) + AUTO_CORRECT (0x8000) +
+    // CAP_SENTENCES
     // (0x4000)
     int flags = 0xac000;
     Assert.assertFalse(
@@ -346,7 +347,8 @@ public class IMEUtilTest {
 
   @Test
   public void testShouldHonorNoSuggestionsFlag_NoSuggestionsWithOtherNonAutoFlags() {
-    // NO_SUGGESTIONS + other flags that don't contradict (like CAP_SENTENCES, MULTI_LINE)
+    // NO_SUGGESTIONS + other flags that don't contradict (like CAP_SENTENCES,
+    // MULTI_LINE)
     int flags =
         EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS
             | EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES
@@ -354,5 +356,29 @@ public class IMEUtilTest {
     Assert.assertTrue(
         "Should honor NO_SUGGESTIONS when only non-contradictory flags are set",
         IMEUtil.shouldHonorNoSuggestionsFlag(flags));
+  }
+
+  @Test
+  public void testEditDistance() {
+    // delete
+    Assert.assertEquals(1, IMEUtil.editDistance("kitten", "kiten".toCharArray(), 0, 5));
+    // insert
+    Assert.assertEquals(1, IMEUtil.editDistance("kiten", "kitten".toCharArray(), 0, 6));
+    // substitute
+    Assert.assertEquals(1, IMEUtil.editDistance("kitten", "kittin".toCharArray(), 0, 6));
+    // transpose
+    Assert.assertEquals(1, IMEUtil.editDistance("kitten", "kittne".toCharArray(), 0, 6));
+    // transpose + delete
+    Assert.assertEquals(2, IMEUtil.editDistance("kitten", "kitne".toCharArray(), 0, 5));
+    // empty
+    Assert.assertEquals(6, IMEUtil.editDistance("kitten", "".toCharArray(), 0, 0));
+    Assert.assertEquals(6, IMEUtil.editDistance("", "kitten".toCharArray(), 0, 6));
+    Assert.assertEquals(0, IMEUtil.editDistance("", "".toCharArray(), 0, 0));
+    // equal
+    Assert.assertEquals(0, IMEUtil.editDistance("kitten", "kitten".toCharArray(), 0, 6));
+    // case insensitive
+    Assert.assertEquals(0, IMEUtil.editDistance("kitten", "Kitten".toCharArray(), 0, 6));
+    // complex
+    Assert.assertEquals(3, IMEUtil.editDistance("kitten", "sitting".toCharArray(), 0, 7));
   }
 }
