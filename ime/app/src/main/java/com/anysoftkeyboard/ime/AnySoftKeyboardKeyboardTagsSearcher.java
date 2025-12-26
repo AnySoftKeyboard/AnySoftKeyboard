@@ -143,9 +143,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
   }
 
   private boolean isTagsSearchCharacter(int code) {
-    return mTagsExtractor.isEnabled()
-        && code == WordComposer.START_TAGS_SEARCH_CHARACTER
-        && !getCurrentComposedWord().isEmpty();
+    return mTagsExtractor.isEnabled() && code == WordComposer.START_TAGS_SEARCH_CHARACTER;
   }
 
   @Override
@@ -290,7 +288,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
       };
     }
 
-    /*NOT IMPLEMENTED BELOW!! */
+    /* NOT IMPLEMENTED BELOW!! */
 
     @Override
     public void add(int location, CharSequence object) {
