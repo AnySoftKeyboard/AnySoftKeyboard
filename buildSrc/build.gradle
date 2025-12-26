@@ -1,6 +1,6 @@
 plugins {
     // Version kept in sync with main project's libs.versions.toml
-    id "org.jetbrains.kotlin.jvm" version "2.2.0"
+    id "org.jetbrains.kotlin.jvm" version "2.3.0"
 }
 
 apply plugin: 'groovy'
@@ -14,18 +14,18 @@ repositories {
 
 dependencies {
     // Versions kept in sync with main project's libs.versions.toml
-    implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'org.jsoup:jsoup:1.21.2'
     implementation gradleApi()
     implementation localGroovy()
 
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation "org.jetbrains.kotlin:kotlin-reflect:2.1.0"
+    implementation 'com.google.code.gson:gson:2.13.2'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:2.3.0"
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'com.github.stefanbirkner:system-rules:1.16.1'
-    testImplementation 'org.mockito:mockito-core:2.23.0'
-    testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
+    testImplementation 'com.github.stefanbirkner:system-rules:1.19.0'
+    testImplementation 'org.mockito:mockito-core:2.28.2'
+    testImplementation 'com.nhaarman:mockito-kotlin:1.6.0'
 }
 
 gradlePlugin {

@@ -35,21 +35,4 @@ public class WizardPagesAdapterTest {
               Assert.assertTrue(adapter.createFragment(4) instanceof WizardLanguagePackFragment);
             });
   }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
-  public void testNoPermissionsPageBeforeAndroidM() {
-    mRule
-        .getScenario()
-        .onActivity(
-            activity -> {
-              WizardPagesAdapter adapter = new WizardPagesAdapter(activity, false);
-
-              Assert.assertEquals(4, adapter.getItemCount());
-              for (int fragmentIndex = 0; fragmentIndex < adapter.getItemCount(); fragmentIndex++) {
-                Assert.assertFalse(
-                    adapter.createFragment(fragmentIndex) instanceof WizardPermissionsFragment);
-              }
-            });
-  }
 }

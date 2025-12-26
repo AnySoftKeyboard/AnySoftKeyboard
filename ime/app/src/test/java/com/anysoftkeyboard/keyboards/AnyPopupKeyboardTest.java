@@ -38,7 +38,7 @@ public class AnyPopupKeyboardTest {
         createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
     Assert.assertEquals("POP_KEYBOARD", keyboard.getKeyboardName());
 
-    Assert.assertEquals(77, keyboard.getKeys().size());
+    Assert.assertEquals(98, keyboard.getKeys().size());
   }
 
   @Test

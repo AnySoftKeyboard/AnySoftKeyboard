@@ -1,9 +1,9 @@
 package com.anysoftkeyboard;
 
 import android.os.Looper;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import java.lang.reflect.Method;
-import javax.annotation.Nonnull;
 import net.evendanan.testgrouping.TestClassHashingStrategy;
 import net.evendanan.testgrouping.TestsGroupingFilter;
 import org.junit.runners.model.InitializationError;
@@ -21,9 +21,8 @@ public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner 
         this, new TestClassHashingStrategy(), false /*so running from AS will work*/);
   }
 
-  @Nonnull
+  @NonNull
   @Override
-  @SuppressWarnings("rawtypes")
   protected Class<? extends TestLifecycle> getTestLifecycleClass() {
     return AnySoftKeyboardRobolectricTestLifeCycle.class;
   }

@@ -26,30 +26,6 @@ public class QuickTextKeyFactoryTest {
   }
 
   @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1)
-  public void testCanParseAddOneTypesOfOutputsApi22() {
-    List<QuickTextKey> addOns =
-        AnyApplication.getQuickTextKeyFactory(getApplicationContext()).getAllAddOns();
-
-    QuickTextKey emoticons = addOns.get(0);
-    Assert.assertEquals("698b8c20-19df-11e1-bddb-0800200c9a66", emoticons.getId());
-    Assert.assertEquals(KEY_OUTPUT, emoticons.getKeyOutputText().toString());
-    Assert.assertEquals(KEY_OUTPUT, emoticons.getKeyLabel().toString());
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
-  public void testCanParseAddOneTypesOfOutputsApi21() {
-    List<QuickTextKey> addOns =
-        AnyApplication.getQuickTextKeyFactory(getApplicationContext()).getAllAddOns();
-
-    QuickTextKey emoticons = addOns.get(0);
-    Assert.assertEquals("698b8c20-19df-11e1-bddb-0800200c9a66", emoticons.getId());
-    Assert.assertEquals(KEY_OUTPUT, emoticons.getKeyOutputText().toString());
-    Assert.assertEquals(KEY_OUTPUT, emoticons.getKeyLabel().toString());
-  }
-
-  @Test
   @Config(sdk = Build.VERSION_CODES.N)
   public void testCanParseAddOneTypesOfOutputsApi24() {
     List<QuickTextKey> addOns =

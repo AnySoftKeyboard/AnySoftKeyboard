@@ -9,6 +9,7 @@ import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
+import java.util.Iterator;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,30 +17,17 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.robolectric.annotation.Config;
 
-@Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1 /*the first API level to have support for those*/)
+@Config(sdk = Build.VERSION_CODES.M /* testing with minimum Robolectric 4.16 supported API */)
 public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBaseTest {
 
   @Before
   public void setUpTagsLoad() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, true);
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
+
+    mAnySoftKeyboardUnderTest.simulateUpdateTagExtractor(true);
     com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
     TestRxSchedulers.foregroundFlushAllJobs();
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
-  public void testDefaultFalseBeforeAPI22() {
-    Assert.assertSame(
-        TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
-    Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher().isEnabled());
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1)
-  public void testDefaultTrueAtAPI22() {
-    Assert.assertNotNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
-    Assert.assertNotSame(
-        TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
-    Assert.assertTrue(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher().isEnabled());
   }
 
   @Test
@@ -195,7 +183,8 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
 
     // deleting
 
-    // correctly, this is a bug with TestInputConnection: it reports that there is one character
+    // correctly, this is a bug with TestInputConnection: it reports that there is
+    // one character
     // in the input
     // but that's because it does not support deleting multi-character emojis.
     Assert.assertEquals(2, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText().length());
@@ -299,7 +288,9 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
   public void testRemoveIteratorUnSupported() throws Exception {
     mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
     List suggestions = verifyAndCaptureSuggestion(true);
-    suggestions.iterator().remove();
+    Iterator iterator = suggestions.iterator();
+    iterator.next();
+    iterator.remove();
   }
 
   @Test(expected = UnsupportedOperationException.class)
@@ -327,6 +318,11 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
   public void testRemoteAtIndexUnSupported() throws Exception {
     mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
     List suggestions = verifyAndCaptureSuggestion(true);
+    if (suggestions.isEmpty()) {
+      // this means that the test setup failed to load the tags
+      throw new IllegalStateException("Test setup failed to load tags suggestions");
+    }
+    // removing by index is unsupported
     suggestions.remove(0);
   }
 

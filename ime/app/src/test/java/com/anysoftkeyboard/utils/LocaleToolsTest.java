@@ -32,8 +32,8 @@ public class LocaleToolsTest {
   }
 
   @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
-  public void testSetAndResetValueAPI21() {
+  @Config(sdk = Build.VERSION_CODES.M)
+  public void testSetAndResetValueAPI23() {
     Assert.assertEquals(
         "English (United States)",
         mContext.getResources().getConfiguration().locale.getDisplayName());
