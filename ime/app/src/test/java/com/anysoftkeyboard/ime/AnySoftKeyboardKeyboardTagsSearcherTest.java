@@ -25,15 +25,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, true);
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
 
-    try {
-      java.lang.reflect.Method updateMethod =
-          com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.class.getDeclaredMethod(
-              "updateTagExtractor", boolean.class);
-      updateMethod.setAccessible(true);
-      updateMethod.invoke(mAnySoftKeyboardUnderTest, true);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+    mAnySoftKeyboardUnderTest.simulateUpdateTagExtractor(true);
     com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
     TestRxSchedulers.foregroundFlushAllJobs();
   }

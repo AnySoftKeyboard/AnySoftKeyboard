@@ -28,6 +28,11 @@ import org.robolectric.annotation.Config;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
+  @org.junit.Before
+  public void disableTagsSearch() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, false);
+  }
+
   @Test
   public void testDoubleSpace() {
     final String expectedText = "testing";
@@ -408,7 +413,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     Mockito.verify(inputConnection, Mockito.times(2))
         .sendKeyEvent(keyEventArgumentCaptor.capture());
 
-    Assert.assertEquals(2 /*down and up*/, keyEventArgumentCaptor.getAllValues().size());
+    Assert.assertEquals(2 /* down and up */, keyEventArgumentCaptor.getAllValues().size());
     Assert.assertEquals(
         KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
     Assert.assertEquals(
@@ -430,7 +435,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     Mockito.verify(inputConnection, Mockito.times(2))
         .sendKeyEvent(keyEventArgumentCaptor.capture());
 
-    Assert.assertEquals(2 /*down and up*/, keyEventArgumentCaptor.getAllValues().size());
+    Assert.assertEquals(2 /* down and up */, keyEventArgumentCaptor.getAllValues().size());
     Assert.assertEquals(
         KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
     Assert.assertEquals(
