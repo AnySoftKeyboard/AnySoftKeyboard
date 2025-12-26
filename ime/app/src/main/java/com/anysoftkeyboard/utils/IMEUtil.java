@@ -34,15 +34,34 @@ public class IMEUtil {
       @NonNull final char[] word,
       final int offset,
       final int length) {
+    // legacy behavior: allocate arrays on the fly.
+    // this is slow and should be avoided if possible.
+    final int tl = length;
+    return editDistance(
+        lowerCaseWord,
+        word,
+        offset,
+        length,
+        new int[tl + 1],
+        new int[tl + 1],
+        new int[tl + 1]);
+  }
+
+  /* Damerau-Levenshtein distance */
+  public static int editDistance(
+      @NonNull CharSequence lowerCaseWord,
+      @NonNull final char[] word,
+      final int offset,
+      final int length,
+      @NonNull int[] prevPrev,
+      @NonNull int[] prev,
+      @NonNull int[] curr) {
     final int sl = lowerCaseWord.length();
     final int tl = length;
 
     // We only need 3 rows for Damerau-Levenshtein (Optimal String Alignment):
     // current row (i), previous row (i-1), and pre-previous row (i-2).
     // This reduces space from O(N*M) to O(M).
-    int[] prevPrev = new int[tl + 1];
-    int[] prev = new int[tl + 1];
-    int[] curr = new int[tl + 1];
 
     // Initialize the first row (conceptually i=0, for empty source string)
     for (int j = 0; j <= tl; j++) {
