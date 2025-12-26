@@ -67,6 +67,10 @@ public class SuggestImpl implements Suggest {
   private boolean mEnabledSuggestions;
   private boolean mSplitWords;
 
+  private final int[] mEditDistancePPrev = new int[Dictionary.MAX_WORD_LENGTH + 1];
+  private final int[] mEditDistancePrev = new int[Dictionary.MAX_WORD_LENGTH + 1];
+  private final int[] mEditDistanceCurr = new int[Dictionary.MAX_WORD_LENGTH + 1];
+
   @VisibleForTesting
   public SuggestImpl(@NonNull SuggestionsProvider provider) {
     mSuggestionsProvider = provider;
@@ -144,7 +148,7 @@ public class SuggestImpl implements Suggest {
     }
   }
 
-  private static boolean haveSufficientCommonality(
+  private boolean haveSufficientCommonality(
       final int maxLengthDiff,
       final int maxCommonDistance,
       @NonNull final CharSequence typedWord,
@@ -154,8 +158,22 @@ public class SuggestImpl implements Suggest {
     final int originalLength = typedWord.length();
     final int lengthDiff = length - originalLength;
 
-    return lengthDiff <= maxLengthDiff
-        && IMEUtil.editDistance(typedWord, word, offset, length) <= maxCommonDistance;
+    // optimization: if difference in length is too big, there is no chance that the distance will be
+    // small enough
+    if (lengthDiff > maxLengthDiff) return false;
+
+    // ensure arrays are large enough
+    if (length > mEditDistanceCurr.length - 1) return false;
+
+    return IMEUtil.editDistance(
+            typedWord,
+            word,
+            offset,
+            length,
+            mEditDistancePPrev,
+            mEditDistancePrev,
+            mEditDistanceCurr)
+        <= maxCommonDistance;
   }
 
   @Override
