@@ -14,6 +14,7 @@ public class NextWordsContainer {
   public final String word;
   private final List<NextWord> mOrderedNextWord = new ArrayList<>();
   private final Map<String, NextWord> mNextWordLookup = new ArrayMap<>();
+  private boolean mIsSorted = true;
 
   public NextWordsContainer(String word) {
     this.word = word;
@@ -38,10 +39,14 @@ public class NextWordsContainer {
     } else {
       nextWord.markAsUsed();
     }
+    mIsSorted = false;
   }
 
   public List<NextWord> getNextWordSuggestions() {
-    Collections.sort(mOrderedNextWord, msNextWordComparator);
+    if (!mIsSorted) {
+      Collections.sort(mOrderedNextWord, msNextWordComparator);
+      mIsSorted = true;
+    }
 
     return mOrderedNextWord;
   }
