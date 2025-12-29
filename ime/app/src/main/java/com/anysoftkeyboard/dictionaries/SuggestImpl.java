@@ -66,6 +66,7 @@ public class SuggestImpl implements Suggest {
   private int mCommonalityMaxDistance = 1;
   private boolean mEnabledSuggestions;
   private boolean mSplitWords;
+  private final int[] mScoreWorkspace = new int[(Dictionary.MAX_WORD_LENGTH + 1) * 3];
 
   @VisibleForTesting
   public SuggestImpl(@NonNull SuggestionsProvider provider) {
@@ -150,12 +151,13 @@ public class SuggestImpl implements Suggest {
       @NonNull final CharSequence typedWord,
       @NonNull final char[] word,
       final int offset,
-      final int length) {
+      final int length,
+      @NonNull final int[] workspace) {
     final int originalLength = typedWord.length();
     final int lengthDiff = length - originalLength;
 
     return lengthDiff <= maxLengthDiff
-        && IMEUtil.editDistance(typedWord, word, offset, length) <= maxCommonDistance;
+        && IMEUtil.editDistance(typedWord, word, offset, length, workspace) <= maxCommonDistance;
   }
 
   @Override
@@ -339,6 +341,7 @@ public class SuggestImpl implements Suggest {
   private static class SubWordSuggestionCallback implements Dictionary.WordCallback {
     private final WordsSplitter mSplitter = new WordsSplitter();
     private final Dictionary.WordCallback mBasicWordCallback;
+    private final int[] mScoreWorkspace = new int[(Dictionary.MAX_WORD_LENGTH + 1) * 3];
 
     // This will be used to find the best per suggestion word for a possible split
     @NonNull private CharSequence mCurrentSubWord = "";
@@ -425,7 +428,8 @@ public class SuggestImpl implements Suggest {
       // giving bonuses
       if (compareCaseInsensitive(mCurrentSubWord, word, wordOffset, wordLength)) {
         adjustedFrequency = frequency * 4;
-      } else if (haveSufficientCommonality(1, 1, mCurrentSubWord, word, wordOffset, wordLength)) {
+      } else if (haveSufficientCommonality(
+          1, 1, mCurrentSubWord, word, wordOffset, wordLength, mScoreWorkspace)) {
         adjustedFrequency = frequency * 2;
       }
       // only passing if the suggested word is close to the sub-word
@@ -487,7 +491,8 @@ public class SuggestImpl implements Suggest {
           mLowerOriginalWord,
           word,
           wordOffset,
-          wordLength)) {
+          wordLength,
+          mScoreWorkspace)) {
         frequency += POSSIBLE_FIX_THRESHOLD_FREQUENCY;
       }
 
