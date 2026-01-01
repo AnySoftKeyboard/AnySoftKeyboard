@@ -28,38 +28,56 @@ public class IMEUtil {
 
   private static final String TAG = "ASKIMEUtils";
 
-  /* Damerau-Levenshtein distance */
   public static int editDistance(
       @NonNull CharSequence lowerCaseWord,
       @NonNull final char[] word,
       final int offset,
       final int length) {
+    return editDistance(lowerCaseWord, word, offset, length, null);
+  }
+
+  /* Damerau-Levenshtein distance */
+  public static int editDistance(
+      @NonNull CharSequence lowerCaseWord,
+      @NonNull final char[] word,
+      final int offset,
+      final int length,
+      int[] workspace) {
     final int sl = lowerCaseWord.length();
     final int tl = length;
 
     // We only need 3 rows for Damerau-Levenshtein (Optimal String Alignment):
     // current row (i), previous row (i-1), and pre-previous row (i-2).
     // This reduces space from O(N*M) to O(M).
-    int[] prevPrev = new int[tl + 1];
-    int[] prev = new int[tl + 1];
-    int[] curr = new int[tl + 1];
+    // We use a single flattened array to avoid allocation if workspace is provided.
+    // We need (tl + 1) * 3 ints.
+
+    final int width = tl + 1;
+    if (workspace == null || workspace.length < width * 3) {
+      workspace = new int[width * 3];
+    }
+
+    // Offsets for rows in the flattened array
+    int prevPrev = 0;
+    int prev = width;
+    int curr = width * 2;
 
     // Initialize the first row (conceptually i=0, for empty source string)
     for (int j = 0; j <= tl; j++) {
-      prev[j] = j;
+      workspace[prev + j] = j;
     }
 
     for (int i = 0; i < sl; ++i) {
-      curr[0] = i + 1;
+      workspace[curr + 0] = i + 1;
       final char sc = lowerCaseWord.charAt(i);
       for (int j = 0; j < tl; ++j) {
         final char tc = Character.toLowerCase(word[offset + j]);
         final int cost = sc == tc ? 0 : 1;
 
-        int min = prev[j + 1] + 1; // deletion: dp[i][j+1] + 1
-        min = Math.min(min, curr[j] + 1); // insertion: dp[i+1][j] + 1
-        min = Math.min(min, prev[j] + cost); // substitution: dp[i][j] + cost
-        curr[j + 1] = min;
+        int min = workspace[prev + j + 1] + 1; // deletion: dp[i][j+1] + 1
+        min = Math.min(min, workspace[curr + j] + 1); // insertion: dp[i+1][j] + 1
+        min = Math.min(min, workspace[prev + j] + cost); // substitution: dp[i][j] + cost
+        workspace[curr + j + 1] = min;
 
         // Overwrite for transposition cases
         if (i > 0
@@ -68,27 +86,29 @@ public class IMEUtil {
             && tc == lowerCaseWord.charAt(i - 1)) {
           // dp[i + 1][j + 1] = Math.min(dp[i + 1][j + 1], dp[i - 1][j - 1] + cost);
           // dp[i-1][j-1] is in prevPrev[j-1]
-          curr[j + 1] = Math.min(curr[j + 1], prevPrev[j - 1] + cost);
+          int prevPrevVal = workspace[prevPrev + j - 1];
+          workspace[curr + j + 1] = Math.min(workspace[curr + j + 1], prevPrevVal + cost);
         }
       }
 
       // Rotate rows: prevPrev becomes prev, prev becomes curr, curr becomes recycled prevPrev
-      int[] temp = prevPrev;
+      int temp = prevPrev;
       prevPrev = prev;
       prev = curr;
       curr = temp;
     }
 
     // After the loop, the result is in prev[tl] because we rotated.
+    int result = workspace[prev + tl];
     if (BuildConfig.DEBUG) {
       Logger.d(
           TAG,
           "editDistance: %s, %s -> %d",
           lowerCaseWord,
           new String(word, offset, length),
-          prev[tl]);
+          result);
     }
-    return prev[tl];
+    return result;
   }
 
   /**
