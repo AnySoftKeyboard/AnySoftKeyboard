@@ -14,6 +14,7 @@ public class NextWordsContainer {
   public final String word;
   private final List<NextWord> mOrderedNextWord = new ArrayList<>();
   private final Map<String, NextWord> mNextWordLookup = new ArrayMap<>();
+  private boolean mNeedsSort = false;
 
   public NextWordsContainer(String word) {
     this.word = word;
@@ -27,6 +28,7 @@ public class NextWordsContainer {
       mNextWordLookup.put(nextWordText, nextWord);
       mOrderedNextWord.add(nextWord);
     }
+    mNeedsSort = true;
   }
 
   public void markWordAsUsed(String word) {
@@ -38,10 +40,14 @@ public class NextWordsContainer {
     } else {
       nextWord.markAsUsed();
     }
+    mNeedsSort = true;
   }
 
   public List<NextWord> getNextWordSuggestions() {
-    Collections.sort(mOrderedNextWord, msNextWordComparator);
+    if (mNeedsSort) {
+      Collections.sort(mOrderedNextWord, msNextWordComparator);
+      mNeedsSort = false;
+    }
 
     return mOrderedNextWord;
   }
