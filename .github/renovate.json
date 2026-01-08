@@ -16,8 +16,8 @@
       "matchFiles": [".bazelversion", ".nvmrc", "package.json"],
       "groupName": "Development tooling",
       "postUpgradeTasks": {
-        "commands": ["bazel build //..."],
-        "fileFilters": ["MODULE.bazel.lock"],
+        "commands": ["bazel build //...", "bazel run //:format"],
+        "fileFilters": ["MODULE.bazel.lock", "**/*"],
         "executionMode": "branch"
       }
     },
@@ -25,7 +25,12 @@
       "description": "Group all app-affecting dependencies together (AndroidX, Google Android, Kotlin, etc.) to ensure atomic updates",
       "matchManagers": ["gradle"],
       "excludePackagePatterns": ["^gradle$"],
-      "groupName": "Android app dependencies"
+      "groupName": "Android app dependencies",
+      "postUpgradeTasks": {
+        "commands": ["./gradlew spotlessApply"],
+        "fileFilters": ["**/*.java", "**/*.kt", "**/*.gradle", "**/*.md"],
+        "executionMode": "branch"
+      }
     },
     {
       "description": "Gradle wrapper updates separately",
@@ -60,8 +65,8 @@
       "matchManagers": ["npm"],
       "groupName": "JavaScript dependencies",
       "postUpgradeTasks": {
-        "commands": ["bazel build //..."],
-        "fileFilters": ["MODULE.bazel.lock", "pnpm-lock.yaml"],
+        "commands": ["bazel build //...", "bazel run //:format"],
+        "fileFilters": ["MODULE.bazel.lock", "pnpm-lock.yaml", "**/*"],
         "executionMode": "branch"
       }
     },
@@ -78,7 +83,7 @@
       "description": "Run formatters after Bazel module updates to ensure code style consistency",
       "matchManagers": ["bazel-module"],
       "postUpgradeTasks": {
-        "commands": ["bazel run //:format", "./gradlew spotlessApply"],
+        "commands": ["bazel run //:format"],
         "fileFilters": ["**/*"],
         "executionMode": "branch"
       }
