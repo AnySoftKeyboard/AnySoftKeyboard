@@ -10,13 +10,9 @@
   },
   "packageRules": [
     {
-      "description": "Update robolectric_jars_versions.txt when Robolectric version changes",
+      "description": "Disable Robolectric auto-updates - requires manual upgrade due to API compatibility",
       "matchPackageNames": ["org.robolectric:robolectric"],
-      "postUpgradeTasks": {
-        "commands": ["scripts/update_robolectric_jars_versions.sh {{{newVersion}}}"],
-        "fileFilters": ["scripts/robolectric_jars_versions.txt"],
-        "executionMode": "branch"
-      }
+      "enabled": false
     },
     {
       "description": "Group development tooling updates together (Bazel, Node.js, pnpm)",

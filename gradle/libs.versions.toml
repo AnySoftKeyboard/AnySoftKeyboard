@@ -56,10 +56,10 @@ errorproneAnnotations = "2.45.0"
 
 # Testing
 junit = "4.13.2"
-robolectric = "4.16"
-mockito = "2.28.2"
-mockitoKotlin = "1.6.0"
-systemRules = "1.19.0"
+robolectric = "4.14.1"
+mockito = "2.23.0"
+mockitoKotlin = "1.5.0"
+systemRules = "1.16.1"
 simpleprovider = "1.1.0"
 
 # BuildSrc Dependencies
