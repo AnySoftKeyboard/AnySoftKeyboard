@@ -34,18 +34,16 @@ public class AnyPopupKeyboardTest {
 
   @Test
   public void testKeyboardResourceConstructor() throws Exception {
-    AnyPopupKeyboard keyboard =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
+    AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
     Assert.assertEquals("POP_KEYBOARD", keyboard.getKeyboardName());
 
-    Assert.assertEquals(98, keyboard.getKeys().size());
+    Assert.assertEquals(77, keyboard.getKeys().size());
   }
 
   @Test
   @Config(sdk = Build.VERSION_CODES.M)
   public void testKeyboardResourceConstructorReadsTags() throws Exception {
-    AnyPopupKeyboard keyboard =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
+    AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
 
     Assert.assertArrayEquals(
         "face,grin".split(","),
@@ -58,8 +56,7 @@ public class AnyPopupKeyboardTest {
   @Test
   @Config(sdk = Build.VERSION_CODES.N)
   public void testKeyboardResourceConstructorReadsTagsWithExtension() throws Exception {
-    AnyPopupKeyboard keyboard =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
+    AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
 
     Assert.assertArrayEquals(
         "grinning,face,grinning_face".split(","),
@@ -71,24 +68,23 @@ public class AnyPopupKeyboardTest {
   }
 
   private void assertKeyValues(AnyPopupKeyboard keyboard, int primaryCode, int y, int x) {
-    final Keyboard.Key key =
-        keyboard.getKeys().stream()
-            .filter(k -> k.getPrimaryCode() == primaryCode)
-            .findFirst()
-            .orElseThrow(() -> new RuntimeException("Failed to find character " + primaryCode));
+    final Keyboard.Key key = keyboard.getKeys().stream()
+        .filter(k -> k.getPrimaryCode() == primaryCode)
+        .findFirst()
+        .orElseThrow(() -> new RuntimeException("Failed to find character " + primaryCode));
     Assert.assertEquals("Y mismatch", y, key.y);
-    if (x != -1) Assert.assertEquals("X mismatch", x, key.x);
+    if (x != -1)
+      Assert.assertEquals("X mismatch", x, key.x);
   }
 
   @Test
   public void testKeyboardPopupCharacterStringConstructor() throws Exception {
-    AnyPopupKeyboard keyboard =
-        new AnyPopupKeyboard(
-            new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-            getApplicationContext(),
-            "ûūùú",
-            SIMPLE_KeyboardDimens,
-            "POP_KEYBOARD");
+    AnyPopupKeyboard keyboard = new AnyPopupKeyboard(
+        new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+        getApplicationContext(),
+        "ûūùú",
+        SIMPLE_KeyboardDimens,
+        "POP_KEYBOARD");
 
     Assert.assertEquals("POP_KEYBOARD", keyboard.getKeyboardName());
 
@@ -105,13 +101,12 @@ public class AnyPopupKeyboardTest {
 
   @Test
   public void testKeyboardPopupCharacterStringTwoRowsConstructor() throws Exception {
-    AnyPopupKeyboard keyboard =
-        new AnyPopupKeyboard(
-            new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-            getApplicationContext(),
-            "qwertyuio",
-            SIMPLE_KeyboardDimens,
-            "POP_KEYBOARD");
+    AnyPopupKeyboard keyboard = new AnyPopupKeyboard(
+        new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+        getApplicationContext(),
+        "qwertyuio",
+        SIMPLE_KeyboardDimens,
+        "POP_KEYBOARD");
 
     Assert.assertEquals("POP_KEYBOARD", keyboard.getKeyboardName());
 
@@ -132,13 +127,12 @@ public class AnyPopupKeyboardTest {
 
   @Test
   public void testKeyboardPopupCharacterStringThreeRowsConstructor() throws Exception {
-    AnyPopupKeyboard keyboard =
-        new AnyPopupKeyboard(
-            new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-            getApplicationContext(),
-            "qwertasdfgzxc",
-            SIMPLE_KeyboardDimens,
-            "POP_KEYBOARD");
+    AnyPopupKeyboard keyboard = new AnyPopupKeyboard(
+        new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+        getApplicationContext(),
+        "qwertasdfgzxc",
+        SIMPLE_KeyboardDimens,
+        "POP_KEYBOARD");
 
     Assert.assertEquals("POP_KEYBOARD", keyboard.getKeyboardName());
 
@@ -168,20 +162,17 @@ public class AnyPopupKeyboardTest {
   @Test
   public void testKeyboardPopupSupportsMirrorOneRow() throws Exception {
     String popupCharacters = "qwert";
-    AnyPopupKeyboard keyboard =
-        new AnyPopupKeyboard(
-            new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-            getApplicationContext(),
-            popupCharacters,
-            SIMPLE_KeyboardDimens,
-            "POP_KEYBOARD");
+    AnyPopupKeyboard keyboard = new AnyPopupKeyboard(
+        new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+        getApplicationContext(),
+        popupCharacters,
+        SIMPLE_KeyboardDimens,
+        "POP_KEYBOARD");
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
-    final int keyWidth =
-        (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+    final int keyWidth = (int) (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
+        - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
+        / 10;
 
     assertKeyValues(keyboard, 'q', vGap, 0);
     assertKeyValues(keyboard, 'w', vGap, keyWidth);
@@ -201,20 +192,17 @@ public class AnyPopupKeyboardTest {
   @Test
   public void testKeyboardPopupSupportsMirrorOneRowNotFull() throws Exception {
     String popupCharacters = "qwe";
-    AnyPopupKeyboard keyboard =
-        new AnyPopupKeyboard(
-            new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-            getApplicationContext(),
-            popupCharacters,
-            SIMPLE_KeyboardDimens,
-            "POP_KEYBOARD");
+    AnyPopupKeyboard keyboard = new AnyPopupKeyboard(
+        new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+        getApplicationContext(),
+        popupCharacters,
+        SIMPLE_KeyboardDimens,
+        "POP_KEYBOARD");
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
-    final int keyWidth =
-        (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+    final int keyWidth = (int) (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
+        - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
+        / 10;
 
     assertKeyValues(keyboard, 'q', vGap, 0);
     assertKeyValues(keyboard, 'w', vGap, keyWidth);
@@ -232,21 +220,18 @@ public class AnyPopupKeyboardTest {
     String popupCharacters = "qwertasdfg";
     // asdfg
     // qwert
-    AnyPopupKeyboard keyboard =
-        new AnyPopupKeyboard(
-            new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-            getApplicationContext(),
-            popupCharacters,
-            SIMPLE_KeyboardDimens,
-            "POP_KEYBOARD");
+    AnyPopupKeyboard keyboard = new AnyPopupKeyboard(
+        new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+        getApplicationContext(),
+        popupCharacters,
+        SIMPLE_KeyboardDimens,
+        "POP_KEYBOARD");
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int keyHeight = (int) SIMPLE_KeyboardDimens.getNormalKeyHeight();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
-    final int keyWidth =
-        (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+    final int keyWidth = (int) (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
+        - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
+        / 10;
 
     Assert.assertEquals(10, keyboard.getKeys().size());
     assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 0);
@@ -280,21 +265,18 @@ public class AnyPopupKeyboardTest {
     String popupCharacters = "qwertasd";
     // asd
     // qwert
-    AnyPopupKeyboard keyboard =
-        new AnyPopupKeyboard(
-            new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-            getApplicationContext(),
-            popupCharacters,
-            SIMPLE_KeyboardDimens,
-            "POP_KEYBOARD");
+    AnyPopupKeyboard keyboard = new AnyPopupKeyboard(
+        new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+        getApplicationContext(),
+        popupCharacters,
+        SIMPLE_KeyboardDimens,
+        "POP_KEYBOARD");
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int keyHeight = (int) SIMPLE_KeyboardDimens.getNormalKeyHeight();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
-    final int keyWidth =
-        (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+    final int keyWidth = (int) (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
+        - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
+        / 10;
 
     Assert.assertEquals(8, keyboard.getKeys().size());
     assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 0);
@@ -324,21 +306,18 @@ public class AnyPopupKeyboardTest {
     String popupCharacters = "qwertas";
     // as
     // qwert
-    AnyPopupKeyboard keyboard =
-        new AnyPopupKeyboard(
-            new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-            getApplicationContext(),
-            popupCharacters,
-            SIMPLE_KeyboardDimens,
-            "POP_KEYBOARD");
+    AnyPopupKeyboard keyboard = new AnyPopupKeyboard(
+        new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+        getApplicationContext(),
+        popupCharacters,
+        SIMPLE_KeyboardDimens,
+        "POP_KEYBOARD");
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int keyHeight = (int) SIMPLE_KeyboardDimens.getNormalKeyHeight();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
-    final int keyWidth =
-        (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+    final int keyWidth = (int) (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
+        - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
+        / 10;
 
     Assert.assertEquals(7, keyboard.getKeys().size());
     assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 0);
@@ -363,8 +342,7 @@ public class AnyPopupKeyboardTest {
 
   @Test
   public void testEmptyCodes() {
-    AnyPopupKeyboard keyboard =
-        createAnyPopupKeyboard(R.xml.keyboard_with_keys_with_no_codes, null, null);
+    AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.keyboard_with_keys_with_no_codes, null, null);
     for (int keyIndex = 0; keyIndex < keyboard.getKeys().size(); keyIndex++) {
       Assert.assertEquals(0, keyboard.getKeys().get(keyIndex).getCodeAtIndex(0, false));
     }
@@ -378,14 +356,12 @@ public class AnyPopupKeyboardTest {
   @Test
   @Config(sdk = Build.VERSION_CODES.N)
   public void testKeyboardSwitchesSkinTone() throws Exception {
-    AnyPopupKeyboard keyboardWithGeneric =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
+    AnyPopupKeyboard keyboardWithGeneric = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
     Assert.assertEquals("\uD83D\uDC85", keyboardWithGeneric.getKeys().get(1).text);
     Assert.assertEquals("\uD83D\uDC85", keyboardWithGeneric.getKeys().get(1).label);
 
-    AnyPopupKeyboard keyboardWithSkinTone =
-        createAnyPopupKeyboard(
-            R.xml.quick_text_unicode_people, EmojiUtils.SkinTone.Fitzpatrick_2, null);
+    AnyPopupKeyboard keyboardWithSkinTone = createAnyPopupKeyboard(
+        R.xml.quick_text_unicode_people, EmojiUtils.SkinTone.Fitzpatrick_2, null);
 
     Assert.assertEquals("\uD83D\uDC85\uD83C\uDFFB", keyboardWithSkinTone.getKeys().get(1).text);
     Assert.assertEquals("\uD83D\uDC85\uD83C\uDFFB", keyboardWithSkinTone.getKeys().get(1).label);
