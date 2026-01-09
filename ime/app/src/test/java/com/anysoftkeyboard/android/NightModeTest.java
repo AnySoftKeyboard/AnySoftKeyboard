@@ -250,7 +250,7 @@ public class NightModeTest {
   }
 
   @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
+  @Config(sdk = Build.VERSION_CODES.M)
   public void testWhenLowPowerSavingModeWithDevicePowerSavingState() {
     Context context = Mockito.spy(getApplicationContext());
     final PowerManager powerManager =

@@ -22,6 +22,7 @@ import android.content.res.XmlResourceParser;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -85,7 +86,8 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
     mSharedPrefsNotToUse.unregisterOnSharedPreferenceChangeListener(mUpdatedPrefKeysListener);
   }
 
-  private void updateTagExtractor(boolean enabled) {
+  @VisibleForTesting
+  protected void updateTagExtractor(boolean enabled) {
     if (enabled && !mTagsExtractor.isEnabled()) {
       setupTagsSearcher();
     } else {
@@ -288,7 +290,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
       };
     }
 
-    /*NOT IMPLEMENTED BELOW!! */
+    /* NOT IMPLEMENTED BELOW!! */
 
     @Override
     public void add(int location, CharSequence object) {

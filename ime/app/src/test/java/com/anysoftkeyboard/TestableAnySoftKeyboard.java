@@ -176,6 +176,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     return super.getQuickKeyHistoryRecords();
   }
 
+  public void simulateUpdateTagExtractor(boolean enabled) {
+    updateTagExtractor(enabled);
+  }
+
   @Override
   public InputMethodManager getInputMethodManager() {
     return mSpiedInputMethodManager;
@@ -397,7 +401,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     final int[] nearByKeyCodes;
     final AnyKeyboard keyboard = getCurrentKeyboard();
     Assert.assertNotNull(keyboard);
-    if (key instanceof AnyKeyboard.AnyKey /*this will ensure this instance is not a mock*/) {
+    if (key instanceof AnyKeyboard.AnyKey /* this will ensure this instance is not a mock */) {
       primaryCode =
           key.getCodeAtIndex(
               0,
@@ -594,13 +598,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
-    public /*was protected, now public*/ AnyKeyboard createKeyboardFromCreator(
+    public /* was protected, now public */ AnyKeyboard createKeyboardFromCreator(
         int mode, KeyboardAddOnAndBuilder creator) {
       return super.createKeyboardFromCreator(mode, creator);
     }
 
     @Override
-    public /*was protected, now public*/ GenericKeyboard createGenericKeyboard(
+    public /* was protected, now public */ GenericKeyboard createGenericKeyboard(
         AddOn addOn,
         Context context,
         int layoutResId,
@@ -665,7 +669,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
   }
 
-  // I need this class, so the Mockito.spy will not mess with internal state of SuggestImpl
+  // I need this class, so the Mockito.spy will not mess with internal state of
+  // SuggestImpl
   private static class TestableSuggest implements Suggest {
 
     private final Suggest mDelegate;

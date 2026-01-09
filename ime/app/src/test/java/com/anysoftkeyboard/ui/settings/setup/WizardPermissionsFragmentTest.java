@@ -16,7 +16,6 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
@@ -30,21 +29,6 @@ public class WizardPermissionsFragmentTest
   @Override
   protected WizardPermissionsFragment createFragment() {
     return new WizardPermissionsFragment();
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
-  @Ignore("checkPermission returns DENIED for read-contacts")
-  public void testWhenNoPermissionsRequestNeeded() {
-    WizardPermissionsFragment fragment = startFragment();
-
-    Assert.assertTrue(fragment.isStepCompleted(fragment.requireContext()));
-
-    var contacts = fragment.getView().findViewById(R.id.contacts_permission_group);
-    Assert.assertEquals(View.GONE, contacts.getVisibility());
-
-    var notifications = fragment.getView().findViewById(R.id.notification_permission_group);
-    Assert.assertEquals(View.GONE, notifications.getVisibility());
   }
 
   @Test
