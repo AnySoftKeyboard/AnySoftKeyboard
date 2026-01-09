@@ -3,6 +3,7 @@
   "extends": ["config:recommended"],
   "platform": "github",
   "onboarding": false,
+  "ignoreDeps": ["org.robolectric:robolectric"],
   "requireConfig": "optional",
   "gitAuthor": "Polyglot <ask@evendanan.net>",
   "bazel": {
