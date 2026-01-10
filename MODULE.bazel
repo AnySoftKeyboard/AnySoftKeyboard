@@ -5,7 +5,7 @@
 # the code will use the same version of all of these tools and libraries listed.
 # For bzlmod dependencies, this implements the "single version policy".
 
-bazel_dep(name = "bazel_lib", version = "3.0.0")
+bazel_dep(name = "bazel_lib", version = "3.1.0")
 bazel_dep(name = "rules_nodejs", version = "6.6.0")
 bazel_dep(name = "aspect_rules_js", version = "2.8.3")
 bazel_dep(name = "aspect_rules_ts", version = "3.6.0")
