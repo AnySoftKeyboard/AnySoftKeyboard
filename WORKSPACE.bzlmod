@@ -14,8 +14,8 @@ http_jar(
 
 http_archive(
     name = "crowdin_cli",
-    url = "https://github.com/crowdin/crowdin-cli/releases/download/4.7.0/crowdin-cli.zip",
-    sha256 = "3c09968c529a89acf0fad5b72137a492632734207f7c760cd17fe7f1e7fa8d61",
-    strip_prefix = "4.7.0",
+    url = "https://github.com/crowdin/crowdin-cli/releases/download/4.12.0/crowdin-cli.zip",
+    sha256 = "cba241959d61ff5896afcafedf6dec62940da73337a47b42fc2cd0b781cbecc4",
+    strip_prefix = "4.12.0",
     build_file_content = "exports_files(['crowdin-cli.jar'])"
 )
