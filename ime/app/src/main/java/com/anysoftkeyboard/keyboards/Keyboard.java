@@ -900,7 +900,10 @@ public abstract class Keyboard {
               }
             } else if (TAG_KEY.equals(tag)) {
               inKey = true;
-              x += (keyHorizontalGap / 2);
+              // Only add half-gap before key if it's not the first key in the row (x > 0)
+              if (x > 0) {
+                x += (keyHorizontalGap / 2);
+              }
               key =
                   createKeyFromXml(
                       mKeyboardResourceMap,

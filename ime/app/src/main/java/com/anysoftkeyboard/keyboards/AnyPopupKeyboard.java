@@ -146,7 +146,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     Row row = baseKey.row;
     // now adding the popups
     final float y = baseKey.y;
-    final float keyHorizontalGap = row.defaultHorizontalGap;
+    final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
     int popupCharacter =
         Character.codePointAt(
             popupCharacters, Character.offsetByCodePoints(popupCharacters, 0, characterOffset));
@@ -158,10 +158,15 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     AnyKey aKey = null;
     final int popupCharactersLength =
         Character.codePointCount(popupCharacters, 0, popupCharacters.length());
+    boolean isFirstAdditionalKey = true;
     for (int popupCharIndex = characterOffset + 1;
         popupCharIndex < characterOffset + keysPerRow && popupCharIndex < popupCharactersLength;
         popupCharIndex++) {
-      x += (keyHorizontalGap / 2);
+      // Only add half-gap before key if it's not the first additional key
+      if (!isFirstAdditionalKey) {
+        x += (keyHorizontalGap / 2);
+      }
+      isFirstAdditionalKey = false;
 
       aKey = new AnyKey(row, keyboardDimens);
       popupCharacter =
@@ -174,7 +179,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
       aKey.width = (int) (aKey.width - keyHorizontalGap); // the gap is on both sides
       aKey.x = (int) x;
       aKey.y = (int) y;
-      final int xOffset = (int) (aKey.width + keyHorizontalGap + (keyHorizontalGap / 2));
+      final int xOffset = (int) (aKey.width + (keyHorizontalGap / 2));
       x += xOffset;
       rowWidth += xOffset;
       keys.add(aKey);
@@ -184,6 +189,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     // this holds the last key
     if (aKey != null) {
       aKey.edgeFlags = EDGE_RIGHT;
+      // Add trailing half-gap after the last key
+      rowWidth += (int) (keyHorizontalGap / 2);
     } else {
       baseKey.edgeFlags |=
           EDGE_RIGHT; // adding another flag, since the baseKey is the only one in the row

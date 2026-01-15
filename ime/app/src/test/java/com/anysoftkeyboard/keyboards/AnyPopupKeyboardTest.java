@@ -177,11 +177,11 @@ public class AnyPopupKeyboardTest {
             "POP_KEYBOARD");
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
+    // Each key is 10% of keyboard width (48px), minus the horizontal gap
     final int keyWidth =
         (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+            (SIMPLE_KeyboardDimens.getKeyboardMaxWidth() / 10
+                - SIMPLE_KeyboardDimens.getKeyHorizontalGap());
 
     assertKeyValues(keyboard, 'q', vGap, 0);
     assertKeyValues(keyboard, 'w', vGap, keyWidth);
@@ -191,11 +191,14 @@ public class AnyPopupKeyboardTest {
 
     keyboard.mirrorKeys();
     // same order, mirrored X position
-    assertKeyValues(keyboard, 'q', vGap, 5 * hGap + 4 * keyWidth);
-    assertKeyValues(keyboard, 'w', vGap, 4 * hGap + 3 * keyWidth);
-    assertKeyValues(keyboard, 'e', vGap, 3 * hGap + 2 * keyWidth);
-    assertKeyValues(keyboard, 'r', vGap, 2 * hGap + keyWidth);
-    assertKeyValues(keyboard, 't', vGap, hGap);
+    // Mirrored using formula: newX = keyboardWidth - oldX - keyWidth
+    // where keyboardWidth = baseKey.x + baseKey.width + half-gap + additional width + trailing
+    // half-gap
+    assertKeyValues(keyboard, 'q', vGap, 3 * hGap + 4 * keyWidth);
+    assertKeyValues(keyboard, 'w', vGap, 3 * hGap + 3 * keyWidth);
+    assertKeyValues(keyboard, 'e', vGap, 2 * hGap + 2 * keyWidth);
+    assertKeyValues(keyboard, 'r', vGap, hGap + keyWidth);
+    assertKeyValues(keyboard, 't', vGap, 0);
   }
 
   @Test
@@ -210,11 +213,11 @@ public class AnyPopupKeyboardTest {
             "POP_KEYBOARD");
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
+    // Each key is 10% of keyboard width (48px), minus the horizontal gap
     final int keyWidth =
         (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+            (SIMPLE_KeyboardDimens.getKeyboardMaxWidth() / 10
+                - SIMPLE_KeyboardDimens.getKeyHorizontalGap());
 
     assertKeyValues(keyboard, 'q', vGap, 0);
     assertKeyValues(keyboard, 'w', vGap, keyWidth);
@@ -222,7 +225,8 @@ public class AnyPopupKeyboardTest {
 
     keyboard.mirrorKeys();
     // same order, mirrored X position
-    assertKeyValues(keyboard, 'q', vGap, 3 * hGap + 2 * keyWidth);
+    // Mirrored using formula: newX = keyboardWidth - oldX - keyWidth
+    assertKeyValues(keyboard, 'q', vGap, 2 * hGap + 2 * keyWidth);
     assertKeyValues(keyboard, 'w', vGap, 2 * hGap + keyWidth);
     assertKeyValues(keyboard, 'e', vGap, hGap);
   }
@@ -242,11 +246,11 @@ public class AnyPopupKeyboardTest {
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int keyHeight = (int) SIMPLE_KeyboardDimens.getNormalKeyHeight();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
+    // Each key is 10% of keyboard width (48px), minus the horizontal gap
     final int keyWidth =
         (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+            (SIMPLE_KeyboardDimens.getKeyboardMaxWidth() / 10
+                - SIMPLE_KeyboardDimens.getKeyHorizontalGap());
 
     Assert.assertEquals(10, keyboard.getKeys().size());
     assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 0);
@@ -262,17 +266,18 @@ public class AnyPopupKeyboardTest {
 
     keyboard.mirrorKeys();
     // same order, mirrored X position
+    // Mirrored using formula: newX = keyboardWidth - oldX - keyWidth
     Assert.assertEquals(10, keyboard.getKeys().size());
-    assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 5 * hGap + 4 * keyWidth);
-    assertKeyValues(keyboard, 'w', vGap + keyHeight + vGap, 4 * hGap + 3 * keyWidth);
-    assertKeyValues(keyboard, 'e', vGap + keyHeight + vGap, 3 * hGap + 2 * keyWidth);
-    assertKeyValues(keyboard, 'r', vGap + keyHeight + vGap, 2 * hGap + keyWidth);
-    assertKeyValues(keyboard, 't', vGap + keyHeight + vGap, hGap);
-    assertKeyValues(keyboard, 'a', vGap, 5 * hGap + 4 * keyWidth);
-    assertKeyValues(keyboard, 's', vGap, 4 * hGap + 3 * keyWidth);
-    assertKeyValues(keyboard, 'd', vGap, 3 * hGap + 2 * keyWidth);
-    assertKeyValues(keyboard, 'f', vGap, 2 * hGap + keyWidth);
-    assertKeyValues(keyboard, 'g', vGap, hGap);
+    assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 3 * hGap + 4 * keyWidth);
+    assertKeyValues(keyboard, 'w', vGap + keyHeight + vGap, 3 * hGap + 3 * keyWidth);
+    assertKeyValues(keyboard, 'e', vGap + keyHeight + vGap, 2 * hGap + 2 * keyWidth);
+    assertKeyValues(keyboard, 'r', vGap + keyHeight + vGap, hGap + keyWidth);
+    assertKeyValues(keyboard, 't', vGap + keyHeight + vGap, 0);
+    assertKeyValues(keyboard, 'a', vGap, 3 * hGap + 4 * keyWidth);
+    assertKeyValues(keyboard, 's', vGap, 3 * hGap + 3 * keyWidth);
+    assertKeyValues(keyboard, 'd', vGap, 2 * hGap + 2 * keyWidth);
+    assertKeyValues(keyboard, 'f', vGap, hGap + keyWidth);
+    assertKeyValues(keyboard, 'g', vGap, 0);
   }
 
   @Test
@@ -290,11 +295,11 @@ public class AnyPopupKeyboardTest {
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int keyHeight = (int) SIMPLE_KeyboardDimens.getNormalKeyHeight();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
+    // Each key is 10% of keyboard width (48px), minus the horizontal gap
     final int keyWidth =
         (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+            (SIMPLE_KeyboardDimens.getKeyboardMaxWidth() / 10
+                - SIMPLE_KeyboardDimens.getKeyHorizontalGap());
 
     Assert.assertEquals(8, keyboard.getKeys().size());
     assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 0);
@@ -308,15 +313,17 @@ public class AnyPopupKeyboardTest {
 
     keyboard.mirrorKeys();
     // same order, mirrored X position
+    // Mirrored using formula: newX = keyboardWidth - oldX - keyWidth
+    // All rows use the same keyboard width (max of all rows)
     Assert.assertEquals(8, keyboard.getKeys().size());
-    assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 5 * hGap + 4 * keyWidth);
-    assertKeyValues(keyboard, 'w', vGap + keyHeight + vGap, 4 * hGap + 3 * keyWidth);
-    assertKeyValues(keyboard, 'e', vGap + keyHeight + vGap, 3 * hGap + 2 * keyWidth);
-    assertKeyValues(keyboard, 'r', vGap + keyHeight + vGap, 2 * hGap + keyWidth);
-    assertKeyValues(keyboard, 't', vGap + keyHeight + vGap, hGap);
-    assertKeyValues(keyboard, 'a', vGap, 5 * hGap + 4 * keyWidth);
-    assertKeyValues(keyboard, 's', vGap, 4 * hGap + 3 * keyWidth);
-    assertKeyValues(keyboard, 'd', vGap, 3 * hGap + 2 * keyWidth);
+    assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 3 * hGap + 4 * keyWidth);
+    assertKeyValues(keyboard, 'w', vGap + keyHeight + vGap, 3 * hGap + 3 * keyWidth);
+    assertKeyValues(keyboard, 'e', vGap + keyHeight + vGap, 2 * hGap + 2 * keyWidth);
+    assertKeyValues(keyboard, 'r', vGap + keyHeight + vGap, hGap + keyWidth);
+    assertKeyValues(keyboard, 't', vGap + keyHeight + vGap, 0);
+    assertKeyValues(keyboard, 'a', vGap, 3 * hGap + 4 * keyWidth);
+    assertKeyValues(keyboard, 's', vGap, 3 * hGap + 3 * keyWidth);
+    assertKeyValues(keyboard, 'd', vGap, 2 * hGap + 2 * keyWidth);
   }
 
   @Test
@@ -334,11 +341,11 @@ public class AnyPopupKeyboardTest {
     int vGap = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
     int keyHeight = (int) SIMPLE_KeyboardDimens.getNormalKeyHeight();
     int hGap = (int) SIMPLE_KeyboardDimens.getKeyHorizontalGap();
+    // Each key is 10% of keyboard width (48px), minus the horizontal gap
     final int keyWidth =
         (int)
-                (SIMPLE_KeyboardDimens.getKeyboardMaxWidth()
-                    - SIMPLE_KeyboardDimens.getKeyHorizontalGap() * popupCharacters.length())
-            / 10;
+            (SIMPLE_KeyboardDimens.getKeyboardMaxWidth() / 10
+                - SIMPLE_KeyboardDimens.getKeyHorizontalGap());
 
     Assert.assertEquals(7, keyboard.getKeys().size());
     assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 0);
@@ -351,14 +358,16 @@ public class AnyPopupKeyboardTest {
 
     keyboard.mirrorKeys();
     // same order, mirrored X position
+    // Mirrored using formula: newX = keyboardWidth - oldX - keyWidth
+    // All rows use the same keyboard width (max of all rows)
     Assert.assertEquals(7, keyboard.getKeys().size());
-    assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 5 * hGap + 4 * keyWidth);
-    assertKeyValues(keyboard, 'w', vGap + keyHeight + vGap, 4 * hGap + 3 * keyWidth);
-    assertKeyValues(keyboard, 'e', vGap + keyHeight + vGap, 3 * hGap + 2 * keyWidth);
-    assertKeyValues(keyboard, 'r', vGap + keyHeight + vGap, 2 * hGap + keyWidth);
-    assertKeyValues(keyboard, 't', vGap + keyHeight + vGap, hGap);
-    assertKeyValues(keyboard, 'a', vGap, 5 * hGap + 4 * keyWidth);
-    assertKeyValues(keyboard, 's', vGap, 4 * hGap + 3 * keyWidth);
+    assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 3 * hGap + 4 * keyWidth);
+    assertKeyValues(keyboard, 'w', vGap + keyHeight + vGap, 3 * hGap + 3 * keyWidth);
+    assertKeyValues(keyboard, 'e', vGap + keyHeight + vGap, 2 * hGap + 2 * keyWidth);
+    assertKeyValues(keyboard, 'r', vGap + keyHeight + vGap, hGap + keyWidth);
+    assertKeyValues(keyboard, 't', vGap + keyHeight + vGap, 0);
+    assertKeyValues(keyboard, 'a', vGap, 3 * hGap + 4 * keyWidth);
+    assertKeyValues(keyboard, 's', vGap, 3 * hGap + 3 * keyWidth);
   }
 
   @Test
