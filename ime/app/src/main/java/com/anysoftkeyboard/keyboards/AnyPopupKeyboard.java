@@ -139,7 +139,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
       int baseKeyIndex,
       int characterOffset,
       int keysPerRow) {
-    int rowWidth = 0;
     // the base key is the same index as the character offset
     // since we are starting with an empty row
     AnyKey baseKey = (AnyKey) keys.get(baseKeyIndex);
@@ -154,19 +153,15 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     baseKey.label = new String(new int[] {popupCharacter}, 0, 1);
     int upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
     baseKey.mShiftedCodes = new int[] {upperCasePopupCharacter};
-    float x = baseKey.width;
+    // Start positioning additional keys after the baseKey
+    float x = baseKey.x + baseKey.width;
     AnyKey aKey = null;
     final int popupCharactersLength =
         Character.codePointCount(popupCharacters, 0, popupCharacters.length());
-    boolean isFirstAdditionalKey = true;
     for (int popupCharIndex = characterOffset + 1;
         popupCharIndex < characterOffset + keysPerRow && popupCharIndex < popupCharactersLength;
         popupCharIndex++) {
-      // Only add half-gap before key if it's not the first additional key
-      if (!isFirstAdditionalKey) {
-        x += (keyHorizontalGap / 2);
-      }
-      isFirstAdditionalKey = false;
+      x += (keyHorizontalGap / 2);
 
       aKey = new AnyKey(row, keyboardDimens);
       popupCharacter =
@@ -181,7 +176,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
       aKey.y = (int) y;
       final int xOffset = (int) (aKey.width + (keyHorizontalGap / 2));
       x += xOffset;
-      rowWidth += xOffset;
       keys.add(aKey);
     }
     // adding edge flag to the last key
@@ -189,14 +183,18 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     // this holds the last key
     if (aKey != null) {
       aKey.edgeFlags = EDGE_RIGHT;
-      // Add trailing half-gap after the last key
-      rowWidth += (int) (keyHorizontalGap / 2);
+      // Calculate additional width from end of baseKey (with its trailing gap) to end of last key
+      // (with its trailing gap)
+      // super.getMinWidth() includes baseKey positioned at baseKey.x through baseKey.x +
+      // baseKey.width + trailing half-gap
+      float baseKeyEndWithGap = baseKey.x + baseKey.width + (keyHorizontalGap / 2);
+      float lastKeyEndWithGap = aKey.x + aKey.width + (keyHorizontalGap / 2);
+      int rowWidth = (int) (lastKeyEndWithGap - baseKeyEndWithGap);
+      mAdditionalWidth = Math.max(rowWidth, mAdditionalWidth);
     } else {
       baseKey.edgeFlags |=
           EDGE_RIGHT; // adding another flag, since the baseKey is the only one in the row
     }
-
-    mAdditionalWidth = Math.max(rowWidth, mAdditionalWidth);
   }
 
   @Override
