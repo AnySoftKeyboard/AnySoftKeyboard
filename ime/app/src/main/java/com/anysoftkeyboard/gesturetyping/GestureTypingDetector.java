@@ -37,10 +37,16 @@ public class GestureTypingDetector {
   private static final double DIRECTION_PENALTY_FACTOR = 1.0;
 
   /**
-   * Penalty factor for words that start near but not on the exact starting key. Lower value = less
-   * penalty, higher value = more penalty.
+   * Penalty factor for words that start near but not on the exact starting key. Applied to the
+   * squared distance, creating a quadratic penalty that is lenient for small offsets (adjacent key
+   * touches) but strongly penalizes distant starts. Lower value = less penalty, higher value = more
+   * penalty.
+   *
+   * <p>Value of ~0.000667 (approximately 1/1500) gives: - Adjacent key edge (~20px, 400 squared):
+   * ~0.3 penalty units - Adjacent key center (~100px, 10000 squared): ~6.7 penalty units - Maximum
+   * threshold (~150px, 22500 squared): ~15 penalty units
    */
-  private static final double PROXIMITY_PENALTY_FACTOR = 0.1;
+  private static final double PROXIMITY_PENALTY_FACTOR = 0.000667;
 
   // How far away do two points of the gesture have to be (distance squared)?
   private final int mMinPointDistanceSquared;
@@ -342,6 +348,9 @@ public class GestureTypingDetector {
 
     final short[] corners = getPathCorners(mWorkspaceData);
 
+    // startKey may be null if gesture starts between keys - this is intentional and allows
+    // imprecise gesture starts. The proximity check below handles this case correctly by
+    // considering all words within the proximity threshold when startKey is null.
     Keyboard.Key startKey = null;
     for (Keyboard.Key k : mKeys) {
       if (k.isInside(corners[0], corners[1])) {
@@ -374,8 +383,9 @@ public class GestureTypingDetector {
             continue;
           }
 
-          // Small penalty proportional to distance from start point
-          proximityPenalty = Math.sqrt(distanceSquared) * PROXIMITY_PENALTY_FACTOR;
+          // Quadratic penalty based on squared distance - more forgiving for small offsets,
+          // stronger penalty for distant starts
+          proximityPenalty = distanceSquared * PROXIMITY_PENALTY_FACTOR;
         }
 
         final double distanceFromCurve =
@@ -389,6 +399,11 @@ public class GestureTypingDetector {
         final double revisedDistanceFromCurve =
             distanceFromCurve - (mFrequencyFactor * ((double) wordFrequencies[i]));
 
+        // Final weight combines path distance (with direction penalties) and proximity penalty.
+        // Direction penalties (DIRECTION_PENALTY_FACTOR=1.0 gives 1.0x-3.0x multiplier on path
+        // distance) are weighted more heavily than proximity penalties (~10-15 units for adjacent
+        // key starts with PROXIMITY_PENALTY_FACTOR=0.1) to prioritize overall path matching over
+        // precise start position. Lower weight = better match.
         final double finalWeight = revisedDistanceFromCurve + proximityPenalty;
 
         int candidateDistanceSortedIndex = 0;
