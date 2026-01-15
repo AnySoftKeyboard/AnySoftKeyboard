@@ -16,7 +16,9 @@ import io.reactivex.subjects.ReplaySubject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GestureTypingDetector {
   private static final String TAG = "ASKGestureTypingDetector";
@@ -84,6 +86,56 @@ public class GestureTypingDetector {
   private final ReplaySubject<LoadingState> mGenerateStateSubject = ReplaySubject.createWithSize(1);
   private ArrayList<short[]> mWordsCorners = new ArrayList<>();
 
+  /**
+   * Groups word indices by their starting key for efficient proximity-based lookup. Instead of
+   * iterating all words, we can iterate only words that start with keys near the gesture start.
+   */
+  @NonNull private Map<Keyboard.Key, CompactWordList> mWordsByStartKey = new HashMap<>();
+
+  /**
+   * Memory-efficient storage for word references using Structure of Arrays (SoA) pattern. Instead
+   * of creating many small WordReference objects, we store data in parallel primitive arrays. This
+   * reduces memory overhead from ~32 bytes/word to ~12 bytes/word and minimizes GC pressure.
+   */
+  private static class CompactWordList {
+    private static final int INITIAL_CAPACITY = 64;
+
+    int[] dictIndices;
+    int[] wordIndices;
+    int[] cornersIndices;
+    int size;
+
+    CompactWordList() {
+      dictIndices = new int[INITIAL_CAPACITY];
+      wordIndices = new int[INITIAL_CAPACITY];
+      cornersIndices = new int[INITIAL_CAPACITY];
+      size = 0;
+    }
+
+    void add(int dictIndex, int wordIndex, int cornersIndex) {
+      if (size == dictIndices.length) {
+        grow();
+      }
+      dictIndices[size] = dictIndex;
+      wordIndices[size] = wordIndex;
+      cornersIndices[size] = cornersIndex;
+      size++;
+    }
+
+    private void grow() {
+      int newCapacity = dictIndices.length * 2;
+      int[] newDictIndices = new int[newCapacity];
+      int[] newWordIndices = new int[newCapacity];
+      int[] newCornersIndices = new int[newCapacity];
+      System.arraycopy(dictIndices, 0, newDictIndices, 0, size);
+      System.arraycopy(wordIndices, 0, newWordIndices, 0, size);
+      System.arraycopy(cornersIndices, 0, newCornersIndices, 0, size);
+      dictIndices = newDictIndices;
+      wordIndices = newWordIndices;
+      cornersIndices = newCornersIndices;
+    }
+  }
+
   public GestureTypingDetector(
       double frequencyFactor,
       int maxSuggestions,
@@ -114,7 +166,8 @@ public class GestureTypingDetector {
     mGeneratingDisposable.dispose();
     mGenerateStateSubject.onNext(LoadingState.LOADING);
     mGeneratingDisposable =
-        generateCornersInBackground(mWords, mWordsCorners, mKeys, mKeysByCharacter, mWorkspaceData)
+        generateCornersInBackground(
+                mWords, mWordsCorners, mKeys, mKeysByCharacter, mWordsByStartKey, mWorkspaceData)
             .subscribe(mGenerateStateSubject::onNext, mGenerateStateSubject::onError);
   }
 
@@ -126,6 +179,7 @@ public class GestureTypingDetector {
     mWordFrequencies = Collections.emptyList();
     mWordsCorners = new ArrayList<>();
     mKeysByCharacter = new SparseArray<>();
+    mWordsByStartKey = new HashMap<>();
   }
 
   /**
@@ -150,22 +204,32 @@ public class GestureTypingDetector {
   }
 
   private static Single<LoadingState> generateCornersInBackground(
-      Iterable<char[][]> words,
+      List<char[][]> words,
       Collection<short[]> wordsCorners,
       Iterable<Keyboard.Key> keys,
       SparseArray<Keyboard.Key> keysByCharacter,
+      Map<Keyboard.Key, CompactWordList> wordsByStartKey,
       WorkspaceData workspaceData) {
 
     workspaceData.reset();
     wordsCorners.clear();
     keysByCharacter.clear();
+    wordsByStartKey.clear();
 
     return Observable.fromIterable(words)
         .subscribeOn(RxSchedulers.background())
-        .map(
-            wordsArray ->
+        // Pair each dictionary with its index for thread-safe indexing
+        .zipWith(
+            Observable.range(0, words.size()),
+            (wordsArray, dictIndex) ->
                 new CornersGenerationData(
-                    wordsArray, wordsCorners, keys, keysByCharacter, workspaceData))
+                    wordsArray,
+                    wordsCorners,
+                    keys,
+                    keysByCharacter,
+                    wordsByStartKey,
+                    dictIndex,
+                    workspaceData))
         // consider adding here groupBy operator to fan-out the generation of paths
         .flatMap(
             data ->
@@ -186,13 +250,32 @@ public class GestureTypingDetector {
                           }
                         }
 
-                        for (char[] word : data.mWords) {
+                        // Track the corners offset at the start of this dictionary
+                        final int cornersOffsetForDict = data.mWordsCorners.size();
+
+                        for (int wordIndex = 0; wordIndex < data.mWords.length; wordIndex++) {
                           if (e.isDisposed()) {
                             Logger.d(TAG, "generation cancelled during word processing");
                             return;
                           }
+                          char[] word = data.mWords[wordIndex];
                           short[] path = generatePath(word, data.mKeysByCharacter, data.mWorkspace);
                           data.mWordsCorners.add(path);
+
+                          // Add word to the start-key index for efficient lookup
+                          if (word.length > 0) {
+                            char firstChar = Dictionary.toLowerCase(word[0]);
+                            Keyboard.Key startKey = data.mKeysByCharacter.get(firstChar);
+                            if (startKey != null) {
+                              CompactWordList wordList = data.mWordsByStartKey.get(startKey);
+                              if (wordList == null) {
+                                wordList = new CompactWordList();
+                                data.mWordsByStartKey.put(startKey, wordList);
+                              }
+                              wordList.add(
+                                  data.mDictIndex, wordIndex, cornersOffsetForDict + wordIndex);
+                            }
+                          }
                         }
 
                         if (!e.isDisposed()) {
@@ -347,63 +430,60 @@ public class GestureTypingDetector {
     }
 
     final short[] corners = getPathCorners(mWorkspaceData);
+    final int gestureStartX = corners[0];
+    final int gestureStartY = corners[1];
 
-    // startKey may be null if gesture starts between keys - this is intentional and allows
-    // imprecise gesture starts. The proximity check below handles this case correctly by
-    // considering all words within the proximity threshold when startKey is null.
+    // Find the key where gesture starts (may be null if gesture starts between keys)
     Keyboard.Key startKey = null;
     for (Keyboard.Key k : mKeys) {
-      if (k.isInside(corners[0], corners[1])) {
+      if (k.isInside(gestureStartX, gestureStartY)) {
         startKey = k;
         break;
       }
     }
 
     mCandidateWeights.clear();
-    int dictionaryWordsCornersOffset = 0;
-    for (int dictIndex = 0; dictIndex < mWords.size(); dictIndex++) {
-      final char[][] words = mWords.get(dictIndex);
-      final int[] wordFrequencies = mWordFrequencies.get(dictIndex);
-      for (int i = 0; i < words.length; i++) {
-        // Check if current word starts with a key close to the gesture start point
-        final Keyboard.Key wordStartKey = mKeysByCharacter.get(Dictionary.toLowerCase(words[i][0]));
-        if (wordStartKey == null) {
-          continue; // Character not found on keyboard
+
+    // Iterate only over keys within proximity threshold and process their words
+    for (Map.Entry<Keyboard.Key, CompactWordList> entry : mWordsByStartKey.entrySet()) {
+      final Keyboard.Key wordStartKey = entry.getKey();
+
+      // Calculate proximity penalty for this key
+      double proximityPenalty = 0;
+      if (wordStartKey != startKey) {
+        // Calculate squared distance from gesture start to this key
+        final int distanceSquared = wordStartKey.squaredDistanceFrom(gestureStartX, gestureStartY);
+
+        // Skip keys that are too far from gesture start
+        if (distanceSquared > mStartKeyProximityThresholdSquared) {
+          continue;
         }
 
-        // Add a small penalty if the word doesn't start on the exact starting key
-        // This biases towards words that start on the gesture starting key
-        double proximityPenalty = 0;
-        if (wordStartKey != startKey) {
-          // Calculate squared distance from gesture start to word's starting key
-          final int distanceSquared = wordStartKey.squaredDistanceFrom(corners[0], corners[1]);
+        // Quadratic penalty based on squared distance
+        proximityPenalty = distanceSquared * PROXIMITY_PENALTY_FACTOR;
+      }
 
-          // Filter out words whose starting key is too far from gesture start
-          if (distanceSquared > mStartKeyProximityThresholdSquared) {
-            continue;
-          }
+      // Process all words starting with this key using SoA iteration
+      final CompactWordList wordList = entry.getValue();
+      for (int i = 0; i < wordList.size; i++) {
+        final int dictIndex = wordList.dictIndices[i];
+        final int wordIndex = wordList.wordIndices[i];
+        final int cornersIndex = wordList.cornersIndices[i];
 
-          // Quadratic penalty based on squared distance - more forgiving for small offsets,
-          // stronger penalty for distant starts
-          proximityPenalty = distanceSquared * PROXIMITY_PENALTY_FACTOR;
-        }
+        final char[][] words = mWords.get(dictIndex);
+        final int[] wordFrequencies = mWordFrequencies.get(dictIndex);
 
         final double distanceFromCurve =
-            calculateDistanceBetweenUserPathAndWord(
-                corners, mWordsCorners.get(i + dictionaryWordsCornersOffset));
+            calculateDistanceBetweenUserPathAndWord(corners, mWordsCorners.get(cornersIndex));
         if (distanceFromCurve > MINIMUM_DISTANCE_FILTER) {
           continue;
         }
 
         // TODO: convert wordFrequencies to a double[] in the loading phase.
         final double revisedDistanceFromCurve =
-            distanceFromCurve - (mFrequencyFactor * ((double) wordFrequencies[i]));
+            distanceFromCurve - (mFrequencyFactor * ((double) wordFrequencies[wordIndex]));
 
         // Final weight combines path distance (with direction penalties) and proximity penalty.
-        // Direction penalties (DIRECTION_PENALTY_FACTOR=1.0 gives 1.0x-3.0x multiplier on path
-        // distance) are weighted more heavily than proximity penalties (~10-15 units for adjacent
-        // key starts with PROXIMITY_PENALTY_FACTOR=0.1) to prioritize overall path matching over
-        // precise start position. Lower weight = better match.
         final double finalWeight = revisedDistanceFromCurve + proximityPenalty;
 
         int candidateDistanceSortedIndex = 0;
@@ -414,15 +494,13 @@ public class GestureTypingDetector {
 
         if (candidateDistanceSortedIndex < mMaxSuggestions) {
           mCandidateWeights.add(candidateDistanceSortedIndex, finalWeight);
-          mCandidates.add(candidateDistanceSortedIndex, new String(words[i]));
+          mCandidates.add(candidateDistanceSortedIndex, new String(words[wordIndex]));
           if (mCandidateWeights.size() > mMaxSuggestions) {
             mCandidateWeights.remove(mMaxSuggestions);
             mCandidates.remove(mMaxSuggestions);
           }
         }
       }
-
-      dictionaryWordsCornersOffset += words.length;
     }
 
     return mCandidates;
@@ -636,18 +714,24 @@ public class GestureTypingDetector {
     private final Collection<short[]> mWordsCorners;
     private final Iterable<Keyboard.Key> mKeys;
     private final SparseArray<Keyboard.Key> mKeysByCharacter;
+    private final Map<Keyboard.Key, CompactWordList> mWordsByStartKey;
     private final WorkspaceData mWorkspace;
+    private final int mDictIndex;
 
     CornersGenerationData(
         char[][] words,
         Collection<short[]> wordsCorners,
         Iterable<Keyboard.Key> keys,
         SparseArray<Keyboard.Key> keysByCharacter,
+        Map<Keyboard.Key, CompactWordList> wordsByStartKey,
+        int dictIndex,
         WorkspaceData workspace) {
       mWords = words;
       mWordsCorners = wordsCorners;
       mKeys = keys;
       mKeysByCharacter = keysByCharacter;
+      mWordsByStartKey = wordsByStartKey;
+      mDictIndex = dictIndex;
       mWorkspace = workspace;
     }
   }
