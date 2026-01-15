@@ -98,7 +98,8 @@ public class GestureTypingDetector {
    * reduces memory overhead from ~32 bytes/word to ~12 bytes/word and minimizes GC pressure.
    */
   private static class CompactWordList {
-    private static final int INITIAL_CAPACITY = 64;
+    // Average ~1600 words/key; 256 reduces reallocations from 5 to 3 during loading
+    private static final int INITIAL_CAPACITY = 256;
 
     int[] dictIndices;
     int[] wordIndices;
@@ -133,6 +134,21 @@ public class GestureTypingDetector {
       dictIndices = newDictIndices;
       wordIndices = newWordIndices;
       cornersIndices = newCornersIndices;
+    }
+
+    /** Shrinks arrays to exact size, reclaiming unused memory after loading is complete. */
+    void trim() {
+      if (size < dictIndices.length) {
+        int[] newDictIndices = new int[size];
+        int[] newWordIndices = new int[size];
+        int[] newCornersIndices = new int[size];
+        System.arraycopy(dictIndices, 0, newDictIndices, 0, size);
+        System.arraycopy(wordIndices, 0, newWordIndices, 0, size);
+        System.arraycopy(cornersIndices, 0, newCornersIndices, 0, size);
+        dictIndices = newDictIndices;
+        wordIndices = newWordIndices;
+        cornersIndices = newCornersIndices;
+      }
     }
   }
 
@@ -297,6 +313,13 @@ public class GestureTypingDetector {
                     }))
         .subscribeOn(RxSchedulers.background())
         .lastOrError()
+        .doOnSuccess(
+            state -> {
+              // Trim all CompactWordLists to reclaim unused memory after loading
+              for (CompactWordList list : wordsByStartKey.values()) {
+                list.trim();
+              }
+            })
         .onErrorReturnItem(LoadingState.NOT_LOADED)
         .observeOn(RxSchedulers.mainThread());
   }
@@ -432,6 +455,8 @@ public class GestureTypingDetector {
     final short[] corners = getPathCorners(mWorkspaceData);
     final int gestureStartX = corners[0];
     final int gestureStartY = corners[1];
+    final int gestureEndX = corners[corners.length - 2];
+    final int gestureEndY = corners[corners.length - 1];
 
     // Find the key where gesture starts (may be null if gesture starts between keys)
     Keyboard.Key startKey = null;
@@ -472,6 +497,23 @@ public class GestureTypingDetector {
 
         final char[][] words = mWords.get(dictIndex);
         final int[] wordFrequencies = mWordFrequencies.get(dictIndex);
+
+        // End-key pruning: check if gesture ends near the word's last character key.
+        // Use 25x the start-key threshold squared (5x linear distance) - more lenient than
+        // start-key because users often overshoot/undershoot at gesture end. This covers
+        // most of the keyboard width (~300px with 60dp threshold) while filtering words
+        // whose end keys are on the opposite side of the keyboard.
+        final char[] word = words[wordIndex];
+        if (word.length > 0) {
+          final char lastChar = Dictionary.toLowerCase(word[word.length - 1]);
+          final Keyboard.Key endKey = mKeysByCharacter.get(lastChar);
+          if (endKey != null) {
+            final int endDistanceSquared = endKey.squaredDistanceFrom(gestureEndX, gestureEndY);
+            if (endDistanceSquared > mStartKeyProximityThresholdSquared * 25) {
+              continue; // Gesture ends too far from word's last character
+            }
+          }
+        }
 
         final double distanceFromCurve =
             calculateDistanceBetweenUserPathAndWord(corners, mWordsCorners.get(cornersIndex));

@@ -188,11 +188,42 @@ public class GestureTypingDetectorTest {
         .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
     candidates.addAll(mDetectorUnderTest.getCandidates());
 
-    // With proximity filtering, we may get words from nearby keys too (e.g., 'h' is near 'g')
+    // With proximity filtering, we may get words from nearby keys too (e.g., 'h' is
+    // near 'g')
     // But we should still have all the 'g' words
     Assert.assertTrue("Should have at least 3 candidates", candidates.size() >= 3);
     Arrays.asList("good", "God", "gods")
         .forEach(word -> Assert.assertTrue("Missing the word " + word, candidates.contains(word)));
+  }
+
+  @Test
+  public void testFilterOutWordsWhereGestureEndsTooFar() {
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    mDetectorUnderTest.clearGesture();
+
+    // "hello" starts at 'h' and ends at 'o'.
+    // Let's create a gesture starting at 'h', going to 'e', 'l', but ending at 'a'
+    // (far from 'o').
+    Point h = getPointForCharacter('h');
+    Point e = getPointForCharacter('e');
+    Point l = getPointForCharacter('l');
+    Point a = getPointForCharacter('a'); // Start of row 2, far from 'o' (row 1 right)
+
+    // Path: h -> e -> l -> l -> a
+    Stream.of(h, e, l, l, a).forEach(p -> mDetectorUnderTest.addPoint(p.x, p.y));
+
+    ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+    Assert.assertFalse(
+        "Should prune 'hello' because it ends far from 'o'", candidates.contains("hello"));
+
+    mDetectorUnderTest.clearGesture();
+    // Now correct ending at 'o'
+    Point o = getPointForCharacter('o');
+    Stream.of(h, e, l, l, o).forEach(p -> mDetectorUnderTest.addPoint(p.x, p.y));
+    candidates = mDetectorUnderTest.getCandidates();
+    Assert.assertTrue("Should include 'hello' when ending near 'o'", candidates.contains("hello"));
   }
 
   @Test
@@ -437,7 +468,8 @@ public class GestureTypingDetectorTest {
     // Call trimMemory
     mDetectorUnderTest.trimMemory();
 
-    // Verify candidates can still be generated (data structures are cleared but functional)
+    // Verify candidates can still be generated (data structures are cleared but
+    // functional)
     mDetectorUnderTest.clearGesture();
     generatePointsStreamOfKeysString("helo")
         .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
@@ -563,7 +595,8 @@ public class GestureTypingDetectorTest {
         .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
     final ArrayList<String> candidatesAfterTrim = mDetectorUnderTest.getCandidates();
     Assert.assertTrue(candidatesAfterTrim.contains("hello"));
-    // Verify same candidates can be generated, proving words/corners weren't cleared
+    // Verify same candidates can be generated, proving words/corners weren't
+    // cleared
     Assert.assertEquals(candidatesBeforeTrim.size(), candidatesAfterTrim.size());
   }
 
@@ -678,7 +711,8 @@ public class GestureTypingDetectorTest {
   }
 
   // ===================================================================================
-  // Tests for calculateCosineOfAngleBetweenVectors - Symmetry and Commutativity cases
+  // Tests for calculateCosineOfAngleBetweenVectors - Symmetry and Commutativity
+  // cases
   // ===================================================================================
 
   @Test
@@ -800,8 +834,10 @@ public class GestureTypingDetectorTest {
 
   @Test
   public void testDistanceCalculation_OppositeDirection_MaxPenalty() {
-    // User path: (0,0) -> (100,0) -> (200,0) (moving right, direction vector: +100, 0)
-    // Word path: (200,0) -> (100,0) -> (0,0) (moving left, direction vector: -100, 0)
+    // User path: (0,0) -> (100,0) -> (200,0) (moving right, direction vector: +100,
+    // 0)
+    // Word path: (200,0) -> (100,0) -> (0,0) (moving left, direction vector: -100,
+    // 0)
     // Opposite direction = multiplier 3.0
     short[] userPath = {0, 0, 100, 0, 200, 0};
     short[] wordPath = {200, 0, 100, 0, 0, 0};
@@ -845,7 +881,8 @@ public class GestureTypingDetectorTest {
         GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathOpposite);
 
     // Perpendicular should be between same and opposite
-    // (Note: actual values depend on distances too, but penalty ordering should hold)
+    // (Note: actual values depend on distances too, but penalty ordering should
+    // hold)
     Assert.assertTrue(
         "Same direction distance should be smallest", distanceSame <= distancePerpendicular);
   }
@@ -877,7 +914,8 @@ public class GestureTypingDetectorTest {
 
   @Test
   public void testDistanceCalculation_FirstPointNoPenalty() {
-    // With only 2 points each (1 segment), there's no "previous" point for direction
+    // With only 2 points each (1 segment), there's no "previous" point for
+    // direction
     // So no penalty should be applied
     short[] userPath = {0, 0, 100, 0};
     short[] wordPath = {200, 0, 100, 0}; // opposite direction but only 1 segment
@@ -885,7 +923,8 @@ public class GestureTypingDetectorTest {
     double distance =
         GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
 
-    // Should be pure distance without penalty (first point has no previous direction)
+    // Should be pure distance without penalty (first point has no previous
+    // direction)
     // Distance from (0,0) to (200,0) = 200, from (100,0) to (100,0) = 0
     // Total should be 200 (no penalty because no previous points for direction)
     Assert.assertTrue(
@@ -942,17 +981,21 @@ public class GestureTypingDetectorTest {
 
   @Test
   public void testDistanceCalculation_RemainingWordCorners_UsesLastGestureDirection() {
-    // Test that the second loop applies direction penalty based on last gesture direction.
+    // Test that the second loop applies direction penalty based on last gesture
+    // direction.
     //
-    // IMPORTANT: The algorithm requires userPath.length >= wordPath.length, otherwise
-    // it returns Double.MAX_VALUE immediately. So we need a longer user path than word path.
+    // IMPORTANT: The algorithm requires userPath.length >= wordPath.length,
+    // otherwise
+    // it returns Double.MAX_VALUE immediately. So we need a longer user path than
+    // word path.
     //
     // User path: long path going right (10 coordinates = 5 points)
     // Word paths: shorter paths (6 coordinates = 3 points each)
     // - wordPathSameDir: continues going right
     // - wordPathReverses: starts right then reverses direction
     //
-    // The second loop will process remaining word corners using the last gesture direction.
+    // The second loop will process remaining word corners using the last gesture
+    // direction.
     // When word path reverses, the penalty should be higher.
     short[] userPath = {0, 0, 100, 0, 200, 0, 300, 0, 400, 0};
 
@@ -975,7 +1018,8 @@ public class GestureTypingDetectorTest {
     Assert.assertTrue("Reverses should return valid distance", distanceReverses < Double.MAX_VALUE);
 
     // The word path that reverses direction should have a higher penalty
-    // because the generated path direction (left) is opposite to the user's gesture direction
+    // because the generated path direction (left) is opposite to the user's gesture
+    // direction
     // (right)
     Assert.assertTrue(
         "Word path reversing ("
@@ -996,7 +1040,8 @@ public class GestureTypingDetectorTest {
     double distance =
         GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
 
-    // Should calculate distance but with minimal/no penalty since direction wasn't established
+    // Should calculate distance but with minimal/no penalty since direction wasn't
+    // established
     // (user path only has first segment, no previous point for direction)
     Assert.assertTrue("Distance should be non-negative", distance >= 0);
   }
@@ -1009,17 +1054,24 @@ public class GestureTypingDetectorTest {
   public void testDistanceCalculation_MinimumValidPaths() {
     // Minimum valid: 2 coordinates each (one point)
     // The algorithm has two loops:
-    // 1. First loop: iterates over user path points, matching each to the closest word corner
+    // 1. First loop: iterates over user path points, matching each to the closest
+    // word corner
     // 2. Second loop: processes any remaining word corners not yet processed
     //
     // With single-point paths (userPath={50,50}, wordPath={100,100}):
-    // - First loop processes user point (50,50), finds distance to word corner (100,100) = 70.71
-    // - generatedWordCornerIndex remains at 0 (never advances since there's no "next" corner)
-    // - Second loop: generatedWordCornerIndex=0 < wordPath.length=2, so it processes (100,100)
-    //   again, adding another 70.71 (distance from last user point to this word corner)
+    // - First loop processes user point (50,50), finds distance to word corner
+    // (100,100) = 70.71
+    // - generatedWordCornerIndex remains at 0 (never advances since there's no
+    // "next" corner)
+    // - Second loop: generatedWordCornerIndex=0 < wordPath.length=2, so it
+    // processes (100,100)
+    // again, adding another 70.71 (distance from last user point to this word
+    // corner)
     //
-    // This is the correct algorithm behavior: word corners are processed in the second loop
-    // to ensure all word corners contribute to the distance even when the user path is short.
+    // This is the correct algorithm behavior: word corners are processed in the
+    // second loop
+    // to ensure all word corners contribute to the distance even when the user path
+    // is short.
     short[] userPath = {50, 50};
     short[] wordPath = {100, 100};
 
@@ -1070,7 +1122,8 @@ public class GestureTypingDetectorTest {
     double distance =
         GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
 
-    // According to the code: if (generatedWordPath.length > actualUserPath.length) return MAX_VALUE
+    // According to the code: if (generatedWordPath.length > actualUserPath.length)
+    // return MAX_VALUE
     Assert.assertEquals(Double.MAX_VALUE, distance, EPSILON);
   }
 
@@ -1081,13 +1134,15 @@ public class GestureTypingDetectorTest {
   @Test
   public void testDistanceCalculation_CumulativeDistanceWithPenalties() {
     // Test that parallel paths (same direction) have lower cumulative distance than
-    // paths going in different directions, demonstrating the direction penalty works.
+    // paths going in different directions, demonstrating the direction penalty
+    // works.
     //
     // The algorithm has two loops and advances the word corner index when a closer
     // corner is found. The second loop processes remaining word corners.
     //
     // User path: (0,0) -> (100,0) -> (200,0) - straight line going right
-    // Word path parallel: (0,100) -> (100,100) -> (200,100) - same direction, 100 units above
+    // Word path parallel: (0,100) -> (100,100) -> (200,100) - same direction, 100
+    // units above
     // Word path opposite: (200,100) -> (100,100) -> (0,100) - opposite direction
     short[] userPath = {0, 0, 100, 0, 200, 0};
     short[] wordPathParallel = {0, 100, 100, 100, 200, 100};
@@ -1142,7 +1197,7 @@ public class GestureTypingDetectorTest {
                 return new Pair<>(previous, mPrevious);
               }
             })
-        .skip(1 /*the first one is just wrong*/)
+        .skip(1 /* the first one is just wrong */)
         .map(pair -> generateTraceBetweenPoints(pair.first, pair.second))
         .flatMap(pointStream -> pointStream);
   }
@@ -1261,7 +1316,8 @@ public class GestureTypingDetectorTest {
     final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
 
     // Should complete without crashing
-    // "hello" should be in candidates, words with unknown characters should be skipped
+    // "hello" should be in candidates, words with unknown characters should be
+    // skipped
     Assert.assertTrue("Expected 'hello' to be in candidates", candidates.contains("hello"));
   }
 
@@ -1327,7 +1383,8 @@ public class GestureTypingDetectorTest {
             .findFirst()
             .orElseThrow(() -> new RuntimeException("Could not find 'h' key"));
 
-    // Start just outside the right edge of the 'h' key, but within proximity threshold
+    // Start just outside the right edge of the 'h' key, but within proximity
+    // threshold
     // The key boundary is at (hKey.x + hKey.width)
     int edgeX = hKey.x + hKey.width + 20; // 20 pixels outside the right edge
     int edgeY = Keyboard.Key.getCenterY(hKey);
@@ -1348,7 +1405,8 @@ public class GestureTypingDetectorTest {
 
   @Test
   public void testProximityFilteringWithMultipleNearbyWords() {
-    // Test that proximity filtering includes multiple words starting with nearby keys
+    // Test that proximity filtering includes multiple words starting with nearby
+    // keys
     TestRxSchedulers.drainAllTasks();
     Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
 
@@ -1358,7 +1416,8 @@ public class GestureTypingDetectorTest {
     final Point hKeyCenter = getPointForCharacter('h');
     final Point gKeyCenter = getPointForCharacter('g');
 
-    // Calculate a point between 'h' and 'g' that's within proximity threshold of both
+    // Calculate a point between 'h' and 'g' that's within proximity threshold of
+    // both
     int midX = (hKeyCenter.x + gKeyCenter.x) / 2;
     int midY = (hKeyCenter.y + gKeyCenter.y) / 2;
 
