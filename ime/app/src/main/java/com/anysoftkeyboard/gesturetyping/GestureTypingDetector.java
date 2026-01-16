@@ -50,6 +50,13 @@ public class GestureTypingDetector {
    */
   private static final double PROXIMITY_PENALTY_FACTOR = 0.000667;
 
+  /**
+   * Penalty factor for words that end near but not on the exact ending key. Similar to
+   * PROXIMITY_PENALTY_FACTOR but applied to gesture end position. Uses a lower value (half) because
+   * users tend to overshoot/undershoot more at the end of gestures than at the start.
+   */
+  private static final double END_PROXIMITY_PENALTY_FACTOR = 0.000333;
+
   // How far away do two points of the gesture have to be (distance squared)?
   private final int mMinPointDistanceSquared;
 
@@ -485,12 +492,12 @@ public class GestureTypingDetector {
         final char[][] words = mWords.get(dictIndex);
         final int[] wordFrequencies = mWordFrequencies.get(dictIndex);
 
-        // End-key pruning: check if gesture ends near the word's last character key.
-        // Use 25x the start-key threshold squared (5x linear distance) - more lenient than
-        // start-key because users often overshoot/undershoot at gesture end. This covers
-        // most of the keyboard width (~300px with 60dp threshold) while filtering words
-        // whose end keys are on the opposite side of the keyboard.
+        // End-key pruning and penalty: check if gesture ends near the word's last character key.
+        // Use 25x the start-key threshold squared (5x linear distance) for pruning - more lenient
+        // than start-key because users often overshoot/undershoot at gesture end.
+        // Also calculate a soft penalty (similar to start-key) to improve ranking.
         final char[] word = words[wordIndex];
+        double endProximityPenalty = 0;
         if (word.length > 0) {
           final char lastChar = Dictionary.toLowerCase(word[word.length - 1]);
           final Keyboard.Key endKey = mKeysByCharacter.get(lastChar);
@@ -499,6 +506,8 @@ public class GestureTypingDetector {
             if (endDistanceSquared > mStartKeyProximityThresholdSquared * 25) {
               continue; // Gesture ends too far from word's last character
             }
+            // Soft penalty for end-key distance (affects ranking, not filtering)
+            endProximityPenalty = endDistanceSquared * END_PROXIMITY_PENALTY_FACTOR;
           }
         }
 
@@ -521,8 +530,9 @@ public class GestureTypingDetector {
         final double revisedDistanceFromCurve =
             distanceFromCurve - (mFrequencyFactor * ((double) wordFrequencies[wordIndex]));
 
-        // Final weight combines path distance (with direction penalties) and proximity penalty.
-        final double finalWeight = revisedDistanceFromCurve + proximityPenalty;
+        // Final weight combines path distance (with direction penalties) and proximity penalties.
+        final double finalWeight =
+            revisedDistanceFromCurve + proximityPenalty + endProximityPenalty;
 
         int candidateDistanceSortedIndex = 0;
         while (candidateDistanceSortedIndex < mCandidateWeights.size()

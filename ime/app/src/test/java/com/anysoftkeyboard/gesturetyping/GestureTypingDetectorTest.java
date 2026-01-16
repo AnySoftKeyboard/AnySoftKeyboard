@@ -134,11 +134,19 @@ public class GestureTypingDetectorTest {
 
     Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
     // "harp" is removed due to MAX_SUGGESTIONS limit
-    Arrays.asList("hero", "hello", "hell", "Hall", "help", "good")
+    // Either "good" or "God" may appear - they have similar scores due to:
+    // - Both start with 'g' (near 'h' where gesture starts)
+    // - Both end with 'd' (away from 'o' where gesture ends, so end-key penalty applies)
+    // The path distance determines which ranks higher, but scores are close
+    Arrays.asList("hero", "hello", "hell", "Hall", "help")
         .forEach(
             word ->
                 Assert.assertTrue(
                     "Missing the word " + word + ". has " + candidates, candidates.remove(word)));
+    // Either "good" or "God" should be present (but not necessarily both)
+    Assert.assertTrue(
+        "Expected either 'good' or 'God' in remaining candidates: " + candidates,
+        candidates.remove("good") || candidates.remove("God"));
     // ensuring we asserted all words
     Assert.assertTrue("Still has " + candidates, candidates.isEmpty());
   }
@@ -1217,7 +1225,10 @@ public class GestureTypingDetectorTest {
     double distanceWithLowThreshold =
         GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath, 100);
     Assert.assertEquals(
-        "Should return MAX_VALUE when threshold exceeded", Double.MAX_VALUE, distanceWithLowThreshold, EPSILON);
+        "Should return MAX_VALUE when threshold exceeded",
+        Double.MAX_VALUE,
+        distanceWithLowThreshold,
+        EPSILON);
 
     // With a high threshold (or MAX_VALUE), it should complete normally
     double distanceWithHighThreshold =
@@ -1226,8 +1237,7 @@ public class GestureTypingDetectorTest {
     Assert.assertTrue(
         "Should return actual distance with high threshold",
         distanceWithHighThreshold < Double.MAX_VALUE);
-    Assert.assertTrue(
-        "Actual distance should be positive", distanceWithHighThreshold > 0);
+    Assert.assertTrue("Actual distance should be positive", distanceWithHighThreshold > 0);
   }
 
   @Test
@@ -1419,12 +1429,15 @@ public class GestureTypingDetectorTest {
     int helloIndex = candidates.indexOf("hello");
     int goodIndex = candidates.indexOf("good");
 
-    // "hello" should rank higher (lower index) than "good"
+    // "hello" should be found and rank higher (lower index) than "good"
+    // If "good" is not in results at all (-1), that's even better - the proximity penalties
+    // (start + end key) have correctly filtered out the wrong-start word.
+    Assert.assertTrue("Expected 'hello' to be in results, but got: " + candidates, helloIndex >= 0);
     Assert.assertTrue(
-        "Expected 'hello' to rank higher than 'good' due to proximity penalty, "
+        "Expected 'hello' to rank higher than 'good' or 'good' not in results, "
             + "but got: "
             + candidates,
-        helloIndex < goodIndex);
+        goodIndex == -1 || helloIndex < goodIndex);
   }
 
   @Test
