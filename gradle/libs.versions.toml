@@ -3,7 +3,7 @@
 androidBuildTools = "36.1.0"
 sdkTarget = "35"
 sdkCompile = "36"
-sdkMinimum = "21"
+sdkMinimum = "23"
 
 # Android Gradle Plugin and Build Plugins
 agp = "8.13.2"
