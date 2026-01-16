@@ -241,7 +241,7 @@ public class GestureTypingDetector {
 
     // Use concatMap (not flatMap) to process dictionaries sequentially.
     // This is required because we share mutable state (workspaceData, wordsByStartKey,
-    // wordsCorners) across dictionaries, and Schedulers.io() uses multiple threads.
+    // wordsCorners) across dictionaries, and RX's io() scheduler uses multiple threads.
     return Observable.range(0, words.size())
         .subscribeOn(RxSchedulers.background())
         .concatMap(
