@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
-import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.core.util.Supplier;
 import androidx.fragment.app.Fragment;
@@ -20,9 +19,7 @@ class WizardPagesAdapter extends FragmentStateAdapter {
     fragments.add(WizardPageWelcomeFragment::new);
     fragments.add(WizardPageEnableKeyboardFragment::new);
     fragments.add(WizardPageSwitchToKeyboardFragment::new);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      fragments.add(WizardPermissionsFragment::new);
-    }
+    fragments.add(WizardPermissionsFragment::new);
     if (withLanguageDownload) {
       fragments.add(WizardLanguagePackFragment::new);
     }
