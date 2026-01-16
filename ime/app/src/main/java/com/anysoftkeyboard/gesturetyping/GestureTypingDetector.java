@@ -232,66 +232,52 @@ public class GestureTypingDetector {
     keysByCharacter.clear();
     wordsByStartKey.clear();
 
-    return Observable.fromIterable(words)
+    // Use concatMap (not flatMap) to process dictionaries sequentially.
+    // This is required because we share mutable state (workspaceData, wordsByStartKey,
+    // wordsCorners) across dictionaries, and Schedulers.io() uses multiple threads.
+    return Observable.range(0, words.size())
         .subscribeOn(RxSchedulers.background())
-        // Pair each dictionary with its index for thread-safe indexing
-        .zipWith(
-            Observable.range(0, words.size()),
-            (wordsArray, dictIndex) ->
-                new CornersGenerationData(
-                    wordsArray,
-                    wordsCorners,
-                    keys,
-                    keysByCharacter,
-                    wordsByStartKey,
-                    dictIndex,
-                    workspaceData))
-        // Use concatMap (not flatMap) to process dictionaries sequentially.
-        // This is required because we share mutable state (workspaceData, wordsByStartKey,
-        // wordsCorners) across dictionaries, and Schedulers.io() uses multiple threads.
         .concatMap(
-            data ->
+            dictIndex ->
                 Observable.<LoadingState>create(
                     e -> {
                       try {
                         Logger.d(TAG, "generating in BG.");
 
                         // Fill keysByCharacter map for faster path generation.
-                        // This is called for each dictionary,
-                        // but we only need to do it once.
-                        if (data.mKeysByCharacter.size() == 0) {
-                          for (Keyboard.Key key : data.mKeys) {
+                        // This is called for each dictionary, but we only need to do it once.
+                        if (keysByCharacter.size() == 0) {
+                          for (Keyboard.Key key : keys) {
                             for (int i = 0; i < key.getCodesCount(); ++i) {
                               char c = Character.toLowerCase((char) key.getCodeAtIndex(i, false));
-                              data.mKeysByCharacter.put(c, key);
+                              keysByCharacter.put(c, key);
                             }
                           }
                         }
 
-                        // Track the corners offset at the start of this dictionary
-                        final int cornersOffsetForDict = data.mWordsCorners.size();
+                        final char[][] dictionary = words.get(dictIndex);
+                        final int cornersOffsetForDict = wordsCorners.size();
 
-                        for (int wordIndex = 0; wordIndex < data.mWords.length; wordIndex++) {
+                        for (int wordIndex = 0; wordIndex < dictionary.length; wordIndex++) {
                           if (e.isDisposed()) {
                             Logger.d(TAG, "generation cancelled during word processing");
                             return;
                           }
-                          char[] word = data.mWords[wordIndex];
-                          short[] path = generatePath(word, data.mKeysByCharacter, data.mWorkspace);
-                          data.mWordsCorners.add(path);
+                          char[] word = dictionary[wordIndex];
+                          short[] path = generatePath(word, keysByCharacter, workspaceData);
+                          wordsCorners.add(path);
 
                           // Add word to the start-key index for efficient lookup
                           if (word.length > 0) {
                             char firstChar = Dictionary.toLowerCase(word[0]);
-                            Keyboard.Key startKey = data.mKeysByCharacter.get(firstChar);
+                            Keyboard.Key startKey = keysByCharacter.get(firstChar);
                             if (startKey != null) {
-                              CompactWordList wordList = data.mWordsByStartKey.get(startKey);
+                              CompactWordList wordList = wordsByStartKey.get(startKey);
                               if (wordList == null) {
                                 wordList = new CompactWordList();
-                                data.mWordsByStartKey.put(startKey, wordList);
+                                wordsByStartKey.put(startKey, wordList);
                               }
-                              wordList.add(
-                                  data.mDictIndex, wordIndex, cornersOffsetForDict + wordIndex);
+                              wordList.add(dictIndex, wordIndex, cornersOffsetForDict + wordIndex);
                             }
                           }
                         }
@@ -313,7 +299,6 @@ public class GestureTypingDetector {
                         }
                       }
                     }))
-        .subscribeOn(RxSchedulers.background())
         .lastOrError()
         .doOnSuccess(
             state -> {
@@ -627,23 +612,17 @@ public class GestureTypingDetector {
       boolean hasPreviousGeneratedPoint = generatedWordCornerIndex >= 2;
 
       if (hasPreviousGesturePoint && hasPreviousGeneratedPoint) {
-        // Calculate gesture direction vector (previous point → current point)
+        // Calculate direction vectors
         double gestureDirX = ux - actualUserPath[userPathIndex - 2];
         double gestureDirY = uy - actualUserPath[userPathIndex - 1];
-
-        // Calculate generated word direction vector
         double generatedDirX = wx - generatedWordPath[generatedWordCornerIndex - 2];
         double generatedDirY = wy - generatedWordPath[generatedWordCornerIndex - 1];
 
-        // Calculate cosine of angle between direction vectors
-        double cosAngle =
-            calculateCosineOfAngleBetweenVectors(
+        directionPenaltyMultiplier =
+            calculateDirectionPenaltyMultiplier(
                 gestureDirX, gestureDirY, generatedDirX, generatedDirY);
 
-        // Apply penalty-factor: 1.0 for same direction (cos=1), up to 3.0 for opposite (cos=-1)
-        directionPenaltyMultiplier = 1.0 + DIRECTION_PENALTY_FACTOR * (1.0 - cosAngle);
-
-        // Store last gesture direction for potential use in second loop
+        // Store last gesture direction for use in second loop
         lastGestureDirX = gestureDirX;
         lastGestureDirY = gestureDirY;
         hasLastGestureDirection = true;
@@ -670,16 +649,12 @@ public class GestureTypingDetector {
       boolean hasPreviousGeneratedCorner = generatedWordCornerIndex >= 2;
 
       if (hasLastGestureDirection && hasPreviousGeneratedCorner) {
-        // Calculate generated word direction vector (previous corner → current corner)
         double generatedDirX = wx - generatedWordPath[generatedWordCornerIndex - 2];
         double generatedDirY = wy - generatedWordPath[generatedWordCornerIndex - 1];
 
-        double cosAngle =
-            calculateCosineOfAngleBetweenVectors(
+        directionPenaltyMultiplier =
+            calculateDirectionPenaltyMultiplier(
                 lastGestureDirX, lastGestureDirY, generatedDirX, generatedDirY);
-
-        // Apply penalty-factor: 1.0 for same direction (cos=1), up to 3.0 for opposite (cos=-1)
-        directionPenaltyMultiplier = 1.0 + DIRECTION_PENALTY_FACTOR * (1.0 - cosAngle);
       }
 
       cumulativeDistance += distance * directionPenaltyMultiplier;
@@ -687,6 +662,18 @@ public class GestureTypingDetector {
     }
 
     return cumulativeDistance;
+  }
+
+  /**
+   * Calculates the direction penalty multiplier based on the angle between gesture and generated
+   * word direction vectors. Same direction = 1.0 (no penalty), opposite = 3.0 (max penalty).
+   */
+  private static double calculateDirectionPenaltyMultiplier(
+      double gestureDirX, double gestureDirY, double generatedDirX, double generatedDirY) {
+    double cosAngle =
+        calculateCosineOfAngleBetweenVectors(
+            gestureDirX, gestureDirY, generatedDirX, generatedDirY);
+    return 1.0 + DIRECTION_PENALTY_FACTOR * (1.0 - cosAngle);
   }
 
   /**
@@ -750,33 +737,6 @@ public class GestureTypingDetector {
       mMaximaArraySize++;
       mMaximaWorkspace[mMaximaArraySize] = (short) mCurrentGestureYs[gesturePointIndex];
       mMaximaArraySize++;
-    }
-  }
-
-  private static class CornersGenerationData {
-    private final char[][] mWords;
-    private final Collection<short[]> mWordsCorners;
-    private final Iterable<Keyboard.Key> mKeys;
-    private final SparseArray<Keyboard.Key> mKeysByCharacter;
-    private final Map<Keyboard.Key, CompactWordList> mWordsByStartKey;
-    private final WorkspaceData mWorkspace;
-    private final int mDictIndex;
-
-    CornersGenerationData(
-        char[][] words,
-        Collection<short[]> wordsCorners,
-        Iterable<Keyboard.Key> keys,
-        SparseArray<Keyboard.Key> keysByCharacter,
-        Map<Keyboard.Key, CompactWordList> wordsByStartKey,
-        int dictIndex,
-        WorkspaceData workspace) {
-      mWords = words;
-      mWordsCorners = wordsCorners;
-      mKeys = keys;
-      mKeysByCharacter = keysByCharacter;
-      mWordsByStartKey = wordsByStartKey;
-      mDictIndex = dictIndex;
-      mWorkspace = workspace;
     }
   }
 }
