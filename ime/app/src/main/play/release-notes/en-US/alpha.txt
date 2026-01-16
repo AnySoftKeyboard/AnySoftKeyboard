@@ -1,12 +1,10 @@
-Work in progress for version 1.13.
-Improved gesture-typing memory management - fewer crashes, better performance.
-Improved gesture-typing accuracy.
-Support for 16 KB memory page sizes (Android 15 requirement).
-Updated emoji data for Android 15+.
+Gesture-typing: improved accuracy, memory usage & performance.
+Support Android 15 16KB memory pages.
+Updated emojis for Android 15+.
 Fixed emoji keyboard crash.
-Better edge-to-edge display support for modern Android versions.
-Various stability improvements and bug fixes.
+Better edge-to-edge support.
+Bug fixes & stability improvements.
 YABTU.
-Updated translations from the community (at crowdin.net).
+Updated translations.
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/95
+More: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/95
