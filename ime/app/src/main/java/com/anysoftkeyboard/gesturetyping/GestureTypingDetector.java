@@ -502,8 +502,17 @@ public class GestureTypingDetector {
           }
         }
 
+        // Calculate fail-fast threshold: use worst candidate score if we have enough candidates,
+        // otherwise use the hard limit. This allows early termination of path calculation
+        // for words that definitely won't make the candidate list.
+        final double failFastThreshold =
+            (mCandidateWeights.size() >= mMaxSuggestions)
+                ? Math.min(MINIMUM_DISTANCE_FILTER, mCandidateWeights.get(mMaxSuggestions - 1))
+                : MINIMUM_DISTANCE_FILTER;
+
         final double distanceFromCurve =
-            calculateDistanceBetweenUserPathAndWord(corners, mWordsCorners.get(cornersIndex));
+            calculateDistanceBetweenUserPathAndWord(
+                corners, mWordsCorners.get(cornersIndex), failFastThreshold);
         if (distanceFromCurve > MINIMUM_DISTANCE_FILTER) {
           continue;
         }
@@ -554,11 +563,12 @@ public class GestureTypingDetector {
    *
    * @param actualUserPath the flat array of gesture path coordinates
    * @param generatedWordPath the flat array of generated word path coordinates
+   * @param maxDistance fail-fast threshold; returns MAX_VALUE if cumulative distance exceeds this
    * @return the cumulative distance between gesture path corners and word path corners, for each
    *     segment multiplied by the reward/penalty factor for adhering to the direction.
    */
   static double calculateDistanceBetweenUserPathAndWord(
-      short[] actualUserPath, short[] generatedWordPath) {
+      short[] actualUserPath, short[] generatedWordPath, double maxDistance) {
     // Debugging is still needed, but at least ASK won't crash this way
     if (actualUserPath.length < 2 || generatedWordPath.length == 0) {
       Logger.w(
@@ -629,6 +639,11 @@ public class GestureTypingDetector {
       }
 
       cumulativeDistance += distanceToGeneratedCorner * directionPenaltyMultiplier;
+
+      // Fail-fast: abort early if we've already exceeded the threshold
+      if (cumulativeDistance > maxDistance) {
+        return Double.MAX_VALUE;
+      }
     }
 
     // we finished the user-path, but for this word there could still be additional
@@ -658,6 +673,12 @@ public class GestureTypingDetector {
       }
 
       cumulativeDistance += distance * directionPenaltyMultiplier;
+
+      // Fail-fast: abort early if we've already exceeded the threshold
+      if (cumulativeDistance > maxDistance) {
+        return Double.MAX_VALUE;
+      }
+
       generatedWordCornerIndex += 2;
     }
 

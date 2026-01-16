@@ -826,7 +826,8 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {0, 0, 100, 0, 200, 0};
 
     double distance =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // Distance should be 0 (paths are identical) with no penalty
     Assert.assertEquals(0.0, distance, EPSILON);
@@ -843,12 +844,14 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {200, 0, 100, 0, 0, 0};
 
     double distanceOpposite =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // Compare with same-direction case to verify penalty is applied
     short[] wordPathSame = {0, 0, 100, 0, 200, 0};
     double distanceSame =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathSame);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathSame, Double.MAX_VALUE);
 
     // Opposite direction should result in higher cumulative distance
     Assert.assertTrue(
@@ -869,16 +872,19 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {0, 0, 0, 100, 0, 200};
 
     double distancePerpendicular =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // Compare with same-direction and opposite-direction
     short[] wordPathSame = {0, 0, 100, 0, 200, 0};
     double distanceSame =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathSame);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathSame, Double.MAX_VALUE);
 
     short[] wordPathOpposite = {200, 0, 100, 0, 0, 0};
     double distanceOpposite =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathOpposite);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathOpposite, Double.MAX_VALUE);
 
     // Perpendicular should be between same and opposite
     // (Note: actual values depend on distances too, but penalty ordering should
@@ -896,12 +902,14 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {0, 0, 100, 100, 200, 200};
 
     double distance45 =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // Compare with same direction
     short[] wordPathSame = {0, 0, 100, 0, 200, 0};
     double distanceSame =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathSame);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathSame, Double.MAX_VALUE);
 
     // 45 degree should have some penalty
     Assert.assertTrue(
@@ -921,7 +929,8 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {200, 0, 100, 0}; // opposite direction but only 1 segment
 
     double distance =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // Should be pure distance without penalty (first point has no previous
     // direction)
@@ -940,12 +949,14 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {0, 0, 100, 0, 0, 0};
 
     double distanceWithPenalty =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // Same user path with word path going same direction
     short[] wordPathSame = {0, 0, 100, 0, 200, 0};
     double distanceNoPenalty =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathSame);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathSame, Double.MAX_VALUE);
 
     // The path with opposite direction in second segment should have penalty
     Assert.assertTrue(
@@ -962,12 +973,14 @@ public class GestureTypingDetectorTest {
     // Word path that follows the same turn
     short[] wordPathSameTurn = {0, 0, 100, 0, 100, 100};
     double distanceSameTurn =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathSameTurn);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathSameTurn, Double.MAX_VALUE);
 
     // Word path that goes straight (doesn't turn)
     short[] wordPathStraight = {0, 0, 100, 0, 200, 0};
     double distanceStraight =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathStraight);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathStraight, Double.MAX_VALUE);
 
     // Following the turn should result in lower distance (better match)
     Assert.assertTrue(
@@ -1008,9 +1021,11 @@ public class GestureTypingDetectorTest {
     short[] wordPathReverses = {0, 0, 100, 0, 0, 0};
 
     double distanceSameDir =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathSameDir);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathSameDir, Double.MAX_VALUE);
     double distanceReverses =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathReverses);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathReverses, Double.MAX_VALUE);
 
     // Verify both return valid distances
     Assert.assertTrue(
@@ -1038,7 +1053,8 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {0, 0, 100, 0, 200, 0, 300, 0};
 
     double distance =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // Should calculate distance but with minimal/no penalty since direction wasn't
     // established
@@ -1076,7 +1092,8 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {100, 100};
 
     double distance =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // Distance is calculated in both loops for this single-corner case
     double singlePointDistance = Math.sqrt((100 - 50) * (100 - 50) + (100 - 50) * (100 - 50));
@@ -1093,12 +1110,15 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {0, 0, 100, 100};
 
     double distance =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPathEmpty, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPathEmpty, wordPath, Double.MAX_VALUE);
     Assert.assertEquals(Double.MAX_VALUE, distance, EPSILON);
 
     // User path with only 1 coordinate (invalid - needs pairs)
     short[] userPathOne = {50};
-    distance = GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPathOne, wordPath);
+    distance =
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPathOne, wordPath, Double.MAX_VALUE);
     Assert.assertEquals(Double.MAX_VALUE, distance, EPSILON);
   }
 
@@ -1109,7 +1129,8 @@ public class GestureTypingDetectorTest {
     short[] wordPathEmpty = {};
 
     double distance =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathEmpty);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathEmpty, Double.MAX_VALUE);
     Assert.assertEquals(Double.MAX_VALUE, distance, EPSILON);
   }
 
@@ -1120,7 +1141,8 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {0, 0, 100, 0, 200, 0, 300, 0, 400, 0, 500, 0};
 
     double distance =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // According to the code: if (generatedWordPath.length > actualUserPath.length)
     // return MAX_VALUE
@@ -1149,9 +1171,11 @@ public class GestureTypingDetectorTest {
     short[] wordPathOpposite = {200, 100, 100, 100, 0, 100};
 
     double distanceParallel =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathParallel);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathParallel, Double.MAX_VALUE);
     double distanceOpposite =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPathOpposite);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPathOpposite, Double.MAX_VALUE);
 
     // Both should return valid (non-MAX_VALUE) distances
     Assert.assertTrue("Parallel distance should be valid", distanceParallel < Double.MAX_VALUE);
@@ -1175,10 +1199,47 @@ public class GestureTypingDetectorTest {
     short[] wordPath = {0, 0, 100, 0, 200, 0};
 
     double distance =
-        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath);
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
 
     // 0 distance * any penalty = 0
     Assert.assertEquals(0.0, distance, EPSILON);
+  }
+
+  @Test
+  public void testDistanceCalculation_FailFast_ReturnsMaxValueWhenExceedsThreshold() {
+    // Test that fail-fast returns MAX_VALUE when cumulative distance exceeds threshold.
+    // Path with points far apart to accumulate high distance quickly.
+    short[] userPath = {0, 0, 1000, 0, 2000, 0, 3000, 0};
+    short[] wordPath = {0, 1000, 1000, 1000, 2000, 1000, 3000, 1000};
+
+    // With a very low threshold, the calculation should abort early and return MAX_VALUE
+    double distanceWithLowThreshold =
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath, 100);
+    Assert.assertEquals(
+        "Should return MAX_VALUE when threshold exceeded", Double.MAX_VALUE, distanceWithLowThreshold, EPSILON);
+
+    // With a high threshold (or MAX_VALUE), it should complete normally
+    double distanceWithHighThreshold =
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(
+            userPath, wordPath, Double.MAX_VALUE);
+    Assert.assertTrue(
+        "Should return actual distance with high threshold",
+        distanceWithHighThreshold < Double.MAX_VALUE);
+    Assert.assertTrue(
+        "Actual distance should be positive", distanceWithHighThreshold > 0);
+  }
+
+  @Test
+  public void testDistanceCalculation_FailFast_ExactThresholdBoundary() {
+    // Test behavior at exact threshold boundary
+    short[] userPath = {0, 0, 100, 0};
+    short[] wordPath = {0, 0, 100, 0};
+
+    // Distance is 0 for identical paths, any positive threshold should pass
+    double distance =
+        GestureTypingDetector.calculateDistanceBetweenUserPathAndWord(userPath, wordPath, 1.0);
+    Assert.assertEquals("Identical paths should have 0 distance", 0.0, distance, EPSILON);
   }
 
   private Stream<Point> generatePointsStreamOfKeysString(String path) {
