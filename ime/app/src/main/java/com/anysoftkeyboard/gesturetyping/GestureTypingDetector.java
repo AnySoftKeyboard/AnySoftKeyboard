@@ -246,8 +246,10 @@ public class GestureTypingDetector {
                     wordsByStartKey,
                     dictIndex,
                     workspaceData))
-        // consider adding here groupBy operator to fan-out the generation of paths
-        .flatMap(
+        // Use concatMap (not flatMap) to process dictionaries sequentially.
+        // This is required because we share mutable state (workspaceData, wordsByStartKey,
+        // wordsCorners) across dictionaries, and Schedulers.io() uses multiple threads.
+        .concatMap(
             data ->
                 Observable.<LoadingState>create(
                     e -> {
