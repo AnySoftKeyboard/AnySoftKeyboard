@@ -21,8 +21,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@google/gemini-cli':
-        specifier: ^0.21.3
-        version: 0.21.3(@cfworker/json-schema@4.1.1)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(hono@4.11.1)
+        specifier: ^0.24.0
+        version: 0.24.0(@cfworker/json-schema@4.1.1)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)
       '@langchain/core':
         specifier: ^1.1.7
         version: 1.1.8(@opentelemetry/api@1.9.0)(@opentelemetry/exporter-trace-otlp-proto@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(openai@6.7.0(ws@8.19.0)(zod@3.25.76))
@@ -39,8 +39,8 @@ importers:
         specifier: ^4.13.4
         version: 4.13.4
       '@types/node':
-        specifier: 25.0.3
-        version: 25.0.3
+        specifier: 25.0.9
+        version: 25.0.9
       '@types/node-fetch':
         specifier: ^2.6.13
         version: 2.6.13
@@ -95,6 +95,15 @@ importers:
 
 packages:
 
+  '@a2a-js/sdk@0.3.8':
+    resolution: {integrity: sha512-vAg6JQbhOnHTzApsB7nGzCQ9r7PuY4GMr8gt88dIR8Wc8G8RSqVTyTmFeMurgzcYrtHYXS3ru2rnDoGj9UDeSw==, tarball: https://registry.npmjs.org/@a2a-js/sdk/-/sdk-0.3.8.tgz}
+    engines: {node: '>=18'}
+    peerDependencies:
+      express: ^4.21.2 || ^5.1.0
+    peerDependenciesMeta:
+      express:
+        optional: true
+
   '@actions/core@2.0.1':
     resolution: {integrity: sha512-oBfqT3GwkvLlo1fjvhQLQxuwZCGTarTE5OuZ2Wg10hvhBj7LRIlF611WT4aZS6fDhO5ZKlY7lCAZTlpmyaHaeg==, tarball: https://registry.npmjs.org/@actions/core/-/core-2.0.1.tgz}
 
@@ -112,6 +121,11 @@ packages:
 
   '@actions/io@2.0.0':
     resolution: {integrity: sha512-Jv33IN09XLO+0HS79aaODsvIRyduiF7NY/F6LYeK5oeUmrsz7aFdRphQjFoESF4jS7lMauDOttKALcpapVDIAg==, tarball: https://registry.npmjs.org/@actions/io/-/io-2.0.0.tgz}
+
+  '@agentclientprotocol/sdk@0.11.0':
+    resolution: {integrity: sha512-hngnMwQ13DCC7oEr0BUnrx+vTDFf/ToCLhF0YcCMWRs+v4X60rKQyAENsx0PdbQF21jC1VjMFkh2+vwNBLh6fQ==, tarball: https://registry.npmjs.org/@agentclientprotocol/sdk/-/sdk-0.11.0.tgz}
+    peerDependencies:
+      zod: ^3.25.0 || ^4.0.0
 
   '@alcalzone/ansi-tokenize@0.2.3':
     resolution: {integrity: sha512-jsElTJ0sQ4wHRz+C45tfect76BwbTbgkgKByOzpCN9xG61N5V6u/glvg1CsNJhq2xJIFpKHSwG3D2wPPuEYOrQ==, tarball: https://registry.npmjs.org/@alcalzone/ansi-tokenize/-/ansi-tokenize-0.2.3.tgz}
@@ -219,12 +233,12 @@ packages:
     resolution: {integrity: sha512-Orxzlfb9c67A15cq2JQEyVc7wEsmFBmHjZWZYQMUyJ1qivXyMwdyNOs9odi79hze+2zqdTtu1E19IM/FtqZ10g==, tarball: https://registry.npmjs.org/@google-cloud/promisify/-/promisify-4.0.0.tgz}
     engines: {node: '>=14'}
 
-  '@google/gemini-cli-core@0.21.3':
-    resolution: {integrity: sha512-XvVduP8tsI1r4KTr4x4CzWnFUvW7lf2Cmhp0Qnx9KDH5GAya4jHNbOnE9gOQ0CY18jjtp3kGX6D1ntVJDkp12g==, tarball: https://registry.npmjs.org/@google/gemini-cli-core/-/gemini-cli-core-0.21.3.tgz}
+  '@google/gemini-cli-core@0.24.0':
+    resolution: {integrity: sha512-Uf/SHopiGA68N6580gqLuA1+dfB25edh/jN6+5nGCnrCkfHr4KqKx7mSH/NBI0FjGItBsxFSfBNXcBHeAk327g==, tarball: https://registry.npmjs.org/@google/gemini-cli-core/-/gemini-cli-core-0.24.0.tgz}
     engines: {node: '>=20'}
 
-  '@google/gemini-cli@0.21.3':
-    resolution: {integrity: sha512-zYcqzxLfVCcFGgtsPJ41a8wBtRe+rXRLdy/aK3eaFLbhBzGgiJpTyWQghNUGt3wggOk6H4iu/tpnK+2GpLotkA==, tarball: https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-0.21.3.tgz}
+  '@google/gemini-cli@0.24.0':
+    resolution: {integrity: sha512-LFIKs6AXsxCtpWsk2oWz55OYgHDMgEbPiOue7j0LxmMVX7ZYSclw1FB/XcckqbJwxF4fcQpdZlT+BNzODuPZ7A==, tarball: https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-0.24.0.tgz}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -299,8 +313,8 @@ packages:
   '@joshua.litt/get-ripgrep@0.0.3':
     resolution: {integrity: sha512-rycdieAKKqXi2bsM7G2ayDiNk5CAX8ZOzsTQsirfOqUKPef04Xw40BWGGyimaOOuvPgLWYt3tPnLLG3TvPXi5Q==, tarball: https://registry.npmjs.org/@joshua.litt/get-ripgrep/-/get-ripgrep-0.0.3.tgz}
 
-  '@jrichman/ink@6.4.6':
-    resolution: {integrity: sha512-QHl6l1cl3zPCaRMzt9TUbTX6Q5SzvkGEZDDad0DmSf5SPmT1/90k6pGPejEvDCJprkitwObXpPaTWGHItqsy4g==, tarball: https://registry.npmjs.org/@jrichman/ink/-/ink-6.4.6.tgz}
+  '@jrichman/ink@6.4.7':
+    resolution: {integrity: sha512-QHyxhNF5VonF5cRmdAJD/UPucB9nRx3FozWMjQrDGfBxfAL9lpyu72/MlFPgloS1TMTGsOt7YN6dTPPA6mh0Aw==, tarball: https://registry.npmjs.org/@jrichman/ink/-/ink-6.4.7.tgz}
     engines: {node: '>=20'}
     peerDependencies:
       '@types/react': '>=19.0.0'
@@ -723,8 +737,8 @@ packages:
   '@types/node-fetch@2.6.13':
     resolution: {integrity: sha512-QGpRVpzSaUs30JBSGPjOg4Uveu384erbHBoT1zeONvyCfwQxIkUshLAOqN/k9EjGviPRmWTTe6aH2qySWKTVSw==, tarball: https://registry.npmjs.org/@types/node-fetch/-/node-fetch-2.6.13.tgz}
 
-  '@types/node@25.0.3':
-    resolution: {integrity: sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==, tarball: https://registry.npmjs.org/@types/node/-/node-25.0.3.tgz}
+  '@types/node@25.0.9':
+    resolution: {integrity: sha512-/rpCXHlCWeqClNBwUhDcusJxXYDjZTyE8v5oTO7WbL8eij2nKhUeU89/6xgjU7N4/Vh3He0BtyhJdQbDyhiXAw==, tarball: https://registry.npmjs.org/@types/node/-/node-25.0.9.tgz}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==, tarball: https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.4.tgz}
@@ -2583,6 +2597,10 @@ packages:
     resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==, tarball: https://registry.npmjs.org/uuid/-/uuid-11.1.0.tgz}
     hasBin: true
 
+  uuid@13.0.0:
+    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==, tarball: https://registry.npmjs.org/uuid/-/uuid-13.0.0.tgz}
+    hasBin: true
+
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==, tarball: https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz}
     hasBin: true
@@ -2643,18 +2661,6 @@ packages:
 
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==, tarball: https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz}
-
-  ws@8.18.3:
-    resolution: {integrity: sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==, tarball: https://registry.npmjs.org/ws/-/ws-8.18.3.tgz}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
 
   ws@8.19.0:
     resolution: {integrity: sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg==, tarball: https://registry.npmjs.org/ws/-/ws-8.19.0.tgz}
@@ -2727,6 +2733,12 @@ packages:
 
 snapshots:
 
+  '@a2a-js/sdk@0.3.8(express@5.2.1)':
+    dependencies:
+      uuid: 11.1.0
+    optionalDependencies:
+      express: 5.2.1
+
   '@actions/core@2.0.1':
     dependencies:
       '@actions/exec': 2.0.0
@@ -2757,6 +2769,10 @@ snapshots:
       undici: 5.29.0
 
   '@actions/io@2.0.0': {}
+
+  '@agentclientprotocol/sdk@0.11.0(zod@3.25.76)':
+    dependencies:
+      zod: 3.25.76
 
   '@alcalzone/ansi-tokenize@0.2.3':
     dependencies:
@@ -2907,8 +2923,9 @@ snapshots:
 
   '@google-cloud/promisify@4.0.0': {}
 
-  '@google/gemini-cli-core@0.21.3(@cfworker/json-schema@4.1.1)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(hono@4.11.1)':
+  '@google/gemini-cli-core@0.24.0(@cfworker/json-schema@4.1.1)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)':
     dependencies:
+      '@a2a-js/sdk': 0.3.8(express@5.2.1)
       '@google-cloud/logging': 11.2.1
       '@google-cloud/opentelemetry-cloud-monitoring-exporter': 0.21.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))
       '@google-cloud/opentelemetry-cloud-trace-exporter': 3.0.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))
@@ -2933,9 +2950,7 @@ snapshots:
       ajv-formats: 3.0.1(ajv@8.17.1)
       chardet: 2.1.1
       diff: 7.0.0
-      dotenv: 17.2.3
       fast-levenshtein: 2.0.6
-      fast-uri: 3.1.0
       fdir: 6.5.0(picomatch@4.0.3)
       fzf: 0.5.2
       glob: 12.0.0
@@ -2943,6 +2958,7 @@ snapshots:
       html-to-text: 9.0.5
       https-proxy-agent: 7.0.6
       ignore: 7.0.5
+      js-yaml: 4.1.1
       marked: 15.0.12
       mime: 4.0.7
       mnemonist: 0.40.3
@@ -2954,8 +2970,8 @@ snapshots:
       strip-ansi: 7.1.2
       tree-sitter-bash: 0.25.1
       undici: 7.16.0
+      uuid: 13.0.0
       web-tree-sitter: 0.25.10
-      ws: 8.18.3
       zod: 3.25.76
     optionalDependencies:
       '@lydell/node-pty': 1.1.0
@@ -2974,14 +2990,16 @@ snapshots:
       - '@types/emscripten'
       - bufferutil
       - encoding
+      - express
       - hono
       - supports-color
       - tree-sitter
       - utf-8-validate
 
-  '@google/gemini-cli@0.21.3(@cfworker/json-schema@4.1.1)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(hono@4.11.1)':
+  '@google/gemini-cli@0.24.0(@cfworker/json-schema@4.1.1)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)':
     dependencies:
-      '@google/gemini-cli-core': 0.21.3(@cfworker/json-schema@4.1.1)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(hono@4.11.1)
+      '@agentclientprotocol/sdk': 0.11.0(zod@3.25.76)
+      '@google/gemini-cli-core': 0.24.0(@cfworker/json-schema@4.1.1)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)
       '@google/genai': 1.30.0(@modelcontextprotocol/sdk@1.25.1(@cfworker/json-schema@4.1.1)(hono@4.11.1)(zod@3.25.76))
       '@iarna/toml': 2.2.5
       '@modelcontextprotocol/sdk': 1.25.1(@cfworker/json-schema@4.1.1)(hono@4.11.1)(zod@3.25.76)
@@ -2996,9 +3014,9 @@ snapshots:
       fzf: 0.5.2
       glob: 12.0.0
       highlight.js: 11.11.1
-      ink: '@jrichman/ink@6.4.6(react@19.2.3)'
-      ink-gradient: 3.0.0(@jrichman/ink@6.4.6(react@19.2.3))
-      ink-spinner: 5.0.0(@jrichman/ink@6.4.6(react@19.2.3))(react@19.2.3)
+      ink: '@jrichman/ink@6.4.7(react@19.2.3)'
+      ink-gradient: 3.0.0(@jrichman/ink@6.4.7(react@19.2.3))
+      ink-spinner: 5.0.0(@jrichman/ink@6.4.7(react@19.2.3))(react@19.2.3)
       latest-version: 9.0.0
       lowlight: 3.3.0
       mnemonist: 0.40.3
@@ -3027,6 +3045,7 @@ snapshots:
       - '@types/react'
       - bufferutil
       - encoding
+      - express
       - hono
       - react-devtools-core
       - supports-color
@@ -3036,7 +3055,7 @@ snapshots:
   '@google/genai@1.30.0(@modelcontextprotocol/sdk@1.25.1(@cfworker/json-schema@4.1.1)(hono@4.11.1)(zod@3.25.76))':
     dependencies:
       google-auth-library: 10.5.0
-      ws: 8.18.3
+      ws: 8.19.0
     optionalDependencies:
       '@modelcontextprotocol/sdk': 1.25.1(@cfworker/json-schema@4.1.1)(hono@4.11.1)(zod@3.25.76)
     transitivePeerDependencies:
@@ -3113,7 +3132,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@jrichman/ink@6.4.6(react@19.2.3)':
+  '@jrichman/ink@6.4.7(react@19.2.3)':
     dependencies:
       '@alcalzone/ansi-tokenize': 0.2.3
       ansi-escapes: 7.2.0
@@ -3608,12 +3627,12 @@ snapshots:
 
   '@types/follow-redirects@1.14.4':
     dependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.0.9
 
   '@types/glob@8.1.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 25.0.3
+      '@types/node': 25.0.9
 
   '@types/gradient-string@1.1.6':
     dependencies:
@@ -3637,14 +3656,14 @@ snapshots:
 
   '@types/mock-fs@4.13.4':
     dependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.0.9
 
   '@types/node-fetch@2.6.13':
     dependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.0.9
       form-data: 4.0.5
 
-  '@types/node@25.0.3':
+  '@types/node@25.0.9':
     dependencies:
       undici-types: 7.16.0
 
@@ -3653,7 +3672,7 @@ snapshots:
   '@types/request@2.48.13':
     dependencies:
       '@types/caseless': 0.12.5
-      '@types/node': 25.0.3
+      '@types/node': 25.0.9
       '@types/tough-cookie': 4.0.5
       form-data: 2.5.5
 
@@ -3672,11 +3691,11 @@ snapshots:
 
   '@types/xml2js@0.4.14':
     dependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.0.9
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.0.9
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.50.0(@typescript-eslint/parser@8.50.0(eslint@9.39.2)(typescript@5.9.3))(eslint@9.39.2)(typescript@5.9.3)':
@@ -4712,18 +4731,18 @@ snapshots:
 
   ini@1.3.8: {}
 
-  ink-gradient@3.0.0(@jrichman/ink@6.4.6(react@19.2.3)):
+  ink-gradient@3.0.0(@jrichman/ink@6.4.7(react@19.2.3)):
     dependencies:
       '@types/gradient-string': 1.1.6
       gradient-string: 2.0.2
-      ink: '@jrichman/ink@6.4.6(react@19.2.3)'
+      ink: '@jrichman/ink@6.4.7(react@19.2.3)'
       prop-types: 15.8.1
       strip-ansi: 7.1.2
 
-  ink-spinner@5.0.0(@jrichman/ink@6.4.6(react@19.2.3))(react@19.2.3):
+  ink-spinner@5.0.0(@jrichman/ink@6.4.7(react@19.2.3))(react@19.2.3):
     dependencies:
       cli-spinners: 2.9.2
-      ink: '@jrichman/ink@6.4.6(react@19.2.3)'
+      ink: '@jrichman/ink@6.4.7(react@19.2.3)'
       react: 19.2.3
 
   ipaddr.js@1.9.1: {}
@@ -5155,7 +5174,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 25.0.3
+      '@types/node': 25.0.9
       long: 5.3.2
 
   proxy-addr@2.0.7:
@@ -5565,6 +5584,8 @@ snapshots:
 
   uuid@11.1.0: {}
 
+  uuid@13.0.0: {}
+
   uuid@8.3.2: {}
 
   uuid@9.0.1: {}
@@ -5616,8 +5637,6 @@ snapshots:
       strip-ansi: 7.1.2
 
   wrappy@1.0.2: {}
-
-  ws@8.18.3: {}
 
   ws@8.19.0: {}
 
