@@ -11,7 +11,7 @@ alwaysApply: true
 - Prefer not adding new 3rd party dependencies.
 - Do not add 3rd-party dependencies without approval. If you have a solution that requires a new 3rd party, ask for an approval before implementing this solution.
 - Do not use the build task `build` in gradle! This task is usually not compatible with Android builds. Prefer using `assembleDebug`.
-- If you decide to write a temporaty file (for example, a script or storing data) you should put it under the folder `scratch/` which is gitignored.
+- If you decide to write a temporary file (for example, a script or storing data) you should put it under the folder `scratch/` which is gitignored.
 
 # Lint and Format
 

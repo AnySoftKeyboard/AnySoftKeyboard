@@ -57,6 +57,13 @@ public class GestureTypingDetector {
    */
   private static final double END_PROXIMITY_PENALTY_FACTOR = 0.000333;
 
+  /**
+   * Multiplier for the threshold when checking if the gesture ends near the word's last character.
+   * We use a more lenient threshold (5x linear distance = 25x squared distance) for the end key
+   * because users tend to be less precise at the end of a gesture.
+   */
+  private static final int END_DIST_THRESHOLD_MULTIPLIER = 25;
+
   // How far away do two points of the gesture have to be (distance squared)?
   private final int mMinPointDistanceSquared;
 
@@ -402,8 +409,7 @@ public class GestureTypingDetector {
 
   @VisibleForTesting
   static boolean hasEnoughCurvature(final int[] xs, final int[] ys, final int middlePointIndex) {
-    // Calculate the radianValue formed between middlePointIndex, and one point in either
-    // direction
+    // Calculate the radianValue formed between middlePointIndex, and one point in either direction
     final int startPointIndex = middlePointIndex - CURVATURE_NEIGHBORHOOD;
     final int startX = xs[startPointIndex];
     final int startY = ys[startPointIndex];
@@ -478,7 +484,7 @@ public class GestureTypingDetector {
           continue;
         }
 
-        // Quadratic penalty based on squared distance
+        // Quadratic penalty: varies with square of distance (distanceSquared)
         proximityPenalty = distanceSquared * PROXIMITY_PENALTY_FACTOR;
       }
 
@@ -503,7 +509,8 @@ public class GestureTypingDetector {
           final Keyboard.Key endKey = mKeysByCharacter.get(lastChar);
           if (endKey != null) {
             final int endDistanceSquared = endKey.squaredDistanceFrom(gestureEndX, gestureEndY);
-            if (endDistanceSquared > mStartKeyProximityThresholdSquared * 25) {
+            if (endDistanceSquared
+                > mStartKeyProximityThresholdSquared * END_DIST_THRESHOLD_MULTIPLIER) {
               continue; // Gesture ends too far from word's last character
             }
             // Soft penalty for end-key distance (affects ranking, not filtering)
