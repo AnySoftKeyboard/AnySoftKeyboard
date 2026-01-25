@@ -1,197 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Keyboard
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="20%p"
-    android:keyHeight="@integer/key_normal_height">
-
-    <Row>
-        <Key
-            android:keyLabel="&#128132;"
-            android:keyOutputText="&#128132;" />
-        <Key
-            android:keyLabel="&#128094;"
-            android:keyOutputText="&#128094;" />
-        <Key
-            android:keyLabel="&#128095;"
-            android:keyOutputText="&#128095;" />
-        <Key
-            android:keyLabel="&#128081;"
-            android:keyOutputText="&#128081;" />
-        <Key
-            android:keyLabel="&#128082;"
-            android:keyOutputText="&#128082;" />
-        <Key
-            android:keyLabel="&#127913;"
-            android:keyOutputText="&#127913;" />
-        <Key
-            android:keyLabel="&#127891;"
-            android:keyOutputText="&#127891;" />
-        <Key
-            android:keyLabel="&#128083;"
-            android:keyOutputText="&#128083;" />
-        <Key
-            android:keyLabel="&#8986;"
-            android:keyOutputText="&#8986;" />
-        <Key
-            android:keyLabel="&#128084;"
-            android:keyOutputText="&#128084;" />
-        <Key
-            android:keyLabel="&#128085;"
-            android:keyOutputText="&#128085;" />
-        <Key
-            android:keyLabel="&#128086;"
-            android:keyOutputText="&#128086;" />
-        <Key
-            android:keyLabel="&#128087;"
-            android:keyOutputText="&#128087;" />
-        <Key
-            android:keyLabel="&#128088;"
-            android:keyOutputText="&#128088;" />
-        <Key
-            android:keyLabel="&#128089;"
-            android:keyOutputText="&#128089;" />
-        <Key
-            android:keyLabel="&#128096;"
-            android:keyOutputText="&#128096;" />
-        <Key
-            android:keyLabel="&#128097;"
-            android:keyOutputText="&#128097;" />
-        <Key
-            android:keyLabel="&#128098;"
-            android:keyOutputText="&#128098;" />
-        <Key
-            android:keyLabel="&#128090;"
-            android:keyOutputText="&#128090;" />
-        <Key
-            android:keyLabel="&#128092;"
-            android:keyOutputText="&#128092;" />
-        <Key
-            android:keyLabel="&#128188;"
-            android:keyOutputText="&#128188;" />
-        <Key
-            android:keyLabel="&#127890;"
-            android:keyOutputText="&#127890;" />
-        <Key
-            android:keyLabel="&#128093;"
-            android:keyOutputText="&#128093;" />
-        <Key
-            android:keyLabel="&#128091;"
-            android:keyOutputText="&#128091;" />
-        <Key
-            android:keyLabel="&#128176;"
-            android:keyOutputText="&#128176;" />
-        <Key
-            android:keyLabel="&#128179;"
-            android:keyOutputText="&#128179;" />
-        <Key
-            android:keyLabel="&#128178;"
-            android:keyOutputText="&#128178;" />
-        <Key
-            android:keyLabel="&#128181;"
-            android:keyOutputText="&#128181;" />
-        <Key
-            android:keyLabel="&#128180;"
-            android:keyOutputText="&#128180;" />
-        <Key
-            android:keyLabel="&#128182;"
-            android:keyOutputText="&#128182;" />
-        <Key
-            android:keyLabel="&#128183;"
-            android:keyOutputText="&#128183;" />
-        <Key
-            android:keyLabel="&#128184;"
-            android:keyOutputText="&#128184;" />
-        <Key
-            android:keyLabel="&#128177;"
-            android:keyOutputText="&#128177;" />
-        <Key
-            android:keyLabel="&#128185;"
-            android:keyOutputText="&#128185;" />
-        <Key
-            android:keyLabel="&#128299;"
-            android:keyOutputText="&#128299;" />
-        <Key
-            android:keyLabel="&#128298;"
-            android:keyOutputText="&#128298;" />
-        <Key
-            android:keyLabel="&#128163;"
-            android:keyOutputText="&#128163;" />
-        <Key
-            android:keyLabel="&#128137;"
-            android:keyOutputText="&#128137;" />
-        <Key
-            android:keyLabel="&#128138;"
-            android:keyOutputText="&#128138;" />
-        <Key
-            android:keyLabel="&#128684;"
-            android:keyOutputText="&#128684;" />
-        <Key
-            android:keyLabel="&#128276;"
-            android:keyOutputText="&#128276;" />
-        <Key
-            android:keyLabel="&#128277;"
-            android:keyOutputText="&#128277;" />
-        <Key
-            android:keyLabel="&#128682;"
-            android:keyOutputText="&#128682;" />
-        <Key
-            android:keyLabel="&#128300;"
-            android:keyOutputText="&#128300;" />
-        <Key
-            android:keyLabel="&#128301;"
-            android:keyOutputText="&#128301;" />
-        <Key
-            android:keyLabel="&#128302;"
-            android:keyOutputText="&#128302;" />
-        <Key
-            android:keyLabel="&#128294;"
-            android:keyOutputText="&#128294;" />
-        <Key
-            android:keyLabel="&#128267;"
-            android:keyOutputText="&#128267;" />
-        <Key
-            android:keyLabel="&#128268;"
-            android:keyOutputText="&#128268;" />
-        <Key
-            android:keyLabel="&#128220;"
-            android:keyOutputText="&#128220;" />
-        <Key
-            android:keyLabel="&#128215;"
-            android:keyOutputText="&#128215;" />
-        <Key
-            android:keyLabel="&#128216;"
-            android:keyOutputText="&#128216;" />
-        <Key
-            android:keyLabel="&#128217;"
-            android:keyOutputText="&#128217;" />
-        <Key
-            android:keyLabel="&#128218;"
-            android:keyOutputText="&#128218;" />
-        <Key
-            android:keyLabel="&#128212;"
-            android:keyOutputText="&#128212;" />
-        <Key
-            android:keyLabel="&#128210;"
-            android:keyOutputText="&#128210;" />
-        <Key
-            android:keyLabel="&#128209;"
-            android:keyOutputText="&#128209;" />
-        <Key
-            android:keyLabel="&#128211;"
-            android:keyOutputText="&#128211;" />
-        <Key
-            android:keyLabel="&#128213;"
-            android:keyOutputText="&#128213;" />
-        <Key
-            android:keyLabel="&#128214;"
-            android:keyOutputText="&#128214;" />
-        <Key
-            android:keyLabel="&#128240;"
-            android:keyOutputText="&#128240;" />
-        <Key
-            android:keyLabel="&#128219;"
-            android:keyOutputText="&#128219;" />
-
-    </Row>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
+  <Row>
+    <Key android:keyLabel="&#128083;" android:keyOutputText="&#128083;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,eye,eyeglasses,eyewear,glasses"/>
+    <Key android:keyLabel="&#128374;" android:keyOutputText="&#128374;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dark,eye,eyewear,glasses,sunglasses"/>
+    <Key android:keyLabel="&#128084;" android:keyOutputText="&#128084;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,necktie"/>
+    <Key android:keyLabel="&#128085;" android:keyOutputText="&#128085;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,shirt,tshirt"/>
+    <Key android:keyLabel="&#128086;" android:keyOutputText="&#128086;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,jeans,pants,trousers"/>
+    <Key android:keyLabel="&#128087;" android:keyOutputText="&#128087;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,dress"/>
+    <Key android:keyLabel="&#128088;" android:keyOutputText="&#128088;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,kimono"/>
+    <Key android:keyLabel="&#128089;" android:keyOutputText="&#128089;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bikini,clothing,swim"/>
+    <Key android:keyLabel="&#128090;" android:keyOutputText="&#128090;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,woman"/>
+    <Key android:keyLabel="&#128091;" android:keyOutputText="&#128091;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,coin,purse"/>
+    <Key android:keyLabel="&#128092;" android:keyOutputText="&#128092;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bag,clothing,handbag"/>
+    <Key android:keyLabel="&#128093;" android:keyOutputText="&#128093;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bag,clothing,pouch"/>
+    <Key android:keyLabel="&#128717;" android:keyOutputText="&#128717;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bag,hotel,shopping"/>
+    <Key android:keyLabel="&#127890;" android:keyOutputText="&#127890;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="activity,bag,satchel,school"/>
+    <Key android:keyLabel="&#128094;" android:keyOutputText="&#128094;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,man,shoe"/>
+    <Key android:keyLabel="&#128095;" android:keyOutputText="&#128095;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="athletic,clothing,shoe,sneaker"/>
+    <Key android:keyLabel="&#128096;" android:keyOutputText="&#128096;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,heel,shoe,woman"/>
+    <Key android:keyLabel="&#128097;" android:keyOutputText="&#128097;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,sandal,shoe,woman"/>
+    <Key android:keyLabel="&#128098;" android:keyOutputText="&#128098;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boot,clothing,shoe,woman"/>
+    <Key android:keyLabel="&#128081;" android:keyOutputText="&#128081;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,crown,king,queen"/>
+    <Key android:keyLabel="&#128082;" android:keyOutputText="&#128082;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,hat,woman"/>
+    <Key android:keyLabel="&#127913;" android:keyOutputText="&#127913;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="activity,clothing,entertainment,hat,top,tophat"/>
+    <Key android:keyLabel="&#127891;" android:keyOutputText="&#127891;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="activity,cap,celebration,clothing,graduation,hat"/>
+    <Key android:keyLabel="⛑" android:keyOutputText="⛑" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="aid,cross,face,hat,helmet"/>
+    <Key android:keyLabel="&#128255;" android:keyOutputText="&#128255;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="beads,clothing,necklace,prayer,religion"/>
+    <Key android:keyLabel="&#128132;" android:keyOutputText="&#128132;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cosmetics,lipstick,makeup"/>
+    <Key android:keyLabel="&#128141;" android:keyOutputText="&#128141;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="diamond,ring,romance"/>
+    <Key android:keyLabel="&#128142;" android:keyOutputText="&#128142;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="diamond,gem,jewel,romance"/>
+  </Row>
 </Keyboard>
