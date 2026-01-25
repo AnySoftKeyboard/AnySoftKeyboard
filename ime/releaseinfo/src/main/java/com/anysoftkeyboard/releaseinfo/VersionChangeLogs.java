@@ -17,6 +17,7 @@ public class VersionChangeLogs {
             "",
             Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/95"),
             "Improved gesture-typing memory management - fewer crashes, better performance.",
+            "Improved gesture-typing accuracy.",
             "Support for 16 KB memory page sizes (Android 15 requirement).",
             "Updated emoji data for Android 15+.",
             "Fixed emoji keyboard crash.",

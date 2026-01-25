@@ -165,6 +165,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 getResources().getDimension(R.dimen.gesture_typing_frequency_factor),
                 15 /*max suggestions. For now it is static*/,
                 getResources().getDimensionPixelSize(R.dimen.gesture_typing_min_point_distance),
+                getResources().getDimensionPixelSize(R.dimen.gesture_typing_proximity_threshold),
                 keyboard.getKeys());
         mGestureTypingDetectors.put(key, mCurrentGestureDetector);
       }
