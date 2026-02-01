@@ -21,10 +21,10 @@ jobs:
   emoji-update:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - uses: bazel-contrib/setup-bazel@0.16.0
+      - uses: bazel-contrib/setup-bazel@0.18.0
         with:
           bazelisk-cache: true
           disk-cache: ${{ github.workflow }}
@@ -39,7 +39,7 @@ jobs:
       - name: update emoji dictionaries
         run: bazel run //emojis:emoji_generator -- "${GITHUB_WORKSPACE}/emojis/data/emoji-test.txt" "${GITHUB_WORKSPACE}/${TARGET_FOLDER}/xml-v${TARGET_API}"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v8.0.0
+        uses: peter-evans/create-pull-request@v8.1.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated EMOJI Update'

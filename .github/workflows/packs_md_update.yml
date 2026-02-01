@@ -17,10 +17,10 @@ jobs:
   packs-md-update:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - uses: actions/setup-java@v5.1.0
+      - uses: actions/setup-java@v5.2.0
         with:
           distribution: 'temurin'
           java-version: '21'
@@ -35,7 +35,7 @@ jobs:
         run: ./gradlew :addons:languages:generatePacksMarkDown :addons:themes:generatePacksMarkDown :addons:quicktexts:generatePacksMarkDown
       - name: Create pull request
         id: create_pr_packs_md
-        uses: peter-evans/create-pull-request@v8.0.0
+        uses: peter-evans/create-pull-request@v8.1.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Packs List Update'
@@ -51,7 +51,7 @@ jobs:
         run: ./gradlew :addons:languages:generatePacksYaml :addons:themes:generatePacksYaml :addons:quicktexts:generatePacksYaml
       - name: Checkout AnySoftKeyboard.github.io repository
         if: steps.create_pr_packs_md.outputs.pull-request-number != ''
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@v6.0.2
         with:
           repository: AnySoftKeyboard/AnySoftKeyboard.github.io
           path: anysoftkeyboard.github.io

@@ -13,16 +13,16 @@ jobs:
     outputs:
       deployment_environment: ${{ github.event.deployment.environment }}
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
         with:
           repository: ${{ secrets.SECRETS_REPOSITORY }}
           token: ${{ secrets.BOT_SECRETS_R_GITHUB_TOKEN }}
           path: ${{ secrets.SECRETS_REPOSITORY_FOLDER }}
           ref: main
-      - uses: bazel-contrib/setup-bazel@0.16.0
+      - uses: bazel-contrib/setup-bazel@0.18.0
         with:
           bazelisk-cache: true
           disk-cache: ${{ github.workflow }}
@@ -105,7 +105,7 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: "Derive tag and version from branch"
