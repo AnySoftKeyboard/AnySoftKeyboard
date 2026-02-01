@@ -1,11 +1,17 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "platform": "github",
   "onboarding": false,
   "ignoreDeps": ["org.robolectric:robolectric"],
   "requireConfig": "optional",
   "gitAuthor": "Polyglot <ask@evendanan.net>",
+  "allowedCommands": [
+    "^scripts/update_robolectric_jars_versions.sh .*",
+    "^scripts/error-prone-auto-patch.sh$",
+    "^./gradlew spotlessApply$",
+    "^bazel build //...$",
+    "^bazel run //:format$"
+  ],
   "bazel": {
     "enabled": true
   },
