@@ -668,6 +668,8 @@ woordenlijst
     <string name="delete_all_clipboard_entries">Leeg klembord</string>
     <string name="tip_swipe_from_backspace_to_clear">Tip: je kunt vanaf de achtergrond naar links vegen om het woord te verwijderen!</string>
     <string name="notification_read_contacts_ticker">Leesrechten contacten nodig</string>
+    <string name="notification_action_approve_permission">Toestemming goedkeuren</string>
+    <string name="notification_action_dismiss_permission">Contacten woordenboek uitschakelen</string>
     <string name="wizard_allow_notification_permission">Meldingen van AnySoftKeyboard toestaan</string>
     <string name="setup_wizard_step_notification_permissions_details">In zeldzame gevallen (bijvoorbeeld app-crashes) moeten we een apparaatmelding plaatsen. Dit wordt aanbevolen, maar het niet toestaan van meldingen heeft geen invloed op het gedrag van deze app.</string>
     <string name="wizard_skip_notification_permission">Meldingen niet toestaan</string>
