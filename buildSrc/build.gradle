@@ -1,6 +1,6 @@
 plugins {
     // Version kept in sync with main project's libs.versions.toml
-    id "org.jetbrains.kotlin.jvm" version "2.3.0"
+    id "org.jetbrains.kotlin.jvm" version "2.3.10"
 }
 
 apply plugin: 'groovy'
@@ -20,7 +20,7 @@ dependencies {
 
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
     implementation 'com.google.code.gson:gson:2.13.2'
-    implementation "org.jetbrains.kotlin:kotlin-reflect:2.3.0"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:2.3.10"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.github.stefanbirkner:system-rules:1.19.0'
