@@ -506,7 +506,7 @@
     },
     "@@aspect_rules_ts~//ts:extensions.bzl%ext": {
       "general": {
-        "bzlTransitiveDigest": "sQTGm8wQGxJE7jIFY8yJVd9dKsEaiciN2rLRCYgGvXs=",
+        "bzlTransitiveDigest": "cvvnrr7W+v91gcLGKtQERpO0iL5etjOiXcN5XZaY+X4=",
         "usagesDigest": "EuzvfNBmbJsPS0OIiZn9AUWsp9z6j31mtxzrSnMp2F4=",
         "recordedFileInputs": {
           "@@//package.json": "2acdb5f648c9ddd1bac3877d01fd540eea4921bfb447dbb339db83f63b0098bb"
