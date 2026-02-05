@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     // Versions kept in sync with main project's libs.versions.toml
-    implementation 'org.jsoup:jsoup:1.21.2'
+    implementation 'org.jsoup:jsoup:1.22.1'
     implementation gradleApi()
     implementation localGroovy()
 

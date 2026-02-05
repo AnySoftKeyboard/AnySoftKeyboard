@@ -8,9 +8,9 @@ sdkMinimum = "21"
 # Android Gradle Plugin and Build Plugins
 agp = "8.13.2"
 kotlin = "2.3.0"
-spotless = "8.1.0"
+spotless = "8.2.1"
 playPublisher = "3.13.0"
-errorpronePlugin = "4.3.0"
+errorpronePlugin = "4.4.0"
 navigationSafeArgs = "2.9.6"
 
 # AndroidX Libraries
@@ -23,7 +23,7 @@ androidxCore = "1.17.0"
 androidxFragment = "1.8.9"
 androidxLegacySupport = "1.0.0"
 androidxMultidex = "2.0.1"
-androidxNavigation = "2.9.6"
+androidxNavigation = "2.9.7"
 androidxPalette = "1.0.0"
 androidxPreference = "1.2.1"
 androidxRecyclerview = "1.4.0"
@@ -51,8 +51,8 @@ materialtabstrip = "1.1.1"
 easypermissions = "3.0.0"
 
 # ErrorProne
-errorproneCore = "2.45.0"
-errorproneAnnotations = "2.45.0"
+errorproneCore = "2.46.0"
+errorproneAnnotations = "2.46.0"
 
 # Testing
 junit = "4.13.2"
@@ -66,7 +66,7 @@ simpleprovider = "1.1.0"
 gson = "2.13.2"
 httpclient = "4.5.14"
 kotlinReflect = "2.3.0"
-jsoup = "1.21.2"
+jsoup = "1.22.1"
 guava = "24.1.1-jre"
 
 [libraries]
