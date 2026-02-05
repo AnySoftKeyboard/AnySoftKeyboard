@@ -43,7 +43,7 @@
       "excludePackagePatterns": ["^gradle$", "^org\\.robolectric:robolectric$"],
       "groupName": "Android app dependencies",
       "postUpgradeTasks": {
-        "commands": ["./gradlew spotlessApply"],
+        "commands": ["./gradlew spotlessApply", "bazel run //:format"],
         "fileFilters": ["**/*.java", "**/*.kt", "**/*.gradle", "**/*.md"],
         "executionMode": "branch"
       }
@@ -62,7 +62,7 @@
       "description": "Run spotlessApply after spotless plugin update to reformat code with new version",
       "matchPackageNames": ["com.diffplug.spotless"],
       "postUpgradeTasks": {
-        "commands": ["./gradlew spotlessApply"],
+        "commands": ["./gradlew spotlessApply", "bazel run //:format"],
         "fileFilters": ["**/*.java", "**/*.kt", "**/*.gradle", "**/*.md"],
         "executionMode": "branch"
       }
@@ -71,7 +71,7 @@
       "description": "Run error-prone auto-patch after error-prone updates to fix new warnings",
       "matchPackageNames": ["net.ltgt.errorprone", "com.google.errorprone:error_prone_core"],
       "postUpgradeTasks": {
-        "commands": ["scripts/error-prone-auto-patch.sh"],
+        "commands": ["scripts/error-prone-auto-patch.sh", "bazel run //:format"],
         "fileFilters": ["**/*.java"],
         "executionMode": "branch"
       }
