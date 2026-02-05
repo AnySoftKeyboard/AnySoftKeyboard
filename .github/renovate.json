@@ -90,7 +90,7 @@
       "description": "Run formatters after Bazel module updates to ensure code style consistency",
       "matchManagers": ["bazel-module"],
       "postUpgradeTasks": {
-        "commands": ["bazel run //:format"],
+        "commands": ["bazel build //...", "bazel run //:format"],
         "fileFilters": ["**/*"],
         "executionMode": "branch"
       }
