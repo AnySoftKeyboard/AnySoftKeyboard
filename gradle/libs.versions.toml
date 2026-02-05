@@ -7,7 +7,7 @@ sdkMinimum = "21"
 
 # Android Gradle Plugin and Build Plugins
 agp = "8.13.2"
-kotlin = "2.3.0"
+kotlin = "2.3.10"
 spotless = "8.2.1"
 playPublisher = "3.13.0"
 errorpronePlugin = "4.4.0"
@@ -51,8 +51,8 @@ materialtabstrip = "1.1.1"
 easypermissions = "3.0.0"
 
 # ErrorProne
-errorproneCore = "2.46.0"
-errorproneAnnotations = "2.46.0"
+errorproneCore = "2.47.0"
+errorproneAnnotations = "2.47.0"
 
 # Testing
 junit = "4.13.2"
@@ -65,7 +65,7 @@ simpleprovider = "1.1.0"
 # BuildSrc Dependencies
 gson = "2.13.2"
 httpclient = "4.5.14"
-kotlinReflect = "2.3.0"
+kotlinReflect = "2.3.10"
 jsoup = "1.22.1"
 guava = "24.1.1-jre"
 
