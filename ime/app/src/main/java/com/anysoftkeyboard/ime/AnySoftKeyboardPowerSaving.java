@@ -12,7 +12,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
 
 public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardNightMode {
-  private boolean mPowerState;
+  protected boolean mPowerState;
   private ToggleOverlayCreator mToggleOverlayCreator;
 
   @Override

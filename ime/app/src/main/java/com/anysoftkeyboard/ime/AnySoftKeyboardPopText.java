@@ -52,16 +52,19 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
     mPopTextOnCorrection = false;
     mPopTextOnWord = false;
     mPopTextOnKeyPress = false;
-    // letting the switch cases to fall-through - each value level enables additional flag
+    // letting the switch cases to fall-through - each value level enables
+    // additional flag
     switch (newValue) {
       case "any_key":
         mPopTextOnKeyPress = true;
-      // letting the switch cases to fall-through - each value level enables additional
+      // letting the switch cases to fall-through - each value level enables
+      // additional
       // flag
       // fall through
       case "on_word":
         mPopTextOnWord = true;
-      // letting the switch cases to fall-through - each value level enables additional
+      // letting the switch cases to fall-through - each value level enables
+      // additional
       // flag
       // fall through
       case "on_correction":
@@ -100,7 +103,7 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
   public void onKey(
       int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
     super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-    if (mPopTextOnKeyPress && isAlphabet(primaryCode)) {
+    if (!mPowerState && mPopTextOnKeyPress && isAlphabet(primaryCode)) {
       popText(new String(new int[] {primaryCode}, 0, 1));
     }
   }
@@ -111,7 +114,7 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
     super.commitWordToInput(wordToCommit, typedWord);
     final boolean toPopText =
         (mPopTextOnCorrection && !TextUtils.equals(wordToCommit, typedWord)) || mPopTextOnWord;
-    if (toPopText) {
+    if (!mPowerState && toPopText) {
       popText(wordToCommit.toString());
     }
   }

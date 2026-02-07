@@ -1,0 +1,452 @@
+[
+  {
+    "author": { "id": "MDQ6VXNlcjQwNjMzMjk=", "is_bot": false, "login": "ilyaza", "name": "" },
+    "body": "I have not read through all the sources of ASK, but my impression is that many elements which combine into a keyboard layout (such as `The Top Row`) are described by “just an XML file” which is read and processed *at run-time*.  So why not make these editable at run-time?!\n\n**If so:**\n\nSuppose that \n* in the dialogue for choosing `The Top Row` there appear 10 other choices: “Custom 1”, …, “Custom 10”.  \n* Initially, these extra choices are “empty”.\n* When long-pressing on a “usual, not-`Custom`” variant of the choice of top row (or maybe in the `⋮`-menu when it is selected) there is a choice “go to the XML of this variant”.  (Just a link to the GitHub page.)\n* Additionally, on these “new” `Custom N` choices, there is a similar choice to `Edit the XML` — which just shows a standard multiline text-entry editor.   (It is OK if a restart is required after editing — but I do not see why this may be so…)\n\nThese 3 enhancement seem to be easy to implement — but I think this may be a great first step to make the layout editable.  For example, later one may \n* Write (simple!) scripts processing other (easier-to-write) formats into XML-understood-by-ASK; \n* Yet later, one may enable plug-ins which allow these other formats processed at the run-time (by ``Import another format` — in addition to `Edit the XML`).",
+    "createdAt": "2026-02-07T06:11:47Z",
+    "labels": [],
+    "number": 4657,
+    "state": "OPEN",
+    "title": "Proposal: A simple way to make ASK-keyboards customizable"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjQwNjMzMjk=", "is_bot": false, "login": "ilyaza", "name": "" },
+    "body": "With the existing tweak to make the extra pop-up rows “sticky”, there is a chance to make them “honest” (of course, in the sticky-state only):\n* allow sliding-off-keysboard-area to cancel long-pressing-on-a-key;\n* allow long-press and alternative-characters on these rows.\n\n(Of course, it would not hurt to also make these rows customizable (the same way as the top-row is customizable).)",
+    "createdAt": "2026-02-07T05:44:46Z",
+    "labels": [],
+    "number": 4656,
+    "state": "OPEN",
+    "title": "The extra pop-up rows: not honest-rows"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjQwNjMzMjk=", "is_bot": false, "login": "ilyaza", "name": "" },
+    "body": "(Unfortunately, I cannot find how to change the Top and bottom rows in the settings anymore, so cannot check the details of the current UI.)\n\nHowever, I have seen the discussion that the selected keyboard layouts may be changed by slide-reordering — so suppose that the same holds for the UI for choosing the top and bottom rows.  Then if one allows multiple checkmarks on the variants of these rows, it seems that that one may get some benefits (e.g., have the terminal top row combined with numbers-row).",
+    "createdAt": "2026-02-07T05:37:08Z",
+    "labels": [],
+    "number": 4655,
+    "state": "OPEN",
+    "title": "Choosing the Top and bottom rows: allow multiple choices?"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjQwNjMzMjk=", "is_bot": false, "login": "ilyaza", "name": "" },
+    "body": "Today I spent a lot of time trying to find the tweak which enables hints.  Could not — even with the help from AI (very thorough — but wrong!).  (Well, after investigating the issues below, I finally stumbled on this — while still having no idea how to find it again…  Same for configuring the top and the bottom rows!)\n\n**Thinking about this** more: there is no documentation at all of **the architecture of customizing an ASK keyboard**!  Such a documentation (better present — or referred to — from the home page of the settings-app) should mention (and give clickable links to existing pages in this app) at least: The behavior is controlled by \n* the **repertoire of keys** (which is in turn controlled separately by\n    * Top row;\n    * “Alpha“-keys (and the default language);\n    * Bottom row\n    \n    choices) — and what else???.\n* The theme (which controls colors, the display of hints, and **I-have-no-idea-what-else**).\n* The tweaks to the shown above entries, as well as\n* The generic tweaks (listing the general categories).\n\n---\n\nBut as a stopgap measure, there may be a separate entry in the bottom-menu of the settings-app which shows the (clickable!) tree-of-current-hint-pages, and explains (at one location!) the purposes of tweaks on each of these existing tweak pages.",
+    "createdAt": "2026-02-07T05:18:12Z",
+    "labels": [],
+    "number": 4654,
+    "state": "OPEN",
+    "title": "Problem with tweaks: how to find them?  (Related to: Problems with hints)"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjQwNjMzMjk=", "is_bot": false, "login": "ilyaza", "name": "" },
+    "body": "![Image](https://github.com/user-attachments/assets/401afd11-75f5-4d4e-94b5-15b510f3b2f7)\n\nThis (preview of) the `Plain Light Theme` (with `English` layout) shows hints with good contrast (thanks!).  However, the shown previews are mostly wrong!\n\nThe previews:\n* on `Q`  and `W` are correct — but\n* on `E` nothing is shown (out of many), \n* on `R` the character `ρ` is missing, \n* on `T` the right side of `[t']` is cut off — and `ţ` and `τ` are not shown, \n\n**Expected behavior**: \n* if the width allows, all the hints should be shown.  \n* If not, then the right half of the last shown character should be “cut off” to provide feedback on presence of other variants.",
+    "createdAt": "2026-02-07T04:43:30Z",
+    "labels": [],
+    "number": 4653,
+    "state": "OPEN",
+    "title": "Problems with hints: not shown or only partially shown in the UR-position"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjQwNjMzMjk=", "is_bot": false, "login": "ilyaza", "name": "" },
+    "body": "As I already mentioned in #4651 , some themes disable hints, **silently**.  (Well, **if one knows what to expect**, there may be some feedback since “the preview on top of the settings-page does not show hints”.  But how would one know that this preview **should react on the enabled settings**?!  (Actually, I realized that I do not know whether it does!)\n\nOne could get a bit more feedback comparing to what the preview shows *for other themes* — but this also does not work!  The second problem is that most of the light-themes either do not show the hints at all (at least not the way I can see) — or show them with such a low contrast that I have been missing this display until I tried to “pay special attention”.  The only exception among standard themes is the *Plain Light Theme*.\n\n**Expected behavior:** if a theme supports hints, they should be shown with sufficient contrast (or with an outline in a contrasting color).  (If this is annoying for people with extra-sharp vision, this may be disabled by a configurable setting.)\n\n",
+    "createdAt": "2026-02-07T04:22:14Z",
+    "labels": [],
+    "number": 4652,
+    "state": "OPEN",
+    "title": "Problems with hints: no support from most of the themes"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjQwNjMzMjk=", "is_bot": false, "login": "ilyaza", "name": "" },
+    "body": "When choosing a theme, its description has no feedback on whether hints are going to be shown in this theme.  In particular, I spent hour(s) trying to understand why no matter how I re-configure, hints would not show.  (Alas, AIs are not of help here…)\n\nExpected behavior: \n* the theme description should list which **configurable** “features” **are going to be disabled**.\n* The description for the enable-hints (etc.?) UI-element  switch should mention that this may be overridden by the theme.\n\nThanks!",
+    "createdAt": "2026-02-07T04:09:21Z",
+    "labels": [],
+    "number": 4651,
+    "state": "OPEN",
+    "title": "Problems with hints: no feedback when choosing theme"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjI4MTYwNzU=", "is_bot": false, "login": "azazar", "name": "" },
+    "body": "I type using the Russian (Cyrillic) keyboard layout, but I sometimes write in Bulgarian. AnySoftKeyboard appears to tie spell-check/dictionary language to the active keyboard language/layout, so I can’t get Bulgarian spell checking unless I switch to the Bulgarian layout (which is very different, and I don’t want to spend time learning a new layout just to work around this limitation in a keyboard app).",
+    "createdAt": "2026-01-26T08:16:34Z",
+    "labels": [],
+    "number": 4639,
+    "state": "OPEN",
+    "title": "Spell checker language is forced to keyboard layout/language (can’t use Bulgarian spell check with Cyrillic Russian keyboard layout, while both are just Cyrillic)"
+  },
+  {
+    "author": { "id": "U_kgDOD0-DOQ", "is_bot": false, "login": "qasimovqasim390-alt", "name": "" },
+    "body": "",
+    "createdAt": "2026-01-23T20:43:53Z",
+    "labels": [],
+    "number": 4636,
+    "state": "OPEN",
+    "title": "Dk c l cnlgc n"
+  },
+  {
+    "author": { "id": "U_kgDODT-QSw", "is_bot": false, "login": "DougMacNaughton", "name": "" },
+    "body": "AnySoftKeyboard ver. 1.12.1264, version code 8892 for Android, Dvorak keyboard - the only 'accent' available for the letter 'a' or 'A' is a superscript.  I need à, á, â, and ä to write in Spanish, French, and German.  This has been going on for over a month - can someone fix this bug?  Please and thank you.",
+    "createdAt": "2026-01-22T23:34:32Z",
+    "labels": [],
+    "number": 4635,
+    "state": "OPEN",
+    "title": "A bug in Dvorak, AnySoftKeyboard ver. 1.12.1264, version code 8892"
+  },
+  {
+    "author": { "id": "U_kgDOD0qx2g", "is_bot": false, "login": "veszettcsiga-dev", "name": "" },
+    "body": "Hello! When I restart my phone, my favorite emojis disappear.",
+    "createdAt": "2026-01-22T11:39:28Z",
+    "labels": [],
+    "number": 4634,
+    "state": "OPEN",
+    "title": "veszettcsiga@gmail.com"
+  },
+  {
+    "author": { "id": "U_kgDODoYVJA", "is_bot": false, "login": "birdman180-dev", "name": "" },
+    "body": "issues. certain keys non functional and zero bluetooth hardware interface. state:open",
+    "createdAt": "2026-01-21T17:05:01Z",
+    "labels": [],
+    "number": 4633,
+    "state": "OPEN",
+    "title": "WTf."
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjM2MDM4NzQz", "is_bot": false, "login": "Berny23", "name": "Berny23" },
+    "body": "Also, the keyboard buttons/overlays tend to lag behind often after some fast typing.\n\nThis is not a CPU speed issue, since I'm using a Samsung Galaxy S25 Ultra.\n\nVideo:\nhttps://github.com/user-attachments/assets/ce9a00fe-660d-4a2d-9c4e-c454e0726397\n\nAs you can see, the word \"Brücke\" is very shortly written correctly before suddenly the characters are interchanged and a random space is inserted!",
+    "createdAt": "2026-01-17T23:33:15Z",
+    "labels": [],
+    "number": 4632,
+    "state": "OPEN",
+    "title": "Strange bug changing order of characters when typing fast"
+  },
+  {
+    "author": { "id": "U_kgDODzwdGg", "is_bot": false, "login": "faajryy45-commits", "name": "" },
+    "body": "GONPXWR",
+    "createdAt": "2026-01-17T22:21:25Z",
+    "labels": [],
+    "number": 4631,
+    "state": "OPEN",
+    "title": "GONPXWR"
+  },
+  {
+    "author": { "id": "U_kgDODzwdGg", "is_bot": false, "login": "faajryy45-commits", "name": "" },
+    "body": "GONPXWR",
+    "createdAt": "2026-01-17T22:21:01Z",
+    "labels": [],
+    "number": 4630,
+    "state": "OPEN",
+    "title": "GONPXWR"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjQyMjQ4NTkx", "is_bot": false, "login": "Paculino", "name": "" },
+    "body": "Okay, this is very specific, but when using octave-online with battery saver on (on a Samsung S21 5G), parenthesis buttons became unresponsive most of the time, eventually crashing.",
+    "createdAt": "2026-01-17T05:00:23Z",
+    "labels": [],
+    "number": 4627,
+    "state": "OPEN",
+    "title": "Crashes in very specific situation"
+  },
+  {
+    "author": { "id": "U_kgDODzcGUw", "is_bot": false, "login": "manuelaular0099-ui", "name": "" },
+    "body": "",
+    "createdAt": "2026-01-16T03:23:17Z",
+    "labels": [],
+    "number": 4625,
+    "state": "OPEN",
+    "title": "Bbjj"
+  },
+  {
+    "author": { "id": "U_kgDODy673w", "is_bot": false, "login": "garciaidarragajuanesteban-cell", "name": "" },
+    "body": "",
+    "createdAt": "2026-01-13T16:02:01Z",
+    "labels": [],
+    "number": 4623,
+    "state": "OPEN",
+    "title": "Juan"
+  },
+  {
+    "author": { "id": "U_kgDODpsgBw", "is_bot": false, "login": "madhushaniiresha32-maker", "name": "" },
+    "body": "Facebook \n",
+    "createdAt": "2026-01-09T15:15:11Z",
+    "labels": [],
+    "number": 4618,
+    "state": "OPEN",
+    "title": "Sundun@sandun"
+  },
+  {
+    "author": { "id": "U_kgDOCSa4pA", "is_bot": false, "login": "apbreaux", "name": "" },
+    "body": "When I switch from Simple bottom row to Minimal (no emoji), the apostrophe doesn\"t show up with a long hold on any of the bottom keys. When using Simple bottom layout, the apostrophe is associated with the comma key. But I like the layout of Minimal (no emoji) better. Any way to have the apostrophe show up with one of the bottom key long presses on the Simple layout?",
+    "createdAt": "2026-01-08T13:26:10Z",
+    "labels": [],
+    "number": 4615,
+    "state": "OPEN",
+    "title": "Loss of apostrophe option when switching bottom row"
+  },
+  {
+    "author": { "id": "U_kgDODxHRlw", "is_bot": false, "login": "adityaprasetio814-dotcom", "name": "" },
+    "body": "mantap",
+    "createdAt": "2026-01-04T04:12:49Z",
+    "labels": [],
+    "number": 4608,
+    "state": "OPEN",
+    "title": "keren"
+  },
+  {
+    "author": { "id": "U_kgDODkAnvQ", "is_bot": false, "login": "h90250621-hash", "name": "" },
+    "body": "",
+    "createdAt": "2025-12-30T14:14:45Z",
+    "labels": [],
+    "number": 4599,
+    "state": "OPEN",
+    "title": "GTA sa"
+  },
+  {
+    "author": { "id": "U_kgDODwacog", "is_bot": false, "login": "carlosraulcastro2012-crypto", "name": "" },
+    "body": "",
+    "createdAt": "2025-12-29T23:56:24Z",
+    "labels": [],
+    "number": 4597,
+    "state": "OPEN",
+    "title": "La aplicacion es buena"
+  },
+  {
+    "author": { "id": "U_kgDOCk7LhQ", "is_bot": false, "login": "danielytbr-mc", "name": "DanielYTbr ツ" },
+    "body": "When i hold the 😃 key or click on the 😃 tab on the app, the keyboard crashes, sometimes freezing my screen\n- Device: **SM-J260M**\n- OS: **Android 8.1.0**\nif more info is needed, mention me",
+    "createdAt": "2025-12-28T13:35:15Z",
+    "labels": [],
+    "number": 4595,
+    "state": "OPEN",
+    "title": "[Bug]: Keyboard crashes when holding 😃"
+  },
+  {
+    "author": { "id": "U_kgDODv3yqA", "is_bot": false, "login": "sdhdhdjdnjddhxbxnx", "name": "" },
+    "body": "why when i enable glide typing then i type a word it just types the last letter of the word",
+    "createdAt": "2025-12-26T00:09:25Z",
+    "labels": [],
+    "number": 4588,
+    "state": "OPEN",
+    "title": "glide typing issue"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjQ4MTI3Mg==", "is_bot": false, "login": "menny", "name": "Menny Even Danan" },
+    "body": "- Update the minimum API level to be 23\n- remove any code branches that check API level is lower than 23\n- also look at AndroidManifest files\n- remove tests that target API levels before 23\n- 23 is the first version that supported runtime permissions request.\n- update any documentation regarding this (README, and other markdown files)",
+    "createdAt": "2025-12-25T06:02:02Z",
+    "labels": [],
+    "number": 4587,
+    "state": "OPEN",
+    "title": "Update min API level to be 23"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjYwNjE1NjQw", "is_bot": false, "login": "anysoftkeyboard-bot", "name": "Polyglot" },
+    "body": "This issue lists Renovate updates and detected dependencies. Read the [Dependency Dashboard](https://docs.renovatebot.com/key-concepts/dashboard/) docs to learn more.\n\n## Config Migration Needed\n\n - [ ] <!-- create-config-migration-pr --> Select this checkbox to let Renovate create an automated Config Migration PR.\n\n## Repository Problems\n\nRenovate tried to run on this repository, but found these problems.\n\n - ⚠️ WARN: Found renovate config warnings\n - ⚠️ WARN: Package lookup failures\n\n## Rate-Limited\n\nThe following updates are currently rate-limited. To force their creation now, click on a checkbox below.\n\n - [ ] <!-- unlimit-branch=renovate/bazel_lib-3.x -->chore(deps): update dependency bazel_lib to v3.2.0\n - [ ] <!-- unlimit-branch=renovate/contrib_rules_jvm-0.x -->chore(deps): update dependency contrib_rules_jvm to v0.32.0\n - [ ] <!-- unlimit-branch=renovate/crowdin_cli-4.x -->chore(deps): update dependency crowdin_cli to v4.13.0\n - [ ] <!-- unlimit-branch=renovate/rules_jvm_external-6.x -->chore(deps): update dependency rules_jvm_external to v6.10\n - [ ] <!-- unlimit-branch=renovate/rules_multitool-1.x -->chore(deps): update dependency rules_multitool to v1.11.1\n - [ ] <!-- unlimit-branch=renovate/rules_nodejs-6.x -->chore(deps): update dependency rules_nodejs to v6.7.3\n - [ ] <!-- unlimit-branch=renovate/gradle-wrapper -->chore(deps): update gradle to v9.3.1\n - [ ] <!-- unlimit-branch=renovate/node-24.x -->chore(deps): update node.js to v24.13.0\n - [ ] <!-- unlimit-branch=renovate/aspect_rules_lint-2.x -->chore(deps): update dependency aspect_rules_lint to v2\n - [ ] <!-- unlimit-branch=renovate/bazel-9.x -->chore(deps): update dependency bazel to v9\n - [ ] <!-- unlimit-branch=renovate/buildifier_prebuilt-8.x -->chore(deps): update dependency buildifier_prebuilt to v8\n - [ ] <!-- unlimit-branch=renovate/java-25.x -->chore(deps): update dependency java to v25\n - [ ] <!-- unlimit-branch=renovate/rules_java-9.x -->chore(deps): update dependency rules_java to v9\n - [ ] <!-- unlimit-branch=renovate/major-github-actions -->chore(deps): update github actions (major) (`actions/setup-java`, `gradle/actions`, `renovatebot/github-action`)\n - [ ] <!-- unlimit-branch=renovate/major-javascript-dependencies -->chore(deps): update javascript dependencies (major) (`@actions/core`, `@actions/github`, `@eslint/js`, `eslint`, `globals`)\n - [ ] <!-- unlimit-branch=renovate/major-android-app-dependencies -->fix(deps): update android app dependencies (major) (`com.google.guava:guava`, `org.mockito:mockito-core`, `net.ltgt.errorprone`, `com.github.triplet.play`, `checkstyle`)\n - [ ] <!-- create-all-rate-limited-prs -->🔐 **Create all rate-limited PRs at once** 🔐\n\n\n---\n\n> [!WARNING]\n> Renovate failed to look up the following dependencies: `Failed to look up maven package com.android.application:com.android.application.gradle.plugin`, `Failed to look up maven package com.android.library:com.android.library.gradle.plugin`, `Failed to look up maven package androidx.navigation.safeargs:androidx.navigation.safeargs.gradle.plugin`.\n> \n> Files affected: `gradle/libs.versions.toml`\n\n---\n\n\n## Open\n\nThe following updates have all been created. To force a retry/rebase of any, click on a checkbox below.\n\n - [ ] <!-- rebase-branch=renovate/npm-fast-xml-parser-vulnerability -->[chore(deps): update dependency fast-xml-parser to v5.3.4 [security]](../pull/4641)\n - [ ] <!-- rebase-branch=renovate/npm-tar-vulnerability -->[chore(deps): update dependency tar to v7.5.7 [security]](../pull/4637)\n - [ ] <!-- rebase-branch=renovate/npm-undici-vulnerability -->[chore(deps): update dependency undici to v7.18.2 [security]](../pull/4628)\n - [ ] <!-- rebase-branch=renovate/aspect_rules_ts-3.x -->[chore(deps): update dependency aspect_rules_ts to v3.8.4](../pull/4658)\n - [ ] <!-- rebase-branch=renovate/javascript-dependencies -->[chore(deps): update javascript dependencies](../pull/4649) (`@actions/core`, `@google/gemini-cli`, `@langchain/core`, `@langchain/google-genai`, `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`, `commander`, `prettier`)\n - [ ] <!-- rebase-branch=renovate/aspect_rules_js-2.x -->[chore(deps): update dependency aspect_rules_js to v2.9.2](../pull/4650)\n - [ ] <!-- rebase-branch=renovate/aspect_rules_lint-1.x -->[chore(deps): update dependency aspect_rules_lint to v1.13.0](../pull/4659)\n - [ ] <!-- rebase-all-open-prs -->**Click on this checkbox to rebase all open PRs at once**\n\n## Detected Dependencies\n\n<details><summary>bazel (1)</summary>\n<blockquote>\n\n<details><summary>WORKSPACE.bzlmod (1)</summary>\n\n - `crowdin_cli 4.12.0` → [Updates: `4.13.0`]\n\n</details>\n\n</blockquote>\n</details>\n\n<details><summary>bazel-module (1)</summary>\n<blockquote>\n\n<details><summary>MODULE.bazel (12)</summary>\n\n - `bazel_lib 3.1.1` → [Updates: `3.2.0`]\n - `rules_nodejs 6.6.2` → [Updates: `6.7.3`]\n - `aspect_rules_js 2.8.3` → [Updates: `2.9.2`]\n - `aspect_rules_ts 3.8.3` → [Updates: `3.8.4`]\n - `bazel_skylib 1.9.0`\n - `aspect_rules_esbuild 0.25.0`\n - `rules_multitool 1.3.0` → [Updates: `1.11.1`]\n - `rules_java 8.16.1` → [Updates: `9.3.0`]\n - `contrib_rules_jvm 0.31.1` → [Updates: `0.32.0`]\n - `rules_jvm_external 6.7` → [Updates: `6.10`]\n - `aspect_rules_lint 1.12.0` → [Updates: `1.13.0`, `2.1.0`]\n - `buildifier_prebuilt 7.3.1` → [Updates: `8.2.1.2`]\n\n</details>\n\n</blockquote>\n</details>\n\n<details><summary>bazelisk (1)</summary>\n<blockquote>\n\n<details><summary>.bazelversion (1)</summary>\n\n - `bazel 7.7.1` → [Updates: `9.0.0`]\n\n</details>\n\n</blockquote>\n</details>\n\n<details><summary>dockerfile (1)</summary>\n<blockquote>\n\n<details><summary>.devcontainer/Dockerfile (1)</summary>\n\n - `ghcr.io/menny/android 1.22.3`\n\n</details>\n\n</blockquote>\n</details>\n\n<details><summary>github-actions (14)</summary>\n<blockquote>\n\n<details><summary>.github/actions/deploy-request/action.yml (1)</summary>\n\n - `bazel-contrib/setup-bazel 0.18.0`\n\n</details>\n\n<details><summary>.github/actions/deploy/action.yml (2)</summary>\n\n - `actions/setup-java v4` → [Updates: `v5`]\n - `android-actions/setup-android v3`\n\n</details>\n\n<details><summary>.github/actions/test-shard-run/action.yml (2)</summary>\n\n - `actions/setup-java v4` → [Updates: `v5`]\n - `android-actions/setup-android v3`\n\n</details>\n\n<details><summary>.github/workflows/auto_approve.yml (3)</summary>\n\n - `actions/checkout v6.0.2`\n - `bazel-contrib/setup-bazel 0.18.0`\n - `ubuntu 24.04`\n\n</details>\n\n<details><summary>.github/workflows/checks.yml (39)</summary>\n\n - `actions/checkout v6.0.2`\n - `bazel-contrib/setup-bazel 0.18.0`\n - `codecov/codecov-action v5.5.2`\n - `actions/checkout v6.0.2`\n - `actions/setup-java v5.2.0`\n - `android-actions/setup-android v3.2.2`\n - `gradle/actions v4` → [Updates: `v5`]\n - `actions/upload-artifact v6.0.0`\n - `actions/checkout v6.0.2`\n - `actions/setup-java v5.2.0`\n - `android-actions/setup-android v3.2.2`\n - `gradle/actions v4` → [Updates: `v5`]\n - `actions/upload-artifact v6.0.0`\n - `actions/checkout v6.0.2`\n - `actions/setup-java v5.2.0`\n - `android-actions/setup-android v3.2.2`\n - `gradle/actions v4` → [Updates: `v5`]\n - `codecov/codecov-action v5.5.2`\n - `actions/upload-artifact v6.0.0`\n - `actions/upload-artifact v6.0.0`\n - `actions/checkout v6.0.2`\n - `actions/setup-java v5.2.0`\n - `android-actions/setup-android v3.2.2`\n - `gradle/actions v4` → [Updates: `v5`]\n - `actions/upload-artifact v6.0.0`\n - `actions/upload-artifact v6.0.0`\n - `actions/checkout v6.0.2`\n - `bazel-contrib/setup-bazel 0.18.0`\n - `actions/checkout v6.0.2`\n - `actions/checkout v6.0.2`\n - `peter-evans/create-pull-request v8.1.0`\n - `ubuntu 24.04`\n - `ubuntu 24.04`\n - `ubuntu 24.04`\n - `ubuntu 24.04`\n - `ubuntu 24.04`\n - `ubuntu 24.04`\n - `ubuntu 24.04`\n - `ubuntu 24.04`\n\n</details>\n\n<details><summary>.github/workflows/deploy.yml (16)</summary>\n\n - `actions/checkout v6.0.2`\n - `actions/checkout v6.0.2`\n - `bazel-contrib/setup-bazel 0.18.0`\n - `actions/upload-artifact v6.0.0`\n - `actions/upload-artifact v6.0.0`\n - `actions/upload-artifact v6.0.0`\n - `actions/upload-artifact v6.0.0`\n - `actions/upload-artifact v6.0.0`\n - `actions/checkout v6.0.2`\n - `actions/download-artifact v7.0.0`\n - `actions/download-artifact v7.0.0`\n - `actions/download-artifact v7.0.0`\n - `actions/download-artifact v7.0.0`\n - `softprops/action-gh-release v2.5.0`\n - `ubuntu 24.04`\n - `ubuntu 24.04`\n\n</details>\n\n<details><summary>.github/workflows/deployment_promote.yml (2)</summary>\n\n - `actions/checkout v6.0.2`\n - `ubuntu 24.04`\n\n</details>\n\n<details><summary>.github/workflows/generate_contributors_list.yml (4)</summary>\n\n - `actions/checkout v6.0.2`\n - `bazel-contrib/setup-bazel 0.18.0`\n - `peter-evans/create-pull-request v8.1.0`\n - `ubuntu 24.04`\n\n</details>\n\n<details><summary>.github/workflows/localization_update.yml (5)</summary>\n\n - `actions/checkout v6.0.2`\n - `bazel-contrib/setup-bazel 0.18.0`\n - `actions/upload-artifact v6.0.0`\n - `peter-evans/create-pull-request v8.1.0`\n - `ubuntu 24.04`\n\n</details>\n\n<details><summary>.github/workflows/manual_deploy.yml (1)</summary>\n\n - `actions/checkout v6.0.2`\n\n</details>\n\n<details><summary>.github/workflows/packs_md_update.yml (6)</summary>\n\n - `actions/checkout v6.0.2`\n - `actions/setup-java v5.2.0`\n - `android-actions/setup-android v3.2.2`\n - `peter-evans/create-pull-request v8.1.0`\n - `actions/checkout v6.0.2`\n - `ubuntu 24.04`\n\n</details>\n\n<details><summary>.github/workflows/renovate.yml (5)</summary>\n\n - `actions/checkout v6.0.2`\n - `bazel-contrib/setup-bazel 0.18.0`\n - `actions/setup-java v5.2.0`\n - `gradle/actions v4` → [Updates: `v5`]\n - `renovatebot/github-action v44.2.6` → [Updates: `v46.0.1`]\n\n</details>\n\n<details><summary>.github/workflows/update_aosp_dictionaries.yml (4)</summary>\n\n - `actions/checkout v6.0.2`\n - `bazel-contrib/setup-bazel 0.18.0`\n - `peter-evans/create-pull-request v8.1.0`\n - `ubuntu 24.04`\n\n</details>\n\n<details><summary>.github/workflows/update_emoji_layouts.yml (4)</summary>\n\n - `actions/checkout v6.0.2`\n - `bazel-contrib/setup-bazel 0.18.0`\n - `peter-evans/create-pull-request v8.1.0`\n - `ubuntu 24.04`\n\n</details>\n\n</blockquote>\n</details>\n\n<details><summary>gradle (250)</summary>\n<blockquote>\n\n<details><summary>addons/base/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/base/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/gradle/add_on_list_generator.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/gradle/language_pack_lib.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/gradle/pack_apk.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/gradle/quicktext_pack_lib.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/gradle/theme_pack_lib.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/afrikaans_oss/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/afrikaans_oss/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/afrikaans_oss/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/arabic/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/arabic/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/arabic/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/armenian2/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/armenian2/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/armenian2/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/basque/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/basque/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/basque/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/belarusian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/belarusian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/belarusian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/brazilian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/brazilian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/brazilian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/bribri/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/bribri/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/bribri/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/bulgarian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/bulgarian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/bulgarian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/catalan/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/catalan/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/catalan/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/coptic/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/coptic/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/coptic/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/croatian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/croatian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/croatian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/czech/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/czech/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/czech/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/danish/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/danish/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/dutch/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/dutch/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/dutch/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/english/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/english/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/esperanto/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/esperanto/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/esperanto/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/finnish/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/finnish/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/finnish/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/french/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/french/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/french/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/georgian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/georgian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/georgian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/german/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/german/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/german/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/greek/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/greek/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/greek/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hackerkeyboardlayout/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hackerkeyboardlayout/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hackerkeyboardlayout/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hawaiian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hawaiian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hawaiian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hebrew/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hebrew/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hebrew/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hindi/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hindi/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hindi/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hungarian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hungarian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/hungarian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/icelandic/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/icelandic/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/icelandic/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/indonesian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/indonesian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/indonesian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/italian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/italian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/italian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/kachin/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/kachin/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/kurdish/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/kurdish/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/kurdish/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/latvian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/latvian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/latvian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/lithuanian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/lithuanian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/lithuanian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/luxembourgish/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/luxembourgish/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/luxembourgish/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/nias/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/nias/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/nias/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/norwegian_nynorsk/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/norwegian_nynorsk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/norwegian_nynorsk/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/norwegian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/norwegian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/norwegian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/numpad/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/numpad/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/numpad/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/oldnortharabian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/oldnortharabian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/oldnortharabian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/ossturkish/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/ossturkish/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/ossturkish/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/persian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/persian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/persian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/piedmontese/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/piedmontese/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/piedmontese/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/pilaga/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/pilaga/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/pilaga/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/polish/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/polish/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/polish/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/portuguese/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/portuguese/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/portuguese/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/romanian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/romanian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/romanian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/russian2/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/russian2/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/russian2/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/rusyn/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/rusyn/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/rusyn/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/sardinian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/sardinian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/sardinian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/serbian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/serbian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/serbian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/sinhala/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/sinhala/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/sinhala/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/slovak/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/slovak/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/slovak/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/slovene/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/slovene/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/slovene/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/songhay/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/songhay/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/songhay/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/spain/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/spain/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/spain/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/swedish/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/swedish/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/swedish/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/tamazight/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/tamazight/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/tamazight/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/thai/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/thai/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/thai/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/ukrainian/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/ukrainian/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/ukrainian/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/urdu/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/urdu/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/languages/urdu/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/quicktexts/bbcodes/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/quicktexts/bbcodes/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/quicktexts/bbcodes/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/quicktexts/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/classic_pc/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/classic_pc/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/classic_pc/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/ics/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/ics/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/ics/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/israel64/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/israel64/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/israel64/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/three_d/apk/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/three_d/build.gradle</summary>\n\n\n</details>\n\n<details><summary>addons/themes/three_d/pack/build.gradle</summary>\n\n\n</details>\n\n<details><summary>api/build.gradle</summary>\n\n\n</details>\n\n<details><summary>build.gradle</summary>\n\n\n</details>\n\n<details><summary>buildSrc/build.gradle (9)</summary>\n\n - `org.jetbrains.kotlin.jvm 2.3.10`\n - `org.jsoup:jsoup 1.22.1`\n - `org.apache.httpcomponents:httpclient 4.5.14`\n - `com.google.code.gson:gson 2.13.2`\n - `org.jetbrains.kotlin:kotlin-reflect 2.3.10`\n - `junit:junit 4.13.2`\n - `com.github.stefanbirkner:system-rules 1.19.0`\n - `org.mockito:mockito-core 2.28.2` → [Updates: `5.21.0`]\n - `com.nhaarman:mockito-kotlin 1.6.0`\n\n</details>\n\n<details><summary>buildSrc/src/main/kotlin/net/evendanan/versiongenerator/GenerationData.kt</summary>\n\n\n</details>\n\n<details><summary>buildSrc/src/main/kotlin/net/evendanan/versiongenerator/generators/EnvBuildVersionGenerator.kt</summary>\n\n\n</details>\n\n<details><summary>buildSrc/src/main/kotlin/net/evendanan/versiongenerator/generators/GitBuildVersionGenerator.kt</summary>\n\n\n</details>\n\n<details><summary>buildSrc/src/main/kotlin/net/evendanan/versiongenerator/generators/StaticVersionGenerator.kt</summary>\n\n\n</details>\n\n<details><summary>buildSrc/src/main/kotlin/net/evendanan/versiongenerator/SimpleVersionGeneratorPlugin.kt</summary>\n\n\n</details>\n\n<details><summary>buildSrc/src/main/kotlin/net/evendanan/versiongenerator/VersionData.kt</summary>\n\n\n</details>\n\n<details><summary>buildSrc/src/main/kotlin/net/evendanan/versiongenerator/VersionGenerator.kt</summary>\n\n\n</details>\n\n<details><summary>buildSrc/src/main/kotlin/net/evendanan/versiongenerator/VersionGeneratorFactory.kt</summary>\n\n\n</details>\n\n<details><summary>buildSrc/src/main/kotlin/net/evendanan/versiongenerator/VersionGeneratorPlugin.kt</summary>\n\n\n</details>\n\n<details><summary>gradle.properties</summary>\n\n\n</details>\n\n<details><summary>gradle/android_general.gradle</summary>\n\n\n</details>\n\n<details><summary>gradle/android_unit_test.gradle</summary>\n\n\n</details>\n\n<details><summary>gradle/apk_module.gradle</summary>\n\n\n</details>\n\n<details><summary>gradle/checkstyle.gradle (1)</summary>\n\n - `checkstyle 10.26.1` → [Updates: `13.2.0`]\n\n</details>\n\n<details><summary>gradle/errorprone.gradle</summary>\n\n\n</details>\n\n<details><summary>gradle/fdroid_yaml_output.gradle</summary>\n\n\n</details>\n\n<details><summary>gradle/jacoco.gradle (1)</summary>\n\n - `jacoco 0.8.14`\n\n</details>\n\n<details><summary>gradle/libs.versions.toml (50)</summary>\n\n - `androidx.annotation:annotation 1.9.1`\n - `androidx.appcompat:appcompat 1.7.1`\n - `androidx.autofill:autofill 1.3.0`\n - `androidx.cardview:cardview 1.0.0`\n - `androidx.constraintlayout:constraintlayout 2.2.1`\n - `androidx.core:core 1.17.0`\n - `androidx.fragment:fragment 1.8.9`\n - `androidx.legacy:legacy-support-core-utils 1.0.0`\n - `androidx.legacy:legacy-support-v13 1.0.0`\n - `androidx.legacy:legacy-support-v4 1.0.0`\n - `androidx.multidex:multidex 2.0.1`\n - `androidx.navigation:navigation-dynamic-features-fragment 2.9.7`\n - `androidx.navigation:navigation-fragment 2.9.7`\n - `androidx.navigation:navigation-ui 2.9.7`\n - `androidx.palette:palette 1.0.0`\n - `androidx.preference:preference 1.2.1`\n - `androidx.recyclerview:recyclerview 1.4.0`\n - `androidx.viewpager2:viewpager2 1.1.0`\n - `androidx.test:core 1.7.0`\n - `androidx.test:core 1.7.0`\n - `androidx.test.ext:junit 1.3.0`\n - `androidx.fragment:fragment-testing 1.8.9`\n - `com.google.android.material:material 1.13.0`\n - `io.reactivex.rxjava2:rxjava 2.2.21`\n - `io.reactivex.rxjava2:rxandroid 2.1.1`\n - `com.f2prateek.rx.preferences2:rx-preferences 2.0.1`\n - `app.cash.copper:copper-rx2 1.0.0`\n - `com.github.karczews:rx2-broadcast-receiver 1.0.6`\n - `com.getkeepsafe.relinker:relinker 1.4.5`\n - `com.jpardogo.materialtabstrip:library 1.1.1`\n - `pub.devrel:easypermissions 3.0.0`\n - `com.google.errorprone:error_prone_core 2.47.0`\n - `com.google.errorprone:error_prone_annotations 2.47.0`\n - `junit:junit 4.13.2`\n - `org.mockito:mockito-core 2.28.2` → [Updates: `5.21.0`]\n - `com.nhaarman:mockito-kotlin 1.6.0`\n - `com.github.stefanbirkner:system-rules 1.19.0`\n - `com.github.triplet.simpleprovider:simpleprovider 1.1.0`\n - `com.google.code.gson:gson 2.13.2`\n - `org.apache.httpcomponents:httpclient 4.5.14`\n - `org.jetbrains.kotlin:kotlin-reflect 2.3.10`\n - `org.jsoup:jsoup 1.22.1`\n - `com.google.guava:guava 24.1.1-jre` → [Updates: `33.5.0-jre`]\n - `com.android.application 8.13.2`\n - `com.android.library 8.13.2`\n - `org.jetbrains.kotlin.android 2.3.10`\n - `com.diffplug.spotless 8.2.1`\n - `com.github.triplet.play 3.13.0` → [Updates: `4.0.0`]\n - `net.ltgt.errorprone 4.4.0` → [Updates: `5.0.0`]\n - `androidx.navigation.safeargs 2.9.6`\n\n</details>\n\n<details><summary>gradle/root_all_projects_ext.gradle</summary>\n\n\n</details>\n\n<details><summary>gradle/spotless.gradle</summary>\n\n\n</details>\n\n<details><summary>gradle/versioning_apk.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/addons/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/app/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/base-rx/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/base-test/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/base/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/chewbacca/build.gradle (4)</summary>\n\n - `androidx.annotation:annotation 1.9.1`\n - `androidx.legacy:legacy-support-v13 1.0.0`\n - `androidx.fragment:fragment 1.8.9`\n - `androidx.appcompat:appcompat 1.7.1`\n\n</details>\n\n<details><summary>ime/dictionaries/build.gradle (1)</summary>\n\n - `androidx.appcompat:appcompat 1.7.1`\n\n</details>\n\n<details><summary>ime/dictionaries/jnidictionaryv1/build.gradle (1)</summary>\n\n - `androidx.annotation:annotation 1.9.1`\n\n</details>\n\n<details><summary>ime/dictionaries/jnidictionaryv2/build.gradle (1)</summary>\n\n - `androidx.annotation:annotation 1.9.1`\n\n</details>\n\n<details><summary>ime/fileprovider/build.gradle (1)</summary>\n\n - `androidx.core:core 1.17.0`\n\n</details>\n\n<details><summary>ime/gesturetyping/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/nextword/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/notification/build.gradle (1)</summary>\n\n - `androidx.appcompat:appcompat 1.7.1`\n\n</details>\n\n<details><summary>ime/overlay/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/permissions/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/pixel/build.gradle (1)</summary>\n\n - `androidx.preference:preference 1.2.1`\n\n</details>\n\n<details><summary>ime/prefs/build.gradle</summary>\n\n\n</details>\n\n<details><summary>ime/releaseinfo/build.gradle (4)</summary>\n\n - `androidx.appcompat:appcompat 1.7.1`\n - `androidx.recyclerview:recyclerview 1.4.0`\n - `androidx.test.ext:junit 1.3.0`\n - `androidx.fragment:fragment-testing 1.8.9`\n\n</details>\n\n<details><summary>ime/remote/build.gradle (3)</summary>\n\n - `androidx.legacy:legacy-support-v13 1.0.0`\n - `androidx.fragment:fragment 1.8.9`\n - `androidx.appcompat:appcompat 1.7.1`\n\n</details>\n\n<details><summary>ime/voiceime/build.gradle</summary>\n\n\n</details>\n\n<details><summary>junit-sharding/build.gradle</summary>\n\n\n</details>\n\n<details><summary>settings.gradle</summary>\n\n\n</details>\n\n</blockquote>\n</details>\n\n<details><summary>gradle-wrapper (1)</summary>\n<blockquote>\n\n<details><summary>gradle/wrapper/gradle-wrapper.properties (1)</summary>\n\n - `gradle 9.2.1` → [Updates: `9.3.1`]\n\n</details>\n\n</blockquote>\n</details>\n\n<details><summary>mise (1)</summary>\n<blockquote>\n\n<details><summary>mise.toml (1)</summary>\n\n - `java 21.0.10+7.0.LTS` → [Updates: `25.0.2+10.0.LTS`]\n\n</details>\n\n</blockquote>\n</details>\n\n<details><summary>npm (1)</summary>\n<blockquote>\n\n<details><summary>package.json (30)</summary>\n\n - `@actions/core ^2.0.1` → [Updates: `^2.0.1`, `^3.0.0`]\n - `@actions/github ^6.0.1` → [Updates: `^9.0.0`]\n - `@eslint/eslintrc ^3.3.3`\n - `@eslint/js ^9.39.2` → [Updates: `^10.0.0`]\n - `@google/gemini-cli ^0.27.0` → [Updates: `^0.27.0`]\n - `@langchain/core ^1.1.7` → [Updates: `^1.1.7`]\n - `@langchain/google-genai ^2.1.2` → [Updates: `^2.1.2`]\n - `@types/follow-redirects ^1.14.4`\n - `@types/js-yaml ^4.0.9`\n - `@types/mock-fs ^4.13.4`\n - `@types/node 25.2.1`\n - `@types/node-fetch ^2.6.13`\n - `@types/xml2js ^0.4.14`\n - `@typescript-eslint/eslint-plugin ^8.50.0` → [Updates: `^8.50.0`]\n - `@typescript-eslint/parser ^8.50.0` → [Updates: `^8.50.0`]\n - `commander ^14.0.2` → [Updates: `^14.0.2`]\n - `eslint ^9.39.2` → [Updates: `^10.0.0`]\n - `fast-xml-parser ^5.3.3` → [Updates: `^5.3.3`]\n - `follow-redirects ^1.15.11`\n - `globals ^16.5.0` → [Updates: `^17.0.0`]\n - `js-yaml ^4.1.1`\n - `mock-fs ^5.5.0`\n - `node-fetch ^3.3.2`\n - `prettier ^3.7.4` → [Updates: `^3.7.4`]\n - `tar ^7.5.2` → [Updates: `^7.5.2`]\n - `typescript 5.9.3`\n - `undici ^7.16.0` → [Updates: `^7.16.0`]\n - `xml2js ^0.6.2`\n - `node ^24.1.0`\n - `pnpm 10.28.2`\n\n</details>\n\n</blockquote>\n</details>\n\n<details><summary>nvm (1)</summary>\n<blockquote>\n\n<details><summary>.nvmrc (1)</summary>\n\n - `node 24.7.0` → [Updates: `24.13.0`]\n\n</details>\n\n</blockquote>\n</details>\n\n",
+    "createdAt": "2025-12-23T18:45:59Z",
+    "labels": [],
+    "number": 4581,
+    "state": "OPEN",
+    "title": "Dependency Dashboard"
+  },
+  {
+    "author": { "id": "U_kgDODveexw", "is_bot": false, "login": "robertgyergyo-blip", "name": "" },
+    "body": "Hello. It has been a problem for years that I install the Hungarian language pack in vain, after installation and launch it claims that the package is not installed. So there are no accented letters. Android version 15 20251120_1945 Please fix the package. Thanks: Róbert Gyergyó. Email: robert.gyergyo@gmail.com",
+    "createdAt": "2025-12-23T05:27:14Z",
+    "labels": [],
+    "number": 4575,
+    "state": "CLOSED",
+    "title": "hungaryan anysoftkeyboard instal error"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjIxNjQxMTg=", "is_bot": false, "login": "tobiasBora", "name": "Tobias Bora" },
+    "body": "Since the upgrade to version 1.12.7138, version-code 7138 the app is close to be unusable for me: when I type a sentence, press space, and try to remove the previous word by simply repetedly pressing the delete key, I end up with a word that randomly becomes bigger. For instance while typing this message and trying to remove the word \"sentence\" I ended up with `senententsenentsenessen` after a few key presses… And this can easily explose since it seems like the size of the word basically doubles every few keystrokes…",
+    "createdAt": "2025-12-22T03:13:38Z",
+    "labels": [],
+    "number": 4572,
+    "state": "OPEN",
+    "title": "Can't remove words"
+  },
+  {
+    "author": { "id": "U_kgDODvHlKg", "is_bot": false, "login": "rober70-Az", "name": "" },
+    "body": "Hola,Soy usuario activo de AnySoftKeyboard y me parece excelente. Sin embargo, he notado que en ciertas aplicaciones el corrector automático y las sugerencias no funcionan porque los campos de texto están marcados con el flag TYPE_TEXT_FLAG_NO_SUGGESTIONS.\n\nEntiendo que este es el comportamiento estándar de Android, pero sería muy útil tener una opción en ajustes que permita ignorar ese flag y mantener las sugerencias activas en todos los campos, incluso cuando la app los bloquea.\n\nEsto ayudaría especialmente al escribir textos largos o prompts en apps que desactivan el corrector sin necesidad.¿Sería posible implementar un ajuste como “Ignorar NO_SUGGESTIONS” para que el usuario decida si quiere forzar la autocorrección?\n\nGracias por su trabajo y por mantener este teclado open source tan completo.\n\n\nEnglish summary\nRequest: Add an option to ignore NO_SUGGESTIONS flag and keep autocorrect active in all fields.",
+    "createdAt": "2025-12-20T18:23:33Z",
+    "labels": [],
+    "number": 4567,
+    "state": "OPEN",
+    "title": "Opción para ignorar NO_SUGGESTIONS y mantener autocorrección en todos los campos"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjExNjE4OTU4", "is_bot": false, "login": "DoS007", "name": "" },
+    "body": "### Feature idea\n\n**Related optimization problem and use case**\nThis Feature Request aims to *optimize writing speed of correct written words*. It's adressing fast typers.\n\n*Fast typing* is hereby defined by >= ~200 keys per minute (you can test e.g. [here](https://www.speedtypingonline.com/typing-test)). It can be achived by e.g. using both thumbs (which here may be assumed).\n\n**Key observations for the problem**\n*1. The optimal gazing point while typing is imo in the ~middle of the keyboard.*\nThis way the periphal gaze can catch all the keys on the keyboard best. This increases the typing precision.\n\n<p align=\"center\"><img src=\"https://github.com/user-attachments/assets/5eade967-edc5-4982-98d6-8dcb697df81a\" width=75><sub></sub></p>\n\n\n\n</br>\n\nYou see the gaze is a bit higher than middle, this may be good because the thumbs might be blocking the view on the lower position for the overlay (but that I'm currently not sure about, because the thumbs are normally moving).\n\n*2. The high feedback loop with suggested word forecasting (while typing) probably isn't useful for most fast typers.* \nFast typers are so fast that the cost of viewing the possible suggestion-completions (and recognizing them) is higher than just typing the word to end fast.\n\n*3. Still: A low-cognitive-profile feedback of what is typed, is still useful for improving accuracy of key-typing*\nSeeing which letters are currently hit is probably still interesting for improving key-typing accuracy. It has a low-cognitive-profile because that is currently, what was mentally adressed anyway and should typically be exspected result (except when a wrong key was hit). Also it can be showed where the gaze already is in place.\n\n*4. Still: To see a word was written wrongly (and also correct it) is still useful, especially if the word was completley written.*\nThis can be done by showing the current/last word on the gazing place. Also, if auto-correction is on (probably recommendable), the words should came out as wanted (because it was manually typed) in most cases if it wasn't corrected. And if it was corrected by the auto-correction it can be shown in place and also make the phone vibrate. This should appear when the **spacebar was hit, showing the current wordwriting is finished** .\n\n**Solution**\nOn the gazing position (~middle keyboard) an overlay can be shown, which shows the current word.\n- The last letter of the word always stands in the same place (new key types push the \"old\" letters to the left, so the word grows to the left).\n- When the space-key is pressed and it wasn't autocorrected, it still shows the same word (maybe only for at most 3 seconds unitl the overlay hides). If a key for a new key is pressed and a new word begins, the overlay shows the first word letter (begins anew).\n- When the space-key is pressed and it was autocorrected, the overlay shows the autocorrected word on them same position (and maybe the phone vibrates in low volume). The written word is shown above crossed out.\n  - (If the auto-correction was right relevant) Same behavior as above with 3 seconds (or so) until the overlay hides, or alternativly a new word was begon.\n  - If the auto-correction was wrong. Click/swype for showing all possible other corrections including the original writing. Or delete the last single letters or delete the whole word.\n\nI think it's best to see what I mean in an animated GIF, so I made one (which took longer to make than i exspected, but hopefully it has some value), click to make it bigger: \n<p align=\"center\"><img src=\"https://github.com/user-attachments/assets/544cdf1b-8b98-487d-8e07-f780f74c8a9c\" width=125></p> \n\n<p align=\"center\">(The overlay is transparent)</p>\n\nThe last written letter could be emphasized in some way, but such things are details.\n\nSmall adjustment: It would be good if there would be a visual emphasis on the current letter, (which is the watch anchor / gaze anchor / focal point) and typing is using peripheral vision. E.g. by a highlighting with an additional background rectangle.\n\nE.g. like this:\n<p align=\"center\"><img src=\"https://github.com/user-attachments/assets/7b5c8ac0-151a-4c75-a791-ea564f504c83\" width=125></p> \n\n\n(the rectangle isn't perfect matching the letter and it's color could be better, but you see, what i mean)",
+    "createdAt": "2025-12-20T15:07:29Z",
+    "labels": [],
+    "number": 4565,
+    "state": "OPEN",
+    "title": "[Feature request] Overlay for fast typers (overlay shows current/last written word)"
+  },
+  {
+    "author": { "id": "U_kgDODvEFEw", "is_bot": false, "login": "daakyeman40-ai", "name": "" },
+    "body": "",
+    "createdAt": "2025-12-20T09:58:12Z",
+    "labels": [],
+    "number": 4564,
+    "state": "CLOSED",
+    "title": "Mr"
+  },
+  {
+    "author": { "id": "U_kgDODvEFEw", "is_bot": false, "login": "daakyeman40-ai", "name": "" },
+    "body": "",
+    "createdAt": "2025-12-20T09:56:55Z",
+    "labels": [],
+    "number": 4563,
+    "state": "CLOSED",
+    "title": "Mr"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjcwMzA1NTg1", "is_bot": false, "login": "michaelgulde", "name": "" },
+    "body": "Any chance of porting to iOS or fsf or https://www.fsf.org/news/librephone-project%20%20plus%20letter%20to%20trump%20links%20%20November%2008%202025%0Ahttps://youtube.com/live/WWNvj_ZhPmg?feature=share project?\nI currently use apple iOS 26\nThanks space\nHoo.be/michaelgulde\nSpacesbox.com\nAnyone want cloud gaming on firefox or sim racing equipment on cloud gaming? Too I wish I could code ",
+    "createdAt": "2025-12-18T20:33:22Z",
+    "labels": [],
+    "number": 4561,
+    "state": "OPEN",
+    "title": "Could we port to apple iOS or fsf free phone"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjgwMjE5NTMy", "is_bot": false, "login": "Oglo12", "name": "Jackson Novak" },
+    "body": "It would be nice to have different types of Japanese layouts like the flick input method. There are currently no GBoard alternatives that support this which is very surprising.",
+    "createdAt": "2025-12-13T04:35:36Z",
+    "labels": [],
+    "number": 4553,
+    "state": "OPEN",
+    "title": "Japanese Keyboard Layout"
+  },
+  {
+    "author": { "id": "U_kgDOCg6B5g", "is_bot": false, "login": "xboct02", "name": "xbxct" },
+    "body": "When changing the language by flipping the space button, an extra space appears in the text.",
+    "createdAt": "2025-12-13T02:48:10Z",
+    "labels": [],
+    "number": 4552,
+    "state": "OPEN",
+    "title": "Pressing the spacebar with spacebar gestures"
+  },
+  {
+    "author": { "is_bot": true, "login": "app/" },
+    "body": "Hi,\nOn Android 16, even when I change the default keyboard to ASK and it's visible as default in system settings, the keyboard settings app is somehow not detecting it. On first run of a fresh app, it gets stuck on \"change default keyboard...\" window and I can only skip the process. Later, when I open the keyboard app, it still shows that \"AnySoft Keyboard is not fully configured\" warning (it is, and it is the default).\nThat's not something critical, but mildly annoying.\n\nSecond problem: on English Compact layout, you can get international characters, but ONLY for first character in a key (so for \"AS\" key it's only A and variations, for \"BN\" it's only B, for \"UI\" it's only U). I'm Polish and it would be great to have a full set of characters - 2 are missing: Ś and Ń. Is it possible to either fix the EN Compact layout so it has a full set of diacritics or add a Polish Compact layout?\n\nThis layout is a lifesaver for me (and other people with big fingers too, I'm sure :D) as I can't type on a normal QWERTY layout without a ton of typos. No other application offers that.\n\nIssues tested on:\n- Samsung A53, Android 16, OneUI 8\n- Samsung Galaxy Xcover 7, Android 16, One UI 8\n- Motorola Moto e7 plus, LineageOS 22.2 (Android 15)",
+    "createdAt": "2025-12-12T09:08:57Z",
+    "labels": [],
+    "number": 4551,
+    "state": "OPEN",
+    "title": "Unable to get rid of \"not fully configured...\" message plus keyboard layout issue"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjE3MDgyMTE0", "is_bot": false, "login": "9Lukas5", "name": "" },
+    "body": "I'm having trouble with the suggestions: On many fields in the browser they get auto-corrected on deleting characters (pressing backspace)?!\n\nI have\n- [x] show word suggestions\n- [x] user dictionary\n- [ ] word correction and shortcuts\n\nThis is quite annoying and forced me to disable suggestions for now, which is really sad.\n\nAnySoftKeyboard: `1.12.7138`\nGerman lang pack: `5.1.6158`\nDevice: `Fairphone 5`\nAndroid: `15` eOS\nDevice Version: `3.2-a15-20251022539003-official-FP5`\n\nVideo of situation:\n\nhttps://github.com/user-attachments/assets/e109b5e9-48dd-43e2-bf5d-9e6f0f5f954c",
+    "createdAt": "2025-12-07T15:23:21Z",
+    "labels": [],
+    "number": 4550,
+    "state": "OPEN",
+    "title": "Suggestions getting auto-corrected on backspace/delete, but auto-correct off"
+  },
+  {
+    "author": { "id": "U_kgDODsvUdw", "is_bot": false, "login": "jesuxdxd1122-ops", "name": "" },
+    "body": "Yellow Flow Hello",
+    "createdAt": "2025-12-07T02:24:10Z",
+    "labels": [],
+    "number": 4549,
+    "state": "OPEN",
+    "title": "Hola"
+  },
+  {
+    "author": { "id": "U_kgDODo8ffQ", "is_bot": false, "login": "StitchnerDavido", "name": "" },
+    "body": "Hey, i [b] may or may not be overreacting... [/b]\n\n<img width=\"854\" height=\"480\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/e6ce553e-b9e6-4c75-87e0-99dd43869b47\" />\n\n but when i rotate my phone, keyboard doesn't fully expand or not even at all.\n\nIf you want more information, please contact me: coucoubobbyetatmosprime2@gmail.com",
+    "createdAt": "2025-12-06T19:21:05Z",
+    "labels": [],
+    "number": 4548,
+    "state": "OPEN",
+    "title": "Phone rotation bug"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjEwMzgyMjI1", "is_bot": false, "login": "chexo3", "name": "" },
+    "body": "Can you publish the fingerprint for the key you use to sign the GitHub releases, for use with AppVerifier?\n\nThank you!",
+    "createdAt": "2025-12-06T01:44:37Z",
+    "labels": [],
+    "number": 4547,
+    "state": "OPEN",
+    "title": "Publish the signing key fingerprint for GitHub releases"
+  },
+  {
+    "author": { "id": "U_kgDODreY9w", "is_bot": false, "login": "guillermoperez6336875-tech", "name": "" },
+    "body": "Jackson\n",
+    "createdAt": "2025-11-29T22:57:29Z",
+    "labels": [],
+    "number": 4544,
+    "state": "OPEN",
+    "title": "gperez29"
+  },
+  {
+    "author": { "id": "U_kgDODrZJmg", "is_bot": false, "login": "deathskull18-hub", "name": "" },
+    "body": "When searching on Revolut app, the typed characters gets multiplied, like as seen in the screenshot:\n\n![Image](https://github.com/user-attachments/assets/d1a8a3a7-2985-4c12-b4c6-c4dd36015f62)\n\nAnysoft: 1.12.264\nRevolut: 10.106\nSystem: Android 12",
+    "createdAt": "2025-11-29T09:35:59Z",
+    "labels": [],
+    "number": 4540,
+    "state": "OPEN",
+    "title": "[BUG] Doubled characters"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjEwOTM3NTE2", "is_bot": false, "login": "doodhout", "name": "" },
+    "body": "Ever since the v1.12 F-droid release (coming from v1.11 on F-droid) I noticed that the suggestions bar (i.e. CandidateView.java) is rendered with dark theme colors, despite me using the Lean Light theme.\n\nI just found out it's because of this piece of code:\nhttps://github.com/AnySoftKeyboard/AnySoftKeyboard/blob/19f1f2ae8a26917bc1384baf89288f4e225f03da/ime/app/src/main/java/com/anysoftkeyboard/keyboards/views/CandidateView.java#L116-L119\n\nThe call to `OverlayDataNormalizer.normalize()` is done with `overlay.getPrimaryDarkColor()` and `overlay.getSecondaryTextColor()` both being zero (is the overlay object missing something?), resulting in `OverlayDataNormalizer.normalize()` defaulting to `return new OverlayDataNormalized(original, Color.WHITE, Color.LTGRAY);`.\n\nSo the fix would be to make sure the overlay object contains actual theme color settings before entering `OverayDataNormalizer.normalize()`, because if I replace the variable `normalized` with `overlay` on https://github.com/AnySoftKeyboard/AnySoftKeyboard/blob/19f1f2ae8a26917bc1384baf89288f4e225f03da/ime/app/src/main/java/com/anysoftkeyboard/keyboards/views/CandidateView.java#L119 then I see the correct colors for the Lean Light theme in the suggestion bar.",
+    "createdAt": "2025-11-23T19:02:57Z",
+    "labels": [],
+    "number": 4536,
+    "state": "CLOSED",
+    "title": "[Bug] Suggestion bar defaults to dark theme even when using light theme"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjU2NjM3MzMw", "is_bot": false, "login": "scepterus", "name": "" },
+    "body": "Hello, in the latest update, a bug was introduced that did not happen in previous versions.\nWhenever I restart the phone when it loads a keyboard, the default dark keyboard is loaded. When I go to the theme menu, my keyboard of choice is selected, so I have to choose another theme, then choose the one I want, then it's fixed until the next reboot.",
+    "createdAt": "2025-11-22T15:53:46Z",
+    "labels": [],
+    "number": 4535,
+    "state": "OPEN",
+    "title": "[Bug] On restart theme defaults to basic dark"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjMyNjYyMzA0", "is_bot": false, "login": "andr222", "name": "" },
+    "body": "When configuring AnySoftKeyboard, and selecting a submenu, to return to the calling menu, one has to quit the configuration, go back into configuration via Android preferences/System/Language&Input/AnySoftKeyboard configuration, to restart configuration.\n\nThis makes it extremely difficult to explore the configuration menus to find the appropriate configuration for one's needs.\n\nFor example, I wanted to change the top menu, so instead of taking 30 seconds to find the right place, it took me maybe 30 minutes before giving up and another 20 minutes to find the wiki and find the answer.  Afterwards it was quick to find that solution.  For other changes, I had to go through the same process.\nThat is anything but user friendly.\n\nTypically, like for Android itself, configuration submenus have a left arrow top left, to allow returning to the calling menu.\nSuch a feature would be critically important for AnySoftKeyboard, which has a somewhat complex menu system.  It would be \"light years\" easier to configure.\n\nThank you for an otherwise great application.",
+    "createdAt": "2025-11-20T05:21:40Z",
+    "labels": [],
+    "number": 4527,
+    "state": "OPEN",
+    "title": "Submenus need to be able to back out to calling menu."
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjMyNjYyMzA0", "is_bot": false, "login": "andr222", "name": "" },
+    "body": "Installed AnySoftKeyboard v1.12.1264\n with French for AnySoftKeyboard v5.1.101\n\nBoth with notifications authorised, on Android 6.0.1\n\nI selected the CA-FR keyboard  with accent characters to the right,\nand the plain dark theme with grey keys.\nThis displays correctly in the theme selection.\n\nHowever when changing from 123 to ABC mode, it presents AZERTY mode, and other keyboard layouts presented.\nIt can return to what it calls a CA-FR keyboard, but without the accent keys.\nWhen I go back into the keyboard layout selection, Engish & AZERTY layouts are also selected, as well as the CA-FR layout with accent keys that I had selected.\n\nIt should just use the one keyboard layout (CA-FR with accent keys) that I had selected, and present ABC to return to alpha mode.\n\nNote that the accent keys to the right are the standard for French in Canada, since the other letter keys are just like the US English layout, making it a bilingual keyboard.\nThe other \"CA-FR\" keyboard without accent keys is not a real French Canadian keyboard.",
+    "createdAt": "2025-11-19T05:12:43Z",
+    "labels": [],
+    "number": 4525,
+    "state": "CLOSED",
+    "title": "keyboard layout changes, selected layout does not display"
+  },
+  {
+    "author": { "id": "U_kgDOCHdbsg", "is_bot": false, "login": "vanyagiper", "name": "" },
+    "body": "Hello AnySoftKeyboard team,\n\nI’m a user of Unihertz Titan 2 with a physical QWERTY keyboard. The Ukrainian language is installed via language pack, and most letters already work on the physical keyboard:\n\nW → У\n\nP → Ї\n\nS → І\n\nHowever, the following letters are missing:\n\nE → Є\n\nU → Ю\n\nAdditionally, Titan 2’s firmware blocks full AnySoftKeyboard settings and advanced functions, so users cannot access combinations, custom layouts, or other options that normally allow adding missing characters.\n\nI kindly request that these letters be added as long-press or alternate characters for the respective keys. No other changes are necessary.\n\nThis will allow Ukrainian users to type naturally on the physical keyboard without third-party workarounds.\n\nThank you for considering this! 🙏",
+    "createdAt": "2025-11-16T20:48:41Z",
+    "labels": [],
+    "number": 4523,
+    "state": "OPEN",
+    "title": "Add full Ukrainian layout support for physical keyboards on Unihertz Titan 2"
+  },
+  {
+    "author": { "id": "MDQ6VXNlcjQ0MDQ5MA==", "is_bot": false, "login": "cizmazia", "name": "Michal Cizmazia" },
+    "body": "When searching for payments in Revolut, each AnySoftKeyboard keystroke duplicates what was previously typed e.g. typing \"abc\" results in \"aababc\".\n\nhttps://www.revolut.com",
+    "createdAt": "2025-11-15T20:04:57Z",
+    "labels": [],
+    "number": 4521,
+    "state": "OPEN",
+    "title": "Revolut's search function is broken"
+  },
+  {
+    "author": { "id": "U_kgDODoGjaA", "is_bot": false, "login": "krizisi", "name": "" },
+    "body": "The keyboard and bottom bar overlap each other.\n\n![Image](https://github.com/user-attachments/assets/64d1323d-18d2-44ba-9acf-22d437b6dab6)",
+    "createdAt": "2025-11-11T15:22:56Z",
+    "labels": [],
+    "number": 4513,
+    "state": "CLOSED",
+    "title": "keyboard problem"
+  }
+]

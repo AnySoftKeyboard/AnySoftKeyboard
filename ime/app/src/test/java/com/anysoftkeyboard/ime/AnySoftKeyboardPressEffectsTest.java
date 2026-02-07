@@ -485,7 +485,8 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
         .setKeyPreviewController(Mockito.isA(NullKeyPreviewsManager.class));
     PowerSavingTest.sendBatteryState(false);
     Mockito.verify(
-            mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(2 /*the second time*/))
+            mAnySoftKeyboardUnderTest.getSpiedKeyboardView(),
+            Mockito.times(2 /* the second time */))
         .setKeyPreviewController(Mockito.isA(KeyPreviewsManager.class));
   }
 
@@ -612,6 +613,48 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     Assert.assertNotSame(first, getLastKeyPreviewController());
   }
 
+  @Test
+  public void testStressTestWithPowerSaving() {
+    // Enable Power Saving Mode (simulated via Low Battery)
+    PowerSavingTest.sendBatteryState(true);
+
+    // Type a sequence of parenthesis and other characters
+    // The user reported "parenthesis buttons became unresponsive most of the time,
+    // eventually crashing"
+    // This suggests a cumulative issue or a heavy operation blocking the main
+    // thread.
+
+    for (int i = 0; i < 100; i++) {
+      mAnySoftKeyboardUnderTest.simulateTextTyping("(");
+      mAnySoftKeyboardUnderTest.simulateTextTyping(")");
+      mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
+      mAnySoftKeyboardUnderTest.simulateTextTyping("a");
+    }
+  }
+
+  @Test
+  public void testPopTextDisabledInPowerSaving() {
+    // ensure predictions are on
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_pop_text_option, "any_key");
+
+    // First, verify behavior WITHOUT power saving
+    PowerSavingTest.sendBatteryState(false);
+    mAnySoftKeyboardUnderTest.simulateTextTyping("a");
+    // How to verify?
+    // We can check the mock/spy input view if we can access it.
+    // Or we can rely on the fact that `AnySoftKeyboardPopText` logic is simple.
+
+    // Let's stress test again, but now we expect it to be safer.
+    PowerSavingTest.sendBatteryState(true);
+    for (int i = 0; i < 100; i++) {
+      mAnySoftKeyboardUnderTest.simulateTextTyping("(");
+      mAnySoftKeyboardUnderTest.simulateTextTyping(")");
+      mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
+      mAnySoftKeyboardUnderTest.simulateTextTyping("a");
+    }
+  }
+
   private static class TestableAnySoftKeyboardPressEffects extends TestableAnySoftKeyboard {
     KeyPreviewsController mLastController;
 
@@ -624,49 +667,56 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
   }
 
   /*
-     public static class FakeSystemSettingsContentProvider extends AbstractProvider {
-
-         @Override
-         public String getAuthority() {
-             return Settings.System.CONTENT_URI.getAuthority();
-         }
-
-         @Table
-         public static class System {
-             @Column(value = Column.FieldType.INTEGER, primaryKey = true)
-             public static final String KEY_ID = Settings.System._ID;
-             private static final int KEY_ID_VALUE = 1;
-
-             @Column(Column.FieldType.INTEGER)
-             public static final String HAPTIC_FEEDBACK_ENABLED = Settings.System.HAPTIC_FEEDBACK_ENABLED;
-         }
-
-         @Override
-         public boolean onCreate() {
-             final boolean create = super.onCreate();
-             ContentValues contentValues = new ContentValues();
-             contentValues.put(FakeSystemSettingsContentProvider.System.KEY_ID, 0);
-             contentValues.put(FakeSystemSettingsContentProvider.System.HAPTIC_FEEDBACK_ENABLED, 1);
-             insert(Settings.System.CONTENT_URI, contentValues);
-             TestRxSchedulers.drainAllTasks();
-             return create;
-         }
-
-         public void setHapticEnabled(boolean hapticEnabled) {
-             final int enabledInt = hapticEnabled? 1 : 0;
-             ContentValues contentValues = new ContentValues();
-             contentValues.put(FakeSystemSettingsContentProvider.System.KEY_ID, 0);
-             contentValues.put(FakeSystemSettingsContentProvider.System.HAPTIC_FEEDBACK_ENABLED, enabledInt);
-             update(Settings.System.CONTENT_URI, contentValues, FakeSystemSettingsContentProvider.System.KEY_ID + "=" + FakeSystemSettingsContentProvider.System.KEY_ID_VALUE, null);
-
-             Settings.System.putInt(
-                     ApplicationProvider.getApplicationContext().getContentResolver(),
-                     Settings.System.HAPTIC_FEEDBACK_ENABLED,
-                     enabledInt);
-
-             TestRxSchedulers.drainAllTasks();
-         }
-     }
-
-  */
+   * public static class FakeSystemSettingsContentProvider extends
+   * AbstractProvider {
+   *
+   * @Override
+   * public String getAuthority() {
+   * return Settings.System.CONTENT_URI.getAuthority();
+   * }
+   *
+   * @Table
+   * public static class System {
+   *
+   * @Column(value = Column.FieldType.INTEGER, primaryKey = true)
+   * public static final String KEY_ID = Settings.System._ID;
+   * private static final int KEY_ID_VALUE = 1;
+   *
+   * @Column(Column.FieldType.INTEGER)
+   * public static final String HAPTIC_FEEDBACK_ENABLED =
+   * Settings.System.HAPTIC_FEEDBACK_ENABLED;
+   * }
+   *
+   * @Override
+   * public boolean onCreate() {
+   * final boolean create = super.onCreate();
+   * ContentValues contentValues = new ContentValues();
+   * contentValues.put(FakeSystemSettingsContentProvider.System.KEY_ID, 0);
+   * contentValues.put(FakeSystemSettingsContentProvider.System.
+   * HAPTIC_FEEDBACK_ENABLED, 1);
+   * insert(Settings.System.CONTENT_URI, contentValues);
+   * TestRxSchedulers.drainAllTasks();
+   * return create;
+   * }
+   *
+   * public void setHapticEnabled(boolean hapticEnabled) {
+   * final int enabledInt = hapticEnabled? 1 : 0;
+   * ContentValues contentValues = new ContentValues();
+   * contentValues.put(FakeSystemSettingsContentProvider.System.KEY_ID, 0);
+   * contentValues.put(FakeSystemSettingsContentProvider.System.
+   * HAPTIC_FEEDBACK_ENABLED, enabledInt);
+   * update(Settings.System.CONTENT_URI, contentValues,
+   * FakeSystemSettingsContentProvider.System.KEY_ID + "=" +
+   * FakeSystemSettingsContentProvider.System.KEY_ID_VALUE, null);
+   *
+   * Settings.System.putInt(
+   * ApplicationProvider.getApplicationContext().getContentResolver(),
+   * Settings.System.HAPTIC_FEEDBACK_ENABLED,
+   * enabledInt);
+   *
+   * TestRxSchedulers.drainAllTasks();
+   * }
+   * }
+   *
+   */
 }
