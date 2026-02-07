@@ -1,8 +1,9 @@
-Gesture-typing: improved accuracy, memory usage & performance.
+Gesture-typing: improved accuracy and performance.
 Support Android 15 16KB memory pages.
 Updated emojis for Android 15+.
 Fixed emoji keyboard crash.
 Better edge-to-edge support.
+Minimum Android 6.0 (API 23) required.
 Bug fixes & stability improvements.
 YABTU.
 Updated translations.
