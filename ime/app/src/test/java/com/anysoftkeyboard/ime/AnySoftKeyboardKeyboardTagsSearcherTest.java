@@ -198,8 +198,8 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
     mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
-    List<QuickKeyHistoryRecords.HistoryKey> keys = mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords()
-        .getCurrentHistory();
+    List<QuickKeyHistoryRecords.HistoryKey> keys =
+        mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().getCurrentHistory();
     Assert.assertEquals(2, keys.size());
     // added last (this will be shown in reverse on the history tab)
     Assert.assertEquals("\uD83D\uDE00", keys.get(1).name);
