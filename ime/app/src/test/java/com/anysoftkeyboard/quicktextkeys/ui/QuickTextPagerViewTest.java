@@ -165,25 +165,25 @@ public class QuickTextPagerViewTest {
     final QuickTextKeyFactory quickTextKeyFactory =
         AnyApplication.getQuickTextKeyFactory(getApplicationContext());
 
-    Assert.assertEquals(17, quickTextKeyFactory.getAllAddOns().size());
-    Assert.assertEquals(17, quickTextKeyFactory.getEnabledAddOns().size());
+    Assert.assertEquals(18, quickTextKeyFactory.getAllAddOns().size());
+    Assert.assertEquals(18, quickTextKeyFactory.getEnabledAddOns().size());
     quickTextKeyFactory.setAddOnEnabled(quickTextKeyFactory.getAllAddOns().get(0).getId(), false);
-    Assert.assertEquals(17, quickTextKeyFactory.getAllAddOns().size());
-    Assert.assertEquals(16, quickTextKeyFactory.getEnabledAddOns().size());
+    Assert.assertEquals(18, quickTextKeyFactory.getAllAddOns().size());
+    Assert.assertEquals(17, quickTextKeyFactory.getEnabledAddOns().size());
 
     OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
 
     mUnderTest.setOnKeyboardActionListener(listener);
     ViewPagerWithDisable pager = mUnderTest.findViewById(R.id.quick_text_keyboards_pager);
 
-    Assert.assertEquals(16 + 1 /*history*/, pager.getAdapter().getCount());
+    Assert.assertEquals(17 + 1 /* history */, pager.getAdapter().getCount());
 
     quickTextKeyFactory.setAddOnEnabled(quickTextKeyFactory.getAllAddOns().get(1).getId(), false);
 
     mUnderTest.setOnKeyboardActionListener(listener);
     pager = mUnderTest.findViewById(R.id.quick_text_keyboards_pager);
 
-    Assert.assertEquals(15 + 1 /*history*/, pager.getAdapter().getCount());
+    Assert.assertEquals(16 + 1 /* history */, pager.getAdapter().getCount());
   }
 
   @Test

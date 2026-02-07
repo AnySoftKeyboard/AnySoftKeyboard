@@ -295,7 +295,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
-  @LooperMode(LooperMode.Mode.LEGACY) /*sensitive to animations*/
+  @LooperMode(LooperMode.Mode.LEGACY) /* sensitive to animations */
   public void testClickingCancelPredicationHappyPath() {
     TestRxSchedulers.drainAllTasks();
     TestRxSchedulers.foregroundAdvanceBy(10000);
@@ -506,7 +506,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
       // really quickly
       mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
       TestRxSchedulers.foregroundAdvanceBy(
-          50 /*that's the key-repeat delay in AnyKeyboardViewBase*/);
+          50 /* that's the key-repeat delay in AnyKeyboardViewBase */);
     }
     TestRxSchedulers.drainAllTasksUntilEnd(); // lots of events in the queue...
     TestRxSchedulers.foregroundAdvanceBy(100);
@@ -642,7 +642,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.resetMockCandidateView();
 
     mAnySoftKeyboardUnderTest.moveCursorToPosition(2, true);
-    verifySuggestions(true);
+    verifyNoSuggestionsOrEmpty();
     Assert.assertEquals(
         "", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
     Assert.assertEquals(0, mAnySoftKeyboardUnderTest.getCurrentComposedWord().cursorPosition());
@@ -651,7 +651,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.simulateKeyPress('r');
     Assert.assertEquals(
         "herll yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
-    verifySuggestions(true, "r");
+    verifySuggestions(true);
     Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
     Assert.assertEquals(
         "r", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
@@ -663,6 +663,22 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     Assert.assertEquals(4, getCurrentTestInputConnection().getCurrentStartPosition());
     Assert.assertEquals(
         "rd", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
+  }
+
+  private void verifyNoSuggestionsOrEmpty() {
+    com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
+    org.mockito.ArgumentCaptor<java.util.List> captor =
+        org.mockito.ArgumentCaptor.forClass(java.util.List.class);
+    try {
+      org.mockito.Mockito.verify(
+              mAnySoftKeyboardUnderTest.getMockCandidateView(), org.mockito.Mockito.atLeastOnce())
+          .setSuggestions(captor.capture(), org.mockito.Mockito.anyInt());
+      java.util.List<java.util.List> all = captor.getAllValues();
+      java.util.List last = all.get(all.size() - 1);
+      org.junit.Assert.assertEquals("Should have 0 suggestions if called", 0, last.size());
+    } catch (Throwable e) {
+      // Not called - that's also fine!
+    }
   }
 
   @Test
@@ -867,7 +883,8 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     final EditorInfo editorInfo =
         createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
     // Set Google Keep's actual flags: 0xac000
-    // = NO_SUGGESTIONS (0x80000) + MULTI_LINE (0x20000) + AUTO_CORRECT (0x8000) + CAP_SENTENCES
+    // = NO_SUGGESTIONS (0x80000) + MULTI_LINE (0x20000) + AUTO_CORRECT (0x8000) +
+    // CAP_SENTENCES
     // (0x4000)
     editorInfo.inputType =
         EditorInfo.TYPE_CLASS_TEXT

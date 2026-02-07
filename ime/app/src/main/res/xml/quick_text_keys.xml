@@ -46,21 +46,21 @@
         description=""
         index="5"/>
     <QuickTextKey
-        id="1057806d-4f6e-42aa-8dfd-eea57995c2ee"
-        nameResId="@string/unicode_food_quick_text_key_name"
-        popupKeyboard="@xml/quick_text_unicode_food"
-        keyIcon="@drawable/ic_quick_text_dark_theme"
-        keyLabel="@string/quick_text_smiley_key_unicode_food_output"
-        keyOutputText="@string/quick_text_smiley_key_unicode_food_output"
-        description=""
-        index="6"/>
-    <QuickTextKey
         id="68c39680-57a7-418b-8c88-a513c1d83d56"
         nameResId="@string/unicode_nature_quick_text_key_name"
         popupKeyboard="@xml/quick_text_unicode_nature"
         keyIcon="@drawable/ic_quick_text_dark_theme"
         keyLabel="@string/quick_text_smiley_key_unicode_nature_output"
         keyOutputText="@string/quick_text_smiley_key_unicode_nature_output"
+        description=""
+        index="6"/>
+    <QuickTextKey
+        id="1057806d-4f6e-42aa-8dfd-eea57995c2ee"
+        nameResId="@string/unicode_food_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_food"
+        keyIcon="@drawable/ic_quick_text_dark_theme"
+        keyLabel="@string/quick_text_smiley_key_unicode_food_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_food_output"
         description=""
         index="7"/>
     <QuickTextKey
@@ -118,6 +118,15 @@
         description=""
         index="13"/>
     <QuickTextKey
+        id="5afdb441-dbbe-46cf-98b8-2a5059e3b5e5"
+        nameResId="@string/unicode_flags_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_flags"
+        keyIcon="@drawable/ic_quick_text_dark_theme"
+        keyLabel="@string/quick_text_smiley_key_unicode_flags_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_flags_output"
+        description=""
+        index="14"/>
+    <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a67"
         nameResId="@string/default_quick_text_key_name"
         popupKeyboard="@xml/popup_default_quick_text"
@@ -125,7 +134,7 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="14"/>
+        index="15"/>
     <QuickTextKey
         id="0077b34d-770f-4083-83e4-081957e06c27"
         nameResId="@string/simley_key_name"
@@ -134,7 +143,7 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="15"/>
+        index="16"/>
     <QuickTextKey
         id="085020ea-f496-4c0c-80cb-45ca50635c59"
         nameResId="@string/short_smiley_key_name"
@@ -143,7 +152,7 @@
         keyLabel="@string/quick_text_short_smiley_key_label"
         keyOutputText="@string/quick_text_short_smiley_key_output"
         description=""
-        index="16"/>
+        index="17"/>
     <QuickTextKey
         id="9493bdf1-ae8e-4d5d-a1e3-065bfdf83b60"
         nameResId="@string/quick_text_kaomoji"
@@ -152,5 +161,5 @@
         keyLabel="@string/quick_text_kaomoji_key_label"
         keyOutputText="@string/quick_text_kaomoji_key_output"
         description=""
-        index="17" />
+        index="18"/>
 </QuickTextKeys>
