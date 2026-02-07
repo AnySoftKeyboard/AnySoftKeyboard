@@ -38,7 +38,7 @@ public class AnyPopupKeyboardTest {
         createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
     Assert.assertEquals("POP_KEYBOARD", keyboard.getKeyboardName());
 
-    Assert.assertEquals(77, keyboard.getKeys().size());
+    Assert.assertEquals(98, keyboard.getKeys().size());
   }
 
   @Test
@@ -225,7 +225,8 @@ public class AnyPopupKeyboardTest {
     keyboard.mirrorKeys();
     // same order, mirrored X position
     // Mirrored using formula: newX = keyboardWidth - oldX - keyWidth
-    // keyboardWidth = 3 keys (width 38 each) + 3 gaps (10 each) + 2 half-gaps (5 each) = 144
+    // keyboardWidth = 3 keys (width 38 each) + 3 gaps (10 each) + 2 half-gaps (5
+    // each) = 144
     assertKeyValues(keyboard, 'q', vGap, 2 * hGap + 2 * keyWidth);
     assertKeyValues(keyboard, 'w', vGap, hGap + hGap / 2 + keyWidth);
     assertKeyValues(keyboard, 'e', vGap, hGap / 2);
@@ -267,7 +268,8 @@ public class AnyPopupKeyboardTest {
     keyboard.mirrorKeys();
     // same order, mirrored X position
     // Mirrored using formula: newX = keyboardWidth - oldX - keyWidth
-    // keyboardWidth = 5 keys + 5 gaps + 2 half-gaps = 5*38 + 5*10 + 2*5 = 190 + 50 + 10 = 250
+    // keyboardWidth = 5 keys + 5 gaps + 2 half-gaps = 5*38 + 5*10 + 2*5 = 190 + 50
+    // + 10 = 250
     // But wait, that's per row. Both rows have same width, so use the max width.
     Assert.assertEquals(10, keyboard.getKeys().size());
     assertKeyValues(keyboard, 'q', vGap + keyHeight + vGap, 4 * hGap + 4 * keyWidth);

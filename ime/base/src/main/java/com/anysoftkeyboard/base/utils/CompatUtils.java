@@ -19,7 +19,6 @@ package com.anysoftkeyboard.base.utils;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.Log;
 import android.widget.PopupWindow;
 import androidx.annotation.NonNull;
@@ -31,9 +30,7 @@ public class CompatUtils {
   private static final String TAG = "ASK-CompatUtils";
 
   public static void setPopupUnattachedToDecor(PopupWindow popupWindow) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-      popupWindow.setAttachedInDecor(false);
-    }
+    popupWindow.setAttachedInDecor(false);
   }
 
   public static void unbindDrawable(Drawable d) {
@@ -88,11 +85,7 @@ public class CompatUtils {
   }
 
   public static int appendImmutableFlag(int flags) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      return flags | PendingIntent.FLAG_IMMUTABLE;
-    } else {
-      return flags;
-    }
+    return flags | PendingIntent.FLAG_IMMUTABLE;
   }
 
   public static boolean isRobolectric() {
