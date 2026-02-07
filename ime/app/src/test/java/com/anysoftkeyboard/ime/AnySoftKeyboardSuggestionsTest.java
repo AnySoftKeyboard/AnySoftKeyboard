@@ -295,7 +295,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
-  @LooperMode(LooperMode.Mode.LEGACY) /*sensitive to animations*/
+  @LooperMode(LooperMode.Mode.LEGACY) /* sensitive to animations */
   public void testClickingCancelPredicationHappyPath() {
     TestRxSchedulers.drainAllTasks();
     TestRxSchedulers.foregroundAdvanceBy(10000);
@@ -506,7 +506,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
       // really quickly
       mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
       TestRxSchedulers.foregroundAdvanceBy(
-          50 /*that's the key-repeat delay in AnyKeyboardViewBase*/);
+          50 /* that's the key-repeat delay in AnyKeyboardViewBase */);
     }
     TestRxSchedulers.drainAllTasksUntilEnd(); // lots of events in the queue...
     TestRxSchedulers.foregroundAdvanceBy(100);
@@ -642,7 +642,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.resetMockCandidateView();
 
     mAnySoftKeyboardUnderTest.moveCursorToPosition(2, true);
-    verifySuggestions(true);
+    verifyNoSuggestionsInteractions();
     Assert.assertEquals(
         "", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
     Assert.assertEquals(0, mAnySoftKeyboardUnderTest.getCurrentComposedWord().cursorPosition());
@@ -867,7 +867,8 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     final EditorInfo editorInfo =
         createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
     // Set Google Keep's actual flags: 0xac000
-    // = NO_SUGGESTIONS (0x80000) + MULTI_LINE (0x20000) + AUTO_CORRECT (0x8000) + CAP_SENTENCES
+    // = NO_SUGGESTIONS (0x80000) + MULTI_LINE (0x20000) + AUTO_CORRECT (0x8000) +
+    // CAP_SENTENCES
     // (0x4000)
     editorInfo.inputType =
         EditorInfo.TYPE_CLASS_TEXT

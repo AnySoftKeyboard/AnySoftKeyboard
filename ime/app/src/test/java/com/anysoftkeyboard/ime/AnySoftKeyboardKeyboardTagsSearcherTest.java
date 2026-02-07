@@ -68,7 +68,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         QuickKeyHistoryRecords.DEFAULT_EMOJI);
     mAnySoftKeyboardUnderTest.simulateTextTyping("fa");
     List suggestions = verifyAndCaptureSuggestion(true);
-    Assert.assertEquals(134, suggestions.size());
+    Assert.assertEquals(113, suggestions.size());
     Assert.assertEquals(
         AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa", suggestions.get(0));
 
@@ -92,14 +92,14 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         QuickKeyHistoryRecords.DEFAULT_EMOJI);
     mAnySoftKeyboardUnderTest.simulateTextTyping("fa");
     List suggestions = verifyAndCaptureSuggestion(true);
-    Assert.assertEquals(134, suggestions.size());
+    Assert.assertEquals(113, suggestions.size());
     Assert.assertEquals(
         AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa", suggestions.get(0));
     Assert.assertEquals("⏩", suggestions.get(1));
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('c');
     suggestions = verifyAndCaptureSuggestion(true);
-    Assert.assertEquals(132, suggestions.size());
+    Assert.assertEquals(110, suggestions.size());
     Assert.assertEquals(
         AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac", suggestions.get(0));
     Assert.assertEquals("☠", suggestions.get(1));
@@ -107,14 +107,14 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
     suggestions = verifyAndCaptureSuggestion(true);
-    Assert.assertEquals(134, suggestions.size());
+    Assert.assertEquals(113, suggestions.size());
     Assert.assertEquals(
         AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa", suggestions.get(0));
     Assert.assertEquals("⏩", suggestions.get(1));
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('c');
     suggestions = verifyAndCaptureSuggestion(true);
-    Assert.assertEquals(132, suggestions.size());
+    Assert.assertEquals(110, suggestions.size());
     Assert.assertEquals(
         AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac", suggestions.get(0));
     Assert.assertEquals("☠", suggestions.get(1));
@@ -131,7 +131,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     mAnySoftKeyboardUnderTest.simulateTextTyping("face");
     List suggestions = verifyAndCaptureSuggestion(true);
     Assert.assertNotNull(suggestions);
-    Assert.assertEquals(131, suggestions.size());
+    Assert.assertEquals(110, suggestions.size());
     Assert.assertEquals(
         AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "face",
         suggestions.get(0));
@@ -154,21 +154,21 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
     List suggestions = verifyAndCaptureSuggestion(true);
     Assert.assertNotNull(suggestions);
-    Assert.assertEquals(131, suggestions.size());
+    Assert.assertEquals(110, suggestions.size());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
 
     mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
     suggestions = verifyAndCaptureSuggestion(true);
     Assert.assertNotNull(suggestions);
-    Assert.assertEquals(131, suggestions.size());
+    Assert.assertEquals(110, suggestions.size());
 
     mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
     mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
     suggestions = verifyAndCaptureSuggestion(true);
     Assert.assertNotNull(suggestions);
-    Assert.assertEquals(131, suggestions.size());
+    Assert.assertEquals(110, suggestions.size());
   }
 
   @Test
@@ -198,8 +198,8 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
     mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
-    List<QuickKeyHistoryRecords.HistoryKey> keys =
-        mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().getCurrentHistory();
+    List<QuickKeyHistoryRecords.HistoryKey> keys = mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords()
+        .getCurrentHistory();
     Assert.assertEquals(2, keys.size());
     // added last (this will be shown in reverse on the history tab)
     Assert.assertEquals("\uD83D\uDE00", keys.get(1).name);
