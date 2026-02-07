@@ -5,6 +5,10 @@
   "ignoreDeps": ["org.robolectric:robolectric"],
   "requireConfig": "optional",
   "gitAuthor": "Polyglot <ask@evendanan.net>",
+  "major": {
+    "enabled": true,
+    "dependencyDashboardApproval": false
+  },
   "allowedCommands": [
     "^scripts/update_robolectric_jars_versions.sh .*",
     "^scripts/error-prone-auto-patch.sh$",
