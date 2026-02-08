@@ -34,25 +34,40 @@ jobs:
           java-version: '21'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: check bazel and java
+      - name: Resolve Paths
+        id: paths
         run: |
-          ./gradlew --version
-          ./gradlew :tasks
-          bazel version
-          bazel query //...
+          echo "java_home=${JAVA_HOME}" >> $GITHUB_OUTPUT
+          echo "gradle_user_home=${HOME}/.gradle" >> $GITHUB_OUTPUT
+          BAZEL_BIN=$(which bazel)
+          echo "bazel_bin=$BAZEL_BIN" >> $GITHUB_OUTPUT
+          echo "bazel_dir=$(dirname $BAZEL_BIN)" >> $GITHUB_OUTPUT
+          echo "bazel_cache=${HOME}/.cache/bazel" >> $GITHUB_OUTPUT
+          echo "bazelisk_cache=${HOME}/.cache/bazelisk" >> $GITHUB_OUTPUT
+      - name: Debug Paths
+        run: |
+          echo "Java Home: ${{ steps.paths.outputs.java_home }}"
+          echo "Gradle User Home: ${{ steps.paths.outputs.gradle_user_home }}"
+          echo "Bazel Bin: ${{ steps.paths.outputs.bazel_bin }}"
+          echo "Bazel Dir: ${{ steps.paths.outputs.bazel_dir }}"
+          echo "Bazel Cache: ${{ steps.paths.outputs.bazel_cache }}"
+          echo "Bazelisk Cache: ${{ steps.paths.outputs.bazelisk_cache }}"
       - name: Self-hosted Renovate
         uses: renovatebot/github-action@v44.2.6
         with:
           configurationFile: .github/renovate.json
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          docker-volumes: |
+            ${{ steps.paths.outputs.java_home }}:${{ steps.paths.outputs.java_home }}
+            ${{ steps.paths.outputs.gradle_user_home }}:${{ steps.paths.outputs.gradle_user_home }}
+            ${{ steps.paths.outputs.bazel_cache }}:${{ steps.paths.outputs.bazel_cache }}
+            ${{ steps.paths.outputs.bazelisk_cache }}:${{ steps.paths.outputs.bazelisk_cache }}
+            ${{ steps.paths.outputs.bazel_bin }}:${{ steps.paths.outputs.bazel_bin }}
+          env-regex: '^(?:RENOVATE_\w+|LOG_LEVEL|JAVA_HOME|GRADLE_USER_HOME|BAZELISK_HOME|PATH)$'
         env:
           LOG_LEVEL: debug
           RENOVATE_REPOSITORIES: ${{ github.repository }}
-      - name: renovate outputs
-        run: |
-          echo "SHA:"
-          git rev-parse HEAD
-          echo "Branch:"
-          git rev-parse --abbrev-ref HEAD
-          echo "Env:"
-          env
+          JAVA_HOME: ${{ steps.paths.outputs.java_home }}
+          GRADLE_USER_HOME: ${{ steps.paths.outputs.gradle_user_home }}
+          BAZELISK_HOME: ${{ steps.paths.outputs.bazelisk_cache }}
+          PATH: "${{ steps.paths.outputs.java_home }}/bin:${{ steps.paths.outputs.bazel_dir }}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
