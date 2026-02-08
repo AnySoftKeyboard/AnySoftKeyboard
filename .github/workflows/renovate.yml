@@ -34,6 +34,12 @@ jobs:
           java-version: '21'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+      - name: check bazel and java
+        run: |
+          ./gradlew --version
+          ./gradlew :tasks
+          bazel version
+          bazel query //...
       - name: Self-hosted Renovate
         uses: renovatebot/github-action@v44.2.6
         with:
@@ -42,3 +48,11 @@ jobs:
         env:
           LOG_LEVEL: debug
           RENOVATE_REPOSITORIES: ${{ github.repository }}
+      - name: renovate outputs
+        run: |
+          echo "SHA:"
+          git rev-parse HEAD
+          echo "Branch:"
+          git rev-parse --abbrev-ref HEAD
+          echo "Env:"
+          env
