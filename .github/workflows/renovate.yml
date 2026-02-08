@@ -58,10 +58,10 @@ jobs:
           configurationFile: .github/renovate.json
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           docker-volumes: |
-            ${{ steps.paths.outputs.java_home }}:${{ steps.paths.outputs.java_home }}
-            ${{ steps.paths.outputs.gradle_user_home }}:${{ steps.paths.outputs.gradle_user_home }}
-            ${{ steps.paths.outputs.bazel_cache }}:${{ steps.paths.outputs.bazel_cache }}
-            ${{ steps.paths.outputs.bazelisk_cache }}:${{ steps.paths.outputs.bazelisk_cache }}
+            ${{ steps.paths.outputs.java_home }}:${{ steps.paths.outputs.java_home }} ;
+            ${{ steps.paths.outputs.gradle_user_home }}:${{ steps.paths.outputs.gradle_user_home }} ;
+            ${{ steps.paths.outputs.bazel_cache }}:${{ steps.paths.outputs.bazel_cache }} ;
+            ${{ steps.paths.outputs.bazelisk_cache }}:${{ steps.paths.outputs.bazelisk_cache }} ;
             ${{ steps.paths.outputs.bazel_bin }}:${{ steps.paths.outputs.bazel_bin }}
           env-regex: '^(?:RENOVATE_\w+|LOG_LEVEL|JAVA_HOME|GRADLE_USER_HOME|BAZELISK_HOME|PATH)$'
         env:
