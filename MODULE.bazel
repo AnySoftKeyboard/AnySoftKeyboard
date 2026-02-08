@@ -68,7 +68,7 @@ rules_ts_ext.deps(
 use_repo(rules_ts_ext, "npm_typescript")
 
 bazel_dep(name = "aspect_rules_lint", version = "1.12.0")
-bazel_dep(name = "buildifier_prebuilt", version = "7.3.1")
+bazel_dep(name = "buildifier_prebuilt", version = "8.2.1.2")
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
