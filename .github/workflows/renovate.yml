@@ -33,7 +33,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
       - name: Resolve Paths
         id: paths
         run: |
@@ -56,7 +56,7 @@ jobs:
           echo "Bazel Cache: ${{ steps.paths.outputs.bazel_cache }}"
           echo "Bazelisk Cache: ${{ steps.paths.outputs.bazelisk_cache }}"
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@v44.2.6
+        uses: renovatebot/github-action@v46.0.1
         with:
           configurationFile: .github/renovate.json
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
