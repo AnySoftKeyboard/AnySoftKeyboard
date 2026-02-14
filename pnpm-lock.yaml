@@ -21,8 +21,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@google/gemini-cli':
-        specifier: ^0.27.0
-        version: 0.27.0(@cfworker/json-schema@4.1.1)(@grpc/grpc-js@1.14.3)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)
+        specifier: ^0.28.0
+        version: 0.28.2(@cfworker/json-schema@4.1.1)(@grpc/grpc-js@1.14.3)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)
       '@langchain/core':
         specifier: ^1.1.7
         version: 1.1.8(@opentelemetry/api@1.9.0)(@opentelemetry/exporter-trace-otlp-proto@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(openai@6.7.0(ws@8.19.0)(zod@3.25.76))
@@ -39,8 +39,8 @@ importers:
         specifier: ^4.13.4
         version: 4.13.4
       '@types/node':
-        specifier: 25.2.1
-        version: 25.2.1
+        specifier: 25.2.3
+        version: 25.2.3
       '@types/node-fetch':
         specifier: ^2.6.13
         version: 2.6.13
@@ -239,12 +239,12 @@ packages:
     resolution: {integrity: sha512-Orxzlfb9c67A15cq2JQEyVc7wEsmFBmHjZWZYQMUyJ1qivXyMwdyNOs9odi79hze+2zqdTtu1E19IM/FtqZ10g==, tarball: https://registry.npmjs.org/@google-cloud/promisify/-/promisify-4.0.0.tgz}
     engines: {node: '>=14'}
 
-  '@google/gemini-cli-core@0.27.0':
-    resolution: {integrity: sha512-qXMEqMQ9FrTMG6YmwLlDyPIWRfzPUI9W3VyQnrOyFWrn66MrJnPNBs+3KLhouWOuJSUtOcKYtTOdiTPMnLd6cw==, tarball: https://registry.npmjs.org/@google/gemini-cli-core/-/gemini-cli-core-0.27.0.tgz}
+  '@google/gemini-cli-core@0.28.2':
+    resolution: {integrity: sha512-GiGVYxQQjATKVXrr8mMKWgvdiz9np5iFihitFdkDJDM1H8ltSZ5PYHXFSPjrVhvmfdHaxyQ+6fBvTp7c6zH/6g==, tarball: https://registry.npmjs.org/@google/gemini-cli-core/-/gemini-cli-core-0.28.2.tgz}
     engines: {node: '>=20'}
 
-  '@google/gemini-cli@0.27.0':
-    resolution: {integrity: sha512-VcPNV06squQEql7FwpzAHxYBphxeAH92sOvn8eyB/b4naap4iHYoLKtNyT/NsY3lAl/fDEAzmCnmqNXoY1f3Cg==, tarball: https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-0.27.0.tgz}
+  '@google/gemini-cli@0.28.2':
+    resolution: {integrity: sha512-f/2gaRpWHsKZ+J6455EjEopwvaflM5ddJqkWt0rEAo/ST++mYgP2Gcjx6G0saoYSXWpPCHtu3ixY2ZeU06oaAw==, tarball: https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-0.28.2.tgz}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -743,8 +743,8 @@ packages:
   '@types/node-fetch@2.6.13':
     resolution: {integrity: sha512-QGpRVpzSaUs30JBSGPjOg4Uveu384erbHBoT1zeONvyCfwQxIkUshLAOqN/k9EjGviPRmWTTe6aH2qySWKTVSw==, tarball: https://registry.npmjs.org/@types/node-fetch/-/node-fetch-2.6.13.tgz}
 
-  '@types/node@25.2.1':
-    resolution: {integrity: sha512-CPrnr8voK8vC6eEtyRzvMpgp3VyVRhgclonE7qYi6P9sXwYb59ucfrnmFBTaP0yUi8Gk4yZg/LlTJULGxvTNsg==, tarball: https://registry.npmjs.org/@types/node/-/node-25.2.1.tgz}
+  '@types/node@25.2.3':
+    resolution: {integrity: sha512-m0jEgYlYz+mDJZ2+F4v8D1AyQb+QzsNqRuI7xg1VQX/KlKS0qT9r1Mo16yo5F/MtifXFgaofIFsdFMox2SxIbQ==, tarball: https://registry.npmjs.org/@types/node/-/node-25.2.3.tgz}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==, tarball: https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.4.tgz}
@@ -2256,6 +2256,9 @@ packages:
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==, tarball: https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz}
 
+  proper-lockfile@4.1.2:
+    resolution: {integrity: sha512-TjNPblN4BwAWMXU8s9AEz4JmQxnD1NNL7bNOY/AKUzyamc379FWASUhc/K1pL2noVb+XmZKLL68cjzLsiOAMaA==, tarball: https://registry.npmjs.org/proper-lockfile/-/proper-lockfile-4.1.2.tgz}
+
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==, tarball: https://registry.npmjs.org/proto-list/-/proto-list-1.2.4.tgz}
 
@@ -2369,6 +2372,10 @@ packages:
   retry-request@7.0.2:
     resolution: {integrity: sha512-dUOvLMJ0/JJYEn8NrpOaGNE7X3vpI5XlZS/u0ANjqtcZVKnIxP7IgCFwrKTxENw29emmwug53awKtaMm4i9g5w==, tarball: https://registry.npmjs.org/retry-request/-/retry-request-7.0.2.tgz}
     engines: {node: '>=14'}
+
+  retry@0.12.0:
+    resolution: {integrity: sha512-9LkiTwjUh6rT555DtE9rTX+BKByPfrMzEAtnlEtdEwr3Nkffwiihqe2bWADg+OQRjt9gl6ICdmB/ZFDCGAtSow==, tarball: https://registry.npmjs.org/retry/-/retry-0.12.0.tgz}
+    engines: {node: '>= 4'}
 
   rimraf@5.0.10:
     resolution: {integrity: sha512-l0OE8wL34P4nJH/H2ffoaniAokM2qSmrtXHmlpvYr5AVVX8msAyW0l8NVJFDxlSK4u3Uh/f41cQheDVdnYijwQ==, tarball: https://registry.npmjs.org/rimraf/-/rimraf-5.0.10.tgz}
@@ -3009,7 +3016,7 @@ snapshots:
 
   '@google-cloud/promisify@4.0.0': {}
 
-  '@google/gemini-cli-core@0.27.0(@cfworker/json-schema@4.1.1)(@grpc/grpc-js@1.14.3)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)':
+  '@google/gemini-cli-core@0.28.2(@cfworker/json-schema@4.1.1)(@grpc/grpc-js@1.14.3)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)':
     dependencies:
       '@a2a-js/sdk': 0.3.10(@grpc/grpc-js@1.14.3)(express@5.2.1)
       '@google-cloud/logging': 11.2.1
@@ -3050,6 +3057,7 @@ snapshots:
       mnemonist: 0.40.3
       open: 10.2.0
       picomatch: 4.0.3
+      proper-lockfile: 4.1.2
       read-package-up: 11.0.0
       shell-quote: 1.8.3
       simple-git: 3.30.0
@@ -3086,10 +3094,10 @@ snapshots:
       - tree-sitter
       - utf-8-validate
 
-  '@google/gemini-cli@0.27.0(@cfworker/json-schema@4.1.1)(@grpc/grpc-js@1.14.3)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)':
+  '@google/gemini-cli@0.28.2(@cfworker/json-schema@4.1.1)(@grpc/grpc-js@1.14.3)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)':
     dependencies:
       '@agentclientprotocol/sdk': 0.12.0(zod@3.25.76)
-      '@google/gemini-cli-core': 0.27.0(@cfworker/json-schema@4.1.1)(@grpc/grpc-js@1.14.3)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)
+      '@google/gemini-cli-core': 0.28.2(@cfworker/json-schema@4.1.1)(@grpc/grpc-js@1.14.3)(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(express@5.2.1)(hono@4.11.1)
       '@google/genai': 1.30.0(@modelcontextprotocol/sdk@1.25.1(@cfworker/json-schema@4.1.1)(hono@4.11.1)(zod@3.25.76))
       '@iarna/toml': 2.2.5
       '@modelcontextprotocol/sdk': 1.25.1(@cfworker/json-schema@4.1.1)(hono@4.11.1)(zod@3.25.76)
@@ -3113,6 +3121,7 @@ snapshots:
       mnemonist: 0.40.3
       open: 10.2.0
       prompts: 2.4.2
+      proper-lockfile: 4.1.2
       react: 19.2.3
       read-package-up: 11.0.0
       shell-quote: 1.8.3
@@ -3720,12 +3729,12 @@ snapshots:
 
   '@types/follow-redirects@1.14.4':
     dependencies:
-      '@types/node': 25.2.1
+      '@types/node': 25.2.3
 
   '@types/glob@8.1.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 25.2.1
+      '@types/node': 25.2.3
 
   '@types/gradient-string@1.1.6':
     dependencies:
@@ -3749,14 +3758,14 @@ snapshots:
 
   '@types/mock-fs@4.13.4':
     dependencies:
-      '@types/node': 25.2.1
+      '@types/node': 25.2.3
 
   '@types/node-fetch@2.6.13':
     dependencies:
-      '@types/node': 25.2.1
+      '@types/node': 25.2.3
       form-data: 4.0.5
 
-  '@types/node@25.2.1':
+  '@types/node@25.2.3':
     dependencies:
       undici-types: 7.16.0
 
@@ -3765,7 +3774,7 @@ snapshots:
   '@types/request@2.48.13':
     dependencies:
       '@types/caseless': 0.12.5
-      '@types/node': 25.2.1
+      '@types/node': 25.2.3
       '@types/tough-cookie': 4.0.5
       form-data: 2.5.5
 
@@ -3784,11 +3793,11 @@ snapshots:
 
   '@types/xml2js@0.4.14':
     dependencies:
-      '@types/node': 25.2.1
+      '@types/node': 25.2.3
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 25.2.1
+      '@types/node': 25.2.3
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.50.0(@typescript-eslint/parser@8.50.0(eslint@9.39.2)(typescript@5.9.3))(eslint@9.39.2)(typescript@5.9.3)':
@@ -5324,6 +5333,12 @@ snapshots:
       object-assign: 4.1.1
       react-is: 16.13.1
 
+  proper-lockfile@4.1.2:
+    dependencies:
+      graceful-fs: 4.2.11
+      retry: 0.12.0
+      signal-exit: 3.0.7
+
   proto-list@1.2.4: {}
 
   proto3-json-serializer@2.0.2:
@@ -5342,7 +5357,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 25.2.1
+      '@types/node': 25.2.3
       long: 5.3.2
 
   proxy-addr@2.0.7:
@@ -5461,6 +5476,8 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  retry@0.12.0: {}
 
   rimraf@5.0.10:
     dependencies:
