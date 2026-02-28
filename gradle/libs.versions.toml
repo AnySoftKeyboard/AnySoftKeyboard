@@ -9,8 +9,8 @@ sdkMinimum = "23"
 agp = "8.13.2"
 kotlin = "2.3.10"
 spotless = "8.2.1"
-playPublisher = "3.13.0"
-errorpronePlugin = "4.4.0"
+playPublisher = "4.0.0"
+errorpronePlugin = "5.0.0"
 navigationSafeArgs = "2.9.6"
 
 # AndroidX Libraries
@@ -57,7 +57,7 @@ errorproneAnnotations = "2.47.0"
 # Testing
 junit = "4.13.2"
 robolectric = "4.16.1"
-mockito = "2.28.2"
+mockito = "5.22.0"
 mockitoKotlin = "1.6.0"
 systemRules = "1.19.0"
 simpleprovider = "1.1.0"
@@ -67,7 +67,7 @@ gson = "2.13.2"
 httpclient = "4.5.14"
 kotlinReflect = "2.3.10"
 jsoup = "1.22.1"
-guava = "24.1.1-jre"
+guava = "33.5.0-jre"
 
 [libraries]
 # AndroidX
