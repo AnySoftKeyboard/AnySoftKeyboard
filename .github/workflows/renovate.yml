@@ -34,10 +34,15 @@ jobs:
           java-version: '21'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'pnpm'
       - name: Self-hosted Renovate
         env:
           LOG_LEVEL: debug
@@ -45,4 +50,4 @@ jobs:
           # Renovate CLI uses RENOVATE_TOKEN for Github tokens
           RENOVATE_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           RENOVATE_CONFIG_FILE: .github/renovate.json
-        run: npx --yes renovate
+        run: pnpm dlx renovate
