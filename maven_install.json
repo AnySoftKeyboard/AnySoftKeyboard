@@ -205,9 +205,7 @@
       "org.junit.jupiter:junit-jupiter-api",
       "org.junit.platform:junit-platform-engine"
     ],
-    "org.junit.platform:junit-platform-commons": [
-      "org.apiguardian:apiguardian-api"
-    ],
+    "org.junit.platform:junit-platform-commons": ["org.apiguardian:apiguardian-api"],
     "org.junit.platform:junit-platform-engine": [
       "org.apiguardian:apiguardian-api",
       "org.junit.platform:junit-platform-commons",
@@ -223,11 +221,7 @@
     ]
   },
   "packages": {
-    "com.google.code.findbugs:jsr305": [
-      "javax.annotation",
-      "javax.annotation.concurrent",
-      "javax.annotation.meta"
-    ],
+    "com.google.code.findbugs:jsr305": ["javax.annotation", "javax.annotation.concurrent", "javax.annotation.meta"],
     "com.google.code.gson:gson": [
       "com.google.gson",
       "com.google.gson.annotations",
@@ -243,9 +237,7 @@
       "com.google.errorprone.annotations",
       "com.google.errorprone.annotations.concurrent"
     ],
-    "com.google.guava:failureaccess": [
-      "com.google.common.util.concurrent.internal"
-    ],
+    "com.google.guava:failureaccess": ["com.google.common.util.concurrent.internal"],
     "com.google.guava:guava": [
       "com.google.common.annotations",
       "com.google.common.base",
@@ -266,19 +258,10 @@
       "com.google.common.xml",
       "com.google.thirdparty.publicsuffix"
     ],
-    "com.google.j2objc:j2objc-annotations": [
-      "com.google.j2objc.annotations"
-    ],
-    "com.google.protobuf:protobuf-java": [
-      "com.google.protobuf",
-      "com.google.protobuf.compiler"
-    ],
-    "com.google.protobuf:protobuf-java-util": [
-      "com.google.protobuf.util"
-    ],
-    "org.apiguardian:apiguardian-api": [
-      "org.apiguardian.api"
-    ],
+    "com.google.j2objc:j2objc-annotations": ["com.google.j2objc.annotations"],
+    "com.google.protobuf:protobuf-java": ["com.google.protobuf", "com.google.protobuf.compiler"],
+    "com.google.protobuf:protobuf-java-util": ["com.google.protobuf.util"],
+    "org.apiguardian:apiguardian-api": ["org.apiguardian.api"],
     "org.checkerframework:checker-qual": [
       "org.checkerframework.checker.builder.qual",
       "org.checkerframework.checker.calledmethods.qual",
@@ -360,9 +343,7 @@
       "org.junit.platform.reporting.legacy",
       "org.junit.platform.reporting.legacy.xml"
     ],
-    "org.opentest4j:opentest4j": [
-      "org.opentest4j"
-    ]
+    "org.opentest4j:opentest4j": ["org.opentest4j"]
   },
   "repositories": {
     "https://repo1.maven.org/maven2/": [
@@ -405,14 +386,10 @@
   },
   "services": {
     "org.junit.jupiter:junit-jupiter-engine": {
-      "org.junit.platform.engine.TestEngine": [
-        "org.junit.jupiter.engine.JupiterTestEngine"
-      ]
+      "org.junit.platform.engine.TestEngine": ["org.junit.jupiter.engine.JupiterTestEngine"]
     },
     "org.junit.jupiter:junit-jupiter-engine:jar:sources": {
-      "org.junit.platform.engine.TestEngine": [
-        "org.junit.jupiter.engine.JupiterTestEngine"
-      ]
+      "org.junit.platform.engine.TestEngine": ["org.junit.jupiter.engine.JupiterTestEngine"]
     },
     "org.junit.platform:junit-platform-launcher": {
       "org.junit.platform.launcher.TestExecutionListener": [
