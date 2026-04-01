@@ -83,6 +83,7 @@
     <word src="havent">haven't</word>
     <word src="hed">he'd</word>
     <word src="hel">he'll</word>
+    <word src="hell">he'll</word>
     <word src="heres">here's</word>
     <word src="hes">he's</word>
     <word src="hlep">help</word>
@@ -94,8 +95,11 @@
     <word src="htis">this</word>
     <word src="hvae">have</word>
     <word src="i">I</word>
+    <word src="id">I'd</word>
     <word src="il">I'll</word>
+    <word src="ill">I'll</word>
     <word src="im">I'm</word>
+    <word src="i'd">I'd</word>
     <word src="i'm">I'm</word>
     <word src="i'll">I'll</word>
     <word src="i've">I've</word>
@@ -132,8 +136,10 @@
     <word src="saturday">Saturday</word>
     <word src="seh">she</word>
     <word src="shant">shan't</word>
+    <word src="shed">she'd</word>
     <word src="she'">she'll</word>
     <word src="shel">she'll</word>
+    <word src="shell">she'll</word>
     <word src="shes">she's</word>
     <word src="shouldent">shouldn't</word>
     <word src="shouldnt">shouldn't</word>
@@ -162,8 +168,11 @@
     <word src="wasnt">wasn't</word>
     <word src="wednesday">Wednesday</word>
     <word src="wierd">weird</word>
+    <word src="wed">we'd</word>
     <word src="wel">we'll</word>
+    <word src="well">we'll</word>
     <word src="wer">we're</word>
+    <word src="were">we're</word>
     <word src="werent">weren't</word>
     <word src="weve">we've</word>
     <word src="whatd">what'd</word>
