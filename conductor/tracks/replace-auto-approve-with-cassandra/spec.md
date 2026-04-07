@@ -1,9 +1,11 @@
 # Specification: Replace Auto-Approve with Cassandra
 
 ## Goal
+
 Replace the current custom AI code review and auto-approval logic in `AnySoftKeyboard` with the `Cassandra` tool from `https://github.com/menny/cassandra/`.
 
 ## Requirements
+
 1.  Remove all code related to `auto-approve` and `code-review` from the repository.
 2.  Specifically remove `js/auto_approval/` and its references.
 3.  Specifically remove the `codeReview` command and `AiCodeReviewer` from `js/ai/` and its references.
