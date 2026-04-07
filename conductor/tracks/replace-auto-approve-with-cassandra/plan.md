@@ -19,6 +19,6 @@
 - [x] Set up `provider`, `model_id` (set to `gemini-3-flash-preview`), `provider_api_key`, `base`, `head`, and `reviewer_github_token` inputs for Cassandra.
 
 ## Phase 4: Validation
+
 - [x] Verify that the Bazel build still works for remaining tools (`js/ai`'s `translationsVerification`).
 - [x] (Optional) Trigger the workflow manually if possible, or verify its syntax.
-
