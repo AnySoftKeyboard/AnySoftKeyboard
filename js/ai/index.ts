@@ -52,10 +52,12 @@ program
     }
   });
 
-program
-  .command('codeReview')
-  .requiredOption('--gemini-api-key <key>', 'Gemini API key')
-  .requiredOption('--base-sha <base_sha>', 'Base SHA of the changes')
+const main = async () => {
+  program.parse();
+};
+
+main().catch((_) => exit(-1));
+', 'Base SHA of the changes')
   .requiredOption('--head-sha <head_sha>', 'Last commit of the changes')
   .option('--output-file <path>', 'file path to write the LLM response (optional)')
   .description('Use LLM code review a git diff')
