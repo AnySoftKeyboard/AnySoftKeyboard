@@ -88,7 +88,7 @@ importers:
         version: 5.9.3
       undici:
         specifier: ^7.16.0
-        version: 7.16.0
+        version: 7.24.0
       xml2js:
         specifier: ^0.6.2
         version: 0.6.2
@@ -2656,8 +2656,8 @@ packages:
     resolution: {integrity: sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==, tarball: https://registry.npmjs.org/undici/-/undici-5.29.0.tgz}
     engines: {node: '>=14.0'}
 
-  undici@7.16.0:
-    resolution: {integrity: sha512-QEg3HPMll0o3t2ourKwOeUAZ159Kn9mx5pnzHRQO8+Wixmh88YdZRiIwat0iNzNNXn0yoEtXJqFpyW7eM8BV7g==, tarball: https://registry.npmjs.org/undici/-/undici-7.16.0.tgz}
+  undici@7.24.0:
+    resolution: {integrity: sha512-jxytwMHhsbdpBXxLAcuu0fzlQeXCNnWdDyRHpvWsUl8vd98UwYdl9YTyn8/HcpcJPC3pwUveefsa3zTxyD/ERg==, tarball: https://registry.npmjs.org/undici/-/undici-7.24.0.tgz}
     engines: {node: '>=20.18.1'}
 
   unicorn-magic@0.1.0:
@@ -3085,7 +3085,7 @@ snapshots:
       strip-ansi: 7.1.2
       systeminformation: 5.30.7
       tree-sitter-bash: 0.25.1
-      undici: 7.16.0
+      undici: 7.24.0
       uuid: 13.0.0
       web-tree-sitter: 0.25.10
       zod: 3.25.76
@@ -3151,7 +3151,7 @@ snapshots:
       strip-json-comments: 3.1.1
       tar: 7.5.11
       tinygradient: 1.1.5
-      undici: 7.16.0
+      undici: 7.24.0
       wrap-ansi: 9.0.2
       yargs: 17.7.2
       zod: 3.25.76
@@ -5804,7 +5804,7 @@ snapshots:
     dependencies:
       '@fastify/busboy': 2.1.1
 
-  undici@7.16.0: {}
+  undici@7.24.0: {}
 
   unicorn-magic@0.1.0: {}
 
