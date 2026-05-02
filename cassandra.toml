@@ -2,6 +2,6 @@ provider = "google"
 model = "gemini-3-flash-preview"
 
 supplemental-guidelines = [
-    ".github/cassandra/code-reuse.md",
-    ".github/cassandra/drive-by-fixes.md"
+    ".cassandra/code-reuse.md",
+    ".cassandra/drive-by-fixes.md"
 ]

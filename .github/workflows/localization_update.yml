@@ -59,25 +59,7 @@ jobs:
           ./scripts/ci/localization_update_summary.sh "/tmp/translation_report.md"
           echo "Translations update from crowdin service." > /tmp/translation_report_commit_body.md
           echo "" >> /tmp/translation_report_commit_body.md
-          echo "# AI Report" >> /tmp/translation_report_commit_body.md
-          echo "" >> /tmp/translation_report_commit_body.md
           cat /tmp/translation_report.md >> /tmp/translation_report_commit_body.md
-      - name: AI Translation Review
-        uses: menny/cassandra@c31e5c67624ca33ee7094b567e4d14a96639fe8b
-        with:
-          provider: 'google'
-          model_id: 'gemini-3-flash-preview'
-          provider_api_key: ${{ secrets.GEMINI_2_5_FLASH_API_KEY }}
-          main_guidelines: '.cassandra/translation_rules.md'
-          # We review the staged changes against the current HEAD
-          base: 'HEAD'
-          head: 'STAGED'
-          # We don't want it to comment on a PR (as it doesn't exist yet),
-          # we want the report to be used in the PR body.
-          # Cassandra might need an option to output to a file or we use its output.
-          # For now, let's assume it posts to the PR if we provide a token,
-          # but here we are creating the PR.
-          # Better: Cassandra can just be part of the PR creation.
       - name: Upload translation artifacts
         uses: actions/upload-artifact@v6.0.0
         with:
