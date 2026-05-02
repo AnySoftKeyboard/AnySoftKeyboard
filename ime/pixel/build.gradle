@@ -5,7 +5,7 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 dependencies {
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
-    implementation 'androidx.preference:preference:1.2.1'
+    implementation libs.androidx.preference
 
     testImplementation project(':ime:base-test')
 }
