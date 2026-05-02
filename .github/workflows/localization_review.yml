@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - '**/res/values/strings.xml'
+      - '**/res/values*/strings.xml'
 
 jobs:
   localization-review:
