@@ -4,7 +4,6 @@ import { generateLocaleArrayXml } from './locales_generator.js';
 import { exit } from 'process';
 import { replaceEllipsis } from './replace_ellipsis.js';
 import * as fs from 'fs';
-import { generateXmlReport, parseGitDiff } from './diff_parser.js';
 import { cleanEmptyTranslations } from './clean_empty_translations.js';
 
 const program = new Command();
@@ -36,19 +35,6 @@ program
     console.log('Replacing ... with … in all strings.xml files...');
     const workspaceDir = process.env.BUILD_WORKSPACE_DIRECTORY || process.cwd();
     replaceEllipsis(workspaceDir, options.crowdinFile);
-  });
-
-program
-  .command('diffReport')
-  .option('-i, --input <inputFile>', 'Input file path', '-')
-  .option('-o, --output <outputFile>', 'Output file path', 'string_changes.xml')
-  .action((options) => {
-    const workspaceDir = process.env.BUILD_WORKSPACE_DIRECTORY || process.cwd();
-    const diff = fs.readFileSync(options.input === '-' ? 0 : options.input, 'utf-8');
-    const changedStrings = parseGitDiff(diff);
-    const xmlReport = generateXmlReport(workspaceDir, changedStrings);
-    fs.writeFileSync(options.output, xmlReport, 'utf-8');
-    console.log(`XML report generated at ${options.output}`);
   });
 
 program

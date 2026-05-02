@@ -1,45 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Builder } from 'xml2js';
 
 interface ChangedString {
   file: string;
   id: string;
   value: string;
 }
-
-interface ChangeItem {
-  $: { id: string; default: string };
-  translation: Array<{
-    $: { localeCode: string; localeName: string };
-    _: string;
-  }>;
-}
-
-// Get human-readable locale name using Intl.DisplayNames
-const getLocaleName = (localeCode: string): string => {
-  try {
-    // Try to get the language name
-    const languageName = new Intl.DisplayNames(['en'], { type: 'language' }).of(localeCode);
-
-    // If it's a regional variant, try to get the region name too
-    if (localeCode.includes('-')) {
-      const region = localeCode.split('-')[1];
-      const regionName = new Intl.DisplayNames(['en'], { type: 'region' }).of(region);
-
-      // Only add region if it's not already included in the language name
-      if (regionName && regionName !== region && languageName && !languageName.includes(regionName)) {
-        return `${languageName} (${regionName})`;
-      }
-    }
-
-    return languageName || localeCode;
-  } catch (error) {
-    // Fallback to the original locale code if Intl.DisplayNames fails
-    console.warn(`Error while getLocaleName for '${localeCode}': ${error}`);
-    return localeCode;
-  }
-};
 
 export const parseGitDiff = (diff: string): ChangedString[] => {
   // Input validation
@@ -148,61 +114,4 @@ export const getDefaultStringValue = (repoRoot: string, changedFilePath: string,
     `Error while getDefaultStringValue. Could not find string id ${stringId} in ${fullPath} for ${changedFilePath}.`,
   );
   return null;
-};
-
-export const getLanguageFromFilePath = (filePath: string): string | null => {
-  // Handle various Android resource folder patterns
-  const match = filePath.match(/values-([a-z]{2,3}(?:-[A-Z]{2})?(?:-r[A-Za-z]+)?)\/strings\.xml$/);
-  if (match) {
-    return match[1].replace('-r', '-');
-  }
-  return null;
-};
-
-export const generateXmlReport = (repoRoot: string, changedStrings: ChangedString[]): string => {
-  const builder = new Builder({
-    headless: false, // Include XML declaration
-    renderOpts: { pretty: true, indent: '  ' },
-    xmldec: { version: '1.0' }, // Only include version, not encoding or standalone
-  });
-
-  const changes: { [key: string]: ChangeItem } = {};
-
-  for (const changedString of changedStrings) {
-    // Validate changedString structure
-    if (!changedString || typeof changedString.id !== 'string' || typeof changedString.value !== 'string') {
-      continue;
-    }
-
-    const defaultText = getDefaultStringValue(repoRoot, changedString.file, changedString.id);
-    if (defaultText) {
-      if (!changes[changedString.id]) {
-        changes[changedString.id] = {
-          $: { id: changedString.id, default: defaultText },
-          translation: [],
-        };
-      }
-
-      const lang = getLanguageFromFilePath(changedString.file);
-      if (lang) {
-        const localeName = getLocaleName(lang);
-        changes[changedString.id].translation.push({
-          $: {
-            localeCode: lang,
-            localeName: localeName,
-          },
-          _: changedString.value,
-        });
-      }
-    }
-  }
-
-  // Create the proper structure for xml2js
-  const xmlObject = {
-    changes: {
-      change: Object.values(changes),
-    },
-  };
-
-  return builder.buildObject(xmlObject);
 };

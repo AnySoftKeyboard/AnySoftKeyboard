@@ -23,15 +23,9 @@ if [ -s /tmp/changed_localization_files.txt ]; then
   # Regenerate diff for the report
   git diff --cached -- "**/values-*/strings.xml" > /tmp/localization_diff.patch
 
-  bazel run //js/localization_tools -- diffReport -i /tmp/localization_diff.patch -o /tmp/localization_changes.xml
-  
-  echo "=== LOCALIZATION CHANGES REPORT ==="
-  cat /tmp/localization_changes.xml
-  echo "=== END REPORT ==="
-
   if [ -n "$OUTPUT_FILE" ]; then
     echo "Summary written to: $OUTPUT_FILE"
-    echo "Localization changes were found. See attached reports." > "$OUTPUT_FILE"
+    echo "Localization changes were found. PR will be reviewed by AI." > "$OUTPUT_FILE"
   fi
 else
   echo "No localization files were changed in this workflow run"

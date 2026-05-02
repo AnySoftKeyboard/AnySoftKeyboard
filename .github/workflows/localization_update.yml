@@ -66,7 +66,6 @@ jobs:
           name: translation-verification-reports
           path: |
             /tmp/translation_report.md
-            /tmp/localization_changes.xml
           retention-days: 30
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8.1.0
