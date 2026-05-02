@@ -28,6 +28,7 @@ jobs:
       - uses: actions/checkout@v6.0.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          fetch-depth: 0
       - uses: bazel-contrib/setup-bazel@0.18.0
         with:
           bazelisk-cache: true
@@ -55,10 +56,8 @@ jobs:
           git add .
       - name: Generate diff report
         run: |
-          ./scripts/ci/localization_update_summary.sh "${{ secrets.GEMINI_2_5_FLASH_API_KEY }}" "/tmp/translation_report.md"
+          ./scripts/ci/localization_update_summary.sh "/tmp/translation_report.md"
           echo "Translations update from crowdin service." > /tmp/translation_report_commit_body.md
-          echo "" >> /tmp/translation_report_commit_body.md
-          echo "# AI Report" >> /tmp/translation_report_commit_body.md
           echo "" >> /tmp/translation_report_commit_body.md
           cat /tmp/translation_report.md >> /tmp/translation_report_commit_body.md
       - name: Upload translation artifacts
@@ -67,7 +66,6 @@ jobs:
           name: translation-verification-reports
           path: |
             /tmp/translation_report.md
-            /tmp/localization_changes.xml
           retention-days: 30
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8.1.0

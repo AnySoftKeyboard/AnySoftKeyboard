@@ -1,0 +1,7 @@
+provider = "google"
+model = "gemini-3-flash-preview"
+
+supplemental-guidelines = [
+    ".cassandra/code-reuse.md",
+    ".cassandra/drive-by-fixes.md"
+]

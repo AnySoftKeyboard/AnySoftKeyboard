@@ -1,0 +1,22 @@
+---
+name: ai-code-review
+on:
+  pull_request:
+    types: [review_requested, synchronize, labeled]
+jobs:
+  check-for-auto-approval:
+    runs-on: ubuntu-24.04
+    if: contains(github.event.pull_request.labels.*.name, 'ai-code-review')
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6.0.2
+      - name: AI Code Review
+        uses: menny/cassandra@v0.3.0
+        with:
+          reviewer_github_token: ${{ secrets.AI_CODE_REVIEW_GH_TOKEN }}
+          provider_api_key: ${{ secrets.GEMINI_2_5_FLASH_API_KEY }}
+          base: ${{ github.event.pull_request.base.sha }}
+          head: ${{ github.event.pull_request.head.sha }}
+          submit_review_action: 'true'
