@@ -1,5 +1,5 @@
 ---
-name: auto-approve-pr
+name: ai-code-review
 on:
   pull_request:
     types: [review_requested, synchronize, labeled]
