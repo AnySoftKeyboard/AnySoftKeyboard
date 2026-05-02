@@ -1,10 +1,10 @@
+---
 name: localization-review
 on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
       - '**/res/values*/strings.xml'
-
 jobs:
   localization-review:
     runs-on: ubuntu-24.04
