@@ -6,20 +6,17 @@ on:
 jobs:
   check-for-auto-approval:
     runs-on: ubuntu-24.04
+    if: contains(github.event.pull_request.labels.*.name, 'ai-code-review')
     permissions:
       contents: read
       pull-requests: write
     steps:
       - uses: actions/checkout@v6.0.2
-        with:
-          fetch-depth: 0
       - name: AI Code Review
-        if: contains(github.event.pull_request.labels.*.name, 'ai-code-review')
-        uses: menny/cassandra@c31e5c67624ca33ee7094b567e4d14a96639fe8b
+        uses: menny/cassandra@v0.3.0
         with:
-          provider: 'google'
-          model_id: 'gemini-3-flash-preview'
+          reviewer_github_token: ${{ secrets.AI_CODE_REVIEW_GH_TOKEN }}
           provider_api_key: ${{ secrets.GEMINI_2_5_FLASH_API_KEY }}
           base: ${{ github.event.pull_request.base.sha }}
           head: ${{ github.event.pull_request.head.sha }}
-          reviewer_github_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          submit_review_action: 'true'
