@@ -17,6 +17,7 @@ import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Arrays;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -462,9 +463,17 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
-    Mockito.verify(inputConnection).commitText("\n", 1);
-    // and never the key-events
-    Mockito.verify(inputConnection, Mockito.never()).sendKeyEvent(Mockito.any(KeyEvent.class));
+    // Shift+Enter should send a real KeyEvent with META_SHIFT_ON (not commitText)
+    // so that apps can distinguish Shift+Enter from plain Enter
+    ArgumentCaptor<KeyEvent> keyEventCaptor = ArgumentCaptor.forClass(KeyEvent.class);
+    Mockito.verify(inputConnection, Mockito.times(2)).sendKeyEvent(keyEventCaptor.capture());
+    List<KeyEvent> events = keyEventCaptor.getAllValues();
+    Assert.assertEquals(KeyEvent.ACTION_DOWN, events.get(0).getAction());
+    Assert.assertEquals(KeyEvent.KEYCODE_ENTER, events.get(0).getKeyCode());
+    Assert.assertEquals(KeyEvent.META_SHIFT_ON, events.get(0).getMetaState());
+    Assert.assertEquals(KeyEvent.ACTION_UP, events.get(1).getAction());
+    Assert.assertEquals(KeyEvent.KEYCODE_ENTER, events.get(1).getKeyCode());
+    Assert.assertEquals(KeyEvent.META_SHIFT_ON, events.get(1).getMetaState());
   }
 
   @Test
@@ -484,7 +493,16 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         .verify(inputConnection, Mockito.never())
         .commitText(Mockito.eq("test"), Mockito.anyInt());
     inOrder.verify(inputConnection).finishComposingText();
-    inOrder.verify(inputConnection).commitText("\n", 1);
+    // Shift+Enter sends a real KeyEvent with META_SHIFT_ON instead of commitText("\n")
+    ArgumentCaptor<KeyEvent> keyEventCaptor = ArgumentCaptor.forClass(KeyEvent.class);
+    inOrder.verify(inputConnection, Mockito.times(2)).sendKeyEvent(keyEventCaptor.capture());
+    List<KeyEvent> events = keyEventCaptor.getAllValues();
+    Assert.assertEquals(KeyEvent.ACTION_DOWN, events.get(0).getAction());
+    Assert.assertEquals(KeyEvent.KEYCODE_ENTER, events.get(0).getKeyCode());
+    Assert.assertEquals(KeyEvent.META_SHIFT_ON, events.get(0).getMetaState());
+    Assert.assertEquals(KeyEvent.ACTION_UP, events.get(1).getAction());
+    Assert.assertEquals(KeyEvent.KEYCODE_ENTER, events.get(1).getKeyCode());
+    Assert.assertEquals(KeyEvent.META_SHIFT_ON, events.get(1).getMetaState());
     inOrder.verify(inputConnection).endBatchEdit();
   }
 
