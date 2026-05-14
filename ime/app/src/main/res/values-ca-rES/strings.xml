@@ -691,6 +691,8 @@
     <string name="delete_all_clipboard_entries">Buida el porta-retalls</string>
     <string name="tip_swipe_from_backspace_to_clear">Truc: podeu lliscar la tecla retrocès cap a l\'esquerra per suprimir el mot!</string>
     <string name="notification_read_contacts_ticker">Permís de contactes necessari</string>
+    <string name="notification_action_approve_permission">Aprovar permís</string>
+    <string name="notification_action_dismiss_permission">Inhabilita el diccionari amb els contactes</string>
     <string name="wizard_allow_notification_permission">Permet notificacions de l\'AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">En situacions poc habituals (p. ex. si l\'aplicació falla) necessitarem enviar una notificació. És una opció recomanable, però inhabilitar el servei de notificacions no afectarà el comportament de l\'aplicació.</string>
     <string name="wizard_skip_notification_permission">No permitis notificacions</string>

@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="allow_permission">ڕێگەپێدان</string>
+    <string name="contacts_permissions_rationale">AnySoftKeyboard پەیوەندییەکانتان بەکاردەهێنێت\' 
+ناوەکان بۆ ئەوەی پێشنیارێکی وشەی کەسیتان بۆ دابین بکات: لەگەڵ نووسینی وشەیەک، ئێمە بەدوایدا دەگەڕێین 
+وشەی هاوشێوە بۆ تەواوکردنی ئۆتۆماتیکی و ڕاستکردنەوەی تایپکردنەکەت بە شێوەیەکی ئۆتۆماتیکی.</string>
+    <string name="notifications_permissions_rationale">لەوانەیە AnySoftKeyboard پێویست بکات ئاگادارت بکاتەوە لە کێشە گرنگەکان (وەک مۆڵەتی نەماوە یان تێکچوون).</string>
+</resources>
