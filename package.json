@@ -14,7 +14,7 @@
   "pnpm": {
     "onlyBuiltDependencies": []
   },
-  "packageManager": "pnpm@10.28.2",
+  "packageManager": "pnpm@10.33.4",
   "license": "Apache-2.0",
   "devDependencies": {
     "@actions/core": "^2.0.3",
@@ -26,7 +26,7 @@
     "@types/follow-redirects": "^1.14.4",
     "@types/js-yaml": "^4.0.9",
     "@types/mock-fs": "^4.13.4",
-    "@types/node": "25.2.1",
+    "@types/node": "25.8.0",
     "@types/node-fetch": "^2.6.13",
     "@typescript-eslint/eslint-plugin": "^8.59.1",
     "@typescript-eslint/parser": "^8.59.1",
