@@ -619,9 +619,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
       case KeyCodes.ENTER:
         if (mShiftKeyState.isPressed() && ic != null) {
           // power-users feature ahead: Shift+Enter
-          // getting away from firing the default editor action, by forcing newline
+          // Send a real KeyEvent with META_SHIFT_ON so that apps (e.g. SSH clients,
+          // terminals, chat apps) can distinguish Shift+Enter from plain Enter,
+          // consistent with how physical keyboards behaves.
           abortCorrectionAndResetPredictionState(false);
-          ic.commitText("\n", 1);
+          sendKeyEvent(ic, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER, KeyEvent.META_SHIFT_ON);
+          sendKeyEvent(ic, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER, KeyEvent.META_SHIFT_ON);
           break;
         }
         final EditorInfo editorInfo = getCurrentInputEditorInfo();
