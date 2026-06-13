@@ -16,7 +16,7 @@ jobs:
         refname: [main, release-branch-addons-v5.1-r2, release-branch-ime-v1.13-r1]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
         with:
           ref: ${{ matrix.refname }}
       - uses: ./.github/actions/deploy-request
