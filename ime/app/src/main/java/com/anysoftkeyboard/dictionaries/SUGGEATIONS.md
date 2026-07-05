@@ -77,3 +77,12 @@ The suggestion flows are deeply integrated with Android's `InputMethodService` l
   - If the user manually moves the cursor inside a currently predicted word, the `WordComposer`'s internal cursor position is updated without destroying the state.
   - If the cursor is moved outside the currently predicted word ("no man's land"), the correction state is aborted (`abortCorrectionAndResetPredictionState`) and suggestions are restarted for the new context.
 - **Global Overrides**: Finally, `mPredictionOn` is AND'ed with the user preference `mShowSuggestions`. Even if the field supports suggestions, they won't show if the user disabled them globally.
+
+### Reactive Preferences and Dynamic State Evolution
+
+Configuration changes dynamically impact the suggestion engine via RxJava observers.
+
+- **`Observable.combineLatest`**: In `AnySoftKeyboardSuggestions`, multiple reactive streams (shared preferences) are combined to evaluate global conditions:
+  - `mShowSuggestions` is bound to the `settings_key_show_suggestions` preference, but it can be immediately disabled if the system enters `PowerSaving` mode. If this value toggles, dictionaries are either initialized (`setDictionariesForCurrentKeyboard()`) or shut down (`closeDictionaries()`).
+  - `auto_pick_suggestion_aggressiveness`: This user preference calculates `mAutoComplete` and explicitly updates the fuzzy matching tolerance by calculating and passing `commonalityMaxLengthDiff` and `commonalityMaxDistance` directly to `mSuggest.setCorrectionMode(...)`.
+  - `settings_key_try_splitting_words_for_correction`: Also passed down to `setCorrectionMode`, enabling or disabling sub-word splitting logic on the fly.
