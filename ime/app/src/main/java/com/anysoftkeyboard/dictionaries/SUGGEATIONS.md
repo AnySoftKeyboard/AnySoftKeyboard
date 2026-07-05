@@ -86,3 +86,10 @@ Configuration changes dynamically impact the suggestion engine via RxJava observ
   - `mShowSuggestions` is bound to the `settings_key_show_suggestions` preference, but it can be immediately disabled if the system enters `PowerSaving` mode. If this value toggles, dictionaries are either initialized (`setDictionariesForCurrentKeyboard()`) or shut down (`closeDictionaries()`).
   - `auto_pick_suggestion_aggressiveness`: This user preference calculates `mAutoComplete` and explicitly updates the fuzzy matching tolerance by calculating and passing `commonalityMaxLengthDiff` and `commonalityMaxDistance` directly to `mSuggest.setCorrectionMode(...)`.
   - `settings_key_try_splitting_words_for_correction`: Also passed down to `setCorrectionMode`, enabling or disabling sub-word splitting logic on the fly.
+
+### PowerSaving Mode and Gesture Typing Impacts
+
+Additional system-level states like `PowerSaving` also intersect with word predictions, particularly through gesture typing mechanisms in `AnySoftKeyboardWithGestureTyping.java`.
+
+- **PowerSaving mode**: When the `settings_key_power_save_mode_gesture_control` is active, another `Observable.combineLatest` reactive stream will intercept the `settings_key_gesture_typing` preference and forcibly set `mGestureTypingEnabled = false`.
+- **Gesture Dictionary Bypassing**: When gesture typing is disabled, the system bypasses `WordListDictionaryListener` (which acts as a `DictionaryBackgroundLoader.Listener`). This prevents the `GestureTypingDetector` from parsing the dictionary arrays (`char[][]` paths) to correlate screen swipes with specific dictionary words.
