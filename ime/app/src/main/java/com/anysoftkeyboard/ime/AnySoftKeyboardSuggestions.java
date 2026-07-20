@@ -538,8 +538,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
   private void postRestartWordSuggestion() {
     mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
     mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
-    mKeyboardHandler.sendEmptyMessageDelayed(
-        KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS, 10 * ONE_FRAME_DELAY);
+    if (canRestartWordSuggestion()) {
+      mKeyboardHandler.sendEmptyMessageDelayed(
+          KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS, 10 * ONE_FRAME_DELAY);
+    }
   }
 
   @Override
