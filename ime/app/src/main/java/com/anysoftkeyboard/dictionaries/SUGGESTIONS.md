@@ -21,6 +21,7 @@ Suggestions in AnySoftKeyboard are provided by a combination of dictionary sourc
 1. The keyboard/service initializes `SuggestionsProvider`.
 2. `SuggestionsProvider` sets up dictionaries using `setupSuggestionsForKeyboard(...)`, receiving a list of `DictionaryAddOnAndBuilder` instances based on user settings (e.g., active languages).
 3. Main dictionaries, User dictionaries (based on locale), Contacts dictionary (if permitted), and AutoText/Abbreviations are instantiated and loaded asynchronously using `DictionaryBackgroundLoader`.
+4. `DictionaryBackgroundLoader.Listener` receives lifecycle callbacks (`onDictionaryLoadingStarted`, `onDictionaryLoadingDone`, `onDictionaryLoadingFailed`). If loading fails (e.g., Contacts permission revoked), the provider falls back to `NullDictionary`.
 
 ### 2. Suggestion Generation Flow (`getSuggestions`)
 
@@ -64,7 +65,7 @@ The suggestions flow is highly impacted by user configurations (`SharedPreferenc
 
 ### Environment, IME Callbacks, and EditorInfo Flags
 
-The suggestion flows are deeply integrated with Android's `InputMethodService` lifecycle callbacks (managed in `AnySoftKeyboardSuggestions.java`).
+The suggestion flows are deeply integrated with Android's `InputMethodService` lifecycle callbacks (managed in `AnySoftKeyboardSuggestions.java` and `AnySoftKeyboardIncognito.java`).
 
 - **`onStartInputView`**: This is the primary entry point for determining if suggestions should be active for a given input field. It inspects the `EditorInfo` passed by the OS.
   - It initializes the default state (`mPredictionOn = true`).
@@ -73,19 +74,33 @@ The suggestion flows are deeply integrated with Android's `InputMethodService` l
     - `TYPE_TEXT_VARIATION_PASSWORD`, `TYPE_TEXT_VARIATION_VISIBLE_PASSWORD`, and `TYPE_TEXT_VARIATION_WEB_PASSWORD` will disable prediction.
     - `TYPE_TEXT_VARIATION_EMAIL_ADDRESS` and `TYPE_TEXT_VARIATION_URI` disable auto-picking and auto-spacing but may keep predictions on depending on other flags.
   - Explicit developer overrides like `IMEUtil.shouldHonorNoSuggestionsFlag(textFlag)` (which checks for `NO_SUGGESTIONS` or `TYPE_TEXT_FLAG_NO_SUGGESTIONS`) will also set `mPredictionOn = false`.
+  - **Incognito OS Triggers**: In `AnySoftKeyboardIncognito.java`, `onStartInputView` evaluates `EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING` or password field types and automatically engages incognito mode (`setIncognitoMode(true)`), halting dictionary learning and next-word tracking.
 - **`onUpdateSelection`**: This callback tracks the user's cursor position.
   - If the user manually moves the cursor inside a currently predicted word, the `WordComposer`'s internal cursor position is updated without destroying the state.
-  - If the cursor is moved outside the currently predicted word ("no man's land"), the correction state is aborted (`abortCorrectionAndResetPredictionState`) and suggestions are restarted for the new context.
+  - If the cursor is moved outside the currently predicted word ("no man's land"), the correction state is aborted (`abortCorrectionAndResetPredictionState`) and suggestions are restarted for the new context (governed by the `settings_key_allow_suggestions_restart` preference).
 - **Global Overrides**: Finally, `mPredictionOn` is AND'ed with the user preference `mShowSuggestions`. Even if the field supports suggestions, they won't show if the user disabled them globally.
 
 ### Reactive Preferences and Dynamic State Evolution
 
 Configuration changes dynamically impact the suggestion engine via RxJava observers.
 
-- **`Observable.combineLatest`**: In `AnySoftKeyboardSuggestions`, multiple reactive streams (shared preferences) are combined to evaluate global conditions:
-  - `mShowSuggestions` is bound to the `settings_key_show_suggestions` preference, but it can be immediately disabled if the system enters `PowerSaving` mode. If this value toggles, dictionaries are either initialized (`setDictionariesForCurrentKeyboard()`) or shut down (`closeDictionaries()`).
-  - `auto_pick_suggestion_aggressiveness`: This user preference calculates `mAutoComplete` and explicitly updates the fuzzy matching tolerance by calculating and passing `commonalityMaxLengthDiff` and `commonalityMaxDistance` directly to `mSuggest.setCorrectionMode(...)`.
-  - `settings_key_try_splitting_words_for_correction`: Also passed down to `setCorrectionMode`, enabling or disabling sub-word splitting logic on the fly.
+#### `AnySoftKeyboardSuggestions` Rx Streams
+
+- **`Observable.combineLatest`**: Combines multiple reactive preference streams to evaluate global conditions on the fly:
+  - `mShowSuggestions`: Bound to `settings_key_show_suggestions`, but forcibly disabled if `PowerSaving.observePowerSavingState` indicates low-power mode. Toggling this value initializes (`setDictionariesForCurrentKeyboard()`) or closes (`closeDictionaries()`) dictionaries.
+  - `settings_key_auto_pick_suggestion_aggressiveness`: Calculates `mAutoComplete` and dynamically updates fuzzy matching parameters (`commonalityMaxLengthDiff`, `commonalityMaxDistance`) passed to `mSuggest.setCorrectionMode(...)`.
+  - `settings_key_try_splitting_words_for_correction`: Enables/disables sub-word splitting logic dynamically via `setCorrectionMode`.
+  - `settings_key_allow_suggestions_restart`: Updates `mAllowSuggestionsRestart` controlling whether suggestions auto-restart when moving the cursor.
+
+#### `SuggestionsProvider` Rx Streams (`mPrefsDisposables`)
+
+`SuggestionsProvider` manages its own internal Rx preference subscriptions to dynamically adjust dictionary state:
+
+- **`settings_key_quick_fix` & `settings_key_quick_fix_second_disabled`**: Reactively update `mQuickFixesEnabled` and `mQuickFixesSecondDisabled` while invalidating dictionary setup hash (`mCurrentSetupHashCode = 0`).
+- **`settings_key_use_contacts_dictionary`**: Reactively updates `mContactsDictionaryEnabled`. Disabling closes `mContactsDictionary` immediately and replaces it with `NullDictionary`.
+- **`settings_key_use_user_dictionary`**: Reactively updates `mUserDictionaryEnabled`.
+- **`settings_key_next_word_suggestion_aggressiveness`**: Reactively recalculates `mMaxNextWordSuggestionsCount` (3, 5, or 8) and `mMinWordUsage` (5, 3, or 1).
+- **`settings_key_next_word_dictionary_type`**: Reactively updates `mNextWordEnabled` and `mAlsoSuggestNextPunctuations` ("off", "words_punctuations", "word").
 
 ### PowerSaving Mode and Gesture Typing Impacts
 
