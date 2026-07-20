@@ -945,4 +945,28 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     // rendering next words/punctuations to CandidateView even when show_suggestions is false
     verifySuggestions(false);
   }
+
+  @Test
+  public void testSuggestionsRestartNotAllowedWhenAutoCorrectIsOff() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
+    SharedPrefsHelper.setPrefsValue(
+        R.string.settings_key_auto_pick_suggestion_aggressiveness, "none");
+
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
+    Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+
+    // Press delete after space
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+    TestRxSchedulers.drainAllTasks();
+
+    // Bug: canRestartWordSuggestion() returns true even when auto-correct aggressiveness is "none",
+    // restarting word prediction and setting a composing region on delete.
+    Assert.assertFalse(
+        "Should not restart word prediction on delete when auto-correct is OFF",
+        mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+  }
 }
