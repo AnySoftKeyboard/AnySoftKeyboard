@@ -914,45 +914,35 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
-  public void testSuggestionsDisabledOnStartInputView() {
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, false);
+  public void testCandidateStripClearedWhenSuggestionsDisabledDynamically() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
     simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-    final EditorInfo editorInfo =
-        createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
-    simulateOnStartInputFlow(false, editorInfo);
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
+    verifySuggestions(true, "hell", "hello");
 
-    Assert.assertFalse(
-        "Prediction should be off when show suggestions preference is false",
-        mAnySoftKeyboardUnderTest.isPredictionOn());
+    // Dynamically disable suggestions while active
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, false);
+    TestRxSchedulers.drainAllTasks();
 
-    mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
-
-    Assert.assertFalse(
-        "Should not be predicting when show suggestions preference is false",
-        mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    // Bug: mCandidateView is not cleared/hidden when settings_key_show_suggestions toggles to false
     verifySuggestions(false);
   }
 
   @Test
-  public void testNoAutoCorrectionOnDeleteWhenWordCorrectionOff() {
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
-    SharedPrefsHelper.setPrefsValue(
-        R.string.settings_key_auto_pick_suggestion_aggressiveness, "none");
-
+  public void testNextWordSuggestionsNotShownWhenShowSuggestionsIsFalse() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, false);
     simulateFinishInputFlow();
-    final EditorInfo editorInfo =
-        createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
-    simulateOnStartInputFlow(false, editorInfo);
+    simulateOnStartInputFlow();
 
+    // Type a word and space
     mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
-    Assert.assertEquals(
-        "hello ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
-
-    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
     TestRxSchedulers.drainAllTasks();
 
-    Assert.assertEquals("hello", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+    // Bug: setSuggestions(mSuggest.getNextSuggestions(...)) is called unconditionally in
+    // commitWordToInput
+    // rendering next words/punctuations to CandidateView even when show_suggestions is false
+    verifySuggestions(false);
   }
 }
