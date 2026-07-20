@@ -224,6 +224,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                       setDictionariesForCurrentKeyboard();
                     } else {
                       closeDictionaries();
+                      clearSuggestions();
+                      abortCorrectionAndResetPredictionState(false);
                     }
                   }
                 },
@@ -963,11 +965,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     final InputViewBinder inputView = getInputView();
     if (!isPredictionOn()
         || !mAllowSuggestionsRestart
+        || !mAutoComplete
         || inputView == null
         || !inputView.isShown()) {
       // Conditions checked:
       // - isPredictionOn(): Global prediction must be enabled for the current input field
       // - mAllowSuggestionsRestart: User setting to enable/disable suggestion restart
+      // - mAutoComplete: Auto-correct / word correction must be enabled
       // - inputView visibility: Input view must be shown
       //
       // Note: We don't check isCurrentlyPredicting() here because this method is called
@@ -976,9 +980,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       Logger.d(
           TAG,
           "performRestartWordSuggestion: no need to restart: isPredictionOn=%s,"
-              + " mAllowSuggestionsRestart=%s",
+              + " mAllowSuggestionsRestart=%s, mAutoComplete=%s",
           isPredictionOn(),
-          mAllowSuggestionsRestart);
+          mAllowSuggestionsRestart,
+          mAutoComplete);
       return false;
     } else if (!isCursorTouchingWord()) {
       Logger.d(TAG, "User moved cursor to no-man land. Bye bye.");
@@ -995,6 +1000,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
   protected void setSuggestions(
       @NonNull List<? extends CharSequence> suggestions, int highlightedSuggestionIndex) {
+    if (!mShowSuggestions || !isPredictionOn()) {
+      suggestions = Collections.emptyList();
+      highlightedSuggestionIndex = -1;
+    }
     mCancelSuggestionsAction.setCancelIconVisible(!suggestions.isEmpty());
     if (mCandidateView != null) {
       mCandidateView.setSuggestions(suggestions, highlightedSuggestionIndex);
