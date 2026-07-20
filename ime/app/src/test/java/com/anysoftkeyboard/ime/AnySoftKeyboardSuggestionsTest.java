@@ -912,4 +912,47 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
         "Should be predicting when typing", mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     verifySuggestions(true, "hell", "hello");
   }
+
+  @Test
+  public void testSuggestionsDisabledOnStartInputView() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, false);
+    simulateFinishInputFlow();
+
+    final EditorInfo editorInfo =
+        createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
+    simulateOnStartInputFlow(false, editorInfo);
+
+    Assert.assertFalse(
+        "Prediction should be off when show suggestions preference is false",
+        mAnySoftKeyboardUnderTest.isPredictionOn());
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
+
+    Assert.assertFalse(
+        "Should not be predicting when show suggestions preference is false",
+        mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    verifySuggestions(false);
+  }
+
+  @Test
+  public void testNoAutoCorrectionOnDeleteWhenWordCorrectionOff() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
+    SharedPrefsHelper.setPrefsValue(
+        R.string.settings_key_auto_pick_suggestion_aggressiveness, "none");
+
+    simulateFinishInputFlow();
+    final EditorInfo editorInfo =
+        createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
+    simulateOnStartInputFlow(false, editorInfo);
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
+    Assert.assertEquals(
+        "hello ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+    TestRxSchedulers.drainAllTasks();
+
+    Assert.assertEquals("hello", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+  }
 }
