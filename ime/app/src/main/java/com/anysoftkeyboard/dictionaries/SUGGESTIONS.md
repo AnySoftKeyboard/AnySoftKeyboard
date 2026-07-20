@@ -11,8 +11,8 @@ Suggestions in AnySoftKeyboard are provided by a combination of dictionary sourc
 - [`Suggest.java`](./Suggest.java) - The core interface for components providing keyboard suggestions.
 - [`SuggestImpl.java`](./SuggestImpl.java) - The concrete implementation of `Suggest`. Handles string buffering, basic capitalizations, auto-text, abbreviations, fuzzy matching (edit distance), and splitting logic via various `Dictionary.WordCallback`s.
 - [`SuggestionsProvider.java`](./SuggestionsProvider.java) - Manages the lifecycle of multiple dictionaries (Main, User, Contacts, AutoText, etc.) and routes queries from `SuggestImpl` to the loaded dictionaries.
-- [`Dictionary.java`](../../../../../../../../../dictionaries/src/main/java/com/anysoftkeyboard/dictionaries/Dictionary.java) - Abstract base class representing a searchable list of words. Defines `WordCallback`.
-- `WordComposer.java` - (Found elsewhere) Collects typed characters, key coordinates, and potential fuzzy matches to query dictionaries.
+- [`Dictionary.java`](../../../../../../dictionaries/src/main/java/com/anysoftkeyboard/dictionaries/Dictionary.java) - Abstract base class representing a searchable list of words. Defines `WordCallback`.
+- [`WordComposer.java`](../../../../../../dictionaries/src/main/java/com/anysoftkeyboard/dictionaries/WordComposer.java) - Collects typed characters, key coordinates, and potential fuzzy matches to query dictionaries.
 
 ## Flows
 
