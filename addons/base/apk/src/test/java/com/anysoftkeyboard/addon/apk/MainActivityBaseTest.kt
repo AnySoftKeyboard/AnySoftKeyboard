@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.view.inputmethod.InputMethodInfo
 import android.widget.Button
 import android.widget.ImageView
@@ -194,6 +195,31 @@ class MainActivityBaseTest {
               text,
           )
         }
+      }
+    }
+  }
+
+  @Test
+  fun testHideLauncherIconFlow() {
+    ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
+      scenario.moveToState(Lifecycle.State.RESUMED).onActivity { activity ->
+        val launcherComponent =
+            ComponentName(activity.packageName, "${activity.packageName}.LauncherAlias")
+        Assert.assertNotEquals(
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            activity.packageManager.getComponentEnabledSetting(launcherComponent),
+        )
+
+        activity.findViewById<Button>(R.id.hide_launcher_icon_button).let { button ->
+          Assert.assertEquals("Hide icon from launcher", button.text)
+          Shadows.shadowOf(button).onClickListener.onClick(button)
+        }
+
+        Assert.assertEquals(
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            activity.packageManager.getComponentEnabledSetting(launcherComponent),
+        )
+        Assert.assertTrue(activity.isFinishing)
       }
     }
   }
