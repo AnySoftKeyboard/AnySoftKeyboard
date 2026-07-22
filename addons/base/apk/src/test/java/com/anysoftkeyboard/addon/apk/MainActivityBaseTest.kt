@@ -155,6 +155,48 @@ class MainActivityBaseTest {
       }
     }
   }
+
+  @Test
+  fun testIsAnySoftKeyboardInstalledReturnsFalseWhenNotInstalled() {
+    Shadows.shadowOf(RuntimeEnvironment.getApplication().packageManager)
+        .deletePackage(ASK_PACKAGE_NAME)
+
+    ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
+      scenario.moveToState(Lifecycle.State.RESUMED).onActivity { activity ->
+        Assert.assertFalse(activity.isAnySoftKeyboardInstalled())
+        activity.findViewById<TextView>(R.id.action_description).run {
+          Assert.assertEquals(
+              "AnySoftKeyboard is not installed on your device.\n" +
+                  "In order to use this expansion pack, " +
+                  "you must first install AnySoftKeyboard.",
+              text,
+          )
+        }
+      }
+    }
+  }
+
+  @Test
+  fun testIsAnySoftKeyboardInstalledReturnsTrueWhenInstalledButNotEnabled() {
+    Shadows.shadowOf(RuntimeEnvironment.getApplication().packageManager).let { pm ->
+      PackageInfo().let { info ->
+        info.packageName = ASK_PACKAGE_NAME
+        pm.installPackage(info)
+      }
+    }
+
+    ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
+      scenario.moveToState(Lifecycle.State.RESUMED).onActivity { activity ->
+        Assert.assertTrue(activity.isAnySoftKeyboardInstalled())
+        activity.findViewById<TextView>(R.id.action_description).run {
+          Assert.assertEquals(
+              "AnySoftKeyboard is installed. You may need to set it up to start using this expansion pack.",
+              text,
+          )
+        }
+      }
+    }
+  }
 }
 
 class TestMainActivity :
