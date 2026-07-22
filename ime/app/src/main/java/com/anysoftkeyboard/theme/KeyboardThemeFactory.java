@@ -127,7 +127,8 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
               emitter.setCancellable(() -> sp.unregisterOnSharedPreferenceChangeListener(listener));
               sp.registerOnSharedPreferenceChangeListener(listener);
             })
-        .filter(key -> key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX))
+        .filter(
+            key -> !TextUtils.isEmpty(key) && key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX))
         .map(key -> factory.getEnabledAddOn())
         .startWith(factory.getEnabledAddOn())
         .distinctUntilChanged();

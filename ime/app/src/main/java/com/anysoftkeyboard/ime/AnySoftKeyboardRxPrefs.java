@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ime;
 
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -142,6 +143,8 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
   }
 
   protected void onSharedPreferenceChange(String key) {
+    // null/empty key is received when SharedPreferences is cleared
+    if (TextUtils.isEmpty(key)) return;
     if (key.equals(getString(R.string.settings_key_zoom_percent_in_portrait))
         || key.equals(getString(R.string.settings_key_zoom_percent_in_landscape))
         || key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key))

@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
@@ -99,7 +100,9 @@ public abstract class AnySoftKeyboardBaseTest {
   }
 
   @After
-  public void tearDownForAnySoftKeyboardBase() throws Exception {}
+  public void tearDownForAnySoftKeyboardBase() throws Exception {
+    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+  }
 
   protected final InputMethodManagerShadow getShadowInputMethodManager() {
     return mInputMethodManagerShadow;

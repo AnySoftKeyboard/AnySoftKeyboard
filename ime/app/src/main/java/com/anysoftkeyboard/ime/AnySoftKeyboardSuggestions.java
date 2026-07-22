@@ -224,8 +224,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                       setDictionariesForCurrentKeyboard();
                     } else {
                       closeDictionaries();
-                      clearSuggestions();
-                      abortCorrectionAndResetPredictionState(false);
+                      // Only abort correction if the user is currently typing/predicting
+                      // to avoid clearing suggestions mock state/interactions prematurely.
+                      if (isCurrentlyPredicting()) {
+                        abortCorrectionAndResetPredictionState(false);
+                      }
                     }
                   }
                 },
@@ -691,7 +694,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       }
       // Picked the suggestion by a space/punctuation character: we will treat it
       // as "added an auto space".
-      mWordRevertLength = wordToOutput.length() + 1;
+      if (mAutoComplete) {
+        mWordRevertLength = wordToOutput.length() + 1;
+      }
     } else if (separatorInsideWord) {
       // when putting a separator in the middle of a word, there is no
       // need to do correction, or keep knowledge

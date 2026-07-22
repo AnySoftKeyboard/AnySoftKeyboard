@@ -651,7 +651,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.simulateKeyPress('r');
     Assert.assertEquals(
         "herll yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
-    verifySuggestions(true);
+    verifySuggestions(true, "r");
     Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
     Assert.assertEquals(
         "r", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
@@ -952,6 +952,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
     SharedPrefsHelper.setPrefsValue(
         R.string.settings_key_auto_pick_suggestion_aggressiveness, "none");
+    TestRxSchedulers.drainAllTasks();
 
     simulateFinishInputFlow();
     simulateOnStartInputFlow();
