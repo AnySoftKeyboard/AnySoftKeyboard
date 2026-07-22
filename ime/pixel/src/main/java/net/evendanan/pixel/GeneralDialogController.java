@@ -50,7 +50,20 @@ public class GeneralDialogController {
     mDialog = builder.create();
     mDialog.getWindow().getDecorView().setTag(TAG_ID, TAG_VALUE);
     mDialogPresenter.beforeDialogShown(mDialog, data);
+    if (mContext instanceof OnDialogStateChangedListener) {
+      ((OnDialogStateChangedListener) mContext).onDialogStateChanged(true);
+    }
+    mDialog.setOnDismissListener(dialog -> {
+      mDialog = null;
+      if (mContext instanceof OnDialogStateChangedListener) {
+        ((OnDialogStateChangedListener) mContext).onDialogStateChanged(false);
+      }
+    });
     mDialog.show();
+  }
+
+  public interface OnDialogStateChangedListener {
+    void onDialogStateChanged(boolean isShowing);
   }
 
   public interface DialogPresenter extends JustSetupDialogPresenter {

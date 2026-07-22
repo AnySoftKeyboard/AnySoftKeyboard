@@ -111,6 +111,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
 
     actualInputView.setVisibility(View.GONE);
     inputViewContainer.addView(quickTextsLayout);
+    updateBackCallbackState();
   }
 
   private boolean cleanUpQuickTextKeyboard(boolean reshowStandardKeyboard) {
@@ -128,6 +129,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
         inputViewContainer.findViewById(R.id.quick_text_pager_root);
     if (quickTextsLayout != null) {
       inputViewContainer.removeView(quickTextsLayout);
+      updateBackCallbackState();
       return true;
     } else {
       return false;
@@ -137,5 +139,16 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
   @Override
   protected boolean handleCloseRequest() {
     return super.handleCloseRequest() || cleanUpQuickTextKeyboard(true);
+  }
+
+  @Override
+  protected boolean hasStuffToClose() {
+    return super.hasStuffToClose() || isQuickTextShowing();
+  }
+
+  protected boolean isQuickTextShowing() {
+    final var inputViewContainer = getInputViewContainer();
+    return inputViewContainer != null
+        && inputViewContainer.findViewById(R.id.quick_text_pager_root) != null;
   }
 }

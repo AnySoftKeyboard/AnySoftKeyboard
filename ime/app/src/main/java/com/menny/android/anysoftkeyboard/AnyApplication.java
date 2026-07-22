@@ -170,7 +170,8 @@ public class AnyApplication extends MultiDexApplication {
     if (Build.VERSION.SDK_INT < 26) return new DeviceSpecificV24();
     if (Build.VERSION.SDK_INT < 28) return new DeviceSpecificV26();
     if (Build.VERSION.SDK_INT < 29) return new DeviceSpecificV28();
-    return new DeviceSpecificV29();
+    if (Build.VERSION.SDK_INT < 33) return new DeviceSpecificV29();
+    return new com.anysoftkeyboard.devicespecific.DeviceSpecificV33();
   }
 
   @Override

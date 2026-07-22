@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.devicespecific;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.IBinder;
 import android.os.Vibrator;
@@ -102,4 +103,17 @@ public class DeviceSpecificV15 implements DeviceSpecific {
   public PressVibrator createPressVibrator(@NonNull Vibrator vibe) {
     return new PressVibratorV1(vibe);
   }
+
+  @Override
+  @Nullable
+  public Object registerBackGestureHandler(
+      @NonNull Dialog window,
+      @NonNull Runnable onBackInvokedRunnable) {
+    return null;
+  }
+
+  @Override
+  public void unregisterBackGestureHandler(
+      @NonNull Dialog window,
+      @NonNull Object callbackToken) {}
 }

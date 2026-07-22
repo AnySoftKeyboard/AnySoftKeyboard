@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.devicespecific;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.IBinder;
 import android.os.Vibrator;
@@ -51,4 +52,13 @@ public interface DeviceSpecific {
   Clipboard createClipboard(@NonNull Context applicationContext);
 
   PressVibrator createPressVibrator(@NonNull Vibrator vibe);
+
+  @Nullable
+  Object registerBackGestureHandler(
+      @NonNull Dialog window,
+      @NonNull Runnable onBackInvokedRunnable);
+
+  void unregisterBackGestureHandler(
+      @NonNull Dialog window,
+      @NonNull Object callbackToken);
 }

@@ -23,6 +23,7 @@ import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV26;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV28;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV29;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV33;
 import com.anysoftkeyboard.devicespecific.PressVibrator;
 import com.anysoftkeyboard.devicespecific.PressVibratorV1;
 import com.anysoftkeyboard.devicespecific.PressVibratorV26;
@@ -74,10 +75,10 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
           DeviceSpecificV29.class, // 30
           DeviceSpecificV29.class,
           DeviceSpecificV29.class,
-          DeviceSpecificV29.class,
-          DeviceSpecificV29.class,
-          DeviceSpecificV29.class,
-          DeviceSpecificV29.class);
+          DeviceSpecificV33.class,
+          DeviceSpecificV33.class,
+          DeviceSpecificV33.class,
+          DeviceSpecificV33.class);
 
   private final List<Class<? extends Clipboard>> mExpectedClipboardClass =
       Arrays.asList(

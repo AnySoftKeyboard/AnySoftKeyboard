@@ -299,6 +299,10 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     }
   }
 
+  public boolean isPopupKeyboardShowing() {
+    return mMiniKeyboardPopup.isShowing();
+  }
+
   @Override
   public void disableTouchesTillFingersAreUp() {
     super.disableTouchesTillFingersAreUp();
