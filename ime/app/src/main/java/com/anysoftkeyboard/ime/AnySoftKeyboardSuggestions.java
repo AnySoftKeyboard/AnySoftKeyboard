@@ -224,6 +224,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                       setDictionariesForCurrentKeyboard();
                     } else {
                       closeDictionaries();
+                      // Only abort correction if the user is currently typing/predicting
+                      // to avoid clearing suggestions mock state/interactions prematurely.
+                      if (isCurrentlyPredicting()) {
+                        abortCorrectionAndResetPredictionState(false);
+                      }
                     }
                   }
                 },
@@ -536,8 +541,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
   private void postRestartWordSuggestion() {
     mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
     mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
-    mKeyboardHandler.sendEmptyMessageDelayed(
-        KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS, 10 * ONE_FRAME_DELAY);
+    if (canRestartWordSuggestion()) {
+      mKeyboardHandler.sendEmptyMessageDelayed(
+          KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS, 10 * ONE_FRAME_DELAY);
+    }
   }
 
   @Override
@@ -687,7 +694,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       }
       // Picked the suggestion by a space/punctuation character: we will treat it
       // as "added an auto space".
-      mWordRevertLength = wordToOutput.length() + 1;
+      if (mAutoComplete) {
+        mWordRevertLength = wordToOutput.length() + 1;
+      }
     } else if (separatorInsideWord) {
       // when putting a separator in the middle of a word, there is no
       // need to do correction, or keep knowledge
@@ -963,11 +972,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     final InputViewBinder inputView = getInputView();
     if (!isPredictionOn()
         || !mAllowSuggestionsRestart
+        || !mAutoComplete
         || inputView == null
         || !inputView.isShown()) {
       // Conditions checked:
       // - isPredictionOn(): Global prediction must be enabled for the current input field
       // - mAllowSuggestionsRestart: User setting to enable/disable suggestion restart
+      // - mAutoComplete: Auto-correct / word correction must be enabled
       // - inputView visibility: Input view must be shown
       //
       // Note: We don't check isCurrentlyPredicting() here because this method is called
@@ -976,9 +987,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       Logger.d(
           TAG,
           "performRestartWordSuggestion: no need to restart: isPredictionOn=%s,"
-              + " mAllowSuggestionsRestart=%s",
+              + " mAllowSuggestionsRestart=%s, mAutoComplete=%s",
           isPredictionOn(),
-          mAllowSuggestionsRestart);
+          mAllowSuggestionsRestart,
+          mAutoComplete);
       return false;
     } else if (!isCursorTouchingWord()) {
       Logger.d(TAG, "User moved cursor to no-man land. Bye bye.");
@@ -995,6 +1007,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
   protected void setSuggestions(
       @NonNull List<? extends CharSequence> suggestions, int highlightedSuggestionIndex) {
+    if (!mShowSuggestions || !isPredictionOn()) {
+      suggestions = Collections.emptyList();
+      highlightedSuggestionIndex = -1;
+    }
     mCancelSuggestionsAction.setCancelIconVisible(!suggestions.isEmpty());
     if (mCandidateView != null) {
       mCandidateView.setSuggestions(suggestions, highlightedSuggestionIndex);

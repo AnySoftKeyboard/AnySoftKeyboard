@@ -651,7 +651,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.simulateKeyPress('r');
     Assert.assertEquals(
         "herll yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
-    verifySuggestions(true);
+    verifySuggestions(true, "r");
     Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
     Assert.assertEquals(
         "r", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
@@ -911,5 +911,63 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     Assert.assertTrue(
         "Should be predicting when typing", mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     verifySuggestions(true, "hell", "hello");
+  }
+
+  @Test
+  public void testCandidateStripClearedWhenSuggestionsDisabledDynamically() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
+    verifySuggestions(true, "hell", "hello");
+
+    // Dynamically disable suggestions while active
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, false);
+    TestRxSchedulers.drainAllTasks();
+
+    // Bug: mCandidateView is not cleared/hidden when settings_key_show_suggestions toggles to false
+    verifySuggestions(false);
+  }
+
+  @Test
+  public void testNextWordSuggestionsNotShownWhenShowSuggestionsIsFalse() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, false);
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
+
+    // Type a word and space
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
+    TestRxSchedulers.drainAllTasks();
+
+    // Bug: setSuggestions(mSuggest.getNextSuggestions(...)) is called unconditionally in
+    // commitWordToInput
+    // rendering next words/punctuations to CandidateView even when show_suggestions is false
+    verifySuggestions(false);
+  }
+
+  @Test
+  public void testSuggestionsRestartNotAllowedWhenAutoCorrectIsOff() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
+    SharedPrefsHelper.setPrefsValue(
+        R.string.settings_key_auto_pick_suggestion_aggressiveness, "none");
+    TestRxSchedulers.drainAllTasks();
+
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
+    Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+
+    // Press delete after space
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+    TestRxSchedulers.drainAllTasks();
+
+    // Bug: canRestartWordSuggestion() returns true even when auto-correct aggressiveness is "none",
+    // restarting word prediction and setting a composing region on delete.
+    Assert.assertFalse(
+        "Should not restart word prediction on delete when auto-correct is OFF",
+        mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
   }
 }

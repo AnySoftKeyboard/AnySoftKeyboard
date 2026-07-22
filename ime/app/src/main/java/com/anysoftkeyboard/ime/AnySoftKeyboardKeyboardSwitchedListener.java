@@ -186,6 +186,8 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
   @Override
   protected void onSharedPreferenceChange(String key) {
+    // null/empty key is received when SharedPreferences is cleared
+    if (TextUtils.isEmpty(key)) return;
     if (key.startsWith(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX)) {
       mKeyboardSwitcher.flushKeyboardsCache();
     } else {
