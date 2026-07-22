@@ -21,8 +21,9 @@ alwaysApply: true
 
 # Git Commit Guidelines
 
-Before creating a commit always run `bazel run //:format`.
-If the changed code is related to Android, also run `./gradle spotlessApply`.
+Before creating a commit, always:
+1. Run formatters and linters: `bazel run //:format`. If the changed code is related to Android, also run `./gradlew spotlessApply`.
+2. Run and verify that all relevant unit tests pass.
 
 ## Commit Message
 
