@@ -11,5 +11,7 @@
     <string name="open_ask_in_vending">Go to Play Store</string>
     <string name="ask_installed">AnySoftKeyboard is installed. You may need to set it up to start using this expansion pack.</string>
     <string name="open_ask_main_settings">Open AnySoftKeyboard</string>
+    <string name="hide_launcher_icon_action">Hide icon from launcher</string>
+    <string name="launcher_icon_hidden_toast">Add-on launcher icon hidden.</string>
     <string name="test_add_on_description">This is a test add on description, it can be anything</string>
 </resources>

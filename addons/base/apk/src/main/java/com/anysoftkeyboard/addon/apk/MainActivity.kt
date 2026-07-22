@@ -1,11 +1,12 @@
 package com.anysoftkeyboard.addon.apk
 
-import android.content.Context
+import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -68,15 +69,32 @@ abstract class MainActivityBase(
         }
       }
     }
+
+    binding.hideLauncherIconButton.setOnClickListener {
+      try {
+        val launcherComponent = ComponentName(packageName, "$packageName.LauncherAlias")
+        packageManager.setComponentEnabledSetting(
+            launcherComponent,
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP,
+        )
+        Toast.makeText(
+                this,
+                R.string.launcher_icon_hidden_toast,
+                Toast.LENGTH_SHORT,
+            )
+            .show()
+        finish()
+      } catch (ex: Exception) {
+        Log.e("ASK_ADD_ON", "Could not hide launcher icon!", ex)
+      }
+    }
   }
 
-  private fun isAnySoftKeyboardInstalled(): Boolean =
+  internal fun isAnySoftKeyboardInstalled(): Boolean =
       try {
-        val inputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.inputMethodList.any { inputMethodInfo ->
-          inputMethodInfo.packageName == ASK_PACKAGE_NAME
-        }
+        packageManager.getPackageInfo(ASK_PACKAGE_NAME, 0)
+        true
       } catch (e: Exception) {
         false
       }
