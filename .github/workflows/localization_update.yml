@@ -25,11 +25,11 @@ jobs:
   localization-update:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0
-      - uses: bazel-contrib/setup-bazel@0.18.0
+      - uses: bazel-contrib/setup-bazel@0.19.0
         with:
           bazelisk-cache: true
           disk-cache: ${{ github.workflow }}
@@ -68,7 +68,7 @@ jobs:
             /tmp/translation_report.md
           retention-days: 30
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v8.1.0
+        uses: peter-evans/create-pull-request@v8.1.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Localization Update from crowdin'

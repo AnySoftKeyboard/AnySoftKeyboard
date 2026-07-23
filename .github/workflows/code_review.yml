@@ -11,7 +11,7 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
       - name: AI Code Review
         uses: menny/cassandra@v0.6.0
         with:
