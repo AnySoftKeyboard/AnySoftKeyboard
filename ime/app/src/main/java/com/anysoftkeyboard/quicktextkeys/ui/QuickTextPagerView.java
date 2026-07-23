@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
-import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.ThemeableChild;
 import com.anysoftkeyboard.overlay.OverlayData;
@@ -198,7 +197,7 @@ public class QuickTextPagerView extends LinearLayout
 
   private void applyThemeOverlayToUi() {
     if (mOverlayData.isValid()) {
-      OverlayData normalizedOverlay = CandidateView.getNormalizedOverlayData(mOverlayData);
+      OverlayData normalizedOverlay = getNormalizedOverlayData(mOverlayData);
       int iconColor = normalizedOverlay.getPrimaryTextColor();
       applyIconColorFilter(R.id.quick_keys_popup_close, iconColor);
       applyIconColorFilter(R.id.quick_keys_popup_backspace, iconColor);
@@ -211,6 +210,16 @@ public class QuickTextPagerView extends LinearLayout
         pagerTabStrip.setTextColor(iconColor);
         pagerTabStrip.setIndicatorColor(iconColor);
       }
+    }
+  }
+
+  private static OverlayData getNormalizedOverlayData(OverlayData overlay) {
+    if (overlay.getPrimaryDarkColor() != android.graphics.Color.TRANSPARENT
+        || overlay.getSecondaryTextColor() != android.graphics.Color.TRANSPARENT) {
+      return com.anysoftkeyboard.overlay.OverlayDataNormalizer.normalize(
+          overlay, 96, overlay.getPrimaryDarkColor(), overlay.getSecondaryTextColor());
+    } else {
+      return overlay;
     }
   }
 

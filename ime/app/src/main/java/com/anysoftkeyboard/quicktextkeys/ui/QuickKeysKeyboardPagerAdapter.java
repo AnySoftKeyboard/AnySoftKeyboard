@@ -154,6 +154,11 @@ import net.evendanan.pixel.ViewPagerWithDisable;
     return view == object;
   }
 
+  @Override
+  public int getItemPosition(@NonNull Object object) {
+    return POSITION_NONE;
+  }
+
   public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
     mKeyboardTheme = theme;
     notifyDataSetChanged();
