@@ -55,10 +55,7 @@ public interface DeviceSpecific {
 
   @Nullable
   Object registerBackGestureHandler(
-      @NonNull Dialog window,
-      @NonNull Runnable onBackInvokedRunnable);
+      @NonNull Dialog window, @NonNull Runnable onBackInvokedRunnable);
 
-  void unregisterBackGestureHandler(
-      @NonNull Dialog window,
-      @NonNull Object callbackToken);
+  void unregisterBackGestureHandler(@NonNull Dialog window, @NonNull Object callbackToken);
 }

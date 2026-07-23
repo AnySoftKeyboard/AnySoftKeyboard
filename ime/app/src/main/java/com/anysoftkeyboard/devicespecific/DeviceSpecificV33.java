@@ -33,26 +33,24 @@ public class DeviceSpecificV33 extends DeviceSpecificV29 {
   @Override
   @Nullable
   public Object registerBackGestureHandler(
-      @NonNull Dialog window,
-      @NonNull Runnable onBackInvokedRunnable) {
+      @NonNull Dialog window, @NonNull Runnable onBackInvokedRunnable) {
     if (window.getWindow() == null) return null;
     OnBackInvokedCallback callback = onBackInvokedRunnable::run;
-    window.getWindow().getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
-        OnBackInvokedDispatcher.PRIORITY_DEFAULT,
-        callback
-    );
+    window
+        .getWindow()
+        .getOnBackInvokedDispatcher()
+        .registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT, callback);
     return callback;
   }
 
   @Override
-  public void unregisterBackGestureHandler(
-      @NonNull Dialog window,
-      @NonNull Object callbackToken) {
+  public void unregisterBackGestureHandler(@NonNull Dialog window, @NonNull Object callbackToken) {
     if (window.getWindow() == null) return;
     if (callbackToken instanceof OnBackInvokedCallback) {
-      window.getWindow().getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(
-          (OnBackInvokedCallback) callbackToken
-      );
+      window
+          .getWindow()
+          .getOnBackInvokedDispatcher()
+          .unregisterOnBackInvokedCallback((OnBackInvokedCallback) callbackToken);
     }
   }
 }

@@ -53,12 +53,13 @@ public class GeneralDialogController {
     if (mContext instanceof OnDialogStateChangedListener) {
       ((OnDialogStateChangedListener) mContext).onDialogStateChanged(true);
     }
-    mDialog.setOnDismissListener(dialog -> {
-      mDialog = null;
-      if (mContext instanceof OnDialogStateChangedListener) {
-        ((OnDialogStateChangedListener) mContext).onDialogStateChanged(false);
-      }
-    });
+    mDialog.setOnDismissListener(
+        dialog -> {
+          mDialog = null;
+          if (mContext instanceof OnDialogStateChangedListener) {
+            ((OnDialogStateChangedListener) mContext).onDialogStateChanged(false);
+          }
+        });
     mDialog.show();
   }
 

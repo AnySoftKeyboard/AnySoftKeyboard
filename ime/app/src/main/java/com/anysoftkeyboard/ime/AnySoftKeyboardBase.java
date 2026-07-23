@@ -53,8 +53,7 @@ import java.util.List;
 import net.evendanan.pixel.GeneralDialogController;
 
 public abstract class AnySoftKeyboardBase extends InputMethodService
-    implements OnKeyboardActionListener,
-        GeneralDialogController.OnDialogStateChangedListener {
+    implements OnKeyboardActionListener, GeneralDialogController.OnDialogStateChangedListener {
   protected static final String TAG = "ASK";
 
   protected static final long ONE_FRAME_DELAY = 1000L / 60L;
@@ -347,8 +346,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
   protected boolean isPopupKeyboardShowing() {
     final var inputView = getInputView();
     if (inputView instanceof AnyKeyboardViewWithMiniKeyboard) {
-      return ((AnyKeyboardViewWithMiniKeyboard) inputView)
-          .isPopupKeyboardShowing();
+      return ((AnyKeyboardViewWithMiniKeyboard) inputView).isPopupKeyboardShowing();
     }
     return false;
   }

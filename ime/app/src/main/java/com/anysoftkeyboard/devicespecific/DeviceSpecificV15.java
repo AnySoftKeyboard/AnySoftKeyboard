@@ -107,13 +107,10 @@ public class DeviceSpecificV15 implements DeviceSpecific {
   @Override
   @Nullable
   public Object registerBackGestureHandler(
-      @NonNull Dialog window,
-      @NonNull Runnable onBackInvokedRunnable) {
+      @NonNull Dialog window, @NonNull Runnable onBackInvokedRunnable) {
     return null;
   }
 
   @Override
-  public void unregisterBackGestureHandler(
-      @NonNull Dialog window,
-      @NonNull Object callbackToken) {}
+  public void unregisterBackGestureHandler(@NonNull Dialog window, @NonNull Object callbackToken) {}
 }
