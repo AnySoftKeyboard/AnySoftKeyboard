@@ -45,6 +45,8 @@
 
     <style name="Theme.AskApp.NoTitle.NoActionBar" parent="Theme.AskApp.NoTitle">
         <item name="windowActionBar">false</item>
+        <item name="android:fitsSystemWindows">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="Theme.AskApp.Popup" parent="Base.Theme.AppCompat.Light.Dialog.FixedSize">

@@ -1,8 +1,8 @@
 [versions]
 # Android SDK and Build Tools
 androidBuildTools = "36.1.0"
-sdkTarget = "35"
-sdkCompile = "36"
+sdkTarget = "36"
+sdkCompile = "37"
 sdkMinimum = "23"
 
 # Android Gradle Plugin and Build Plugins

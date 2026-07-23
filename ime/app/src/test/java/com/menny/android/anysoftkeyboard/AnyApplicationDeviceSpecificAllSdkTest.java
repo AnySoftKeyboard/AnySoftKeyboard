@@ -23,6 +23,7 @@ import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV26;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV28;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV29;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV33;
 import com.anysoftkeyboard.devicespecific.PressVibrator;
 import com.anysoftkeyboard.devicespecific.PressVibratorV1;
 import com.anysoftkeyboard.devicespecific.PressVibratorV26;
@@ -74,9 +75,10 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
           DeviceSpecificV29.class, // 30
           DeviceSpecificV29.class,
           DeviceSpecificV29.class,
-          DeviceSpecificV29.class,
-          DeviceSpecificV29.class,
-          DeviceSpecificV29.class);
+          DeviceSpecificV33.class,
+          DeviceSpecificV33.class,
+          DeviceSpecificV33.class,
+          DeviceSpecificV33.class);
 
   private final List<Class<? extends Clipboard>> mExpectedClipboardClass =
       Arrays.asList(
@@ -111,6 +113,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
           ClipboardV28.class, // 28
           ClipboardV28.class,
           ClipboardV28.class, // 30
+          ClipboardV28.class,
           ClipboardV28.class,
           ClipboardV28.class,
           ClipboardV28.class,
@@ -154,6 +157,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
           AskV19GestureDetector.class,
           AskV19GestureDetector.class,
           AskV19GestureDetector.class,
+          AskV19GestureDetector.class,
           AskV19GestureDetector.class);
 
   private final List<Class<? extends PressVibrator>> mExpectedPressVibratorClass =
@@ -189,6 +193,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
           PressVibratorV26.class,
           PressVibratorV29.class,
           PressVibratorV29.class, // 30
+          PressVibratorV29.class,
           PressVibratorV29.class,
           PressVibratorV29.class,
           PressVibratorV29.class,

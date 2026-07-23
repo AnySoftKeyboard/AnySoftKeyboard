@@ -19,15 +19,26 @@ package com.anysoftkeyboard.ui.settings;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import com.anysoftkeyboard.notification.NotificationIds;
 import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -49,7 +60,51 @@ public class MainSettingsActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle icicle) {
     super.onCreate(icicle);
+    WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+    getSupportFragmentManager()
+        .registerFragmentLifecycleCallbacks(
+            new FragmentManager.FragmentLifecycleCallbacks() {
+              @Override
+              public void onFragmentViewCreated(
+                  @NonNull FragmentManager fm,
+                  @NonNull Fragment f,
+                  @NonNull View v,
+                  @Nullable Bundle savedInstanceState) {
+                disableFitsSystemWindows(v);
+              }
+            },
+            true);
+
     setContentView(R.layout.main_ui);
+
+    final AppBarLayout appBarLayout = findViewById(R.id.app_bar_layout);
+    final int initialAppBarTopPadding = appBarLayout.getPaddingTop();
+    ViewCompat.setOnApplyWindowInsetsListener(
+        appBarLayout,
+        (v, insets) -> {
+          final Insets statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+          v.setPadding(
+              v.getPaddingLeft(),
+              initialAppBarTopPadding + statusBarInsets.top,
+              v.getPaddingRight(),
+              v.getPaddingBottom());
+          return insets;
+        });
+
+    final View navHostFragment = findViewById(R.id.nav_host_fragment);
+    ViewCompat.setOnApplyWindowInsetsListener(
+        navHostFragment,
+        (v, insets) -> {
+          final WindowInsetsCompat clearedInsets =
+              new WindowInsetsCompat.Builder(insets)
+                  .setInsets(WindowInsetsCompat.Type.statusBars(), Insets.NONE)
+                  .build();
+          return ViewCompat.onApplyWindowInsets(v, clearedInsets);
+        });
+
+    final MaterialToolbar toolbar = findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
 
     mTitle = getTitle();
 
@@ -60,6 +115,19 @@ public class MainSettingsActivity extends AppCompatActivity {
             .getNavController();
     final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
     NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+    final int initialBottomNavBottomPadding = bottomNavigationView.getPaddingBottom();
+    ViewCompat.setOnApplyWindowInsetsListener(
+        bottomNavigationView,
+        (v, insets) -> {
+          final Insets navBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
+          v.setPadding(
+              v.getPaddingLeft(),
+              v.getPaddingTop(),
+              v.getPaddingRight(),
+              initialBottomNavBottomPadding + navBarInsets.bottom);
+          return insets;
+        });
   }
 
   @Override
@@ -123,6 +191,19 @@ public class MainSettingsActivity extends AppCompatActivity {
   @Override
   public void setTitle(CharSequence title) {
     mTitle = title;
-    getSupportActionBar().setTitle(mTitle);
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setTitle(mTitle);
+    }
+  }
+
+  private static void disableFitsSystemWindows(View view) {
+    if (view == null) return;
+    view.setFitsSystemWindows(false);
+    if (view instanceof ViewGroup) {
+      ViewGroup group = (ViewGroup) view;
+      for (int i = 0; i < group.getChildCount(); i++) {
+        disableFitsSystemWindows(group.getChildAt(i));
+      }
+    }
   }
 }

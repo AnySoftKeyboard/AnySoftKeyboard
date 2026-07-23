@@ -40,6 +40,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithMiniKeyboard;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
@@ -49,12 +50,16 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
+import net.evendanan.pixel.GeneralDialogController;
 
 public abstract class AnySoftKeyboardBase extends InputMethodService
-    implements OnKeyboardActionListener {
+    implements OnKeyboardActionListener, GeneralDialogController.OnDialogStateChangedListener {
   protected static final String TAG = "ASK";
 
   protected static final long ONE_FRAME_DELAY = 1000L / 60L;
+
+  private boolean mIsDialogShowing = false;
+  private Object mBackCallbackToken = null;
 
   private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
 
@@ -178,6 +183,10 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
             });
 
     mInputView = mInputViewContainer.getStandardKeyboardView();
+    if (mInputView instanceof AnyKeyboardViewWithMiniKeyboard) {
+      ((AnyKeyboardViewWithMiniKeyboard) mInputView)
+          .setOnPopupShownListener(showing -> updateBackCallbackState());
+    }
     mInputViewContainer.setOnKeyboardActionListener(this);
     setupInputViewWatermark();
 
@@ -315,8 +324,58 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     mInputSessionDisposables.dispose();
     if (getInputView() != null) getInputView().onViewNotRequired();
     mInputView = null;
+    if (mBackCallbackToken != null) {
+      AnyApplication.getDeviceSpecific()
+          .unregisterBackGestureHandler(getWindow(), mBackCallbackToken);
+      mBackCallbackToken = null;
+    }
 
     super.onDestroy();
+  }
+
+  @Override
+  public void onDialogStateChanged(boolean isShowing) {
+    mIsDialogShowing = isShowing;
+    updateBackCallbackState();
+  }
+
+  protected boolean hasStuffToClose() {
+    return mIsDialogShowing || isPopupKeyboardShowing();
+  }
+
+  protected boolean isPopupKeyboardShowing() {
+    final var inputView = getInputView();
+    if (inputView instanceof AnyKeyboardViewWithMiniKeyboard) {
+      return ((AnyKeyboardViewWithMiniKeyboard) inputView).isPopupKeyboardShowing();
+    }
+    return false;
+  }
+
+  protected void updateBackCallbackState() {
+    final boolean shouldRegister = hasStuffToClose();
+    if (shouldRegister && mBackCallbackToken == null) {
+      mBackCallbackToken =
+          AnyApplication.getDeviceSpecific()
+              .registerBackGestureHandler(getWindow(), this::handleCloseRequest);
+    } else if (!shouldRegister && mBackCallbackToken != null) {
+      AnyApplication.getDeviceSpecific()
+          .unregisterBackGestureHandler(getWindow(), mBackCallbackToken);
+      mBackCallbackToken = null;
+    }
+  }
+
+  @Override
+  @CallSuper
+  public void onStartInputView(android.view.inputmethod.EditorInfo info, boolean restarting) {
+    super.onStartInputView(info, restarting);
+    updateBackCallbackState();
+  }
+
+  @Override
+  @CallSuper
+  public void onFinishInputView(boolean finishingInput) {
+    super.onFinishInputView(finishingInput);
+    updateBackCallbackState();
   }
 
   @Override

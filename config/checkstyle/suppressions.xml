@@ -29,6 +29,7 @@
     <suppress files="AnyRoboApplication\.java" id="NotAndroidRxSchedulers" />
 
     <suppress files="RxProgressDialog\.java" id="UsingNativeDialog" />
+    <suppress files="DeviceSpecific.*\.java" id="UsingNativeDialog" />
     <suppress files="GeneralDialogController\.java" id="UsingSupportAlertDialog" />
     <suppress files="GeneralDialogTestUtil\.java" id="UsingNativeDialog" />
     <suppress files="GeneralDialogControllerTest\.java" id="UsingNativeDialog" />
