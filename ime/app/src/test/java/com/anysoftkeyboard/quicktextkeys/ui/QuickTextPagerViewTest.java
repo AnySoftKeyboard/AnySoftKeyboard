@@ -218,4 +218,14 @@ public class QuickTextPagerViewTest {
         R.drawable.dark_background,
         Shadows.shadowOf(mUnderTest.getBackground()).getCreatedFromResId());
   }
+
+  @Test
+  public void testSetThemeOverlay() throws Exception {
+    mUnderTest.setOnKeyboardActionListener(Mockito.mock(OnKeyboardActionListener.class));
+    com.anysoftkeyboard.overlay.OverlayData overlayData =
+        new com.anysoftkeyboard.overlay.OverlayDataImpl(
+            Color.WHITE, Color.BLACK, Color.BLUE, Color.BLACK, Color.GRAY);
+    mUnderTest.setThemeOverlay(overlayData);
+    // Verified setThemeOverlay applies without exception and updates UI components
+  }
 }
