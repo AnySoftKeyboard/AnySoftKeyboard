@@ -9,7 +9,7 @@
         <Key android:codes="119" android:keyLabel="w" android:popupCharacters="∑"/>
         <Key android:codes="101" android:keyLabel="e" android:popupKeyboard="@xml/is_popup_e" ask:hintLabel="é"/>
         <Key android:codes="114" android:keyLabel="r" android:popupCharacters="®"/>
-        <Key android:codes="116" android:keyLabel="t" android:popupCharacters=""/>
+	<Key android:codes="116" android:keyLabel="t" android:popupCharacters="þ"/>
         <Key android:codes="121" android:keyLabel="y" android:popupCharacters="ýÿ¥"/>
         <Key android:codes="117" android:keyLabel="u" android:popupCharacters="úüũûù" ask:hintLabel="ú"/>
         <Key android:codes="105" android:keyLabel="i" android:popupCharacters="íìîïłī"/>
@@ -19,7 +19,7 @@
     </Row>
 
     <Row android:keyWidth="9.09%p">
-        <Key android:codes="97"  android:keyLabel="a" android:popupCharacters="àáâãåäæą" ask:hintLabel="á" android:keyEdgeFlags="left"/>
+        <Key android:codes="97"  android:keyLabel="a" android:popupCharacters="áàâãåäæą" ask:hintLabel="á" android:keyEdgeFlags="left"/>
         <Key android:codes="115" android:keyLabel="s" android:popupCharacters="ßśŝš"/>
         <Key android:codes="100" android:keyLabel="d" android:popupCharacters="ð$"/>
         <Key android:codes="102" android:keyLabel="f" android:popupCharacters=""/>
