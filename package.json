@@ -14,7 +14,7 @@
   "pnpm": {
     "onlyBuiltDependencies": []
   },
-  "packageManager": "pnpm@10.33.4",
+  "packageManager": "pnpm@10.34.5",
   "license": "Apache-2.0",
   "devDependencies": {
     "@actions/core": "^2.0.3",
@@ -26,7 +26,7 @@
     "@types/follow-redirects": "^1.14.4",
     "@types/js-yaml": "^4.0.9",
     "@types/mock-fs": "^4.13.4",
-    "@types/node": "25.8.0",
+    "@types/node": "25.9.5",
     "@types/node-fetch": "^2.6.13",
     "@typescript-eslint/eslint-plugin": "^8.59.1",
     "@typescript-eslint/parser": "^8.59.1",
@@ -35,12 +35,12 @@
     "fast-xml-parser": "^5.7.2",
     "follow-redirects": "^1.16.0",
     "globals": "^16.5.0",
-    "js-yaml": "^4.1.1",
+    "js-yaml": "^4.3.0",
     "mock-fs": "^5.5.0",
     "node-fetch": "^3.3.2",
     "prettier": "^3.8.3",
-    "tar": "^7.5.13",
+    "tar": "^7.5.21",
     "typescript": "5.9.3",
-    "undici": "^7.25.0"
+    "undici": "^7.28.0"
   }
 }
