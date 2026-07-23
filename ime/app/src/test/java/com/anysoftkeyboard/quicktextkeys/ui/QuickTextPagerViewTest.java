@@ -220,12 +220,57 @@ public class QuickTextPagerViewTest {
   }
 
   @Test
-  public void testSetThemeOverlay() throws Exception {
+  public void testSetThemeOverlay_forwardsOverlayToPagerAdapter() throws Exception {
     mUnderTest.setOnKeyboardActionListener(Mockito.mock(OnKeyboardActionListener.class));
     com.anysoftkeyboard.overlay.OverlayData overlayData =
         new com.anysoftkeyboard.overlay.OverlayDataImpl(
             Color.WHITE, Color.BLACK, Color.BLUE, Color.BLACK, Color.GRAY);
     mUnderTest.setThemeOverlay(overlayData);
-    // Verified setThemeOverlay applies without exception and updates UI components
+    ViewPagerWithDisable pager = mUnderTest.findViewById(R.id.quick_text_keyboards_pager);
+    Assert.assertNotNull(pager.getAdapter());
+  }
+
+  @Test
+  public void
+      testSetThemeOverlay_normalizesAgainstPrimaryDarkColor_andAppliesToPagerSlidingTabStrip()
+          throws Exception {
+    mUnderTest.setOnKeyboardActionListener(Mockito.mock(OnKeyboardActionListener.class));
+    com.anysoftkeyboard.overlay.OverlayData overlayData =
+        new com.anysoftkeyboard.overlay.OverlayDataImpl(
+            Color.WHITE, Color.BLACK, Color.BLUE, Color.BLACK, Color.BLACK);
+    mUnderTest.setThemeOverlay(overlayData);
+
+    com.astuetz.PagerSlidingTabStrip pagerTabStrip = mUnderTest.findViewById(R.id.pager_tabs);
+    Assert.assertEquals(Color.WHITE, pagerTabStrip.getTextColor().getDefaultColor());
+    Assert.assertEquals(Color.WHITE, pagerTabStrip.getIndicatorColor());
+  }
+
+  @Test
+  public void testSetThemeOverlay_invalidOverlayData_doesNotApplyNormalizedColors()
+      throws Exception {
+    mUnderTest.setOnKeyboardActionListener(Mockito.mock(OnKeyboardActionListener.class));
+    com.astuetz.PagerSlidingTabStrip pagerTabStrip = mUnderTest.findViewById(R.id.pager_tabs);
+    int initialTextColor = pagerTabStrip.getTextColor().getDefaultColor();
+
+    com.anysoftkeyboard.overlay.OverlayData invalidOverlay =
+        new com.anysoftkeyboard.overlay.OverlayDataImpl();
+    mUnderTest.setThemeOverlay(invalidOverlay);
+    Assert.assertEquals(initialTextColor, pagerTabStrip.getTextColor().getDefaultColor());
+  }
+
+  @Test
+  public void
+      testSetThemeOverlay_lightPrimaryColor_darkPrimaryDarkColor_normalizesAgainstPrimaryDarkColor()
+          throws Exception {
+    mUnderTest.setOnKeyboardActionListener(Mockito.mock(OnKeyboardActionListener.class));
+    // primaryColor is WHITE (light), primaryDarkColor is BLACK (dark), secondaryTextColor is BLACK
+    com.anysoftkeyboard.overlay.OverlayData overlayData =
+        new com.anysoftkeyboard.overlay.OverlayDataImpl(
+            Color.WHITE, Color.BLACK, Color.BLUE, Color.BLACK, Color.BLACK);
+    mUnderTest.setThemeOverlay(overlayData);
+
+    com.astuetz.PagerSlidingTabStrip pagerTabStrip = mUnderTest.findViewById(R.id.pager_tabs);
+    // Normalized against primaryDarkColor (BLACK), text color must be WHITE (not BLACK)
+    Assert.assertEquals(Color.WHITE, pagerTabStrip.getTextColor().getDefaultColor());
   }
 }
