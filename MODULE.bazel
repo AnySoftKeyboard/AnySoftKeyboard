@@ -5,14 +5,15 @@
 # the code will use the same version of all of these tools and libraries listed.
 # For bzlmod dependencies, this implements the "single version policy".
 
-bazel_dep(name = "bazel_lib", version = "3.2.2")
+bazel_dep(name = "bazel_lib", version = "3.5.0")
 bazel_dep(name = "rules_nodejs", version = "6.7.4")
-bazel_dep(name = "aspect_rules_js", version = "2.9.2")
-bazel_dep(name = "aspect_rules_ts", version = "3.8.3")
+bazel_dep(name = "aspect_rules_js", version = "3.0.3")
+bazel_dep(name = "aspect_rules_ts", version = "3.9.2")
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
-bazel_dep(name = "aspect_rules_esbuild", version = "0.25.1")
+bazel_dep(name = "aspect_rules_esbuild", version = "0.26.0")
 bazel_dep(name = "rules_multitool", version = "1.3.0")
-bazel_dep(name = "rules_java", version = "8.16.1")
+bazel_dep(name = "rules_java", version = "9.3.0")
+bazel_dep(name = "rules_android", version = "0.7.3")
 bazel_dep(name = "contrib_rules_jvm", version = "0.32.0")
 bazel_dep(name = "rules_jvm_external", version = "6.10")
 
@@ -67,7 +68,7 @@ rules_ts_ext.deps(
 )
 use_repo(rules_ts_ext, "npm_typescript")
 
-bazel_dep(name = "aspect_rules_lint", version = "1.12.0")
+bazel_dep(name = "aspect_rules_lint", version = "1.13.0")
 bazel_dep(name = "buildifier_prebuilt", version = "8.2.1.2")
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
@@ -80,9 +81,34 @@ maven.install(
         "org.junit.platform:junit-platform-reporting:1.8.2",
     ],
     fetch_sources = True,
+    known_contributing_modules = ["protobuf"],
     lock_file = "//:maven_install.json",
 )
 use_repo(
     maven,
     "maven",
+)
+
+http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_jar(
+    name = "google-java-format",
+    sha256 = "25157797a0a972c2290b5bc71530c4f7ad646458025e3484412a6e5a9b8c9aa6",
+    url = "https://github.com/google/google-java-format/releases/download/v1.25.2/google-java-format-1.25.2-all-deps.jar",
+)
+
+http_jar(
+    name = "ktfmt",
+    integrity = "sha256-dtBcYU/hhkeIVXFw/olBD3UTSGap+EAR+b1XDKElJrE=",
+    url = "https://repo1.maven.org/maven2/com/facebook/ktfmt/0.53/ktfmt-0.53-jar-with-dependencies.jar",
+)
+
+http_archive(
+    name = "crowdin_cli",
+    build_file_content = "exports_files(['crowdin-cli.jar'])",
+    sha256 = "5df38198c91b8b75eb8d105f0eb27ceb2d7e06e24872f849d6d50b403b060aa1",
+    strip_prefix = "4.14.2",
+    url = "https://github.com/crowdin/crowdin-cli/releases/download/4.14.2/crowdin-cli.zip",
 )
