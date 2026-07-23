@@ -389,4 +389,30 @@ public class CandidateViewTest {
         Color.DKGRAY,
         normalizedOverlay.getSecondaryTextColor());
   }
+
+  @Test
+  public void test_setDimmed_true_updatesDimStateAndInvalidates() {
+    CandidateView candidateView =
+        new CandidateView(androidx.test.core.app.ApplicationProvider.getApplicationContext(), null);
+    org.robolectric.shadows.ShadowView shadowView = org.robolectric.Shadows.shadowOf(candidateView);
+    shadowView.clearWasInvalidated();
+
+    candidateView.setDimmed(true);
+    Assert.assertTrue(
+        "candidateView.setDimmed(true) should invalidate the view", shadowView.wasInvalidated());
+  }
+
+  @Test
+  public void test_setDimmed_false_turnsOffDimmingAndInvalidates() {
+    CandidateView candidateView =
+        new CandidateView(androidx.test.core.app.ApplicationProvider.getApplicationContext(), null);
+    candidateView.setDimmed(true);
+    org.robolectric.shadows.ShadowView shadowView = org.robolectric.Shadows.shadowOf(candidateView);
+    shadowView.clearWasInvalidated();
+
+    candidateView.setDimmed(false);
+    Assert.assertTrue(
+        "candidateView.setDimmed(false) should invalidate the view when changing state",
+        shadowView.wasInvalidated());
+  }
 }

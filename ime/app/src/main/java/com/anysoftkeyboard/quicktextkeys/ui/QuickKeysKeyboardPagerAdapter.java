@@ -13,6 +13,8 @@ import com.anysoftkeyboard.keyboards.PopupListKeyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithMiniKeyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
+import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataImpl;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -33,7 +35,8 @@ import net.evendanan.pixel.ViewPagerWithDisable;
   private final ViewPagerWithDisable mViewPager;
   private final DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
   private final DefaultGenderPrefTracker mDefaultGenderPrefTracker;
-  private final KeyboardTheme mKeyboardTheme;
+  private KeyboardTheme mKeyboardTheme;
+  @NonNull private OverlayData mOverlayData = new OverlayDataImpl();
   private int mBottomPadding;
 
   public QuickKeysKeyboardPagerAdapter(
@@ -80,6 +83,7 @@ import net.evendanan.pixel.ViewPagerWithDisable;
 
     final QuickKeysKeyboardView keyboardView = root.findViewById(R.id.keys_container);
     keyboardView.setKeyboardTheme(mKeyboardTheme);
+    keyboardView.setThemeOverlay(mOverlayData);
     keyboardView.setOnPopupShownListener(
         new PopupKeyboardShownHandler(mViewPager, scrollViewWithDisable));
     keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
@@ -148,6 +152,21 @@ import net.evendanan.pixel.ViewPagerWithDisable;
   @Override
   public boolean isViewFromObject(View view, Object object) {
     return view == object;
+  }
+
+  @Override
+  public int getItemPosition(@NonNull Object object) {
+    return POSITION_NONE;
+  }
+
+  public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
+    mKeyboardTheme = theme;
+    notifyDataSetChanged();
+  }
+
+  public void setThemeOverlay(@NonNull OverlayData overlayData) {
+    mOverlayData = overlayData;
+    notifyDataSetChanged();
   }
 
   private static class PopupKeyboardShownHandler
