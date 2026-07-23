@@ -8,8 +8,8 @@ Thank you for the fine contributors:
 1. [ArenaL5](https://github.com/ArenaL5) (76)
 1. [martholomew](https://github.com/martholomew) (74)
 1. [nicoursi](https://github.com/nicoursi) (45)
+1. [google-labs-jules](https://github.com/google-labs-jules) (41) 🤖
 1. [justinmichaud](https://github.com/justinmichaud) (40)
-1. [google-labs-jules](https://github.com/google-labs-jules) (36) 🤖
 1. [abcdrfg777777777](https://github.com/abcdrfg777777777) (35)
 1. [hdlopes](https://github.com/hdlopes) (34)
 1. [lubenard](https://github.com/lubenard) (30)
