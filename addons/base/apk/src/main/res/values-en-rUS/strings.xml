@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="welcome_subtitle_template"><xliff:g id="app_name">%s</xliff:g>\u0020</string>
+    <string name="release_notes_template"><xliff:g id="app_version">%s</xliff:g><xliff:g id="release_notes">%s</xliff:g><xliff:g id="release_notes">%s</xliff:g></string>
+    <string name="add_on_website_template"><xliff:g id="web_site">%s</xliff:g></string>
+    <string name="not_standalone_app_text"><b></b>AnySoftKeyboard</string>
+    <string name="ask_is_missing_need_install">\n</string>
+    <string name="ask_installed">AnySoftKeyboard</string>
+</resources>

@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="allow_permission">Επιτρέψτε</string>
+    <string name="contacts_permissions_rationale">Το AnySoftKeyboard χρησιμοποιεί τα ονόματα των επαφών σας για να σας προσφέρει εξατομικευμένες προτεινόμενες λέξεις: καθώς πληκτρολογείτε μια λέξη, αναζητούμε παρόμοιες λέξεις για αυτόματη συμπλήρωση και αυτόματη διόρθωση της πληκτρολογημένης λέξης.</string>
+    <string name="notifications_permissions_rationale">Το AnySoftKeyboard μπορεί να χρειαστεί να σας ενημερώσει για κρίσιμα προβλήματα (όπως ελλείποντα δικαιώματα ή σφάλματα εφαρμογής).</string>
+</resources>
