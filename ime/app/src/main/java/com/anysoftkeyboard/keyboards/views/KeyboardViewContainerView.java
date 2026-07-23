@@ -271,6 +271,12 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     return mCandidateView;
   }
 
+  public void setDimmed(boolean dimmed) {
+    if (mCandidateView != null) {
+      mCandidateView.setDimmed(dimmed);
+    }
+  }
+
   public InputViewBinder getStandardKeyboardView() {
     return mStandardKeyboardView;
   }

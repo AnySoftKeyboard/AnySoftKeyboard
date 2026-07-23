@@ -138,7 +138,9 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
   /** Notes if the keyboard just changed, so that we could possibly reallocate the mBuffer. */
   protected boolean mKeyboardChanged;
 
-  protected float mBackgroundDimAmount;
+  public static final float DEFAULT_BACKGROUND_DIM_AMOUNT = 0.5f;
+
+  protected float mBackgroundDimAmount = DEFAULT_BACKGROUND_DIM_AMOUNT;
   protected float mOriginalVerticalCorrection;
   protected CharSequence mNextAlphabetKeyboardName;
   protected CharSequence mNextSymbolsKeyboardName;

@@ -185,7 +185,13 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     mInputView = mInputViewContainer.getStandardKeyboardView();
     if (mInputView instanceof AnyKeyboardViewWithMiniKeyboard) {
       ((AnyKeyboardViewWithMiniKeyboard) mInputView)
-          .setOnPopupShownListener(showing -> updateBackCallbackState());
+          .setOnPopupShownListener(
+              showing -> {
+                updateBackCallbackState();
+                if (mInputViewContainer != null) {
+                  mInputViewContainer.setDimmed(showing);
+                }
+              });
     }
     mInputViewContainer.setOnKeyboardActionListener(this);
     setupInputViewWatermark();
