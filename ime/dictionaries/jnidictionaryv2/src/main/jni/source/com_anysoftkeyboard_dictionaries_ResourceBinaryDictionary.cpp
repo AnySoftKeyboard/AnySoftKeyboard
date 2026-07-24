@@ -109,15 +109,35 @@ static void nativeime_ResourceBinaryDictionary_getWords
     Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
     if (!dictionary || !getWordsCallback) return;
 
+    jclass charArrayClass = env->FindClass("[C");
+    if (!charArrayClass) {
+        env->ExceptionClear();
+        return;
+    }
+
+    auto sendEmptyResult = [env, getWordsCallback, charArrayClass]() {
+        jobjectArray emptyWords = env->NewObjectArray(0, charArrayClass, NULL);
+        jintArray emptyFreqs = env->NewIntArray(0);
+        if (emptyWords && emptyFreqs) {
+            env->CallVoidMethod(getWordsCallback, sGetWordsCallbackMethodId, emptyWords, emptyFreqs);
+        }
+        if (emptyWords) env->DeleteLocalRef(emptyWords);
+        if (emptyFreqs) env->DeleteLocalRef(emptyFreqs);
+    };
+
     int wordCount = 0, wordsCharsCount = 0;
     dictionary->countWordsChars(wordCount, wordsCharsCount);
-    if (wordCount <= 0 || wordsCharsCount <= 0) return;
+    if (wordCount <= 0 || wordsCharsCount <= 0) {
+        sendEmptyResult();
+        return;
+    }
 
     unsigned short *words = new unsigned short[wordsCharsCount];
     jintArray frequencyArray = env->NewIntArray(wordCount);
     if (!frequencyArray) {
         env->ExceptionClear();
         delete[] words;
+        sendEmptyResult();
         return;
     }
 
@@ -125,28 +145,26 @@ static void nativeime_ResourceBinaryDictionary_getWords
     if (!frequencies) {
         env->ExceptionClear();
         delete[] words;
+        env->DeleteLocalRef(frequencyArray);
+        sendEmptyResult();
         return;
     }
 
     dictionary->getWords(words, frequencies);
     env->ReleaseIntArrayElements(frequencyArray, frequencies, 0);
 
-    jclass charArrayClass = env->FindClass("[C");
-    if (!charArrayClass) {
-        env->ExceptionClear();
-        delete[] words;
-        return;
-    }
-
     jobjectArray javaLandChars = env->NewObjectArray(wordCount, charArrayClass, NULL);
     if (!javaLandChars) {
         env->ExceptionClear();
         delete[] words;
+        env->DeleteLocalRef(frequencyArray);
+        sendEmptyResult();
         return;
     }
 
     unsigned short *pos = words;
     const unsigned short *endPos = words + wordsCharsCount;
+    bool allocationFailed = false;
 
     for (int i = 0; i < wordCount && pos < endPos; ++i) {
         size_t count = 0;
@@ -155,6 +173,7 @@ static void nativeime_ResourceBinaryDictionary_getWords
         jcharArray jchr = env->NewCharArray((jsize) count);
         if (!jchr) {
             env->ExceptionClear();
+            allocationFailed = true;
             break;
         }
 
@@ -162,6 +181,7 @@ static void nativeime_ResourceBinaryDictionary_getWords
         if (!chr) {
             env->ExceptionClear();
             env->DeleteLocalRef(jchr);
+            allocationFailed = true;
             break;
         }
 
@@ -175,8 +195,15 @@ static void nativeime_ResourceBinaryDictionary_getWords
 
     delete[] words;
 
-    if (!env->ExceptionCheck()) {
+    if (allocationFailed || env->ExceptionCheck()) {
+        env->ExceptionClear();
+        env->DeleteLocalRef(javaLandChars);
+        env->DeleteLocalRef(frequencyArray);
+        sendEmptyResult();
+    } else {
         env->CallVoidMethod(getWordsCallback, sGetWordsCallbackMethodId, javaLandChars, frequencyArray);
+        env->DeleteLocalRef(javaLandChars);
+        env->DeleteLocalRef(frequencyArray);
     }
 }
 
