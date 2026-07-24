@@ -41,7 +41,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
   protected final Context mContext;
   private final int mMaxWordsToRead;
 
-  private NodeArray mRoots;
+  private volatile NodeArray mRoots;
   private int mMaxDepth;
   private int mInputLength;
   private final char[] mWordBuilder = new char[MAX_WORD_LENGTH];
@@ -153,6 +153,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     final char currentChar = word.charAt(offset);
     for (int j = 0; j < count; j++) {
       final Node node = children.data[j];
+      if (node == null) continue;
       if (node.code == currentChar) {
         if (offset == length - 1) { // last character in the word to delete
           // we need to delete this node. But only if it terminal
@@ -235,6 +236,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     char currentChar = word.charAt(offset);
     for (int j = 0; j < count; j++) {
       final Node node = children.data[j];
+      if (node == null) continue;
       if (node.code == currentChar) {
         if (offset == length - 1) {
           if (node.terminal) {
@@ -296,6 +298,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
     for (int i = 0; i < count; i++) {
       final Node node = roots.data[i];
+      if (node == null) continue;
       final char nodeC = node.code;
       final char nodeLowerC = toLowerCase(nodeC);
       boolean terminal = node.terminal;
@@ -380,6 +383,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     boolean found = false;
     for (int i = 0; i < childrenLength; i++) {
       childNode = children.data[i];
+      if (childNode == null) continue;
       if (childNode.code == c) {
         found = true;
         break;
@@ -431,22 +435,26 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     void add(Node n) {
-      length++;
-      if (length > data.length) {
-        Node[] tempData = new Node[length + INCREMENT];
-        System.arraycopy(data, 0, tempData, 0, data.length);
+      Node[] currentData = data;
+      int currentLength = length;
+      if (currentLength + 1 > currentData.length) {
+        Node[] tempData = new Node[currentLength + 1 + INCREMENT];
+        System.arraycopy(currentData, 0, tempData, 0, currentLength);
+        tempData[currentLength] = n;
         data = tempData;
+      } else {
+        currentData[currentLength] = n;
       }
-      data[length - 1] = n;
+      length = currentLength + 1;
     }
 
     public void deleteNode(int nodeIndexToDelete) {
       length--;
-      if (length > 0) {
-        if (length - nodeIndexToDelete >= 0)
-          System.arraycopy(
-              data, nodeIndexToDelete + 1, data, nodeIndexToDelete, length - nodeIndexToDelete);
+      if (length - nodeIndexToDelete > 0) {
+        System.arraycopy(
+            data, nodeIndexToDelete + 1, data, nodeIndexToDelete, length - nodeIndexToDelete);
       }
+      data[length] = null;
     }
   }
 

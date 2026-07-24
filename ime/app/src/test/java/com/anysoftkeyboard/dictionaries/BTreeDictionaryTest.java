@@ -335,4 +335,44 @@ public class BTreeDictionaryTest {
     Assert.assertFalse(dictionary.isValidWord("invalid"));
     Assert.assertFalse(dictionary.isValidWord("alsoInvalid"));
   }
+
+  @Test
+  public void testConcurrentAddDeleteAndGetSuggestions() throws Exception {
+    mDictionaryUnderTest.loadDictionary();
+    final AtomicInteger errors = new AtomicInteger(0);
+    final int iterations = 500;
+
+    Thread writerThread =
+        new Thread(
+            () -> {
+              for (int i = 0; i < iterations; i++) {
+                String word = "word" + i;
+                mDictionaryUnderTest.addWord(word, 50);
+                if (i % 2 == 0) {
+                  mDictionaryUnderTest.deleteWord(word);
+                }
+              }
+            });
+
+    Thread readerThread =
+        new Thread(
+            () -> {
+              for (int i = 0; i < iterations; i++) {
+                try {
+                  getWordsFor(mDictionaryUnderTest, "wor");
+                  mDictionaryUnderTest.isValidWord("word" + (i % 100));
+                } catch (Throwable t) {
+                  errors.incrementAndGet();
+                }
+              }
+            });
+
+    writerThread.start();
+    readerThread.start();
+
+    writerThread.join();
+    readerThread.join();
+
+    Assert.assertEquals(0, errors.get());
+  }
 }
