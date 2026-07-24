@@ -149,10 +149,13 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
   private boolean deleteWordRec(
       final NodeArray children, final CharSequence word, final int offset, final int length) {
-    final int count = children.length;
+    if (children == null) return false;
+    final Node[] localData = children.data;
+    if (localData == null) return false;
+    final int count = Math.min(children.length, localData.length);
     final char currentChar = word.charAt(offset);
     for (int j = 0; j < count; j++) {
-      final Node node = children.data[j];
+      final Node node = localData[j];
       if (node == null) continue;
       if (node.code == currentChar) {
         if (offset == length - 1) { // last character in the word to delete
@@ -232,10 +235,13 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
   private int getWordFrequencyRec(
       final NodeArray children, final CharSequence word, final int offset, final int length) {
-    final int count = children.length;
+    if (children == null) return 0;
+    final Node[] localData = children.data;
+    if (localData == null) return 0;
+    final int count = Math.min(children.length, localData.length);
     char currentChar = word.charAt(offset);
     for (int j = 0; j < count; j++) {
-      final Node node = children.data[j];
+      final Node node = localData[j];
       if (node == null) continue;
       if (node.code == currentChar) {
         if (offset == length - 1) {
@@ -282,7 +288,10 @@ public abstract class BTreeDictionary extends EditableDictionary {
       float snr,
       int inputIndex,
       WordCallback callback) {
-    final int count = roots.length;
+    if (roots == null) return;
+    final Node[] localData = roots.data;
+    if (localData == null) return;
+    final int count = Math.min(roots.length, localData.length);
     final int codeSize = mInputLength;
     // Optimization: Prune out words that are too long compared to how much
     // was typed.
@@ -297,7 +306,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     for (int i = 0; i < count; i++) {
-      final Node node = roots.data[i];
+      final Node node = localData[i];
       if (node == null) continue;
       final char nodeC = node.code;
       final char nodeLowerC = toLowerCase(nodeC);
@@ -375,14 +384,17 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
   private void addWordRec(
       NodeArray children, final String word, final int depth, final int frequency) {
+    if (children == null) return;
+    final Node[] localData = children.data;
+    if (localData == null) return;
     final int wordLength = word.length();
     final char c = word.charAt(depth);
     // Does children have the current character?
-    final int childrenLength = children.length;
+    final int childrenLength = Math.min(children.length, localData.length);
     Node childNode = null;
     boolean found = false;
     for (int i = 0; i < childrenLength; i++) {
-      childNode = children.data[i];
+      childNode = localData[i];
       if (childNode == null) continue;
       if (childNode.code == c) {
         found = true;
@@ -423,7 +435,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
   static class NodeArray {
     private static final int INCREMENT = 2;
-    Node[] data;
+    volatile Node[] data;
     int length = 0;
 
     NodeArray(int initialCapacity) {
@@ -449,6 +461,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     public void deleteNode(int nodeIndexToDelete) {
+      if (length <= 0 || nodeIndexToDelete < 0 || nodeIndexToDelete >= length) return;
       length--;
       if (length - nodeIndexToDelete > 0) {
         System.arraycopy(
