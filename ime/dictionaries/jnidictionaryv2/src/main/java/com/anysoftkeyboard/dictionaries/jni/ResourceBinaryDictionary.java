@@ -101,7 +101,7 @@ public class ResourceBinaryDictionary extends Dictionary {
       @Nullable int[] nextLettersFrequencies,
       int nextLettersSize);
 
-  private native void getWordsNative(long dictPointer, GetWordsCallback callback);
+  private native boolean getWordsNative(long dictPointer, GetWordsCallback callback);
 
   @Override
   protected void loadAllResources() {
@@ -292,10 +292,8 @@ public class ResourceBinaryDictionary extends Dictionary {
   @Override
   public void getLoadedWords(@NonNull GetWordsCallback callback) {
     final long ptr = mNativeDictPointer.get();
-    if (isClosed() || isLoading() || ptr == 0L) {
+    if (isClosed() || isLoading() || ptr == 0L || !getWordsNative(ptr, callback)) {
       callback.onGetWordsFinished(new char[0][0], new int[0]);
-      return;
     }
-    getWordsNative(ptr, callback);
   }
 }

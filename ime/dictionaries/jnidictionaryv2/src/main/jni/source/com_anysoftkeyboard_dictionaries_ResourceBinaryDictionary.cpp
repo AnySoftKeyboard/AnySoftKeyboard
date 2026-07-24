@@ -17,6 +17,7 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include <memory>
 
 #include <jni.h>
 #include <string.h>
@@ -104,66 +105,45 @@ static jboolean nativeime_ResourceBinaryDictionary_isValidWord
     return result;
 }
 
-static void nativeime_ResourceBinaryDictionary_getWords
+static jboolean nativeime_ResourceBinaryDictionary_getWords
         (JNIEnv *env, jobject object, jlong dict, jobject getWordsCallback) {
     Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
-    if (!dictionary || !getWordsCallback) return;
+    if (!dictionary || !getWordsCallback) return (jboolean) false;
+
+    int wordCount = 0, wordsCharsCount = 0;
+    dictionary->countWordsChars(wordCount, wordsCharsCount);
+    if (wordCount <= 0 || wordsCharsCount <= 0) return (jboolean) false;
 
     jclass charArrayClass = env->FindClass("[C");
     if (!charArrayClass) {
         env->ExceptionClear();
-        return;
+        return (jboolean) false;
     }
 
-    auto sendEmptyResult = [env, getWordsCallback, charArrayClass]() {
-        jobjectArray emptyWords = env->NewObjectArray(0, charArrayClass, NULL);
-        jintArray emptyFreqs = env->NewIntArray(0);
-        if (emptyWords && emptyFreqs) {
-            env->CallVoidMethod(getWordsCallback, sGetWordsCallbackMethodId, emptyWords, emptyFreqs);
-        }
-        if (emptyWords) env->DeleteLocalRef(emptyWords);
-        if (emptyFreqs) env->DeleteLocalRef(emptyFreqs);
-    };
-
-    int wordCount = 0, wordsCharsCount = 0;
-    dictionary->countWordsChars(wordCount, wordsCharsCount);
-    if (wordCount <= 0 || wordsCharsCount <= 0) {
-        sendEmptyResult();
-        return;
-    }
-
-    unsigned short *words = new unsigned short[wordsCharsCount];
+    std::unique_ptr<unsigned short[]> words(new unsigned short[wordsCharsCount]);
     jintArray frequencyArray = env->NewIntArray(wordCount);
     if (!frequencyArray) {
         env->ExceptionClear();
-        delete[] words;
-        sendEmptyResult();
-        return;
+        return (jboolean) false;
+    }
+
+    jobjectArray javaLandChars = env->NewObjectArray(wordCount, charArrayClass, NULL);
+    if (!javaLandChars) {
+        env->ExceptionClear();
+        return (jboolean) false;
     }
 
     int *frequencies = env->GetIntArrayElements(frequencyArray, NULL);
     if (!frequencies) {
         env->ExceptionClear();
-        delete[] words;
-        env->DeleteLocalRef(frequencyArray);
-        sendEmptyResult();
-        return;
+        return (jboolean) false;
     }
 
-    dictionary->getWords(words, frequencies);
+    dictionary->getWords(words.get(), frequencies);
     env->ReleaseIntArrayElements(frequencyArray, frequencies, 0);
 
-    jobjectArray javaLandChars = env->NewObjectArray(wordCount, charArrayClass, NULL);
-    if (!javaLandChars) {
-        env->ExceptionClear();
-        delete[] words;
-        env->DeleteLocalRef(frequencyArray);
-        sendEmptyResult();
-        return;
-    }
-
-    unsigned short *pos = words;
-    const unsigned short *endPos = words + wordsCharsCount;
+    unsigned short *pos = words.get();
+    const unsigned short *endPos = words.get() + wordsCharsCount;
     bool allocationFailed = false;
 
     for (int i = 0; i < wordCount && pos < endPos; ++i) {
@@ -193,18 +173,13 @@ static void nativeime_ResourceBinaryDictionary_getWords
         env->DeleteLocalRef(jchr);
     }
 
-    delete[] words;
-
     if (allocationFailed || env->ExceptionCheck()) {
         env->ExceptionClear();
-        env->DeleteLocalRef(javaLandChars);
-        env->DeleteLocalRef(frequencyArray);
-        sendEmptyResult();
-    } else {
-        env->CallVoidMethod(getWordsCallback, sGetWordsCallbackMethodId, javaLandChars, frequencyArray);
-        env->DeleteLocalRef(javaLandChars);
-        env->DeleteLocalRef(frequencyArray);
+        return (jboolean) false;
     }
+
+    env->CallVoidMethod(getWordsCallback, sGetWordsCallbackMethodId, javaLandChars, frequencyArray);
+    return (jboolean) true;
 }
 
 static void nativeime_ResourceBinaryDictionary_close
@@ -220,7 +195,7 @@ static JNINativeMethod gMethods[] = {
         {"closeNative",          "(J)V",                                                    (void *) nativeime_ResourceBinaryDictionary_close},
         {"getSuggestionsNative", "(J[II[C[IIIII[II)I",                                      (void *) nativeime_ResourceBinaryDictionary_getSuggestions},
         {"isValidWordNative",    "(J[CI)Z",                                                 (void *) nativeime_ResourceBinaryDictionary_isValidWord},
-        {"getWordsNative",       "(JLcom/anysoftkeyboard/dictionaries/GetWordsCallback;)V", (void *) nativeime_ResourceBinaryDictionary_getWords}
+        {"getWordsNative",       "(JLcom/anysoftkeyboard/dictionaries/GetWordsCallback;)Z", (void *) nativeime_ResourceBinaryDictionary_getWords}
 };
 
 static int registerNativeMethods(JNIEnv *env, const char *className,
