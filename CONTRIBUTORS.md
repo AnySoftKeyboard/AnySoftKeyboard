@@ -66,6 +66,7 @@ Thank you for the fine contributors:
 1. [avently](https://github.com/avently) (3)
 1. [christofjs](https://github.com/christofjs) (3)
 1. [danielegobbetti](https://github.com/danielegobbetti) (3)
+1. [dependabot](https://github.com/dependabot) (3) 🤖
 1. [fin-w](https://github.com/fin-w) (3)
 1. [llahteinen](https://github.com/llahteinen) (3)
 1. [lubekgc](https://github.com/lubekgc) (3)
@@ -81,7 +82,6 @@ Thank you for the fine contributors:
 1. [AnXh3L0](https://github.com/AnXh3L0) (2)
 1. [Azim](https://github.com/Azim) (2)
 1. [Blaimi](https://github.com/Blaimi) (2)
-1. [dependabot](https://github.com/dependabot) (2) 🤖
 1. [dgalaktionov](https://github.com/dgalaktionov) (2)
 1. [duchampdev](https://github.com/duchampdev) (2)
 1. [er2off](https://github.com/er2off) (2)
