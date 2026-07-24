@@ -41,7 +41,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
   protected final Context mContext;
   private final int mMaxWordsToRead;
 
-  private volatile NodeArray mRoots;
+  private NodeArray mRoots;
   private int mMaxDepth;
   private int mInputLength;
   private final char[] mWordBuilder = new char[MAX_WORD_LENGTH];
@@ -149,14 +149,10 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
   private boolean deleteWordRec(
       final NodeArray children, final CharSequence word, final int offset, final int length) {
-    if (children == null) return false;
-    final Node[] localData = children.data;
-    if (localData == null) return false;
-    final int count = Math.min(children.length, localData.length);
+    final int count = children.length;
     final char currentChar = word.charAt(offset);
     for (int j = 0; j < count; j++) {
-      final Node node = localData[j];
-      if (node == null) continue;
+      final Node node = children.data[j];
       if (node.code == currentChar) {
         if (offset == length - 1) { // last character in the word to delete
           // we need to delete this node. But only if it terminal
@@ -212,9 +208,11 @@ public abstract class BTreeDictionary extends EditableDictionary {
   @Override
   public void getSuggestions(final KeyCodesProvider codes, final Dictionary.WordCallback callback) {
     if (isLoading() || isClosed()) return;
-    mInputLength = codes.codePointCount();
-    mMaxDepth = mInputLength * 2;
-    getWordsRec(mRoots, codes, mWordBuilder, 0, false, 1.0f, 0, callback);
+    synchronized (mResourceMonitor) {
+      mInputLength = codes.codePointCount();
+      mMaxDepth = mInputLength * 2;
+      getWordsRec(mRoots, codes, mWordBuilder, 0, false, 1.0f, 0, callback);
+    }
   }
 
   @Override
@@ -230,19 +228,17 @@ public abstract class BTreeDictionary extends EditableDictionary {
    */
   public final int getWordFrequency(CharSequence word) {
     if (isLoading() || isClosed()) return 0;
-    return getWordFrequencyRec(mRoots, word, 0, word.length());
+    synchronized (mResourceMonitor) {
+      return getWordFrequencyRec(mRoots, word, 0, word.length());
+    }
   }
 
   private int getWordFrequencyRec(
       final NodeArray children, final CharSequence word, final int offset, final int length) {
-    if (children == null) return 0;
-    final Node[] localData = children.data;
-    if (localData == null) return 0;
-    final int count = Math.min(children.length, localData.length);
+    final int count = children.length;
     char currentChar = word.charAt(offset);
     for (int j = 0; j < count; j++) {
-      final Node node = localData[j];
-      if (node == null) continue;
+      final Node node = children.data[j];
       if (node.code == currentChar) {
         if (offset == length - 1) {
           if (node.terminal) {
@@ -288,10 +284,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
       float snr,
       int inputIndex,
       WordCallback callback) {
-    if (roots == null) return;
-    final Node[] localData = roots.data;
-    if (localData == null) return;
-    final int count = Math.min(roots.length, localData.length);
+    final int count = roots.length;
     final int codeSize = mInputLength;
     // Optimization: Prune out words that are too long compared to how much
     // was typed.
@@ -306,8 +299,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     for (int i = 0; i < count; i++) {
-      final Node node = localData[i];
-      if (node == null) continue;
+      final Node node = roots.data[i];
       final char nodeC = node.code;
       final char nodeLowerC = toLowerCase(nodeC);
       boolean terminal = node.terminal;
@@ -384,18 +376,14 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
   private void addWordRec(
       NodeArray children, final String word, final int depth, final int frequency) {
-    if (children == null) return;
-    final Node[] localData = children.data;
-    if (localData == null) return;
     final int wordLength = word.length();
     final char c = word.charAt(depth);
     // Does children have the current character?
-    final int childrenLength = Math.min(children.length, localData.length);
+    final int childrenLength = children.length;
     Node childNode = null;
     boolean found = false;
     for (int i = 0; i < childrenLength; i++) {
-      childNode = localData[i];
-      if (childNode == null) continue;
+      childNode = children.data[i];
       if (childNode.code == c) {
         found = true;
         break;
@@ -435,7 +423,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
   static class NodeArray {
     private static final int INCREMENT = 2;
-    volatile Node[] data;
+    Node[] data;
     int length = 0;
 
     NodeArray(int initialCapacity) {
@@ -447,27 +435,22 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     void add(Node n) {
-      Node[] currentData = data;
-      int currentLength = length;
-      if (currentLength + 1 > currentData.length) {
-        Node[] tempData = new Node[currentLength + 1 + INCREMENT];
-        System.arraycopy(currentData, 0, tempData, 0, currentLength);
-        tempData[currentLength] = n;
+      length++;
+      if (length > data.length) {
+        Node[] tempData = new Node[length + INCREMENT];
+        System.arraycopy(data, 0, tempData, 0, data.length);
         data = tempData;
-      } else {
-        currentData[currentLength] = n;
       }
-      length = currentLength + 1;
+      data[length - 1] = n;
     }
 
     public void deleteNode(int nodeIndexToDelete) {
-      if (length <= 0 || nodeIndexToDelete < 0 || nodeIndexToDelete >= length) return;
       length--;
-      if (length - nodeIndexToDelete > 0) {
-        System.arraycopy(
-            data, nodeIndexToDelete + 1, data, nodeIndexToDelete, length - nodeIndexToDelete);
+      if (length > 0) {
+        if (length - nodeIndexToDelete >= 0)
+          System.arraycopy(
+              data, nodeIndexToDelete + 1, data, nodeIndexToDelete, length - nodeIndexToDelete);
       }
-      data[length] = null;
     }
   }
 

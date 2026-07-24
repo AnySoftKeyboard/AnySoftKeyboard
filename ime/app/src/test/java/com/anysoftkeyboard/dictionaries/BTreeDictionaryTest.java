@@ -362,6 +362,7 @@ public class BTreeDictionaryTest {
                   getWordsFor(mDictionaryUnderTest, "wor");
                   mDictionaryUnderTest.isValidWord("word" + (i % 100));
                 } catch (Throwable t) {
+                  t.printStackTrace();
                   errors.incrementAndGet();
                 }
               }
