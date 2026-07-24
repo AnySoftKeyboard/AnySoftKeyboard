@@ -291,6 +291,11 @@ public class ResourceBinaryDictionary extends Dictionary {
 
   @Override
   public void getLoadedWords(@NonNull GetWordsCallback callback) {
-    getWordsNative(mNativeDictPointer.get(), callback);
+    final long ptr = mNativeDictPointer.get();
+    if (isClosed() || isLoading() || ptr == 0L) {
+      callback.onGetWordsFinished(new char[0][0], new int[0]);
+      return;
+    }
+    getWordsNative(ptr, callback);
   }
 }
