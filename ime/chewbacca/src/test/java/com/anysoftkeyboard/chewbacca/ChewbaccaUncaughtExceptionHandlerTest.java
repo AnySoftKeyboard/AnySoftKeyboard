@@ -198,11 +198,11 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
     Assert.assertTrue(newReport.isFile());
     List<String> text = Files.readAllLines(newReport.toPath());
     Assert.assertTrue(
-        "Report should contain UndeliverableException information",
-        text.stream().anyMatch(line -> line.contains("UndeliverableException")));
-    Assert.assertTrue(
         "Report should contain root cause OutOfMemoryError information",
         text.stream().anyMatch(line -> line.contains("OutOfMemoryError")));
+    Assert.assertTrue(
+        "Report should contain exception message",
+        text.stream().anyMatch(line -> line.contains("Failed allocation in test")));
   }
 
   private static class TestableChewbaccaUncaughtExceptionHandler
