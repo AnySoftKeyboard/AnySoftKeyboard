@@ -26,22 +26,21 @@ if (project.plugins.hasPlugin('com.android.application') || project.plugins.hasP
     }
 }
 
-project.afterEvaluate {
+plugins.withId('com.android.application') {
+    androidComponents.onVariants(androidComponents.selector().all()) { variant ->
+        def name = variant.name
+        def testTaskName = "test${name.capitalize()}UnitTest"
 
-    if (project.plugins.hasPlugin('com.android.application')) {
-        android.applicationVariants.all { variant ->
-            def name = variant.name
-            def testTaskName = "test${name.capitalize()}UnitTest"
+        createJacocoReportTask(testTaskName, name)
+    }
+}
 
-            createJacocoReportTask(testTaskName, name)
-        }
-    } else if (project.plugins.hasPlugin('com.android.library')) {
-        android.libraryVariants.all { variant ->
-            def name = variant.name
-            def testTaskName = "test${name.capitalize()}UnitTest"
+plugins.withId('com.android.library') {
+    androidComponents.onVariants(androidComponents.selector().all()) { variant ->
+        def name = variant.name
+        def testTaskName = "test${name.capitalize()}UnitTest"
 
-            createJacocoReportTask(testTaskName, name)
-        }
+        createJacocoReportTask(testTaskName, name)
     }
 }
 

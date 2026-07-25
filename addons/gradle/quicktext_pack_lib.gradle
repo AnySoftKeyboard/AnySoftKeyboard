@@ -9,5 +9,5 @@ dependencies {
 group "com.anysoftkeyboard.quicktext.${parent.name}"
 
 android {
-    namespace group
+    namespace "${group}.pack"
 }

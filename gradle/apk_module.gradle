@@ -29,29 +29,29 @@ static String calculateApplicationId(Project proj) {
 apply from: "${rootDir}/gradle/android_general.gradle"
 
 //copy bundles and APKs to output
-android.applicationVariants.configureEach { variant ->
-    def bundleProvider = tasks.named("sign${variant.name.capitalize()}Bundle")
-    def bundleCopy = tasks.register("copy${variant.name.capitalize()}Aab", Copy)
+androidComponents.onVariants(androidComponents.selector().all()) { variant ->
+    def variantName = variant.name
+    def bundleCopy = tasks.register("copy${variantName.capitalize()}Aab", Copy)
     bundleCopy.configure { copier ->
-        copier.from "${project.buildDir.absolutePath}/outputs/bundle/${variant.name}/${project.name}-${variant.name}.aab"
+        copier.from "${project.buildDir.absolutePath}/outputs/bundle/${variantName}/${project.name}-${variantName}.aab"
         copier.destinationDir file("${rootDir.absolutePath}/outputs/bundle/")
-        copier.rename ".*", "${project.parent.name}_${variant.name}.aab"
-        copier.dependsOn bundleProvider
-    }
-    bundleProvider.configure {
-        finalizedBy(bundleCopy)
+        copier.rename ".*", "${project.parent.name}_${variantName}.aab"
     }
 
-    def assembleProvider = tasks.named("assemble${variant.name.capitalize()}")
-    def apkCopy = tasks.register("copy${variant.name.capitalize()}Apk", Copy)
+    def apkCopy = tasks.register("copy${variantName.capitalize()}Apk", Copy)
     apkCopy.configure { copier ->
-        copier.from "${project.buildDir.absolutePath}/outputs/apk/${variant.name}/${project.name}-${variant.name}.apk"
+        copier.from "${project.buildDir.absolutePath}/outputs/apk/${variantName}/${project.name}-${variantName}.apk"
         copier.destinationDir file("${rootDir.absolutePath}/outputs/apk/")
-        copier.rename ".*", "${project.parent.name}_${variant.name}.apk"
-        copier.dependsOn assembleProvider
+        copier.rename ".*", "${project.parent.name}_${variantName}.apk"
     }
-    assembleProvider.configure {
-        finalizedBy(apkCopy)
+
+    tasks.configureEach { task ->
+        if (task.name == "sign${variantName.capitalize()}Bundle") {
+            task.finalizedBy(bundleCopy)
+        }
+        if (task.name == "assemble${variantName.capitalize()}") {
+            task.finalizedBy(apkCopy)
+        }
     }
 }
 
