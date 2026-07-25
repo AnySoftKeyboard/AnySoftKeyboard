@@ -153,4 +153,34 @@ public class GesturesSettingsFragmentTest
       Assert.assertTrue(pref.isEnabled());
     }
   }
+
+  @Test
+  public void testLowRamDeviceDisablesGestureTypingPreference() {
+    GesturesSettingsFragment fragment = new TestableLowRamGesturesSettingsFragment();
+    TestMainSettingsActivity activity =
+        org.robolectric.Robolectric.buildActivity(TestMainSettingsActivity.class)
+            .create()
+            .start()
+            .resume()
+            .get();
+    activity
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .add(android.R.id.content, fragment, "test_low_ram")
+        .commitNow();
+
+    Preference gesturePref = fragment.findPreference("settings_key_gesture_typing");
+    Assert.assertNotNull(gesturePref);
+    Assert.assertFalse(gesturePref.isEnabled());
+    Assert.assertEquals(
+        fragment.getString(R.string.gesture_typing_disabled_low_ram),
+        gesturePref.getSummary().toString());
+  }
+
+  public static class TestableLowRamGesturesSettingsFragment extends GesturesSettingsFragment {
+    @Override
+    protected boolean isLowRamDevice() {
+      return true;
+    }
+  }
 }

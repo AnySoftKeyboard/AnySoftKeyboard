@@ -1,6 +1,8 @@
 package com.anysoftkeyboard.ime;
 
+import android.app.ActivityManager;
 import android.content.ComponentCallbacks2;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,33 +85,44 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     super.onCreate();
 
     mClearLastGestureAction = new ClearGestureStripActionProvider(this);
-    addDisposable(
-        Observable.combineLatest(
-                PowerSaving.observePowerSavingState(
-                    getApplicationContext(), R.string.settings_key_power_save_mode_gesture_control),
-                prefs()
-                    .getBoolean(
-                        R.string.settings_key_gesture_typing,
-                        R.bool.settings_default_gesture_typing)
-                    .asObservable(),
-                (powerState, gestureTyping) -> {
-                  if (powerState) return false;
-                  return gestureTyping;
-                })
-            .subscribe(
-                enabled -> {
-                  mGestureTypingEnabled = enabled;
-                  mDetectorStateSubscription.dispose();
-                  if (!mGestureTypingEnabled) {
-                    destroyAllDetectors();
-                  } else {
-                    final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
-                    if (currentAlphabetKeyboard != null) {
-                      setupGestureDetector(currentAlphabetKeyboard);
+    if (isLowRamDevice()) {
+      mGestureTypingEnabled = false;
+      destroyAllDetectors();
+    } else {
+      addDisposable(
+          Observable.combineLatest(
+                  PowerSaving.observePowerSavingState(
+                      getApplicationContext(),
+                      R.string.settings_key_power_save_mode_gesture_control),
+                  prefs()
+                      .getBoolean(
+                          R.string.settings_key_gesture_typing,
+                          R.bool.settings_default_gesture_typing)
+                      .asObservable(),
+                  (powerState, gestureTyping) -> {
+                    if (powerState) return false;
+                    return gestureTyping;
+                  })
+              .subscribe(
+                  enabled -> {
+                    mGestureTypingEnabled = enabled;
+                    mDetectorStateSubscription.dispose();
+                    if (!mGestureTypingEnabled) {
+                      destroyAllDetectors();
+                    } else {
+                      final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
+                      if (currentAlphabetKeyboard != null) {
+                        setupGestureDetector(currentAlphabetKeyboard);
+                      }
                     }
-                  }
-                },
-                GenericOnError.onError("settings_key_gesture_typing")));
+                  },
+                  GenericOnError.onError("settings_key_gesture_typing")));
+    }
+  }
+
+  protected boolean isLowRamDevice() {
+    ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+    return am != null && am.isLowRamDevice();
   }
 
   @Override

@@ -919,6 +919,7 @@
 
     <string name="gesture_typing_settings">Gesture-Typing ➿</string>
     <string name="gesture_typing_summary">Input a word by sliding your finger through its letters.</string>
+    <string name="gesture_typing_disabled_low_ram">Gesture typing is disabled on low-memory devices to ensure smooth typing performance.</string>
     <string name="gesture_typing_action">Enable gesture-typing [BETA]</string>
     <string name="gesture_typing_alert_title">BETA Feature!</string>
     <string name="gesture_typing_alert_message">The gesture-typing ➿ feature is at <b>beta</b> maturity. It has some bugs, not that fast, and not that complete.\nSaying that, you should try it out.</string>

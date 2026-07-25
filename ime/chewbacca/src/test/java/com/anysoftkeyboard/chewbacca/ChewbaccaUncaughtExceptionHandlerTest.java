@@ -181,6 +181,30 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
         text.stream().anyMatch(line -> line.contains("IOException") || line.contains("an error")));
   }
 
+  @Test
+  public void testUnwrapsUndeliverableException() throws Exception {
+    Application app = ApplicationProvider.getApplicationContext();
+    NotificationDriver notificationDriver = Mockito.mock(NotificationDriver.class);
+    TestableChewbaccaUncaughtExceptionHandler underTest =
+        new TestableChewbaccaUncaughtExceptionHandler(app, null, notificationDriver);
+
+    Throwable cause = new OutOfMemoryError("Failed allocation in test");
+    Throwable undeliverable = new io.reactivex.exceptions.UndeliverableException(cause);
+
+    underTest.uncaughtException(Thread.currentThread(), undeliverable);
+
+    File newReport =
+        new File(app.getFilesDir(), ChewbaccaUncaughtExceptionHandler.NEW_CRASH_FILENAME);
+    Assert.assertTrue(newReport.isFile());
+    List<String> text = Files.readAllLines(newReport.toPath());
+    Assert.assertTrue(
+        "Report should contain root cause OutOfMemoryError information",
+        text.stream().anyMatch(line -> line.contains("OutOfMemoryError")));
+    Assert.assertTrue(
+        "Report should contain exception message",
+        text.stream().anyMatch(line -> line.contains("Failed allocation in test")));
+  }
+
   private static class TestableChewbaccaUncaughtExceptionHandler
       extends ChewbaccaUncaughtExceptionHandler {
 

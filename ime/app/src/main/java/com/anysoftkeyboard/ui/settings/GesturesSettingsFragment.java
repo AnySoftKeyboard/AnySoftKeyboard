@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -67,8 +68,13 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    findPreference(getString(R.string.settings_key_gesture_typing))
-        .setOnPreferenceChangeListener(
+    Preference gesturePref = findPreference(getString(R.string.settings_key_gesture_typing));
+    if (gesturePref != null) {
+      if (isLowRamDevice()) {
+        gesturePref.setEnabled(false);
+        gesturePref.setSummary(R.string.gesture_typing_disabled_low_ram);
+      } else {
+        gesturePref.setOnPreferenceChangeListener(
             (preference, newValue) -> {
               final boolean gestureTypingEnabled = (boolean) newValue;
               if (gestureTypingEnabled) {
@@ -79,6 +85,17 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
               }
               return true;
             });
+      }
+    }
+  }
+
+  protected boolean isLowRamDevice() {
+    Context context = getContext();
+    if (context != null) {
+      ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+      return am != null && am.isLowRamDevice();
+    }
+    return false;
   }
 
   @Override

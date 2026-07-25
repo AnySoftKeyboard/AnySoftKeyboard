@@ -25,6 +25,11 @@ copy_to_bin(
     srcs = [".yamlfmt.yml"],
 )
 
+exports_files(
+    [".clang-tidy"],
+    visibility = ["//visibility:public"],
+)
+
 npm_link_all_packages(name = "node_modules")
 
 js_library(

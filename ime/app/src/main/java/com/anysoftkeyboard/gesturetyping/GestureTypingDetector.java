@@ -302,7 +302,15 @@ public class GestureTypingDetector {
                           e.onComplete();
                         }
                       } catch (OutOfMemoryError oomError) {
-                        Logger.e(TAG, oomError, "OOM during corner generation");
+                        Logger.e(
+                            TAG,
+                            oomError,
+                            "OOM during corner generation; clearing memory and cancelling gesture"
+                                + " detector");
+                        wordsCorners.clear();
+                        wordsByStartKey.clear();
+                        keysByCharacter.clear();
+                        workspaceData.reset();
                         if (!e.isDisposed()) {
                           e.onError(oomError);
                         }

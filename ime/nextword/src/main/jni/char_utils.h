@@ -21,6 +21,6 @@ namespace nativeime {
 
 unsigned short latin_tolower(unsigned short c);
 
-}; // namespace nativeime
+};  // namespace nativeime
 
-#endif // LATINIME_CHAR_UTILS_H
+#endif  // LATINIME_CHAR_UTILS_H
