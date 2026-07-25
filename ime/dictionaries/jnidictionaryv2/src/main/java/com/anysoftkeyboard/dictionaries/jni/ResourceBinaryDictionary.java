@@ -64,7 +64,7 @@ public class ResourceBinaryDictionary extends Dictionary {
   @SuppressWarnings("FieldCanBeLocal")
   private ByteBuffer mNativeDictDirectBuffer;
 
-  private final AtomicLong mNativeDictPointer = new AtomicLong(0L);
+  protected final AtomicLong mNativeDictPointer = new AtomicLong(0L);
 
   /**
    * Create a dictionary from a raw resource file
@@ -77,14 +77,13 @@ public class ResourceBinaryDictionary extends Dictionary {
       @NonNull Context originPackageContext,
       @XmlRes int resId) {
     super(dictionaryName);
-    try {
-      CompatUtils.loadNativeLibrary(originPackageContext, "anysoftkey2_jni", "1.0.4");
-
-    } catch (UnsatisfiedLinkError e) {
-      Logger.w(TAG, "Failed to load native library in constructor: %s", e.getMessage());
-    }
+    loadNativeLibrary(originPackageContext);
     mOriginPackageContext = originPackageContext;
     mDictResId = resId;
+  }
+
+  protected void loadNativeLibrary(@NonNull Context originPackageContext) {
+    CompatUtils.loadNativeLibrary(originPackageContext, "anysoftkey2_jni", "1.0.4");
   }
 
   private native long openNative(ByteBuffer bb, int typedLetterMultiplier, int fullWordMultiplier);
@@ -106,7 +105,7 @@ public class ResourceBinaryDictionary extends Dictionary {
       @Nullable int[] nextLettersFrequencies,
       int nextLettersSize);
 
-  private native boolean getWordsNative(long dictPointer, GetWordsCallback callback);
+  protected native boolean getWordsNative(long dictPointer, GetWordsCallback callback);
 
   @Override
   protected void loadAllResources() {
