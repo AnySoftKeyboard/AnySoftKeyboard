@@ -14,6 +14,7 @@ import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.Disposable;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -287,16 +288,23 @@ public class GestureTypingDetectorTest {
   @Test
   public void testHandlesOutOfMemoryErrorDuringCornerGeneration() {
     TestRxSchedulers.drainAllTasks();
-    char[][] dict = new char[10][];
-    for (int i = 0; i < dict.length; i++) {
-      dict[i] = "hello".toCharArray();
-    }
-    // Pass words list with simulated throwing structure or mock
-    mDetectorUnderTest.setWords(
-        Collections.singletonList(dict), Collections.singletonList(new int[10]));
+    List<char[][]> throwingWords =
+        new AbstractList<>() {
+          @Override
+          public char[][] get(int index) {
+            throw new OutOfMemoryError("Simulated OOM during corner generation test");
+          }
+
+          @Override
+          public int size() {
+            return 1;
+          }
+        };
+
+    mDetectorUnderTest.setWords(throwingWords, Collections.singletonList(new int[10]));
     Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, mCurrentState.get());
     TestRxSchedulers.drainAllTasks();
-    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+    Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, mCurrentState.get());
   }
 
   @Test
