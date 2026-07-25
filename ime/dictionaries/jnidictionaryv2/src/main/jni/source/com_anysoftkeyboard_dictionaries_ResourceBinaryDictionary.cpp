@@ -68,7 +68,7 @@ static int nativeime_ResourceBinaryDictionary_getSuggestions(
     int *nextLetters = nextLettersArray != nullptr ? env->GetIntArrayElements(nextLettersArray, nullptr)
                                                 : nullptr;
 
-    if (!frequencies || !inputCodes || !outputChars) {
+    if (!frequencies || !inputCodes || !outputChars || (nextLettersArray != nullptr && !nextLetters)) {
         if (frequencies) env->ReleaseIntArrayElements(frequencyArray, frequencies, 0);
         if (inputCodes) env->ReleaseIntArrayElements(inputArray, inputCodes, JNI_ABORT);
         if (outputChars) env->ReleaseCharArrayElements(outputArray, outputChars, 0);
@@ -145,6 +145,7 @@ static jboolean nativeime_ResourceBinaryDictionary_getWords
     unsigned short *pos = words.get();
     const unsigned short *endPos = words.get() + wordsCharsCount;
     bool allocationFailed = false;
+    int wordsProcessed = 0;
 
     for (int i = 0; i < wordCount && pos < endPos; ++i) {
         size_t count = 0;
@@ -171,9 +172,10 @@ static jboolean nativeime_ResourceBinaryDictionary_getWords
         env->SetObjectArrayElement(javaLandChars, i, jchr);
         pos += count + 1;
         env->DeleteLocalRef(jchr);
+        wordsProcessed++;
     }
 
-    if (allocationFailed || env->ExceptionCheck()) {
+    if (allocationFailed || wordsProcessed < wordCount || env->ExceptionCheck()) {
         env->ExceptionClear();
         return (jboolean) false;
     }
