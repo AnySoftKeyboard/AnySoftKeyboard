@@ -147,7 +147,11 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
         .append(NEW_LINE)
         .append("******************************")
         .append(NEW_LINE)
-        .append(ex.getClass().getName())
+        .append(ex.getClass().getName());
+    if (ex.getCause() != null) {
+      reportMessage.append(" [Root cause: ").append(ex.getCause().getClass().getName()).append("]");
+    }
+    reportMessage
         .append(NEW_LINE)
         .append("****** Exception message: ")
         .append(ex.getMessage())

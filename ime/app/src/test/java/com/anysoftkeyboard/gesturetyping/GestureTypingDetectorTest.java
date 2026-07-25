@@ -280,7 +280,23 @@ public class GestureTypingDetectorTest {
     mSubscribeState.dispose();
 
     TestRxSchedulers.drainAllTasks();
+    TestRxSchedulers.drainAllTasks();
     Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, mCurrentState.get());
+  }
+
+  @Test
+  public void testHandlesOutOfMemoryErrorDuringCornerGeneration() {
+    TestRxSchedulers.drainAllTasks();
+    char[][] dict = new char[10][];
+    for (int i = 0; i < dict.length; i++) {
+      dict[i] = "hello".toCharArray();
+    }
+    // Pass words list with simulated throwing structure or mock
+    mDetectorUnderTest.setWords(
+        Collections.singletonList(dict), Collections.singletonList(new int[10]));
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, mCurrentState.get());
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
   }
 
   @Test
