@@ -547,7 +547,8 @@
     <string name="initial_quick_text_tab_always_first_tab">mindig az elsővel</string>
     <string name="initial_quick_text_tab_last_used_tab">az utoljára használttal</string>
     <string name="initial_quick_text_tab_history_tab">az előzményekkel kezdjen</string>
-    <string name="emoji_default_skin_tone_title">Hangulatjelek bőrszíne</string>
+    <string name="emoji_default_skin_tone_title">Hangulatjelek bőrszíne
+</string>
     <string name="emoji_default_skin_tone_summary">Fitzpatrick-skála szerinti beállított bőrszín: %s</string>
     <string name="emoji_default_skin_tone_value_generic">általános</string>
     <string name="emoji_default_skin_tone_value_type_2">nagyon világos</string>
@@ -608,7 +609,8 @@
     <string name="setup_wizard_step_three_title">Mi a következő?</string>
     <string name="setup_wizard_step_three_details">Köszönjük, hogy az <i>AnySoftKeyboard</i>-ot választotta.
     </string>
-    <string name="setup_wizard_step_three_details_done">        <b>Készen van 🎉\nAkár ki is próbálhatja az új kedvencét.</b>
+    <string name="setup_wizard_step_three_details_done">
+        <b>Készen van 🎉\nAkár ki is próbálhatja az új kedvencét.</b>
     </string>
     <string name="setup_wizard_step_three_details_actions">Vagy testreszabhatja 
         a billentyűzetet igényei szerint:

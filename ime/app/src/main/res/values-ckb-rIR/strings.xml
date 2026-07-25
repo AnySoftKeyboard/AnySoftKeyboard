@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point
-    </string>
-    <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for
-        details.
-    </string>
-    <string name="debug_tracing_finished">Tracing finished!\nTrace file is
-        <xliff:g id="trace_file">%s</xliff:g>
-    </string>
+    <string name="debug_tracing_starting">شوێنپێهەڵگرتن دەستی پێکرد!\nدڵنیابە لە شوێنێکدا دەیوەستێنیت</string>
+    <string name="debug_tracing_starting_failed">دەستپێکردنی شوێنپێهەڵگرتن شکستی هێنا! logcat بپشکنە بۆ… 
+ووردەکاریەکان.</string>
+    <string name="debug_tracing_finished">شوێنپێهەڵگرتن تەواو بوو!\nپەڕگەی شوێنپێهەڵگرتن\u0020<xliff:g id="trace_file">%s</xliff:g> یە</string>
     <string name="menu_about_item">دەربارە</string>
     <string name="how_to_pointer_title">AnySoftKeyboard بەخێربێیت بۆ تەختەکلیلی</string>
     <string name="change_log_card_version_title_template"> \u0020\u0020 نوێکارییەکانی <xliff:g id="name">%s</xliff:g> \u0020\u0020
@@ -375,6 +371,9 @@
     <string name="key_press_preview_popup_off_summary">شاردنەوەی بچووککراوەی پیت</string>
     <string name="zoom_factor_keys_in_portrait">قەبارەی دوگمەکان لەباری ستوونی</string>
     <string name="zoom_factor_keys_in_landscape">قەبارەی دوگمەکان لەباری ئاسۆیی</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">مەودای بەشی خوارەوە</string>
+    <string name="bottom_padding_in_dp_template">%d بۆشایی</string>
     <string name="insert_space_after_word_suggestion_selection">بۆشایی دوای ووشە</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">دانانی بۆشایی کاتێ ووشەی پێشنیارکراو هەڵبژێردا
     </string>
@@ -609,6 +608,7 @@
     </string>
     <string name="not_configured_with_click_here">تەختەکلیل بەتەواوی ڕێکنەخراوە  بۆ بەکارهێنان ، پەنجەبنێ بێرەدا بۆ ڕێکخستن
     </string>
+    <string name="not_notification_permission_text">بەرنامەکە ڕێگەپێدانی ئاگادارکردنەوەی نییە، پێوێستە ئاگادارکردنەوەکان چالاک بکەیت لەکاتی بوونی وەشانی نوێ یان لەکاتی وەستانی لەناکاو.</string>
     <string name="not_configured_with_just_click_here">پەنجەبنێ بێرەدا</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -765,4 +765,10 @@
     <string name="click_me_for_easter_egg_info">پەنجەبنێ بێرەدا بۆ سوپرایز</string>
     <string name="delete_all_clipboard_entries">سڕینەوەی هەمووی</string>
     <string name="tip_swipe_from_backspace_to_clear">زانیاری: پەنجەت بە ئاڕاستەی چەپی دوگمەی سڕینەوە بخشێنە بۆ سڕینەوە بەیەکجار!</string>
+    <string name="notification_read_contacts_ticker">ڕێگەپێدانی ناوەکان پێویستە</string>
+    <string name="notification_action_approve_permission">ڕێگەپێدان</string>
+    <string name="notification_action_dismiss_permission">نا چالاککردن</string>
+    <string name="wizard_allow_notification_permission">چالاککردنی ئاگادارکردنەوەکان</string>
+    <string name="setup_wizard_step_notification_permissions_details">لەکاتی وەستانی لەناکاوی بەرنامەکەدا لەڕێی ئاگادارکردنەوە زانیاریت پێدەدەرێت، ئەمە پێشنیارکراوە چالاک بکرێت</string>
+    <string name="wizard_skip_notification_permission">نا چالاککردن</string>
 </resources>

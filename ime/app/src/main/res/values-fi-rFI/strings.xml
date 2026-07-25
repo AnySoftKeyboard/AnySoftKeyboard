@@ -468,7 +468,8 @@
         <xliff:g id="message">%s</xliff:g>
     </string>
     <string name="created_mem_dump_file">Muistivedostiedosto luotu:
-        <xliff:g id="file_path">%s</xliff:g></string>
+        <xliff:g id="file_path">%s</xliff:g>
+</string>
     <string name="not_configured_with_click_here">AnySoftKeyboardia ei ole täysin asettu käyttökuntoon.
         Paina tästä asettaaksesi
     </string>
@@ -493,7 +494,8 @@
     <string name="setup_wizard_step_three_title">Mitä seuraavaksi?</string>
     <string name="setup_wizard_step_three_details">Kiitos, että valitsit <i>AnySoftKeyboardin</i>.
     </string>
-    <string name="setup_wizard_step_three_details_done">        <b>Olet valmis 🎉\nMene suosikkisovellukseesi kokeillaksesi sitä.</b>
+    <string name="setup_wizard_step_three_details_done">
+        <b>Olet valmis 🎉\nMene suosikkisovellukseesi kokeillaksesi sitä.</b>
     </string>
     <string name="setup_wizard_step_three_details_actions">Tai voit muokata ja personoida
         näppäimistöä mieleiseksesi:

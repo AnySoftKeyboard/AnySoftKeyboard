@@ -485,7 +485,8 @@
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Editor de abreviaturas</string>
     <string name="abbreviation_dict_editor">Editor de abreviaturas</string>
-    <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i>    </string>
+    <string name="abbreviation_dict_word_template">
+<i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i>    </string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
@@ -542,7 +543,8 @@
     <string name="setup_wizard_step_two_action">Cambiar teclados</string>
     <string name="setup_wizard_step_three_title">Qué más</string>
     <string name="setup_wizard_step_three_details">Gracias por elegir AnySoftKeyboard.    </string>
-    <string name="setup_wizard_step_three_details_done"><b>Hemos terminado. 🎉\nPruebe el teclado en su aplicación favorita.</b>    </string>
+    <string name="setup_wizard_step_three_details_done">
+<b>Hemos terminado. 🎉\nPruebe el teclado en su aplicación favorita.</b>    </string>
     <string name="setup_wizard_step_three_details_actions">O bien, puede personalizarlo a su gusto:    </string>
     <string name="setup_wizard_step_three_action_languages">Configurar idiomas…</string>
     <string name="setup_wizard_step_three_action_themes">Elegir apariencia…</string>

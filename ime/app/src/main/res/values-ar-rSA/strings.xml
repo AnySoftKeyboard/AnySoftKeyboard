@@ -126,6 +126,7 @@
     <string name="enable_alt_space_language_shortcut_on_summary">مفاتيح التشغيل Alt + المسافة لتبديل الى التخطيط التالي المتاح.</string>
     <string name="enable_alt_space_language_shortcut_off_summary">تبديل العتاد + مسافة تدخل إلى مسافة.</string>
     <string name="enable_shift_space_language_shortcut">مفاتيح Shift + زر المسافة البيضاء لتبديل اللغات</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">38</string>
     <string name="fullscreen_input_connection_supported">استخدم الشكل العرضي عند ملء الشاشة </string>
     <string name="fullscreen_input_connection_supported_on_summary">التسلل فوق الشاشة عند
         إدخال النص في الوضع الأفقي
@@ -314,6 +315,7 @@
     <string name="key_press_preview_popup_off_summary">لا تُظهر الرموز عند الضغط المطوّل على مفتاح</string>
     <string name="zoom_factor_keys_in_portrait">معامل ارتفاع المفاتيح في الوضع العمودي</string>
     <string name="zoom_factor_keys_in_landscape">معامل ارتفاع المفاتيح في الوضع العرضي</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
     <string name="insert_space_after_word_suggestion_selection">ضع مسافة بعد اختيار المرشح</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">إدراج مسافة بيضاء بين الكلمات عند اختيار كلمة مقترحة    </string>
     <string name="double_space_to_period">النقر مرتين على مفتاح المسافة يتحول إلى فاصلة</string>

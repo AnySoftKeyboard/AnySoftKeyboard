@@ -551,7 +551,8 @@
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Edîtorê Kurtenavê</string>
     <string name="abbreviation_dict_editor">Edîtoriya kurtavêjiyê</string>
-    <string name="abbreviation_dict_word_template">        <i>
+    <string name="abbreviation_dict_word_template">
+        <i>
             <xliff:g id="abbreviation">%s</xliff:g>
         </i>
         \u0020\u2192\u0020

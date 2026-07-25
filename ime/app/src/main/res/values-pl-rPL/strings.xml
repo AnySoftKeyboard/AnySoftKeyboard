@@ -549,7 +549,8 @@ Zmiana
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Edytor skrótów</string>
     <string name="abbreviation_dict_editor">Edytor skrótów</string>
-    <string name="abbreviation_dict_word_template">        <i>
+    <string name="abbreviation_dict_word_template">
+        <i>
             <xliff:g id="abbreviation">%s</xliff:g>
         </i>
         \u0020\u2192\u0020
@@ -635,7 +636,8 @@ Zmiana
     <string name="setup_wizard_step_two_action">Zamień aktywne klawiatury</string>
     <string name="setup_wizard_step_three_title">Co dalej?</string>
     <string name="setup_wizard_step_three_details">Dziękujemy za wybór <i>AnySoftKeyboard</i>.    </string>
-    <string name="setup_wizard_step_three_details_done">        <b>To wszystko 🎉\nWłącz ulubioną aplikację, aby wypróbować.</b>    </string>
+    <string name="setup_wizard_step_three_details_done">
+        <b>To wszystko 🎉\nWłącz ulubioną aplikację, aby wypróbować.</b>    </string>
     <string name="setup_wizard_step_three_details_actions">Lub możesz dostosować i spersonalizować klawiaturę
         do swoich potrzeb:
     </string>

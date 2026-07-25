@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="welcome_title">بەخێربێی</string>
+    <string name="welcome_subtitle_template">سوپاس بۆ بەکارهێنانی\u0020<xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="release_notes_template">زانیاری و گۆڕانکارییەکانی v<xliff:g id="app_version">%s</xliff:g>:\n<xliff:g id="release_notes">%s</xliff:g></string>
+    <string name="add_on_website_template">ماڵپەڕ <xliff:g id="web_site">%s</xliff:g></string>
+    <string name="screenshot_content_description">گرتەی شاشە</string>
+</resources>

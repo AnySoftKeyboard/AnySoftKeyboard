@@ -132,7 +132,8 @@
     <string name="enable_shift_space_language_shortcut_off_summary">硬件Alt + Space输入一个空格。</string>
     <string name="fullscreen_input_connection_supported">在横屏时使用全屏编辑器
     </string>
-    <string name="fullscreen_input_connection_supported_on_summary">        在横屏时输入文本
+    <string name="fullscreen_input_connection_supported_on_summary">
+        在横屏时输入文本
     </string>
     <string name="fullscreen_input_connection_supported_off_summary">在横屏时使用全屏编辑器
     </string>
