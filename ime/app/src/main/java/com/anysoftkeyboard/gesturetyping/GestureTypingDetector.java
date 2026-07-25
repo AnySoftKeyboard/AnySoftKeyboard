@@ -308,8 +308,7 @@ public class GestureTypingDetector {
                         keysByCharacter.clear();
                         workspaceData.reset();
                         if (!e.isDisposed()) {
-                          e.onNext(LoadingState.NOT_LOADED);
-                          e.onComplete();
+                          e.onError(oomError);
                         }
                       } catch (Exception exception) {
                         Logger.e(TAG, exception, "Error during corner generation");
