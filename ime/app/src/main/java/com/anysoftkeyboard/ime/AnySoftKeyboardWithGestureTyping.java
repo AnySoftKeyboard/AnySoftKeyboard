@@ -92,7 +92,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
       addDisposable(
           Observable.combineLatest(
                   PowerSaving.observePowerSavingState(
-                      getApplicationContext(), R.string.settings_key_power_save_mode_gesture_control),
+                      getApplicationContext(),
+                      R.string.settings_key_power_save_mode_gesture_control),
                   prefs()
                       .getBoolean(
                           R.string.settings_key_gesture_typing,

@@ -70,6 +70,17 @@ use_repo(rules_ts_ext, "npm_typescript")
 
 bazel_dep(name = "aspect_rules_lint", version = "1.13.0")
 bazel_dep(name = "buildifier_prebuilt", version = "8.2.1.2")
+# This is for formatting and linting
+# bazel_dep(name = "toolchains_llvm", version = "1.1.2")
+
+# llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
+# llvm.toolchain(
+#     llvm_versions = {
+#         "": "16.0.0",
+#         "darwin-x86_64": "15.0.7",
+#     },
+# )
+# use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(

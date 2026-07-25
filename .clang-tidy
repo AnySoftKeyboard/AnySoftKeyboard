@@ -1,0 +1,6 @@
+---
+# https://clang.llvm.org/extra/clang-tidy/
+# config-file to provoke some checks in example
+Checks: "*, -abseil-*, -altera-*, -android-*, -fuchsia-*, -google-*, -llvm*, -modernize-use-trailing-return-type, -zircon-*, -readability-else-after-return, -readability-static-accessed-through-instance, -readability-avoid-const-params-in-decls, -cppcoreguidelines-non-private-member-variables-in-classes, -misc-non-private-member-variables-in-classes,"
+# promote a random warning to error to test integration. Do not copy this line.
+WarningsAsErrors: "readability-inconsistent-declaration-parameter-name"
