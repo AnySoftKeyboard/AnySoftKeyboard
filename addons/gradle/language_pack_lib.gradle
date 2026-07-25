@@ -13,7 +13,7 @@ def languageName = parent.name
 group "com.anysoftkeyboard.language.${languageName}"
 
 android {
-    namespace group
+    namespace "${group}.pack"
 }
 
 def generateIconsTask = tasks.register('generateLanguagePackIcons') {
