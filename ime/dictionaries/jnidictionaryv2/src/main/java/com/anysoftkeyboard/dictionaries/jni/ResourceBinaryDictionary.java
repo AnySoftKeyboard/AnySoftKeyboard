@@ -77,7 +77,11 @@ public class ResourceBinaryDictionary extends Dictionary {
       @NonNull Context originPackageContext,
       @XmlRes int resId) {
     super(dictionaryName);
-    CompatUtils.loadNativeLibrary(originPackageContext, "anysoftkey2_jni", "1.0.3");
+    try {
+      CompatUtils.loadNativeLibrary(originPackageContext, "anysoftkey2_jni", "1.0.3");
+    } catch (UnsatisfiedLinkError e) {
+      Logger.w(TAG, "Failed to load native library in constructor: %s", e.getMessage());
+    }
     mOriginPackageContext = originPackageContext;
     mDictResId = resId;
   }
