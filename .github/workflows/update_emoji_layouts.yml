@@ -16,7 +16,7 @@ env:
   TERM: dumb
   TMPDIR: "/tmp"
   TARGET_API: "35"
-  TARGET_FOLDER: "ime/app/src/main/res"
+  TARGET_FOLDER: "ime/add_ons/quick_text/src/main/res"
 jobs:
   emoji-update:
     runs-on: ubuntu-24.04
