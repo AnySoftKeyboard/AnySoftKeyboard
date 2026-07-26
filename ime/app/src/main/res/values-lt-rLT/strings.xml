@@ -310,6 +310,7 @@
     <string name="key_press_preview_popup_off_summary">Nerodyti iššokančiojo lango paspaudus</string>
     <string name="zoom_factor_keys_in_portrait">Klavišų aukščio koeficientas vertikalioje padėtyje</string>
     <string name="zoom_factor_keys_in_landscape">Klavišų aukščio koeficientas horizontalioje padėtyje</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
     <string name="insert_space_after_word_suggestion_selection">Įterpti tarpą po žodžio pasirinkimo</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Įterpti tarpą po pasiūlyto žodžio pasirinkimo
     </string>

@@ -615,7 +615,8 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="theme_case_type_override_lower">Her zaman küçük harf</string>
     <string name="theme_case_type_override_upper">Her zaman büyük harf</string>
     <string name="settings_hint_size">İpucu etiketi boyutu</string>
-    <string name="settings_key_hint_size_summary">Klavyede ipucu boyutunu ayarlayın. Şu anda, %s</string>
+    <string name="settings_key_hint_size_summary">Klavyede ipucu boyutunu ayarlayın. Şu anda, %s
+</string>
     <string name="settings_key_hint_size_none">Yok</string>
     <string name="settings_key_hint_size_small">Küçük</string>
     <string name="settings_key_hint_size_normal">Normal</string>
@@ -660,6 +661,8 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="delete_all_clipboard_entries">Panoyu temizle</string>
     <string name="tip_swipe_from_backspace_to_clear">İpucu: Boşluk tuşundan sola doğru kaydırarak kelimeyi silebilirsiniz!</string>
     <string name="notification_read_contacts_ticker">Kişilere erişim izni gerekli</string>
+    <string name="notification_action_approve_permission">İzni onayla</string>
+    <string name="notification_action_dismiss_permission">Kişiller Sözlüğünü Kapat</string>
     <string name="wizard_allow_notification_permission">AnySoftKeyboard\'dan bildirimlere izin ver</string>
     <string name="setup_wizard_step_notification_permissions_details">Nadir durumlarda (örneğin uygulama çökmeleri gibi) bildirim göndermemiz gerekebilir. İzin verilmesini öneririz ancak bildirim gönderme izin vermeme uygulamanın davranışını etkilemez.</string>
     <string name="wizard_skip_notification_permission">Bildirimlere izin verme</string>

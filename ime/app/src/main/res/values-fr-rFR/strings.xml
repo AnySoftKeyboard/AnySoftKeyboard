@@ -550,7 +550,8 @@
     <string name="setup_wizard_step_two_action">Changer de clavier actif</string>
     <string name="setup_wizard_step_three_title">Et maintenant ?</string>
     <string name="setup_wizard_step_three_details">Merci d’avoir choisi <i>AnySoft Keyboard</i>.</string>
-    <string name="setup_wizard_step_three_details_done">        <b>C\'est terminé 🎉\nAller aux applications préférées pour l’essayer.</b>
+    <string name="setup_wizard_step_three_details_done">
+        <b>C\'est terminé 🎉\nAller aux applications préférées pour l’essayer.</b>
     </string>
     <string name="setup_wizard_step_three_details_actions">Sinon, vous pouvez modifier et personnaliser le clavier selon vos goûts :</string>
     <string name="setup_wizard_step_three_action_languages">Configurer des langues…</string>

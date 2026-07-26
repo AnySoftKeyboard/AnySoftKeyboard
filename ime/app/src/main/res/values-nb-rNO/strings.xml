@@ -464,7 +464,8 @@
     <string name="setup_wizard_step_two_action">Bytt aktive tastaturer</string>
     <string name="setup_wizard_step_three_details">Takk for at du valgte <i>AnySoftKeyboard</i>.
     </string>
-    <string name="setup_wizard_step_three_details_done">        <b>Du er ferdig 🎉\nGå til favorittappen din for å prøve det ut.</b>
+    <string name="setup_wizard_step_three_details_done">
+        <b>Du er ferdig 🎉\nGå til favorittappen din for å prøve det ut.</b>
     </string>
     <string name="setup_wizard_step_three_action_languages">Still inn språk…</string>
     <string name="setup_wizard_step_three_action_themes">Velg tema…</string>

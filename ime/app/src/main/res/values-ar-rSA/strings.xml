@@ -314,6 +314,7 @@
     <string name="key_press_preview_popup_off_summary">لا تُظهر الرموز عند الضغط المطوّل على مفتاح</string>
     <string name="zoom_factor_keys_in_portrait">معامل ارتفاع المفاتيح في الوضع العمودي</string>
     <string name="zoom_factor_keys_in_landscape">معامل ارتفاع المفاتيح في الوضع العرضي</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
     <string name="insert_space_after_word_suggestion_selection">ضع مسافة بعد اختيار المرشح</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">إدراج مسافة بيضاء بين الكلمات عند اختيار كلمة مقترحة    </string>
     <string name="double_space_to_period">النقر مرتين على مفتاح المسافة يتحول إلى فاصلة</string>

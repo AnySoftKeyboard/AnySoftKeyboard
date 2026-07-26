@@ -498,7 +498,8 @@
     <string name="setup_wizard_step_two_action">Přepněte aktivní klávesnice</string>
     <string name="setup_wizard_step_three_title">Co bude další</string>
     <string name="setup_wizard_step_three_details">Děkujeme, že jste si vybrali <i>AnySoftKeyboard</i>.</string>
-    <string name="setup_wizard_step_three_details_done"> <b>Jste hotovi 🎉\nPřejděte do své oblíbené aplikace a vyzkoušejte to.</b></string>
+    <string name="setup_wizard_step_three_details_done">
+ <b>Jste hotovi 🎉\nPřejděte do své oblíbené aplikace a vyzkoušejte to.</b></string>
     <string name="setup_wizard_step_three_details_actions">Nebo si klávesnici můžete přizpůsobit dle libosti:</string>
     <string name="setup_wizard_step_three_action_languages">Nastavte jazyky…</string>
     <string name="setup_wizard_step_three_action_themes">Vyberte motiv…</string>
