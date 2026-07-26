@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/gradle/android_general.gradle"
+
+android {
+    namespace 'com.anysoftkeyboard.addons.quicktext'
+}
+
+dependencies {
+    api project(path: ':addons:base')
+}
