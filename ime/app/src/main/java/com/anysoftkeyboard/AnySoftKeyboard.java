@@ -1200,8 +1200,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     super.onRelease(primaryCode);
     InputConnection ic = getCurrentInputConnection();
     if (primaryCode == KeyCodes.SHIFT) {
+      // Re-evaluate auto-capitalization if Shift was held as a momentary modifier (e.g., Shift+Delete, Shift+Enter)
+      final boolean isMomentary = mShiftKeyState.isMomentary();
       mShiftKeyState.onRelease(mMultiTapTimeout, mLongPressTimeout);
-      handleShift();
+      if (isMomentary) {
+        updateShiftStateNow();
+      } else {
+        handleShift();
+      }
     } else {
       if (mShiftKeyState.onOtherKeyReleased()) {
         updateShiftStateNow();

@@ -517,6 +517,24 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
     Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+
+    mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
+  }
+
+  @Test
+  public void testShiftEnterRestoresAutoCaps() {
+    TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
+    Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
+
+    mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+    mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
+
+    Assert.assertEquals("hello\n", inputConnection.getCurrentTextInInputConnection());
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
   }
 
   @Test
