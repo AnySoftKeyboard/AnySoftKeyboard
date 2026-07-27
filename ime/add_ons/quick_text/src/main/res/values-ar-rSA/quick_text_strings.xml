@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">مفتاح الأوجه المبتسمة</string>
+    <string name="short_smiley_key_name">مفتاح قصير للأوجه المبتسمة</string>
+    <string name="quick_text_kaomoji">كاوموجي</string>
+    <string name="default_quick_text_key_name">أوجه مبتسمة بسيطة</string>
+    <string name="unicode_quick_text_key_name">الأوجه المبتسمة</string>
+    <string name="unicode_people_quick_text_key_name">الناس</string>
+    <string name="unicode_gestures_quick_text_key_name">الحركات</string>
+    <string name="unicode_accessories_quick_text_key_name">الأدوات و اللوازم</string>
+    <string name="unicode_animals_quick_text_key_name">الحيوانات</string>
+    <string name="unicode_food_quick_text_key_name">الأكل و الغذاء</string>
+    <string name="unicode_nature_quick_text_key_name">الطبيعة</string>
+    <string name="unicode_transport_quick_text_key_name">النقل</string>
+    <string name="unicode_signs_quick_text_key_name">العلامات</string>
+    <string name="unicode_city_quick_text_key_name">المدينة</string>
+    <string name="unicode_activity_quick_text_key_name">الأنشطة</string>
+    <string name="unicode_office_quick_text_key_name">المكتب</string>
+    <string name="unicode_occasions_quick_text_key_name">المناسبات</string>
+    <string name="unicode_flags_quick_text_key_name">الأعلام</string>
+</resources>

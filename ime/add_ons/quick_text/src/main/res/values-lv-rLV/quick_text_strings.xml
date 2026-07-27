@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unicode_people_quick_text_key_name">Cilvēki</string>
+    <string name="unicode_animals_quick_text_key_name">Dzīvnieki</string>
+    <string name="unicode_food_quick_text_key_name">Pārtika</string>
+    <string name="unicode_nature_quick_text_key_name">Daba</string>
+    <string name="unicode_transport_quick_text_key_name">Transports</string>
+    <string name="unicode_signs_quick_text_key_name">Zīmes</string>
+    <string name="unicode_city_quick_text_key_name">Pilsēta</string>
+    <string name="unicode_flags_quick_text_key_name">Karogi</string>
+</resources>

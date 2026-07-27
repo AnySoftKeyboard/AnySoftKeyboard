@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">ස්මයිලි යතුර</string>
+    <string name="short_smiley_key_name">කෙටි ස්මයිලි යතුර</string>
+    <string name="default_quick_text_key_name">සරල චිත්තවේගයන්</string>
+    <string name="unicode_quick_text_key_name">චිත්තවේගයන්</string>
+    <string name="unicode_people_quick_text_key_name">මහජන</string>
+    <string name="unicode_gestures_quick_text_key_name">අභිනයන්</string>
+    <string name="unicode_accessories_quick_text_key_name">උපකරණ</string>
+    <string name="unicode_animals_quick_text_key_name">සතුන්</string>
+    <string name="unicode_food_quick_text_key_name">කෑම</string>
+    <string name="unicode_nature_quick_text_key_name">ස්වභාවය</string>
+    <string name="unicode_transport_quick_text_key_name">ප්රවාහන</string>
+    <string name="unicode_signs_quick_text_key_name">සංඥා</string>
+    <string name="unicode_city_quick_text_key_name">නගරය</string>
+    <string name="unicode_scape_quick_text_key_name">ස්කේප්</string>
+    <string name="unicode_activity_quick_text_key_name">ක්රියාකාරිත්වය</string>
+    <string name="unicode_office_quick_text_key_name">කාර්යාලය</string>
+    <string name="unicode_occasions_quick_text_key_name">අවස්ථා</string>
+    <string name="unicode_flags_quick_text_key_name">කොඩි</string>
+</resources>

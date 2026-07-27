@@ -70,10 +70,11 @@ export class UniqueAddOnIdChecker implements Checker {
                 try {
                   for (const id of addOns) {
                     if (
-                      filePath.indexOf('ime/app/src/main/res/xml') >= 0 &&
+                      (filePath.indexOf('ime/app/src/main/res/xml') >= 0 ||
+                        filePath.indexOf('ime/add_ons/quick_text/src/main/res/xml') >= 0) &&
                       filePath.endsWith('/quick_text_keys.xml')
                     ) {
-                      // QuickKeys in the app has multiple implementations
+                      // QuickKeys has multiple implementations
                       continue;
                     }
                     if (idSet.has(id)) {

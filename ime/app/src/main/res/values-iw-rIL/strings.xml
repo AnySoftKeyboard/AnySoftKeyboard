@@ -224,7 +224,6 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">בחר מקלדת</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">לחצן סמיילי</string>
     <string name="multitap_timeout_title">זמן בין לחיצות מרובות</string>
     <string name="multitap_timeout_summary">מרווח זמן בין לחיצות</string>
     <string name="settings_multitap_timeout_disabled">מבוטל</string>
