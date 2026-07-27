@@ -23,5 +23,6 @@
     <Keyboard nameResId="@string/swiftkey_keyboard" iconResId="@drawable/ic_status_arabic"
              layoutResId="@xml/swiftkey" id="3abcd88e-6611-4757-8e63-529cb83055ea"
              defaultDictionaryLocale="ar" description="@string/swiftkey_keyboard_description"
-             index="5"/>
+             index="5"
+             physicalKeyboardMappingResId="@xml/arabic_physical" />
 </Keyboards>
