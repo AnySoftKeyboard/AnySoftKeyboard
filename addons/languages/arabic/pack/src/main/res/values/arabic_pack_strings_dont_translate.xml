@@ -16,4 +16,7 @@
 
     <string name="aosp_keyboard">العربية/AOSP</string>
     <string name="aosp_keyboard_description">Arabic/AOSP keyboard</string>
+
+    <string name="swiftkey_keyboard">العربية/SwiftKey</string>
+
 </resources>
