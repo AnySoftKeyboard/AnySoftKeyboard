@@ -6,6 +6,7 @@ import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_Keybo
 import android.content.res.Configuration;
 import android.os.SystemClock;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import androidx.test.core.app.ApplicationProvider;
@@ -508,7 +509,11 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testDeleteWholeWordWhenShiftAndBackSpaceArePressed() {
+    EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+    editorInfo.inputType |= TextUtils.CAP_MODE_SENTENCES;
+    simulateOnStartInputFlow(false, editorInfo);
     TestInputConnection inputConnection = getCurrentTestInputConnection();
+    inputConnection.setRealCapsMode(true);
 
     mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
     Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
@@ -517,6 +522,28 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
     Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+
+    mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
+  }
+
+  @Test
+  public void testShiftEnterRestoresAutoCaps() {
+    EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+    editorInfo.inputType |= TextUtils.CAP_MODE_SENTENCES;
+    simulateOnStartInputFlow(false, editorInfo);
+    TestInputConnection inputConnection = getCurrentTestInputConnection();
+    inputConnection.setRealCapsMode(true);
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
+    Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
+
+    mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+    mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
+
+    Assert.assertEquals("hello\n", inputConnection.getCurrentTextInInputConnection());
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
   }
 
   @Test

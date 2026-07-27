@@ -118,6 +118,10 @@ public class ModifierKeyState {
     mConsumed = false;
   }
 
+  public boolean isMomentary() {
+    return mMomentaryPress;
+  }
+
   public boolean isPressed() {
     return mPhysicalState == PRESSING;
   }
