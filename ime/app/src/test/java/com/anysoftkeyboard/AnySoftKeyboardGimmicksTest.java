@@ -509,6 +509,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
   @Test
   public void testDeleteWholeWordWhenShiftAndBackSpaceArePressed() {
     TestInputConnection inputConnection = getCurrentTestInputConnection();
+    inputConnection.setRealCapsMode(true);
 
     mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
     Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
@@ -525,6 +526,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
   @Test
   public void testShiftEnterRestoresAutoCaps() {
     TestInputConnection inputConnection = getCurrentTestInputConnection();
+    inputConnection.setRealCapsMode(true);
 
     mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
     Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
