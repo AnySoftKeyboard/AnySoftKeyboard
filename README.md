@@ -64,6 +64,13 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 - Each new commit to the release-branch will be published to 10% of the users.
 - Each day - if no new commit was pushed to the release-branch - we will increase the roll-out.
 
+### How to Start a New Release
+
+1. Cut a release branch from `main`: `release-branch-addons-vX.X-rX` (or `release-branch-ime-vX.X-rX`).
+2. In `addons/build.gradle` (or `ime/build.gradle`), bump `minor` and update `patchOffset` by appending `-<last_patch_number_of_previous_release>` to reset the patch counter.
+3. In `.github/workflows/deployment_promote.yml`, update `refname` in the matrix strategy to point to the new release branch.
+4. Submit a PR with these updates targeting the new `release-branch-...` base branch.
+
 ## Read more
 
 - Our fancy [web-site](https://anysoftkeyboard.github.io/)
