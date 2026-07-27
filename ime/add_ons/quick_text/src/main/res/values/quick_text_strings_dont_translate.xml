@@ -21,4 +21,5 @@
     <string name="quick_text_smiley_key_unicode_office_output">📊</string>
     <string name="quick_text_smiley_key_unicode_occasions_output">🎃</string>
     <string name="quick_text_smiley_key_unicode_flags_output">&#127937;</string>
+    <string name="settings_default_quick_text_key_id">698b8c20-19df-11e1-bddb-0800200c9a66</string>
 </resources>
