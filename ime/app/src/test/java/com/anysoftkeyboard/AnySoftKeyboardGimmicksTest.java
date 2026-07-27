@@ -6,6 +6,7 @@ import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_Keybo
 import android.content.res.Configuration;
 import android.os.SystemClock;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import androidx.test.core.app.ApplicationProvider;
@@ -508,6 +509,9 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testDeleteWholeWordWhenShiftAndBackSpaceArePressed() {
+    EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+    editorInfo.inputType |= TextUtils.CAP_MODE_SENTENCES;
+    simulateOnStartInputFlow(false, editorInfo);
     TestInputConnection inputConnection = getCurrentTestInputConnection();
     inputConnection.setRealCapsMode(true);
 
@@ -525,6 +529,9 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testShiftEnterRestoresAutoCaps() {
+    EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+    editorInfo.inputType |= TextUtils.CAP_MODE_SENTENCES;
+    simulateOnStartInputFlow(false, editorInfo);
     TestInputConnection inputConnection = getCurrentTestInputConnection();
     inputConnection.setRealCapsMode(true);
 
