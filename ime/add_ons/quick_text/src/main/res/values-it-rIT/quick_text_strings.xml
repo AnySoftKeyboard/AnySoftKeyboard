@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">Faccine testuali</string>
+    <string name="short_smiley_key_name">Faccine testuali brevi</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
+    <string name="default_quick_text_key_name">Emoticon semplici</string>
+    <string name="unicode_quick_text_key_name">Emoticons</string>
+    <string name="unicode_people_quick_text_key_name">Persone</string>
+    <string name="unicode_gestures_quick_text_key_name">Gesti</string>
+    <string name="unicode_accessories_quick_text_key_name">Accessori</string>
+    <string name="unicode_animals_quick_text_key_name">Animali</string>
+    <string name="unicode_food_quick_text_key_name">Cibo</string>
+    <string name="unicode_nature_quick_text_key_name">Natura</string>
+    <string name="unicode_transport_quick_text_key_name">Trasporti</string>
+    <string name="unicode_signs_quick_text_key_name">Segni</string>
+    <string name="unicode_city_quick_text_key_name">Città</string>
+    <string name="unicode_scape_quick_text_key_name">Scenari</string>
+    <string name="unicode_activity_quick_text_key_name">Attività</string>
+    <string name="unicode_office_quick_text_key_name">Ufficio</string>
+    <string name="unicode_occasions_quick_text_key_name">Occasioni</string>
+    <string name="unicode_flags_quick_text_key_name">Bandiere</string>
+</resources>

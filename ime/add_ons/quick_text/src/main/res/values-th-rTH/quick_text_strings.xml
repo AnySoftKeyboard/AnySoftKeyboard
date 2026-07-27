@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">ปุ่มยิ้ม</string>
+    <string name="short_smiley_key_name">ปุ่มยิ้มที่สั้นกว่า</string>
+    <string name="unicode_people_quick_text_key_name">ผู้คน</string>
+    <string name="unicode_gestures_quick_text_key_name">ท่าทาง</string>
+    <string name="unicode_accessories_quick_text_key_name">อุปกรณ์เสริม</string>
+    <string name="unicode_animals_quick_text_key_name">สัตว์</string>
+    <string name="unicode_food_quick_text_key_name">อาหาร</string>
+    <string name="unicode_nature_quick_text_key_name">ธรรมชาติ</string>
+    <string name="unicode_transport_quick_text_key_name">คมนาคม</string>
+    <string name="unicode_signs_quick_text_key_name">ป้าย</string>
+    <string name="unicode_city_quick_text_key_name">เมือง</string>
+    <string name="unicode_scape_quick_text_key_name">ทิวทัศน์</string>
+    <string name="unicode_activity_quick_text_key_name">กิจกรรม</string>
+    <string name="unicode_office_quick_text_key_name">สำนักงาน</string>
+    <string name="unicode_flags_quick_text_key_name">ธง</string>
+</resources>

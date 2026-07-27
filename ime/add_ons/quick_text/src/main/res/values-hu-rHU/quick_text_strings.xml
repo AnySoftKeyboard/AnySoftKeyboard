@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">Hangulatjel gombok</string>
+    <string name="short_smiley_key_name">Rövid hangulatjelek</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
+    <string name="default_quick_text_key_name">Egyszerű hangulatjelek</string>
+    <string name="unicode_quick_text_key_name">Hangulatjelek</string>
+    <string name="unicode_people_quick_text_key_name">Emberek</string>
+    <string name="unicode_gestures_quick_text_key_name">Gesztusok</string>
+    <string name="unicode_accessories_quick_text_key_name">Kiegészítők</string>
+    <string name="unicode_animals_quick_text_key_name">Állatok</string>
+    <string name="unicode_food_quick_text_key_name">Ételek</string>
+    <string name="unicode_nature_quick_text_key_name">Természet</string>
+    <string name="unicode_transport_quick_text_key_name">Közlekedés</string>
+    <string name="unicode_signs_quick_text_key_name">Táblák</string>
+    <string name="unicode_city_quick_text_key_name">Város</string>
+    <string name="unicode_scape_quick_text_key_name">Környezet</string>
+    <string name="unicode_activity_quick_text_key_name">Tevékenységek</string>
+    <string name="unicode_office_quick_text_key_name">Iroda</string>
+    <string name="unicode_occasions_quick_text_key_name">Alkalmiak</string>
+    <string name="unicode_flags_quick_text_key_name">Zászlók</string>
+</resources>

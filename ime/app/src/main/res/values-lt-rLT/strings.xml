@@ -435,26 +435,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Pasirinkite klaviatūrą</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Šypsenėlės klavišas</string>
-    <string name="short_smiley_key_name">Trumpesnis šypsenėlės klavišas</string>
-    <string name="quick_text_kaomoji">„Kaomoji“</string>
     <string name="history_quick_text_key_name">Istorija</string>
-    <string name="default_quick_text_key_name">Paprastos šypsenėlės</string>
-    <string name="unicode_quick_text_key_name">Jaustukai</string>
-    <string name="unicode_people_quick_text_key_name">Žmonės</string>
-    <string name="unicode_gestures_quick_text_key_name">Gestai</string>
-    <string name="unicode_accessories_quick_text_key_name">Priedai</string>
-    <string name="unicode_animals_quick_text_key_name">Gyvūnai</string>
-    <string name="unicode_food_quick_text_key_name">Maistas</string>
-    <string name="unicode_nature_quick_text_key_name">Gamta</string>
-    <string name="unicode_transport_quick_text_key_name">Transportas</string>
-    <string name="unicode_signs_quick_text_key_name">Ženklai</string>
-    <string name="unicode_city_quick_text_key_name">Miestas</string>
-    <string name="unicode_scape_quick_text_key_name">Peizažas</string>
-    <string name="unicode_activity_quick_text_key_name">Veiklos</string>
-    <string name="unicode_office_quick_text_key_name">Biuras</string>
-    <string name="unicode_occasions_quick_text_key_name">Progos</string>
-    <string name="unicode_flags_quick_text_key_name">Vėliavos</string>
     <string name="multitap_timeout_title">Daugiaspaudimų laikas</string>
     <string name="multitap_timeout_summary">Laikas tarp klavišų paspaudimų</string>
     <string name="settings_multitap_timeout_disabled">Išjungta</string>

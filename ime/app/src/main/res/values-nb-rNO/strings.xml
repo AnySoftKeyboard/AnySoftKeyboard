@@ -370,25 +370,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Velg tastatur</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Smilefjestast</string>
-    <string name="short_smiley_key_name">Kortere smilefjestast</string>
     <string name="history_quick_text_key_name">Historikk</string>
-    <string name="default_quick_text_key_name">Enkle uttrykksikoner</string>
-    <string name="unicode_quick_text_key_name">Uttrykksikoner</string>
-    <string name="unicode_people_quick_text_key_name">Mennesker</string>
-    <string name="unicode_gestures_quick_text_key_name">Bevegelser</string>
-    <string name="unicode_accessories_quick_text_key_name">Tilbehør</string>
-    <string name="unicode_animals_quick_text_key_name">Dyr</string>
-    <string name="unicode_food_quick_text_key_name">Mat</string>
-    <string name="unicode_nature_quick_text_key_name">Natur</string>
-    <string name="unicode_transport_quick_text_key_name">Transport</string>
-    <string name="unicode_signs_quick_text_key_name">Tegn</string>
-    <string name="unicode_city_quick_text_key_name">By</string>
-    <string name="unicode_scape_quick_text_key_name">Scener</string>
-    <string name="unicode_activity_quick_text_key_name">Aktivitet</string>
-    <string name="unicode_office_quick_text_key_name">Kontor</string>
-    <string name="unicode_occasions_quick_text_key_name">Anledninger</string>
-    <string name="unicode_flags_quick_text_key_name">Flagg</string>
     <string name="multitap_timeout_title">Tidsavbrudd for multi-trykk</string>
     <string name="multitap_timeout_summary">Tidsavbrudd mellom tastetrykk</string>
     <string name="settings_multitap_timeout_disabled">Deaktivert</string>

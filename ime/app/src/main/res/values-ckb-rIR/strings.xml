@@ -503,26 +503,7 @@
     <string name="change_symbols_regular">١٢٣</string>
     <string name="select_keyboard_popup_title">تەختەکلیل هەڵبژێرە</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">هێمای خەندەکان</string>
-    <string name="short_smiley_key_name">کورتکراوەی هێما</string>
-    <string name="quick_text_kaomoji">خەندەکانی Kaomoji</string>
     <string name="history_quick_text_key_name">مێژوو</string>
-    <string name="default_quick_text_key_name">خەندە سادەکان</string>
-    <string name="unicode_quick_text_key_name">خەندەکان</string>
-    <string name="unicode_people_quick_text_key_name">خەڵک</string>
-    <string name="unicode_gestures_quick_text_key_name">ئاماژەکان</string>
-    <string name="unicode_accessories_quick_text_key_name">یاریدەدەر</string>
-    <string name="unicode_animals_quick_text_key_name">ئاژەڵ</string>
-    <string name="unicode_food_quick_text_key_name">خواردن</string>
-    <string name="unicode_nature_quick_text_key_name">سرووشت</string>
-    <string name="unicode_transport_quick_text_key_name">گواستنەوە</string>
-    <string name="unicode_signs_quick_text_key_name">هێماکان</string>
-    <string name="unicode_city_quick_text_key_name">شار</string>
-    <string name="unicode_scape_quick_text_key_name">دیمەن</string>
-    <string name="unicode_activity_quick_text_key_name">چالاکی</string>
-    <string name="unicode_office_quick_text_key_name">فەرمانگە</string>
-    <string name="unicode_occasions_quick_text_key_name">بۆنەکان</string>
-    <string name="unicode_flags_quick_text_key_name">ئاڵاکان</string>
     <string name="multitap_timeout_title">ماوەی هەمە دەستپێدانان</string>
     <string name="multitap_timeout_summary">ماوەی  نێوان دوگمەکان</string>
     <string name="settings_multitap_timeout_disabled">نا چالاک</string>

@@ -432,26 +432,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Klavyeyi seçin</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Emoji tuşu</string>
-    <string name="short_smiley_key_name">Daha kısa emoji tuşu</string>
-    <string name="quick_text_kaomoji">Japon Duygu Simgeleri</string>
     <string name="history_quick_text_key_name">Geçmiş</string>
-    <string name="default_quick_text_key_name">Basit Duygu Simgeleri</string>
-    <string name="unicode_quick_text_key_name">Duygu Simgeleri</string>
-    <string name="unicode_people_quick_text_key_name">Kişiler</string>
-    <string name="unicode_gestures_quick_text_key_name">Parmak hareketleri</string>
-    <string name="unicode_accessories_quick_text_key_name">Aksesuarlar</string>
-    <string name="unicode_animals_quick_text_key_name">Hayvanlar</string>
-    <string name="unicode_food_quick_text_key_name">Yiyecek</string>
-    <string name="unicode_nature_quick_text_key_name">Doğa</string>
-    <string name="unicode_transport_quick_text_key_name">Taşıma</string>
-    <string name="unicode_signs_quick_text_key_name">İşaretler</string>
-    <string name="unicode_city_quick_text_key_name">Şehir</string>
-    <string name="unicode_scape_quick_text_key_name">Peyzaj</string>
-    <string name="unicode_activity_quick_text_key_name">Aktivite</string>
-    <string name="unicode_office_quick_text_key_name">Ofis</string>
-    <string name="unicode_occasions_quick_text_key_name">Durumlar</string>
-    <string name="unicode_flags_quick_text_key_name">Bayraklar</string>
     <string name="multitap_timeout_title">Çoklu tıklama zaman aşımı</string>
     <string name="multitap_timeout_summary">Tuşlara basma arasındaki zaman aşımı</string>
     <string name="settings_multitap_timeout_disabled">Devre dışı</string>

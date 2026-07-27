@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_quick_text_key_name">Emoticon-uri simple</string>
+    <string name="unicode_people_quick_text_key_name">Oameni</string>
+    <string name="unicode_accessories_quick_text_key_name">Accesorii</string>
+    <string name="unicode_animals_quick_text_key_name">Animale</string>
+    <string name="unicode_food_quick_text_key_name">Mâncare</string>
+    <string name="unicode_nature_quick_text_key_name">Natură</string>
+    <string name="unicode_signs_quick_text_key_name">Semne</string>
+    <string name="unicode_flags_quick_text_key_name">Steaguri</string>
+</resources>

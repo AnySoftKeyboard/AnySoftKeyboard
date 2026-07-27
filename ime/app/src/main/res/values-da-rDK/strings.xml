@@ -478,26 +478,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Vælg tastatur</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Smiley knap</string>
-    <string name="short_smiley_key_name">Kortere Smiley-tast</string>
-    <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Historik</string>
-    <string name="default_quick_text_key_name">Enkle humørikoner</string>
-    <string name="unicode_quick_text_key_name">Humørikoner</string>
-    <string name="unicode_people_quick_text_key_name">Personer</string>
-    <string name="unicode_gestures_quick_text_key_name">Bevægelser</string>
-    <string name="unicode_accessories_quick_text_key_name">Tilbehør</string>
-    <string name="unicode_animals_quick_text_key_name">Dyr</string>
-    <string name="unicode_food_quick_text_key_name">Mad</string>
-    <string name="unicode_nature_quick_text_key_name">Natur</string>
-    <string name="unicode_transport_quick_text_key_name">Transport</string>
-    <string name="unicode_signs_quick_text_key_name">Skilte</string>
-    <string name="unicode_city_quick_text_key_name">By</string>
-    <string name="unicode_scape_quick_text_key_name">Scener</string>
-    <string name="unicode_activity_quick_text_key_name">Aktivitet</string>
-    <string name="unicode_office_quick_text_key_name">Kontor</string>
-    <string name="unicode_occasions_quick_text_key_name">Anledninger</string>
-    <string name="unicode_flags_quick_text_key_name">Flag</string>
     <string name="multitap_timeout_title">Multi-tap timeout</string>
     <string name="multitap_timeout_summary">Timeout mellem de vigtigste taste faner</string>
     <string name="settings_multitap_timeout_disabled">Deaktiveret</string>

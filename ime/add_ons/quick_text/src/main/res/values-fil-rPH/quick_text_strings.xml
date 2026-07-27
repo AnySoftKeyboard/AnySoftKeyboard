@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">Mga smiley key</string>
+    <string name="short_smiley_key_name">Mas maikling smiley key</string>
+    <string name="default_quick_text_key_name">Simpleng mga emoticons</string>
+    <string name="unicode_quick_text_key_name">Mga emoticons</string>
+    <string name="unicode_people_quick_text_key_name">Mga tao</string>
+    <string name="unicode_gestures_quick_text_key_name">Mga kilos</string>
+    <string name="unicode_accessories_quick_text_key_name">Mga accesory</string>
+    <string name="unicode_animals_quick_text_key_name">Mga hayop</string>
+    <string name="unicode_food_quick_text_key_name">Pagkain</string>
+    <string name="unicode_nature_quick_text_key_name">Kalikasan</string>
+    <string name="unicode_transport_quick_text_key_name">Transportasyon</string>
+    <string name="unicode_signs_quick_text_key_name">Mga palatandaan</string>
+    <string name="unicode_city_quick_text_key_name">Syudad</string>
+    <string name="unicode_scape_quick_text_key_name">Scape</string>
+    <string name="unicode_activity_quick_text_key_name">Aktibidad</string>
+    <string name="unicode_office_quick_text_key_name">Opisina</string>
+    <string name="unicode_occasions_quick_text_key_name">Mga Okasyon</string>
+    <string name="unicode_flags_quick_text_key_name">Mga Bandera</string>
+</resources>
