@@ -315,21 +315,26 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     if (mClipboard.isOsClipboardEmpty()) {
       showToastMessage(R.string.clipboard_is_empty_toast, true);
     } else {
-      // let the OS perform the paste (it may be a complex clip, better not handle it)
-      sendDownUpKeyEvents(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
+      final InputConnection ic = getCurrentInputConnection();
+      if (ic == null || !ic.performContextMenuAction(android.R.id.paste)) {
+        // let the OS perform the paste (it may be a complex clip, better not handle it)
+        sendDownUpKeyEvents(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
+      }
     }
   }
 
   private void performCopy(boolean alsoCut) {
-    if (alsoCut) {
-      sendDownUpKeyEvents(KeyEvent.KEYCODE_X, KeyEvent.META_CTRL_ON);
-    } else {
-      sendDownUpKeyEvents(KeyEvent.KEYCODE_C, KeyEvent.META_CTRL_ON);
-      // showing toast, since there isn't any other UI feedback
-      // starting with Android 33, the OS shows a thing
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-        showToastMessage(R.string.clipboard_copy_done_toast, true);
+    final InputConnection ic = getCurrentInputConnection();
+    final int actionId = alsoCut ? android.R.id.cut : android.R.id.copy;
+    if (ic == null || !ic.performContextMenuAction(actionId)) {
+      if (alsoCut) {
+        sendDownUpKeyEvents(KeyEvent.KEYCODE_X, KeyEvent.META_CTRL_ON);
+      } else {
+        sendDownUpKeyEvents(KeyEvent.KEYCODE_C, KeyEvent.META_CTRL_ON);
       }
+    }
+    if (!alsoCut && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+      showToastMessage(R.string.clipboard_copy_done_toast, true);
     }
   }
 
