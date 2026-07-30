@@ -3,6 +3,7 @@ name: deployment-promote
 on:
   schedule:
     - cron: '04 04 * * *'
+  workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
