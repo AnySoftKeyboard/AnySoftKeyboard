@@ -386,8 +386,44 @@ public class TestInputConnection extends BaseInputConnection {
     return mLastEditorAction;
   }
 
+  private final List<Integer> mPerformedContextMenuActions = new ArrayList<>();
+  private boolean mFailPerformContextMenuAction;
+
+  public void setFailPerformContextMenuAction(boolean fail) {
+    mFailPerformContextMenuAction = fail;
+  }
+
+  public List<Integer> getPerformedContextMenuActions() {
+    return Collections.unmodifiableList(mPerformedContextMenuActions);
+  }
+
   @Override
   public boolean performContextMenuAction(int id) {
+    if (mFailPerformContextMenuAction) return false;
+    mPerformedContextMenuActions.add(id);
+    if (id == android.R.id.copy) {
+      var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
+      final CharSequence selectedText = getSelectedText(0);
+      ClipData clipData = ClipData.newPlainText(selectedText, selectedText);
+      clipboard.setPrimaryClip(clipData);
+      return true;
+    } else if (id == android.R.id.cut) {
+      var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
+      final CharSequence selectedText = getSelectedText(0);
+      ClipData clipData = ClipData.newPlainText(selectedText, selectedText);
+      clipboard.setPrimaryClip(clipData);
+      mInputText.delete(mCursorPosition, mSelectionEndPosition);
+      notifyTextChange(0);
+      return true;
+    } else if (id == android.R.id.paste) {
+      var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
+      var primaryClip = clipboard.getPrimaryClip();
+      if (primaryClip != null && primaryClip.getItemCount() > 0) {
+        var clipboardText = primaryClip.getItemAt(0).coerceToStyledText(mIme);
+        commitTextAs(clipboardText, false, 1);
+      }
+      return true;
+    }
     return false;
   }
 

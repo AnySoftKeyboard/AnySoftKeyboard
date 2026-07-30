@@ -288,6 +288,120 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     Assert.assertEquals(2, latestAlertDialog.getListView().getAdapter().getCount());
     Assert.assertTrue(Shadows.shadowOf(latestAlertDialog.getListView()).performItemClick(0));
 
+    List<Integer> contextMenuActions =
+        mAnySoftKeyboardUnderTest.getTestInputConnection().getPerformedContextMenuActions();
+    Assert.assertEquals(3, contextMenuActions.size());
+    Assert.assertEquals(
+        android.R.id.paste, contextMenuActions.get(contextMenuActions.size() - 1).intValue());
+  }
+
+  @Test
+  public void testClipboardShowsOptionsPasteFirstItemFallback() {
+    mAnySoftKeyboardUnderTest.getTestInputConnection().setFailPerformContextMenuAction(true);
+    final String expectedText = "testing something very long";
+    mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+    mAnySoftKeyboardUnderTest.setSelectedText(
+        "testing ".length(), "testing something very".length(), true);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+    mAnySoftKeyboardUnderTest.setSelectedText(0, "testing ".length(), true);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+
+    // moving the cursor to the end of the textbox.
+    mAnySoftKeyboardUnderTest.setSelectedText(expectedText.length(), expectedText.length(), true);
+
+    // now, we'll do long-press
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+    final AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+    Assert.assertNotNull(latestAlertDialog);
+    Assert.assertEquals(2, latestAlertDialog.getListView().getAdapter().getCount());
+    Assert.assertTrue(Shadows.shadowOf(latestAlertDialog.getListView()).performItemClick(0));
+
+    List<KeyEvent> sentKeyEvents =
+        mAnySoftKeyboardUnderTest.getTestInputConnection().getSentKeyEvents();
+    KeyEvent releaseEvent = sentKeyEvents.get(sentKeyEvents.size() - 1);
+    KeyEvent downEvent = sentKeyEvents.get(sentKeyEvents.size() - 2);
+    Assert.assertEquals(KeyEvent.KEYCODE_V, downEvent.getKeyCode());
+    Assert.assertEquals(KeyEvent.META_CTRL_ON, downEvent.getMetaState());
+    Assert.assertEquals(KeyEvent.ACTION_DOWN, downEvent.getAction());
+    Assert.assertEquals(KeyEvent.KEYCODE_V, releaseEvent.getKeyCode());
+    Assert.assertEquals(KeyEvent.META_CTRL_ON, releaseEvent.getMetaState());
+    Assert.assertEquals(KeyEvent.ACTION_UP, releaseEvent.getAction());
+  }
+
+  @Test
+  public void testClipboardCopyAndCutUseContextMenuAction() {
+    final String expectedText = "testing something very long";
+    mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+    mAnySoftKeyboardUnderTest.setSelectedText(
+        "testing ".length(), "testing something".length(), true);
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+    List<Integer> contextMenuActions =
+        mAnySoftKeyboardUnderTest.getTestInputConnection().getPerformedContextMenuActions();
+    Assert.assertEquals(1, contextMenuActions.size());
+    Assert.assertEquals(android.R.id.copy, contextMenuActions.get(0).intValue());
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_CUT);
+    contextMenuActions =
+        mAnySoftKeyboardUnderTest.getTestInputConnection().getPerformedContextMenuActions();
+    Assert.assertEquals(2, contextMenuActions.size());
+    Assert.assertEquals(android.R.id.cut, contextMenuActions.get(1).intValue());
+  }
+
+  @Test
+  public void testDirectClipboardCopyFallback() {
+    mAnySoftKeyboardUnderTest.getTestInputConnection().setFailPerformContextMenuAction(true);
+    final String expectedText = "testing something very long";
+    mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+    mAnySoftKeyboardUnderTest.setSelectedText(
+        "testing ".length(), "testing something".length(), true);
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+
+    List<KeyEvent> sentKeyEvents =
+        mAnySoftKeyboardUnderTest.getTestInputConnection().getSentKeyEvents();
+    KeyEvent releaseEvent = sentKeyEvents.get(sentKeyEvents.size() - 1);
+    KeyEvent downEvent = sentKeyEvents.get(sentKeyEvents.size() - 2);
+    Assert.assertEquals(KeyEvent.KEYCODE_C, downEvent.getKeyCode());
+    Assert.assertEquals(KeyEvent.META_CTRL_ON, downEvent.getMetaState());
+    Assert.assertEquals(KeyEvent.ACTION_DOWN, downEvent.getAction());
+    Assert.assertEquals(KeyEvent.KEYCODE_C, releaseEvent.getKeyCode());
+    Assert.assertEquals(KeyEvent.META_CTRL_ON, releaseEvent.getMetaState());
+    Assert.assertEquals(KeyEvent.ACTION_UP, releaseEvent.getAction());
+  }
+
+  @Test
+  public void testDirectClipboardCutFallback() {
+    mAnySoftKeyboardUnderTest.getTestInputConnection().setFailPerformContextMenuAction(true);
+    final String expectedText = "testing something very long";
+    mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+    mAnySoftKeyboardUnderTest.setSelectedText(
+        "testing ".length(), "testing something".length(), true);
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_CUT);
+
+    List<KeyEvent> sentKeyEvents =
+        mAnySoftKeyboardUnderTest.getTestInputConnection().getSentKeyEvents();
+    KeyEvent releaseEvent = sentKeyEvents.get(sentKeyEvents.size() - 1);
+    KeyEvent downEvent = sentKeyEvents.get(sentKeyEvents.size() - 2);
+    Assert.assertEquals(KeyEvent.KEYCODE_X, downEvent.getKeyCode());
+    Assert.assertEquals(KeyEvent.META_CTRL_ON, downEvent.getMetaState());
+    Assert.assertEquals(KeyEvent.ACTION_DOWN, downEvent.getAction());
+    Assert.assertEquals(KeyEvent.KEYCODE_X, releaseEvent.getKeyCode());
+    Assert.assertEquals(KeyEvent.META_CTRL_ON, releaseEvent.getMetaState());
+    Assert.assertEquals(KeyEvent.ACTION_UP, releaseEvent.getAction());
+  }
+
+  @Test
+  public void testDirectClipboardPasteFallback() {
+    mAnySoftKeyboardUnderTest.getTestInputConnection().setFailPerformContextMenuAction(true);
+    final String expectedText = "some text";
+    mClipboardManager.setPrimaryClip(
+        new ClipData("ask", new String[] {"text"}, new ClipData.Item(expectedText)));
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
+
     List<KeyEvent> sentKeyEvents =
         mAnySoftKeyboardUnderTest.getTestInputConnection().getSentKeyEvents();
     KeyEvent releaseEvent = sentKeyEvents.get(sentKeyEvents.size() - 1);
