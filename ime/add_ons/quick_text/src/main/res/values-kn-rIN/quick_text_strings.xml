@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unicode_people_quick_text_key_name">ಮನುಷ್ಯರು</string>
+    <string name="unicode_animals_quick_text_key_name">ಪ್ರಾಣಿಗಳು</string>
+    <string name="unicode_transport_quick_text_key_name">ಸಂಚಾರಿ</string>
+    <string name="unicode_city_quick_text_key_name">ನಗರ</string>
+    <string name="unicode_office_quick_text_key_name">ಕಛೇರಿ</string>
+</resources>

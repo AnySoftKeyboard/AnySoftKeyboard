@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">Hymiönäppäin</string>
+    <string name="short_smiley_key_name">Lyhyempi hymiönäppäin</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
+    <string name="default_quick_text_key_name">Yksinkertaiset hymiöt</string>
+    <string name="unicode_quick_text_key_name">Hymiöt</string>
+    <string name="unicode_people_quick_text_key_name">Ihmiset</string>
+    <string name="unicode_gestures_quick_text_key_name">Eleet</string>
+    <string name="unicode_animals_quick_text_key_name">Eläimet</string>
+    <string name="unicode_food_quick_text_key_name">Ruoka</string>
+    <string name="unicode_nature_quick_text_key_name">Luonto</string>
+    <string name="unicode_transport_quick_text_key_name">Liikenne</string>
+    <string name="unicode_signs_quick_text_key_name">Merkit</string>
+    <string name="unicode_city_quick_text_key_name">Kaupungit</string>
+    <string name="unicode_scape_quick_text_key_name">Maisema</string>
+    <string name="unicode_activity_quick_text_key_name">Aktiviteetit</string>
+    <string name="unicode_office_quick_text_key_name">Konttori</string>
+    <string name="unicode_occasions_quick_text_key_name">Tapahtumat</string>
+    <string name="unicode_flags_quick_text_key_name">Liput</string>
+</resources>
