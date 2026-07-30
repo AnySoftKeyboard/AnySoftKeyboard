@@ -351,9 +351,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testDirectClipboardCopyFallback() {
-    mAnySoftKeyboardUnderTest
-        .getTestInputConnection()
-        .setFailPerformContextMenuAction(true);
+    mAnySoftKeyboardUnderTest.getTestInputConnection().setFailPerformContextMenuAction(true);
     final String expectedText = "testing something very long";
     mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
     mAnySoftKeyboardUnderTest.setSelectedText(
@@ -375,9 +373,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testDirectClipboardCutFallback() {
-    mAnySoftKeyboardUnderTest
-        .getTestInputConnection()
-        .setFailPerformContextMenuAction(true);
+    mAnySoftKeyboardUnderTest.getTestInputConnection().setFailPerformContextMenuAction(true);
     final String expectedText = "testing something very long";
     mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
     mAnySoftKeyboardUnderTest.setSelectedText(
@@ -399,9 +395,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testDirectClipboardPasteFallback() {
-    mAnySoftKeyboardUnderTest
-        .getTestInputConnection()
-        .setFailPerformContextMenuAction(true);
+    mAnySoftKeyboardUnderTest.getTestInputConnection().setFailPerformContextMenuAction(true);
     final String expectedText = "some text";
     mClipboardManager.setPrimaryClip(
         new ClipData("ask", new String[] {"text"}, new ClipData.Item(expectedText)));
