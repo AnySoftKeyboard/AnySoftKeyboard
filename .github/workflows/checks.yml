@@ -12,6 +12,7 @@ on:
       - deployment/halt_deployment_marker
     branches:
       - '*'
+  workflow_dispatch:
 env:
   TERM: dumb
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
