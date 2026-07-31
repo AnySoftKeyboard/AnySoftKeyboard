@@ -810,4 +810,52 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     Mockito.verify(mMockKeyboardListener).onSwipeDown();
   }
+
+  @Test
+  public void testTouchTrajectoryCorrectionFingerRoll() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_touch_trajectory_correction, true);
+    AnyKeyboard.AnyKey gKey = findKey('g');
+    AnyKeyboard.AnyKey hKey = findKey('h');
+    int gCode = gKey.getCodeAtIndex(0, false);
+
+    int startX = gKey.x + (gKey.width / 4);
+    int startY = Keyboard.Key.getCenterY(gKey);
+
+    int endX = Keyboard.Key.getCenterX(hKey);
+    int endY = Keyboard.Key.getCenterY(hKey);
+
+    MotionEvent down = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
+    mViewUnderTest.onTouchEvent(down);
+    down.recycle();
+
+    MotionEvent up = MotionEvent.obtain(100, 150, MotionEvent.ACTION_UP, endX, endY, 0);
+    mViewUnderTest.onTouchEvent(up);
+    up.recycle();
+
+    Mockito.verify(mMockKeyboardListener).onKey(eq(gCode), same(gKey), anyInt(), any(), eq(true));
+  }
+
+  @Test
+  public void testTouchTrajectoryCorrectionDisabled() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_touch_trajectory_correction, false);
+    AnyKeyboard.AnyKey gKey = findKey('g');
+    AnyKeyboard.AnyKey hKey = findKey('h');
+    int hCode = hKey.getCodeAtIndex(0, false);
+
+    int startX = gKey.x + (gKey.width / 4);
+    int startY = Keyboard.Key.getCenterY(gKey);
+
+    int endX = Keyboard.Key.getCenterX(hKey);
+    int endY = Keyboard.Key.getCenterY(hKey);
+
+    MotionEvent down = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
+    mViewUnderTest.onTouchEvent(down);
+    down.recycle();
+
+    MotionEvent up = MotionEvent.obtain(100, 150, MotionEvent.ACTION_UP, endX, endY, 0);
+    mViewUnderTest.onTouchEvent(up);
+    up.recycle();
+
+    Mockito.verify(mMockKeyboardListener).onKey(eq(hCode), same(hKey), anyInt(), any(), eq(true));
+  }
 }

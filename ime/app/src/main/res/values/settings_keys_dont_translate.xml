@@ -129,6 +129,7 @@
     <string name="settings_key_extension_keyboard_enabled">settings_key_extension_keyboard_enabled</string>
 
     <string name="settings_key_gesture_typing">settings_key_gesture_typing</string>
+    <string name="settings_key_touch_trajectory_correction">settings_key_touch_trajectory_correction</string>
 
     <string name="settings_key_bool_should_swap_punctuation_and_space">settings_key_bool_should_swap_punctuation_and_space</string>
 

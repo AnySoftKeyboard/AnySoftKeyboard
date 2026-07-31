@@ -31,6 +31,7 @@ class PointerTracker {
     int delayBeforeKeyRepeatStart;
     int longPressKeyTimeout;
     int multiTapKeyTimeout;
+    boolean applyTouchTrajectoryCorrection = true;
   }
 
   interface UIProxy {
@@ -77,6 +78,11 @@ class PointerTracker {
 
   // pressed key
   private int mPreviousKey = NOT_A_KEY;
+
+  // Touch trajectory start coordinates and time
+  private int mStartX;
+  private int mStartY;
+  private long mDownTime;
 
   // This class keeps track of a key index and a position where this pointer is.
   private static class KeyState {
@@ -239,6 +245,9 @@ class PointerTracker {
   //    }
 
   void onDownEvent(int x, int y, long eventTime) {
+    mStartX = x;
+    mStartY = y;
+    mDownTime = eventTime;
     int keyIndex = mKeyState.onDownKey(x, y);
     mKeyboardLayoutHasBeenChanged = false;
     mKeyAlreadyProcessed = false;
@@ -372,6 +381,12 @@ class PointerTracker {
       keyIndex = mKeyState.getKeyIndex();
       x = mKeyState.getKeyX();
       y = mKeyState.getKeyY();
+    } else if (mSharedPointerTrackersData.applyTouchTrajectoryCorrection
+        && !isInGestureTyping()
+        && (eventTime - mDownTime) <= 150) {
+      x = Math.round(0.7f * mStartX + 0.3f * x);
+      y = Math.round(0.7f * mStartY + 0.3f * y);
+      keyIndex = mKeyDetector.getKeyIndexAndNearbyCodes(x, y, null);
     }
     if (mIsRepeatableKey) {
       // we just need to report up
