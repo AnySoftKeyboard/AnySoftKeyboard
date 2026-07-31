@@ -388,12 +388,10 @@ class PointerTracker {
         && mKeyState.getKeyIndex() == mStartKeyIndex) {
       x =
           Math.round(
-              TOUCH_TRAJECTORY_START_BIAS_FACTOR * mStartX
-                  + TOUCH_TRAJECTORY_END_BIAS_FACTOR * x);
+              TOUCH_TRAJECTORY_START_BIAS_FACTOR * mStartX + TOUCH_TRAJECTORY_END_BIAS_FACTOR * x);
       y =
           Math.round(
-              TOUCH_TRAJECTORY_START_BIAS_FACTOR * mStartY
-                  + TOUCH_TRAJECTORY_END_BIAS_FACTOR * y);
+              TOUCH_TRAJECTORY_START_BIAS_FACTOR * mStartY + TOUCH_TRAJECTORY_END_BIAS_FACTOR * y);
     }
     int keyIndex = mKeyState.onUpKey(x, y);
     if (isMinorMoveBounce(x, y, keyIndex)) {

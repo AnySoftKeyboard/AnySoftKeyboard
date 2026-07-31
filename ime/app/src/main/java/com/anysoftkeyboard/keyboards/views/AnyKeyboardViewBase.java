@@ -383,8 +383,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             .asObservable()
             .subscribe(
                 value -> mSharedPointerTrackersData.applyTouchTrajectoryCorrection = value,
-                GenericOnError.onError(
-                    "failed to get settings_key_touch_trajectory_correction")));
+                GenericOnError.onError("failed to get settings_key_touch_trajectory_correction")));
   }
 
   protected static boolean isSpaceKey(final AnyKey key) {
