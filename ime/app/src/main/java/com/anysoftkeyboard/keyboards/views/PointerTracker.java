@@ -48,6 +48,7 @@ class PointerTracker {
 
   // Miscellaneous constants
   private static final int NOT_A_KEY = AnyKeyboardViewBase.NOT_A_KEY;
+  private static final int TOUCH_TRAJECTORY_CORRECTION_MAX_DURATION_MS = 150;
 
   private final UIProxy mProxy;
   private final KeyPressTimingHandler mHandler;
@@ -380,7 +381,7 @@ class PointerTracker {
     }
     if (mSharedPointerTrackersData.applyTouchTrajectoryCorrection
         && !isInGestureTyping()
-        && (eventTime - mDownTime) <= 150
+        && (eventTime - mDownTime) <= TOUCH_TRAJECTORY_CORRECTION_MAX_DURATION_MS
         && mKeyState.getKeyIndex() == mStartKeyIndex) {
       x = Math.round(0.7f * mStartX + 0.3f * x);
       y = Math.round(0.7f * mStartY + 0.3f * y);
