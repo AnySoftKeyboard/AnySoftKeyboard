@@ -840,6 +840,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_touch_trajectory_correction, false);
     AnyKeyboard.AnyKey gKey = findKey('g');
     AnyKeyboard.AnyKey hKey = findKey('h');
+    int gCode = gKey.getCodeAtIndex(0, false);
     int hCode = hKey.getCodeAtIndex(0, false);
 
     int startX = gKey.x + (gKey.width / 4);
@@ -856,6 +857,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     mViewUnderTest.onTouchEvent(up);
     up.recycle();
 
+    Mockito.verify(mMockKeyboardListener).onRelease(gCode);
     Mockito.verify(mMockKeyboardListener).onKey(eq(hCode), same(hKey), anyInt(), any(), eq(true));
   }
 }

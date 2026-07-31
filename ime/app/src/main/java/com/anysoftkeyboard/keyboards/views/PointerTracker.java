@@ -79,10 +79,11 @@ class PointerTracker {
   // pressed key
   private int mPreviousKey = NOT_A_KEY;
 
-  // Touch trajectory start coordinates and time
+  // Touch trajectory start coordinates, time, and initial key index
   private int mStartX;
   private int mStartY;
   private long mDownTime;
+  private int mStartKeyIndex = NOT_A_KEY;
 
   // This class keeps track of a key index and a position where this pointer is.
   private static class KeyState {
@@ -249,6 +250,7 @@ class PointerTracker {
     mStartY = y;
     mDownTime = eventTime;
     int keyIndex = mKeyState.onDownKey(x, y);
+    mStartKeyIndex = keyIndex;
     mKeyboardLayoutHasBeenChanged = false;
     mKeyAlreadyProcessed = false;
     mIsRepeatableKey = false;
@@ -369,11 +371,19 @@ class PointerTracker {
 
   void onUpEvent(int x, int y, long eventTime) {
     final OnKeyboardActionListener listener = mListener;
+    final int oldKeyIndex = mPreviousKey;
     mHandler.cancelAllMessages();
     mProxy.hidePreview(mKeyState.getKeyIndex(), this);
     showKeyPreviewAndUpdateKey(NOT_A_KEY);
     if (mKeyAlreadyProcessed) {
       return;
+    }
+    if (mSharedPointerTrackersData.applyTouchTrajectoryCorrection
+        && !isInGestureTyping()
+        && (eventTime - mDownTime) <= 150
+        && mKeyState.getKeyIndex() == mStartKeyIndex) {
+      x = Math.round(0.7f * mStartX + 0.3f * x);
+      y = Math.round(0.7f * mStartY + 0.3f * y);
     }
     int keyIndex = mKeyState.onUpKey(x, y);
     if (isMinorMoveBounce(x, y, keyIndex)) {
@@ -381,12 +391,12 @@ class PointerTracker {
       keyIndex = mKeyState.getKeyIndex();
       x = mKeyState.getKeyX();
       y = mKeyState.getKeyY();
-    } else if (mSharedPointerTrackersData.applyTouchTrajectoryCorrection
-        && !isInGestureTyping()
-        && (eventTime - mDownTime) <= 150) {
-      x = Math.round(0.7f * mStartX + 0.3f * x);
-      y = Math.round(0.7f * mStartY + 0.3f * y);
-      keyIndex = mKeyDetector.getKeyIndexAndNearbyCodes(x, y, null);
+    }
+    if (listener != null && isValidKeyIndex(oldKeyIndex) && oldKeyIndex != keyIndex) {
+      Keyboard.Key oldKey = getKey(oldKeyIndex);
+      if (oldKey != null) {
+        listener.onRelease(oldKey.getCodeAtIndex(0, mKeyDetector.isKeyShifted(oldKey)));
+      }
     }
     if (mIsRepeatableKey) {
       // we just need to report up
