@@ -818,15 +818,22 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     AnyKeyboard.AnyKey hKey = findKey('h');
     int gCode = gKey.getCodeAtIndex(0, false);
 
-    int startX = gKey.x + (gKey.width / 4);
+    int startX = gKey.x + (gKey.width * 3 / 4);
     int startY = Keyboard.Key.getCenterY(gKey);
 
-    int endX = Keyboard.Key.getCenterX(hKey);
+    int moveX = hKey.x + 2;
+    int moveY = Keyboard.Key.getCenterY(hKey);
+
+    int endX = hKey.x + (hKey.width / 4);
     int endY = Keyboard.Key.getCenterY(hKey);
 
     MotionEvent down = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
     mViewUnderTest.onTouchEvent(down);
     down.recycle();
+
+    MotionEvent move = MotionEvent.obtain(100, 125, MotionEvent.ACTION_MOVE, moveX, moveY, 0);
+    mViewUnderTest.onTouchEvent(move);
+    move.recycle();
 
     MotionEvent up = MotionEvent.obtain(100, 150, MotionEvent.ACTION_UP, endX, endY, 0);
     mViewUnderTest.onTouchEvent(up);
@@ -843,19 +850,26 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     int gCode = gKey.getCodeAtIndex(0, false);
     int hCode = hKey.getCodeAtIndex(0, false);
 
-    int startX = gKey.x + (gKey.width / 4);
+    int startX = gKey.x + (gKey.width * 3 / 4);
     int startY = Keyboard.Key.getCenterY(gKey);
 
-    int endX = Keyboard.Key.getCenterX(hKey);
+    int moveX = hKey.x + 2;
+    int moveY = Keyboard.Key.getCenterY(hKey);
+
+    int endX = hKey.x + (hKey.width / 4);
     int endY = Keyboard.Key.getCenterY(hKey);
 
-    MotionEvent down = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
-    mViewUnderTest.onTouchEvent(down);
-    down.recycle();
+    MotionEvent down2 = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
+    mViewUnderTest.onTouchEvent(down2);
+    down2.recycle();
 
-    MotionEvent up = MotionEvent.obtain(100, 150, MotionEvent.ACTION_UP, endX, endY, 0);
-    mViewUnderTest.onTouchEvent(up);
-    up.recycle();
+    MotionEvent move2 = MotionEvent.obtain(100, 125, MotionEvent.ACTION_MOVE, moveX, moveY, 0);
+    mViewUnderTest.onTouchEvent(move2);
+    move2.recycle();
+
+    MotionEvent up2 = MotionEvent.obtain(100, 150, MotionEvent.ACTION_UP, endX, endY, 0);
+    mViewUnderTest.onTouchEvent(up2);
+    up2.recycle();
 
     Mockito.verify(mMockKeyboardListener).onRelease(gCode);
     Mockito.verify(mMockKeyboardListener).onKey(eq(hCode), same(hKey), anyInt(), any(), eq(true));

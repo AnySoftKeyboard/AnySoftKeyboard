@@ -88,6 +88,7 @@ class PointerTracker {
   private int mStartY;
   private long mDownTime;
   private int mStartKeyIndex = NOT_A_KEY;
+  private boolean mKeySwitchedOnMove;
 
   // This class keeps track of a key index and a position where this pointer is.
   private static class KeyState {
@@ -253,6 +254,7 @@ class PointerTracker {
     mStartX = x;
     mStartY = y;
     mDownTime = eventTime;
+    mKeySwitchedOnMove = false;
     int keyIndex = mKeyState.onDownKey(x, y);
     mStartKeyIndex = keyIndex;
     mKeyboardLayoutHasBeenChanged = false;
@@ -349,6 +351,7 @@ class PointerTracker {
             keyIndex = keyState.onMoveKey(x, y);
           }
         }
+        mKeySwitchedOnMove = true;
         keyState.onMoveToNewKey(keyIndex, x, y);
         startLongPressTimer(keyIndex);
         if (oldKeyIndex != keyIndex) {
@@ -384,8 +387,9 @@ class PointerTracker {
     }
     if (mSharedPointerTrackersData.applyTouchTrajectoryCorrection
         && !isInGestureTyping()
+        && !mKeySwitchedOnMove
         && (eventTime - mDownTime) <= TOUCH_TRAJECTORY_CORRECTION_MAX_DURATION_MS
-        && mKeyState.getKeyIndex() == mStartKeyIndex) {
+        && isValidKeyIndex(mStartKeyIndex)) {
       x =
           Math.round(
               TOUCH_TRAJECTORY_START_BIAS_FACTOR * mStartX + TOUCH_TRAJECTORY_END_BIAS_FACTOR * x);
