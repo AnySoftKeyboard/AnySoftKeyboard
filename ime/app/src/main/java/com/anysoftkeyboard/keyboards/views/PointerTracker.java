@@ -19,12 +19,15 @@ package com.anysoftkeyboard.keyboards.views;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase.KeyPressTimingHandler;
 import java.util.Locale;
 
 class PointerTracker {
+  private static final String TAG = "PointerTracker";
+
   static class SharedPointerTrackersData {
     int lastSentKeyIndex = NOT_A_KEY;
 
@@ -383,8 +386,16 @@ class PointerTracker {
     }
     int keyIndex = mKeyState.onUpKey(x, y);
     if (isMinorMoveBounce(x, y, keyIndex, eventTime)) {
+      int downKeyIndex = mKeyState.getKeyIndex();
+      if (downKeyIndex != keyIndex) {
+        Logger.d(
+            TAG,
+            "onUpEvent: Touch trajectory corrected key index %d to down-key %d",
+            keyIndex,
+            downKeyIndex);
+      }
       // Use previous fixed key index and coordinates.
-      keyIndex = mKeyState.getKeyIndex();
+      keyIndex = downKeyIndex;
       x = mKeyState.getKeyX();
       y = mKeyState.getKeyY();
     } else if (mSharedPointerTrackersData.applyTouchTrajectoryCorrection
