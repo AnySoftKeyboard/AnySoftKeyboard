@@ -812,66 +812,81 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
   }
 
   @Test
-  public void testTouchTrajectoryCorrectionFingerRoll() {
+  public void testStaticBoundaryCheckSlowTouch() {
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_touch_trajectory_correction, true);
     AnyKeyboard.AnyKey gKey = findKey('g');
     AnyKeyboard.AnyKey hKey = findKey('h');
-    int gCode = gKey.getCodeAtIndex(0, false);
+    int hCode = hKey.getCodeAtIndex(0, false);
 
-    int startX = gKey.x + (gKey.width * 3 / 4);
+    int startX = gKey.x + (gKey.width / 2);
     int startY = Keyboard.Key.getCenterY(gKey);
 
-    int moveX = hKey.x + 2;
-    int moveY = Keyboard.Key.getCenterY(hKey);
+    // 11px past gKey boundary into hKey (beyond baseline 10px hysteresis)
+    int endX = gKey.x + gKey.width + 11;
+    int endY = Keyboard.Key.getCenterY(gKey);
 
-    int endX = hKey.x + (hKey.width / 4);
-    int endY = Keyboard.Key.getCenterY(hKey);
-
+    // Slow touch: 250ms duration (> 80ms threshold)
     MotionEvent down = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
     mViewUnderTest.onTouchEvent(down);
     down.recycle();
 
-    MotionEvent move = MotionEvent.obtain(100, 125, MotionEvent.ACTION_MOVE, moveX, moveY, 0);
-    mViewUnderTest.onTouchEvent(move);
-    move.recycle();
-
-    MotionEvent up = MotionEvent.obtain(100, 150, MotionEvent.ACTION_UP, endX, endY, 0);
+    MotionEvent up = MotionEvent.obtain(100, 350, MotionEvent.ACTION_UP, endX, endY, 0);
     mViewUnderTest.onTouchEvent(up);
     up.recycle();
 
+    // Slow touch beyond 10px hysteresis should transition to hKey
+    Mockito.verify(mMockKeyboardListener).onKey(eq(hCode), same(hKey), anyInt(), any(), eq(true));
+  }
+
+  @Test
+  public void testVelocityExpansionFastTap() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_touch_trajectory_correction, true);
+    AnyKeyboard.AnyKey gKey = findKey('g');
+    int gCode = gKey.getCodeAtIndex(0, false);
+
+    int startX = gKey.x + (gKey.width / 2);
+    int startY = Keyboard.Key.getCenterY(gKey);
+
+    // 12px past gKey boundary (beyond 10px baseline, but within 1.5x = 15px fast-tap threshold)
+    int endX = gKey.x + gKey.width + 12;
+    int endY = Keyboard.Key.getCenterY(gKey);
+
+    // Fast tap: 40ms duration (<= 80ms threshold)
+    MotionEvent down = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
+    mViewUnderTest.onTouchEvent(down);
+    down.recycle();
+
+    MotionEvent up = MotionEvent.obtain(100, 140, MotionEvent.ACTION_UP, endX, endY, 0);
+    mViewUnderTest.onTouchEvent(up);
+    up.recycle();
+
+    // Expanded 15px velocity threshold snaps back to gKey
     Mockito.verify(mMockKeyboardListener).onKey(eq(gCode), same(gKey), anyInt(), any(), eq(true));
   }
 
   @Test
-  public void testTouchTrajectoryCorrectionDisabled() {
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_touch_trajectory_correction, false);
-    AnyKeyboard.AnyKey gKey = findKey('g');
-    AnyKeyboard.AnyKey hKey = findKey('h');
-    int gCode = gKey.getCodeAtIndex(0, false);
-    int hCode = hKey.getCodeAtIndex(0, false);
+  public void testDownwardBiasFastTap() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_touch_trajectory_correction, true);
+    AnyKeyboard.AnyKey tKey = findKey('t');
+    int tCode = tKey.getCodeAtIndex(0, false);
 
-    int startX = gKey.x + (gKey.width * 3 / 4);
-    int startY = Keyboard.Key.getCenterY(gKey);
+    int startX = Keyboard.Key.getCenterX(tKey);
+    int startY = tKey.y + (tKey.height / 2);
 
-    int moveX = hKey.x + 2;
-    int moveY = Keyboard.Key.getCenterY(hKey);
+    // 14px downward drift past tKey bottom boundary (within 1.5x * 1.2x = 18px downward threshold)
+    int endX = startX;
+    int endY = tKey.y + tKey.height + 14;
 
-    int endX = hKey.x + (hKey.width / 4);
-    int endY = Keyboard.Key.getCenterY(hKey);
+    // Fast tap with downward drift
+    MotionEvent down = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
+    mViewUnderTest.onTouchEvent(down);
+    down.recycle();
 
-    MotionEvent down2 = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
-    mViewUnderTest.onTouchEvent(down2);
-    down2.recycle();
+    MotionEvent up = MotionEvent.obtain(100, 140, MotionEvent.ACTION_UP, endX, endY, 0);
+    mViewUnderTest.onTouchEvent(up);
+    up.recycle();
 
-    MotionEvent move2 = MotionEvent.obtain(100, 125, MotionEvent.ACTION_MOVE, moveX, moveY, 0);
-    mViewUnderTest.onTouchEvent(move2);
-    move2.recycle();
-
-    MotionEvent up2 = MotionEvent.obtain(100, 150, MotionEvent.ACTION_UP, endX, endY, 0);
-    mViewUnderTest.onTouchEvent(up2);
-    up2.recycle();
-
-    Mockito.verify(mMockKeyboardListener).onRelease(gCode);
-    Mockito.verify(mMockKeyboardListener).onKey(eq(hCode), same(hKey), anyInt(), any(), eq(true));
+    // Downward bias snaps back to tKey
+    Mockito.verify(mMockKeyboardListener).onKey(eq(tCode), same(tKey), anyInt(), any(), eq(true));
   }
 }

@@ -48,10 +48,11 @@ class PointerTracker {
 
   // Miscellaneous constants
   private static final int NOT_A_KEY = AnyKeyboardViewBase.NOT_A_KEY;
-  private static final int TOUCH_TRAJECTORY_CORRECTION_MAX_DURATION_MS = 150;
-  private static final float TOUCH_TRAJECTORY_START_BIAS_FACTOR = 0.7f;
-  private static final float TOUCH_TRAJECTORY_END_BIAS_FACTOR =
-      1.0f - TOUCH_TRAJECTORY_START_BIAS_FACTOR;
+  private static final long FAST_TAP_THRESHOLD_MS = 80L;
+  private static final float VELOCITY_HYSTERESIS_MULTIPLIER_SQUARED = 2.25f; // 1.5x distance
+  private static final float DOWNWARD_BIAS_MULTIPLIER_SQUARED = 1.44f; // 1.2x distance
+  private static final float BLEND_DOWN_WEIGHT = 0.6f;
+  private static final float BLEND_UP_WEIGHT = 0.4f;
 
   private final UIProxy mProxy;
   private final KeyPressTimingHandler mHandler;
@@ -328,7 +329,7 @@ class PointerTracker {
         }
         keyState.onMoveToNewKey(keyIndex, x, y);
         startLongPressTimer(keyIndex);
-      } else if (!isMinorMoveBounce(x, y, keyIndex)) {
+      } else if (!isMinorMoveBounce(x, y, keyIndex, eventTime)) {
         // The pointer has been slid in to the new key from the previous key, we must call
         // onRelease() first to notify that the previous key has been released, then call
         // onPress() to notify that the new key is being pressed.
@@ -359,7 +360,7 @@ class PointerTracker {
         }
       }
     } else {
-      if (oldKey != null && !isMinorMoveBounce(x, y, keyIndex)) {
+      if (oldKey != null && !isMinorMoveBounce(x, y, keyIndex, eventTime)) {
         // The pointer has been slid out from the previous key, we must call onRelease() to
         // notify that the previous key has been released.
         if (mListener != null) {
@@ -385,24 +386,18 @@ class PointerTracker {
     if (mKeyAlreadyProcessed) {
       return;
     }
-    if (mSharedPointerTrackersData.applyTouchTrajectoryCorrection
-        && !isInGestureTyping()
-        && !mKeySwitchedOnMove
-        && (eventTime - mDownTime) <= TOUCH_TRAJECTORY_CORRECTION_MAX_DURATION_MS
-        && isValidKeyIndex(mStartKeyIndex)) {
-      x =
-          Math.round(
-              TOUCH_TRAJECTORY_START_BIAS_FACTOR * mStartX + TOUCH_TRAJECTORY_END_BIAS_FACTOR * x);
-      y =
-          Math.round(
-              TOUCH_TRAJECTORY_START_BIAS_FACTOR * mStartY + TOUCH_TRAJECTORY_END_BIAS_FACTOR * y);
-    }
     int keyIndex = mKeyState.onUpKey(x, y);
-    if (isMinorMoveBounce(x, y, keyIndex)) {
+    if (isMinorMoveBounce(x, y, keyIndex, eventTime)) {
       // Use previous fixed key index and coordinates.
       keyIndex = mKeyState.getKeyIndex();
       x = mKeyState.getKeyX();
       y = mKeyState.getKeyY();
+    } else if (mSharedPointerTrackersData.applyTouchTrajectoryCorrection
+        && !isInGestureTyping()
+        && (eventTime - mDownTime) <= FAST_TAP_THRESHOLD_MS) {
+      x = Math.round(BLEND_DOWN_WEIGHT * mStartX + BLEND_UP_WEIGHT * x);
+      y = Math.round(BLEND_DOWN_WEIGHT * mStartY + BLEND_UP_WEIGHT * y);
+      keyIndex = mKeyState.onUpKey(x, y);
     }
     if (listener != null && isValidKeyIndex(oldKeyIndex) && oldKeyIndex != keyIndex) {
       Keyboard.Key oldKey = getKey(oldKeyIndex);
@@ -460,12 +455,21 @@ class PointerTracker {
     return mKeyState.getLastY();
   }
 
-  private boolean isMinorMoveBounce(int x, int y, int newKey) {
+  private boolean isMinorMoveBounce(int x, int y, int newKey, long eventTime) {
     int curKey = mKeyState.getKeyIndex();
     if (newKey == curKey) {
       return true;
     } else if (isValidKeyIndex(curKey)) {
-      return getSquareDistanceToKeyEdge(x, y, mKeys[curKey]) < mKeyHysteresisDistanceSquared;
+      float thresholdMultiplierSquared = 1.0f;
+      if (mSharedPointerTrackersData.applyTouchTrajectoryCorrection
+          && (eventTime - mDownTime) <= FAST_TAP_THRESHOLD_MS) {
+        thresholdMultiplierSquared *= VELOCITY_HYSTERESIS_MULTIPLIER_SQUARED;
+        if (y > mStartY) {
+          thresholdMultiplierSquared *= DOWNWARD_BIAS_MULTIPLIER_SQUARED;
+        }
+      }
+      return getSquareDistanceToKeyEdge(x, y, mKeys[curKey])
+          < (mKeyHysteresisDistanceSquared * thresholdMultiplierSquared);
     } else {
       return false;
     }
