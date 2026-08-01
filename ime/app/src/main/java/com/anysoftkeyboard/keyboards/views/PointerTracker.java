@@ -84,12 +84,10 @@ class PointerTracker {
   // pressed key
   private int mPreviousKey = NOT_A_KEY;
 
-  // Touch trajectory start coordinates, time, and initial key index
+  // Touch trajectory start coordinates and time
   private int mStartX;
   private int mStartY;
   private long mDownTime;
-  private int mStartKeyIndex = NOT_A_KEY;
-  private boolean mKeySwitchedOnMove;
 
   // This class keeps track of a key index and a position where this pointer is.
   private static class KeyState {
@@ -255,9 +253,7 @@ class PointerTracker {
     mStartX = x;
     mStartY = y;
     mDownTime = eventTime;
-    mKeySwitchedOnMove = false;
     int keyIndex = mKeyState.onDownKey(x, y);
-    mStartKeyIndex = keyIndex;
     mKeyboardLayoutHasBeenChanged = false;
     mKeyAlreadyProcessed = false;
     mIsRepeatableKey = false;
@@ -352,7 +348,6 @@ class PointerTracker {
             keyIndex = keyState.onMoveKey(x, y);
           }
         }
-        mKeySwitchedOnMove = true;
         keyState.onMoveToNewKey(keyIndex, x, y);
         startLongPressTimer(keyIndex);
         if (oldKeyIndex != keyIndex) {

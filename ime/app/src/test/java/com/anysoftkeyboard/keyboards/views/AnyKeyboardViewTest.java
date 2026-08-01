@@ -889,4 +889,33 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     // Downward bias snaps back to tKey
     Mockito.verify(mMockKeyboardListener).onKey(eq(tCode), same(tKey), anyInt(), any(), eq(true));
   }
+
+  @Test
+  public void testFastTapSoftCoordinateBlending() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_touch_trajectory_correction, true);
+    AnyKeyboard.AnyKey gKey = findKey('g');
+    AnyKeyboard.AnyKey hKey = findKey('h');
+    int hCode = hKey.getCodeAtIndex(0, false);
+
+    // Touch down near right border of gKey
+    int startX = gKey.x + gKey.width - 2;
+    int startY = Keyboard.Key.getCenterY(gKey);
+
+    // Lift off 20px past gKey boundary into hKey (beyond 15px velocity threshold, so
+    // isMinorMoveBounce is false)
+    int endX = gKey.x + gKey.width + 20;
+    int endY = Keyboard.Key.getCenterY(gKey);
+
+    // Fast tap (40ms duration <= 80ms)
+    MotionEvent down = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, startX, startY, 0);
+    mViewUnderTest.onTouchEvent(down);
+    down.recycle();
+
+    MotionEvent up = MotionEvent.obtain(100, 140, MotionEvent.ACTION_UP, endX, endY, 0);
+    mViewUnderTest.onTouchEvent(up);
+    up.recycle();
+
+    // Soft blending (0.6 * startX + 0.4 * endX) resolves coordinate 7px into hKey, issuing hKey
+    Mockito.verify(mMockKeyboardListener).onKey(eq(hCode), same(hKey), anyInt(), any(), eq(true));
+  }
 }
