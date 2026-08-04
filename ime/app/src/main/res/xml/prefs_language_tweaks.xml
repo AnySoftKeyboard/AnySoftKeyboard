@@ -59,6 +59,14 @@
         android:title="@string/tweak_ux_group">
 
         <androidx.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_touch_trajectory_correction"
+            android:key="@string/settings_key_touch_trajectory_correction"
+            android:persistent="true"
+            android:summaryOff="@string/touch_trajectory_correction_summary_off"
+            android:summaryOn="@string/touch_trajectory_correction_summary_on"
+            android:title="@string/touch_trajectory_correction_title"/>
+
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="insert_space_after_word_suggestion_selection"
             android:persistent="true"

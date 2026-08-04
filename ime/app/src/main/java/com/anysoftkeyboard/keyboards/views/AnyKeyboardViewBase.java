@@ -375,6 +375,15 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             .subscribe(
                 value -> mSharedPointerTrackersData.multiTapKeyTimeout = value,
                 GenericOnError.onError("failed to get settings_key_multitap_timeout")));
+    mDisposables.add(
+        rxSharedPrefs
+            .getBoolean(
+                R.string.settings_key_touch_trajectory_correction,
+                R.bool.settings_default_touch_trajectory_correction)
+            .asObservable()
+            .subscribe(
+                value -> mSharedPointerTrackersData.applyTouchTrajectoryCorrection = value,
+                GenericOnError.onError("failed to get settings_key_touch_trajectory_correction")));
   }
 
   protected static boolean isSpaceKey(final AnyKey key) {
