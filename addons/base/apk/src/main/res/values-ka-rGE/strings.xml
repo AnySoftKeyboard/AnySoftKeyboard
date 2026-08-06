@@ -12,5 +12,7 @@
     <string name="open_ask_in_vending">იხილეთ Play Store</string>
     <string name="ask_installed">AnySoftKeyboard არაა დაყენებული. საჭიროა მისი გამართვა ამ გაფართოებით სარგებლობისთვის.</string>
     <string name="open_ask_main_settings">გახსენით AnySoftKeyboard</string>
+    <string name="hide_launcher_icon_action">ხატულას დამალვა გამშვები არედან</string>
+    <string name="launcher_icon_hidden_toast">დანამატი გამშვების ხატულა დამალულია.</string>
     <string name="test_add_on_description">ესაა საცდელი დანამატის აღწერილობა, ნებისმიერი რამ შეიძლება იყოს</string>
 </resources>
