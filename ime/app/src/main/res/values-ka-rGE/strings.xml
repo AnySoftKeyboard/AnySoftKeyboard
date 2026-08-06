@@ -761,6 +761,7 @@
     <string name="allow_layouts_to_provide_generic_rows_on_summary">განლაგებებში საერთო რიგის ჩამატების ნებართვა.</string>
     <string name="gesture_typing_settings">ჟესტებით აკრეფა ➿</string>
     <string name="gesture_typing_summary">სიტყვის შეყვანა, შემადგენელ ასონიშნებზე თითის გადასმით.</string>
+    <string name="gesture_typing_disabled_low_ram">ჟესტები გათიშულია მცირე მეხსიერების მქონე მოწყობილობებზე ტექსტის შეუფერხებლად აკრეფისთვის.</string>
     <string name="gesture_typing_action">ჩაირთოს ჟესტებით აკრეფა [BETA]</string>
     <string name="gesture_typing_alert_title">BETA შესაძლებლობა!</string>
     <string name="gesture_typing_alert_message">ჟესტებით აკრეფის ➿ შესაძლებლობა ჯერ საცდელ, <b>Beta</b>-საფეხურზეა. ხარვეზებიანი, ნაკლებად სწრაფი და დაუსრულებელია.\nმოკლედ, ჯობია, თავად მოსინჯოთ.</string>
