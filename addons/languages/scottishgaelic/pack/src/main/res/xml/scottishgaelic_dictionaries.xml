@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Dictionaries>
     <Dictionary
-        autoTextResourceId="@xml/scottishgaelic_autotext"
         description="@string/scottishgaelic_dictionary_description"
         dictionaryResourceId="@array/scottishgaelic_words_dict_array"
         id="3b2c9e9d-0324-4063-b5b9-3944881dd6e6"
