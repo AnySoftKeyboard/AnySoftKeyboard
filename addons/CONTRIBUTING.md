@@ -69,6 +69,35 @@ or directly install it on your connected device:
 
 Iterate on your pack until you feel it is good, and then create a PR to merge it to the _main_ branch.
 
+## Optional: Radical-based / homophone IME packs
+
+Some Asian IMEs (Chinese Boshiamy 嘸蝦米, Cangjie, Zhuyin, Pinyin, Japanese kana) compose
+a single character from a sequence of radical / phonetic keys, and benefit from a
+homophone search feature. The framework supports this via a few optional XML attributes.
+
+In `<pack>_keyboards.xml` (per `<Keyboard>`):
+
+| Attribute                      | Type    | Description                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ------------------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hasRadicalInput`              | boolean | Enables radical composition mode. Letter keys feed a radical buffer instead of being committed directly.                                                                                                                                                                                                                                                                                                              |
+| `radicalKeyCharacters`         | string  | Extra non-letter characters (e.g. `,.';-/[]`) that are treated as part of the radical sequence.                                                                                                                                                                                                                                                                                                                       |
+| `radicalCandidateSelectorKeys` | string  | Per-keyboard ordered selector keys. When the user has typed a radical sequence with multiple matches and then types one of these keys, the Nth candidate is promoted to the front of the suggestion strip (position 0 -> 2nd candidate, position 1 -> 3rd, etc). The 1st candidate is always picked by space. Boshiamy uses `vrsfwlcbkj`. Leave unset for IMEs (Cangjie, Zhuyin, ...) that don't use this convention. |
+| `asciiOnlyPopups`              | boolean | Strip non-ASCII characters from long-press popups (useful for CJK keyboards where Western diacritics are noise).                                                                                                                                                                                                                                                                                                      |
+
+In `<pack>_dictionaries.xml` (per `<Dictionary>`, all optional and only meaningful together):
+
+| Attribute                    | Type       | Description                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `homophonesResId`            | array<raw> | Lines of `code<TAB>characters`; characters sharing a code are homophones.                                                                                                                                                                                                                                                                          |
+| `charToZhuyinResId`          | array<raw> | Lines of `character<TAB>zhuyin`; used for the Zhuyin-based homophone search key.                                                                                                                                                                                                                                                                   |
+| `charToRadicalResId`         | array<raw> | Lines of `character<TAB>radicalCode`; the radical code is shown after a homophone is picked.                                                                                                                                                                                                                                                       |
+| `excludeHomophoneCharsResId` | array<raw> | Characters listed here are filtered out of homophone results, used to drop Traditional/Simplified-only forms.                                                                                                                                                                                                                                      |
+| `includeCharsResId`          | array<raw> | Per-keyboard CJK / kana codepoint whitelist applied at parse time to the **bundled** main radical table only. A row is admitted only when every CJK or kana codepoint in its value is in the set; ASCII / punctuation / kaomoji pass freely. User-supplied SAF overlays are NOT filtered (treated as curated personal additions). Omit to disable. |
+| `charFrequencyResId`         | array<raw> | A single sequence of CJK characters in descending frequency; used to sort homophone candidates.                                                                                                                                                                                                                                                    |
+
+If you provide any of the homophone resources, provide the full set; partially-configured
+homophone support is not validated by the framework and will surface degraded results.
+
 ## Publish pack
 
 You can either publish by yourself, under your developer account and keep complete ownership, or you can let us (aka AnySoftKeyboard organization) do it.

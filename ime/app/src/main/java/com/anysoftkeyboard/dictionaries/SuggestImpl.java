@@ -19,6 +19,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.Context;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -126,8 +127,25 @@ public class SuggestImpl implements Suggest {
   public void setupSuggestionsForKeyboard(
       @NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders,
       @NonNull DictionaryBackgroundLoader.Listener cb) {
+    // Load dictionaries if suggestions are enabled OR if any builder has a radical dictionary
+    // (radical input doesn't depend on normal suggestion settings). When suggestions are disabled
+    // we still need the radical pack loaded; we restrict to radical-bearing builders so we don't
+    // pull in unrelated English dictionaries the user explicitly opted out of.
+    boolean hasRadicalBuilder = false;
+    for (DictionaryAddOnAndBuilder builder : dictionaryBuilders) {
+      if (builder.hasRadicalDictionary()) {
+        hasRadicalBuilder = true;
+        break;
+      }
+    }
     if (mEnabledSuggestions && dictionaryBuilders.size() > 0) {
       mSuggestionsProvider.setupSuggestionsForKeyboard(dictionaryBuilders, cb);
+    } else if (hasRadicalBuilder) {
+      List<DictionaryAddOnAndBuilder> radicalOnly = new ArrayList<>();
+      for (DictionaryAddOnAndBuilder builder : dictionaryBuilders) {
+        if (builder.hasRadicalDictionary()) radicalOnly.add(builder);
+      }
+      mSuggestionsProvider.setupSuggestionsForKeyboard(radicalOnly, cb);
     } else {
       closeDictionaries();
     }
@@ -182,12 +200,17 @@ public class SuggestImpl implements Suggest {
     if (isValidWord(previousWord)) {
       final String currentWord = previousWord.toString();
       mSuggestionsProvider.getNextWords(currentWord, mNextSuggestions, mPrefMaxSuggestions);
+    }
+
+    // Also check radical phrase suggestions (CJK next-word prediction)
+    if (mSuggestionsProvider.hasRadicalDictionaries()) {
+      mSuggestionsProvider.getRadicalNextWords(
+          previousWord.toString(), mNextSuggestions, mPrefMaxSuggestions - mNextSuggestions.size());
+    }
+
+    if (!mNextSuggestions.isEmpty()) {
       if (BuildConfig.DEBUG) {
-        Logger.d(
-            TAG,
-            "getNextSuggestions from user-dictionary for '%s' (capital? %s):",
-            previousWord,
-            mIsAllUpperCase);
+        Logger.d(TAG, "getNextSuggestions for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
         for (int suggestionIndex = 0;
             suggestionIndex < mNextSuggestions.size();
             suggestionIndex++) {
@@ -209,7 +232,7 @@ public class SuggestImpl implements Suggest {
         }
       }
     } else {
-      Logger.d(TAG, "getNextSuggestions for '%s' is invalid.", previousWord);
+      Logger.d(TAG, "getNextSuggestions for '%s' found nothing.", previousWord);
     }
     return mNextSuggestions;
   }
@@ -280,6 +303,58 @@ public class SuggestImpl implements Suggest {
   @Override
   public int getLastValidSuggestionIndex() {
     return mCorrectSuggestionIndex;
+  }
+
+  @Override
+  public List<CharSequence> getRadicalSuggestions(WordComposer wordComposer) {
+    List<CharSequence> radicalSuggestions = new ArrayList<>();
+    if (!mSuggestionsProvider.hasRadicalDictionaries()) return radicalSuggestions;
+
+    final String typedWord = wordComposer.getTypedWord().toString();
+    if (typedWord.isEmpty()) return radicalSuggestions;
+
+    // Add the typed radicals as the first entry so the user can see what was typed
+    radicalSuggestions.add(typedWord);
+
+    // Query radical dictionaries
+    mSuggestionsProvider.getRadicalSuggestions(
+        wordComposer,
+        (word, wordOffset, wordLength, frequency, from) -> {
+          final String candidate = new String(word, wordOffset, wordLength);
+          radicalSuggestions.add(candidate);
+          return radicalSuggestions.size() < mPrefMaxSuggestions;
+        });
+
+    return radicalSuggestions;
+  }
+
+  @Override
+  public boolean hasRadicalDictionaries() {
+    return mSuggestionsProvider.hasRadicalDictionaries();
+  }
+
+  @Override
+  @NonNull
+  public List<String> getRadicalExactMatches(@NonNull String radicals) {
+    return mSuggestionsProvider.getRadicalExactMatches(radicals);
+  }
+
+  @Override
+  @NonNull
+  public List<CharSequence> getHomophones(@NonNull String character) {
+    List<String> homophones = mSuggestionsProvider.getHomophones(character);
+    return new ArrayList<>(homophones);
+  }
+
+  @Override
+  @Nullable
+  public String getRadicalCode(@NonNull String character) {
+    return mSuggestionsProvider.getRadicalCode(character);
+  }
+
+  @Override
+  public boolean hasHomophoneData() {
+    return mSuggestionsProvider.hasHomophoneData();
   }
 
   @Override

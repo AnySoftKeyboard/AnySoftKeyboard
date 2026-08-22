@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="chinese_traditional_boshiamy_radicals_dict_array">
+        <item>@raw/boshiamy_radicals</item>
+    </array>
+    <array name="chinese_traditional_boshiamy_simplified_radicals_dict_array">
+        <item>@raw/boshiamy_radicals_simplified</item>
+    </array>
+    <array name="chinese_traditional_boshiamy_japanese_radicals_dict_array">
+        <item>@raw/boshiamy_radicals_japanese</item>
+    </array>
+    <array name="chinese_traditional_cangjie_radicals_dict_array">
+        <item>@raw/cangjie_radicals</item>
+    </array>
+    <array name="chinese_traditional_zhuyin_radicals_dict_array">
+        <item>@raw/zhuyin_radicals</item>
+    </array>
+</resources>

@@ -347,4 +347,7 @@
     <string name="settings_key_zoom_percent_in_landscape">settings_key_zoom_percent_in_landscape</string>
 
     <string name="settings_key_bottom_extra_padding_in_portrait">settings_key_bottom_extra_padding_in_portrait</string>
+    <string name="settings_key_radical_overlay_dir">settings_key_radical_overlay_dir</string>
+    <string name="settings_key_radical_overlay_reset">settings_key_radical_overlay_reset</string>
+    <string name="settings_key_radical_overlay_refresh">settings_key_radical_overlay_refresh</string>
 </resources>

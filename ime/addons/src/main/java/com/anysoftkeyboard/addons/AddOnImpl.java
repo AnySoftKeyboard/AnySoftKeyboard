@@ -111,6 +111,17 @@ public abstract class AddOnImpl implements AddOn {
     return c;
   }
 
+  /**
+   * Returns the host AnySoftKeyboard application context. Distinct from {@link
+   * #getPackageContext()} for separately-installed addons: package-context returns the addon APK's
+   * own context (used for resource lookup), while the ask-context is always the host app's context
+   * (used for user preferences, file directories, etc.).
+   */
+  @NonNull
+  protected final Context getAskContext() {
+    return mAskAppContext;
+  }
+
   @Override
   public final int getSortIndex() {
     return mSortIndex;

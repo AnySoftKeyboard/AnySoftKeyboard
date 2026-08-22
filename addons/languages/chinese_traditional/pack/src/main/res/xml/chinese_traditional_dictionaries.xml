@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <!-- Boshiamy 嘸蝦米 -->
+    <Dictionary
+        description="@string/chinese_traditional_boshiamy_dictionary_description"
+        radicalDictionaryResId="@array/chinese_traditional_boshiamy_radicals_dict_array"
+        homophonesResId="@array/chinese_traditional_homophones_array"
+        radicalPhrasesResId="@array/chinese_traditional_phrases_array"
+        charToZhuyinResId="@array/chinese_traditional_char_to_zhuyin_array"
+        charToRadicalResId="@array/chinese_traditional_boshiamy_char_to_radical_array"
+        excludeHomophoneCharsResId="@array/chinese_traditional_exclude_simplified_chars_array"
+        includeCharsResId="@array/chinese_traditional_trad_chars_array"
+        charFrequencyResId="@array/chinese_traditional_char_frequency_array"
+        id="e01cea29-b899-493e-8764-ec73380b18f0"
+        locale="zh-TW"
+        nameResId="@string/chinese_traditional_boshiamy_dictionary" />
+    <Dictionary
+        description="@string/chinese_traditional_boshiamy_simplified_dictionary_description"
+        radicalDictionaryResId="@array/chinese_traditional_boshiamy_simplified_radicals_dict_array"
+        homophonesResId="@array/chinese_traditional_homophones_array"
+        radicalPhrasesResId="@array/chinese_traditional_phrases_array"
+        charToZhuyinResId="@array/chinese_traditional_char_to_zhuyin_array"
+        charToRadicalResId="@array/chinese_traditional_boshiamy_char_to_radical_array"
+        excludeHomophoneCharsResId="@array/chinese_traditional_exclude_traditional_chars_array"
+        includeCharsResId="@array/chinese_traditional_simp_chars_array"
+        charFrequencyResId="@array/chinese_traditional_char_frequency_array"
+        id="a011ad05-816b-41f8-a321-685509dce32b"
+        locale="zh-CN"
+        nameResId="@string/chinese_traditional_boshiamy_simplified_dictionary" />
+    <Dictionary
+        description="@string/chinese_traditional_boshiamy_japanese_dictionary_description"
+        radicalDictionaryResId="@array/chinese_traditional_boshiamy_japanese_radicals_dict_array"
+        includeCharsResId="@array/chinese_traditional_jp_chars_array"
+        id="5ae6f938-d90d-4f77-b1a6-7ff6ef468d35"
+        locale="ja-boshiamy"
+        nameResId="@string/chinese_traditional_boshiamy_japanese_dictionary" />
+
+    <!-- Cangjie 倉頡 5 (no homophone lookup, no Cangjie char-to-radical table is shipped).
+         splitMultiCodepointCandidates: source file uses key\tchar1char2.. format so we split. -->
+    <Dictionary
+        description="@string/chinese_traditional_cangjie_dictionary_description"
+        radicalDictionaryResId="@array/chinese_traditional_cangjie_radicals_dict_array"
+        excludeHomophoneCharsResId="@array/chinese_traditional_exclude_simplified_chars_array"
+        includeCharsResId="@array/chinese_traditional_trad_chars_array"
+        radicalPhrasesResId="@array/chinese_traditional_phrases_array"
+        charFrequencyResId="@array/chinese_traditional_char_frequency_array"
+        splitMultiCodepointCandidates="true"
+        id="19e51980-8ea4-416f-9992-cb610b86d39c"
+        locale="zh-cangjie"
+        nameResId="@string/chinese_traditional_cangjie_dictionary" />
+
+    <!-- Zhuyin 注音 (no homophone search, Zhuyin is itself phonetic).
+         splitMultiCodepointCandidates: source file uses key\tchar1char2.. format so we split. -->
+    <Dictionary
+        description="@string/chinese_traditional_zhuyin_dictionary_description"
+        radicalDictionaryResId="@array/chinese_traditional_zhuyin_radicals_dict_array"
+        excludeHomophoneCharsResId="@array/chinese_traditional_exclude_simplified_chars_array"
+        includeCharsResId="@array/chinese_traditional_trad_chars_array"
+        radicalPhrasesResId="@array/chinese_traditional_phrases_array"
+        charFrequencyResId="@array/chinese_traditional_char_frequency_array"
+        splitMultiCodepointCandidates="true"
+        id="33e07110-2970-403d-ae96-6043555d74fd"
+        locale="zh-zhuyin"
+        nameResId="@string/chinese_traditional_zhuyin_dictionary" />
+</Dictionaries>
