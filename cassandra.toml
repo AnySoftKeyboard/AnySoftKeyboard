@@ -1,5 +1,5 @@
 provider = "google"
-model = "gemini-3.6-flash"
+model = "gemini-3.7-flash"
 
 supplemental-guidelines = [
     ".cassandra/code-reuse.md",
