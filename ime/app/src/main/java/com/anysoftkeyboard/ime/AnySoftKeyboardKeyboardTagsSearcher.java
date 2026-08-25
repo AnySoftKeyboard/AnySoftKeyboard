@@ -69,6 +69,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
     super.onCreate();
     final RxSharedPrefs prefs = prefs();
     mQuickKeyHistoryRecords = new QuickKeyHistoryRecords(prefs);
+    addDisposable(mQuickKeyHistoryRecords);
     addDisposable(
         prefs
             .getBoolean(

@@ -8,6 +8,8 @@ import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +25,20 @@ public class QuickKeyHistoryRecordsTest {
   @Before
   public void setUp() {
     mSharedPreferences = AnyApplication.prefs(getApplicationContext());
+    mSharedPreferences
+        .getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty)
+        .set("");
+  }
+
+  private static String createJsonHistory(String... keyValues) throws Exception {
+    JSONArray jsonArray = new JSONArray();
+    for (int i = 0; i < keyValues.length; i += 2) {
+      JSONObject obj = new JSONObject();
+      obj.put("name", keyValues[i]);
+      obj.put("value", keyValues[i + 1]);
+      jsonArray.put(obj);
+    }
+    return jsonArray.toString();
   }
 
   @Test
@@ -36,10 +52,10 @@ public class QuickKeyHistoryRecordsTest {
   }
 
   @Test
-  public void testEmptyHistory() {
+  public void testEmptyHistory() throws Exception {
     mSharedPreferences
         .getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty)
-        .set("1,2,3,4,5,6");
+        .set(createJsonHistory("1", "2", "3", "4", "5", "6"));
     mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
     List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
     Assert.assertEquals(3, keys.size());
@@ -51,15 +67,16 @@ public class QuickKeyHistoryRecordsTest {
     Assert.assertEquals("6", keys.get(2).value);
 
     mUnderTest.clearHistory();
-    // There has to be at least 1 entry in the history, have to fix this
-    Assert.assertEquals(keys.size(), 1);
+    Assert.assertEquals(1, mUnderTest.getCurrentHistory().size());
+    Assert.assertEquals(
+        QuickKeyHistoryRecords.DEFAULT_EMOJI, mUnderTest.getCurrentHistory().get(0).name);
   }
 
   @Test
-  public void testLoad() {
+  public void testLoad() throws Exception {
     mSharedPreferences
         .getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty)
-        .set("1,2,3,4,5,6");
+        .set(createJsonHistory("1", "2", "3", "4", "5", "6"));
     mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
     List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
     Assert.assertEquals(3, keys.size());
@@ -69,6 +86,22 @@ public class QuickKeyHistoryRecordsTest {
     Assert.assertEquals("4", keys.get(1).value);
     Assert.assertEquals("5", keys.get(2).name);
     Assert.assertEquals("6", keys.get(2).value);
+  }
+
+  @Test
+  public void testLoadWithCommasAndSpecialCharacters() throws Exception {
+    mSharedPreferences
+        .getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty)
+        .set(createJsonHistory("(╯︵╰,)", "(╯︵╰,)", "¯\\_(ツ)_/¯", "¯\\_(ツ)_/¯", "a,b,c", "d,e,f"));
+    mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
+    List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
+    Assert.assertEquals(3, keys.size());
+    Assert.assertEquals("(╯︵╰,)", keys.get(0).name);
+    Assert.assertEquals("(╯︵╰,)", keys.get(0).value);
+    Assert.assertEquals("¯\\_(ツ)_/¯", keys.get(1).name);
+    Assert.assertEquals("¯\\_(ツ)_/¯", keys.get(1).value);
+    Assert.assertEquals("a,b,c", keys.get(2).name);
+    Assert.assertEquals("d,e,f", keys.get(2).value);
   }
 
   @Test
@@ -96,18 +129,38 @@ public class QuickKeyHistoryRecordsTest {
   }
 
   @Test
-  public void testLoadMoreThanLimit() {
-    StringBuilder exceedString = new StringBuilder();
+  public void testStoreHandlesSpecialCharactersAndCommas() {
+    mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
+    mUnderTest.store("(╯︵╰,)", "(╯︵╰,)");
+    mUnderTest.store("hello, world", "val,ue");
+
+    List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
+    Assert.assertEquals(3, keys.size());
+    Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, keys.get(0).name);
+    Assert.assertEquals("(╯︵╰,)", keys.get(1).name);
+    Assert.assertEquals("(╯︵╰,)", keys.get(1).value);
+    Assert.assertEquals("hello, world", keys.get(2).name);
+    Assert.assertEquals("val,ue", keys.get(2).value);
+
+    final QuickKeyHistoryRecords reloaded = new QuickKeyHistoryRecords(mSharedPreferences);
+    List<QuickKeyHistoryRecords.HistoryKey> reloadedKeys = reloaded.getCurrentHistory();
+    Assert.assertEquals(3, reloadedKeys.size());
+    Assert.assertEquals("(╯︵╰,)", reloadedKeys.get(1).name);
+    Assert.assertEquals("(╯︵╰,)", reloadedKeys.get(1).value);
+    Assert.assertEquals("hello, world", reloadedKeys.get(2).name);
+    Assert.assertEquals("val,ue", reloadedKeys.get(2).value);
+  }
+
+  @Test
+  public void testLoadMoreThanLimit() throws Exception {
+    String[] items = new String[QuickKeyHistoryRecords.MAX_LIST_SIZE * 4];
     for (int i = 0; i < QuickKeyHistoryRecords.MAX_LIST_SIZE * 2; i++) {
-      exceedString
-          .append(Integer.toString(2 * i))
-          .append(QuickKeyHistoryRecords.HISTORY_TOKEN_SEPARATOR)
-          .append(Integer.toString(2 * i + 1))
-          .append(QuickKeyHistoryRecords.HISTORY_TOKEN_SEPARATOR);
+      items[2 * i] = Integer.toString(2 * i);
+      items[2 * i + 1] = Integer.toString(2 * i + 1);
     }
     mSharedPreferences
         .getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty)
-        .set(exceedString.toString());
+        .set(createJsonHistory(items));
     mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
     List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
     Assert.assertEquals(QuickKeyHistoryRecords.MAX_LIST_SIZE, keys.size());
@@ -142,10 +195,11 @@ public class QuickKeyHistoryRecordsTest {
   }
 
   @Test
-  public void testDoesNotLoadIfEmptyStrings() {
+  public void testDoesNotLoadIfEmptyStrings() throws Exception {
     mSharedPreferences
         .getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty)
-        .set("1,2,,4,5,");
+        .set(
+            "[{\"name\":\"1\",\"value\":\"2\"},{\"name\":\"\",\"value\":\"4\"},{\"name\":\"5\",\"value\":\"\"}]");
     mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
     List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
     Assert.assertEquals(1, keys.size());
@@ -195,8 +249,6 @@ public class QuickKeyHistoryRecordsTest {
     mUnderTest.store("last_again", "last_again_last");
 
     currentHistory = mUnderTest.getCurrentHistory();
-    Assert.assertEquals(QuickKeyHistoryRecords.MAX_LIST_SIZE, currentHistory.size());
-
     Assert.assertEquals(QuickKeyHistoryRecords.MAX_LIST_SIZE, currentHistory.size());
 
     Assert.assertEquals(
@@ -258,6 +310,41 @@ public class QuickKeyHistoryRecordsTest {
     Assert.assertEquals("v7", currentHistory.get(4).value);
     Assert.assertEquals("last_again", currentHistory.get(5).name);
     Assert.assertEquals("last_again_last", currentHistory.get(5).value);
+  }
+
+  @Test
+  public void testReactivePrefChangeUpdatesHistory() throws Exception {
+    mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
+    Assert.assertEquals(1, mUnderTest.getCurrentHistory().size());
+
+    // Simulating external preference change (e.g. DirectBoot unlock or sync)
+    mSharedPreferences
+        .getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty)
+        .set(createJsonHistory("external_key", "external_value"));
+
+    List<QuickKeyHistoryRecords.HistoryKey> updatedKeys = mUnderTest.getCurrentHistory();
+    Assert.assertEquals(1, updatedKeys.size());
+    Assert.assertEquals("external_key", updatedKeys.get(0).name);
+    Assert.assertEquals("external_value", updatedKeys.get(0).value);
+  }
+
+  @Test
+  public void testHandlesMalformedJsonGracefully() {
+    mSharedPreferences
+        .getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty)
+        .set("{not-valid-json");
+    mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
+    List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
+    Assert.assertEquals(1, keys.size());
+    Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, keys.get(0).name);
+  }
+
+  @Test
+  public void testDisposable() {
+    mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
+    Assert.assertFalse(mUnderTest.isDisposed());
+    mUnderTest.dispose();
+    Assert.assertTrue(mUnderTest.isDisposed());
   }
 
   @Test
