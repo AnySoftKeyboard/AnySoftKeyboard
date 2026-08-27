@@ -5,7 +5,7 @@
     android:keyWidth="10%p"
     >
 
-    <Row android:keyWidth="9.09%p">
+    <Row android:keyWidth="8.33%p">
         <!-- &#1081;&#1094;&#1091;&#1082;&#1077;&#1085;&#1075;&#1096;&#1097;&#1079;&#1093;&#1098; -->
         <Key android:codes="1081" android:keyLabel="" android:popupCharacters="1¹₁" ask:hintLabel="1" android:keyEdgeFlags="left"/>
         <Key android:codes="1094" android:keyLabel="" android:popupCharacters="2²₂" ask:hintLabel="2"/>
@@ -14,11 +14,11 @@
         <Key android:codes="1077" android:keyLabel="" android:popupCharacters="ё5" ask:hintLabel="ё5"/>
         <Key android:codes="1085" android:keyLabel="" android:popupCharacters="6" ask:hintLabel="6"/>
         <Key android:codes="1075" android:keyLabel="" android:popupCharacters="7" ask:hintLabel="7"/>
-        <Key android:codes="1096" android:keyLabel="" android:popupCharacters="8" ask:hintLabel="8"/>
-        <Key android:codes="1097" android:keyLabel="" android:popupCharacters="9" ask:hintLabel="9"/>
-        <Key android:codes="1079" android:keyLabel="" android:popupCharacters="0" ask:hintLabel="0"/>
-        <Key android:codes="1093" android:keyLabel="" android:popupCharacters="" ask:hintLabel=""/>
-        <Key android:codes="1098" android:keyLabel="" android:popupCharacters="" android:keyEdgeFlags="right"/>
+        <Key android:codes="1096" android:keyLabel="" android:popupCharacters="8" ask:hintLabel="8" android:keyWidth="8.95%p"/>
+        <Key android:codes="1097" android:keyLabel="" android:popupCharacters="9" ask:hintLabel="9" android:keyWidth="8.95%p"/>
+        <Key android:codes="1079" android:keyLabel="" android:popupCharacters="0" android:keyWidth="7.92%p" ask:hintLabel="0"/>
+        <Key android:codes="1093" android:keyLabel="" android:popupCharacters="" android:keyWidth="7.92%p" ask:hintLabel=""/>
+        <Key android:codes="1098" android:keyLabel="" android:popupCharacters="" android:keyWidth="7.92%p" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row android:keyWidth="9.09%p">
