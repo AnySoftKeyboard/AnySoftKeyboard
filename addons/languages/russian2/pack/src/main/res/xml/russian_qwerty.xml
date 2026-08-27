@@ -5,7 +5,7 @@
     android:keyWidth="10%p"
     >
 
-    <Row android:keyWidth="8.33%p">
+    <Row android:keyWidth="9.09%p">
         <!-- &#1081;&#1094;&#1091;&#1082;&#1077;&#1085;&#1075;&#1096;&#1097;&#1079;&#1093;&#1098; -->
         <Key android:codes="1081" android:keyLabel="" android:popupCharacters="1¹₁" ask:hintLabel="1" android:keyEdgeFlags="left"/>
         <Key android:codes="1094" android:keyLabel="" android:popupCharacters="2²₂" ask:hintLabel="2"/>
