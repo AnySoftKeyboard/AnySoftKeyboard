@@ -10,11 +10,11 @@
         <Key android:codes="е" android:popupCharacters="tеё"/>
         <Key android:codes="н" android:popupCharacters="yн"/>
         <Key android:codes="г" android:popupCharacters="uг"/>
-        <Key android:codes="ш" android:popupCharacters="iш"/>
-        <Key android:codes="щ" android:popupCharacters="oщ"/>
-        <Key android:codes="з" android:popupCharacters="pз"/>
-        <Key android:codes="х" android:popupCharacters="[{х"/>
-        <Key android:codes="ъ" android:popupCharacters="]}ъ" android:keyEdgeFlags="right"/>
+        <Key android:codes="ш" android:popupCharacters="iш" android:keyWidth="8.95%p"/>
+        <Key android:codes="щ" android:popupCharacters="oщ" android:keyWidth="8.95%p"/>
+        <Key android:codes="з" android:popupCharacters="pз" android:keyWidth="7.92%p"/>
+        <Key android:codes="х" android:popupCharacters="[{х" android:keyWidth="7.92%p"/>
+        <Key android:codes="ъ" android:popupCharacters="]}ъ" android:keyWidth="7.92%p" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row android:keyWidth="9.09%p">
