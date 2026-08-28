@@ -732,8 +732,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     if (!handledOutputToInputConnection) {
-      for (char c : Character.toChars(primaryCode)) {
-        sendKeyChar(c);
+      if (ic != null) {
+        // sendKeyChar's KeyEvent makes some editors re-insert the just-committed word.
+        ic.commitText(new String(Character.toChars(primaryCode)), 1);
+      } else {
+        for (char c : Character.toChars(primaryCode)) {
+          sendKeyChar(c);
+        }
       }
     }
 

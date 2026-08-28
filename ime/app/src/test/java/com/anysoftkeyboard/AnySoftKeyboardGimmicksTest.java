@@ -407,46 +407,29 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
-  public void testSendsENTERKeyEventIfShiftIsNotPressedAndImeDoesNotHaveAction() {
+  public void testCommitsNewlineForPlainEnterWithoutAction() {
+    // Plain ENTER (no shift, no IME action) must be committed via commitText("\n", 1) and NOT via
+    // sendKeyEvent(KEYCODE_ENTER). Some editors handle KEYCODE_ENTER by re-inserting the just-
+    // committed composing text, producing a duplicate word on the new line.
     TestInputConnection inputConnection = getCurrentTestInputConnection();
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
-    ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
-    Mockito.verify(inputConnection, Mockito.times(2))
-        .sendKeyEvent(keyEventArgumentCaptor.capture());
-
-    Assert.assertEquals(2 /* down and up */, keyEventArgumentCaptor.getAllValues().size());
-    Assert.assertEquals(
-        KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
-    Assert.assertEquals(
-        KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
-    Assert.assertEquals(
-        KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
-    Assert.assertEquals(
-        KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
-    // and never the ENTER character
+    Mockito.verify(inputConnection, Mockito.never()).sendKeyEvent(Mockito.any(KeyEvent.class));
+    Mockito.verify(inputConnection).commitText("\n", 1);
     Assert.assertEquals("\n", inputConnection.getCurrentTextInInputConnection());
   }
 
   @Test
-  public void testSendsENTERKeyEventIfShiftIsPressedAndImeDoesNotHaveAction() {
+  public void testCommitsNewlineWhenShiftHeldButNoImeAction() {
+    // Shift alone without an IME action still means "insert a newline". The Shift+Enter
+    // KeyEvent path in AnySoftKeyboard.onNonFunctionKey requires mShiftKeyState.isPressed(); a
+    // simulateKeyPress here does not press shift, so we fall through to handleSeparator and must
+    // commit "\n" — same reason as the plain-ENTER case above.
     TestInputConnection inputConnection = getCurrentTestInputConnection();
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
-    ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
-    Mockito.verify(inputConnection, Mockito.times(2))
-        .sendKeyEvent(keyEventArgumentCaptor.capture());
-
-    Assert.assertEquals(2 /* down and up */, keyEventArgumentCaptor.getAllValues().size());
-    Assert.assertEquals(
-        KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
-    Assert.assertEquals(
-        KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
-    Assert.assertEquals(
-        KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
-    Assert.assertEquals(
-        KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
-    // and we have ENTER in the input-connection
+    Mockito.verify(inputConnection, Mockito.never()).sendKeyEvent(Mockito.any(KeyEvent.class));
+    Mockito.verify(inputConnection).commitText("\n", 1);
     Assert.assertEquals("\n", inputConnection.getCurrentTextInInputConnection());
   }
 
