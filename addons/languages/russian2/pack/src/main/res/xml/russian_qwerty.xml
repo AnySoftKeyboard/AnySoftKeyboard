@@ -16,9 +16,9 @@
         <Key android:codes="1075" android:keyLabel="" android:popupCharacters="7" ask:hintLabel="7"/>
         <Key android:codes="1096" android:keyLabel="" android:popupCharacters="8" ask:hintLabel="8" android:keyWidth="8.95%p"/>
         <Key android:codes="1097" android:keyLabel="" android:popupCharacters="9" ask:hintLabel="9" android:keyWidth="8.95%p"/>
-        <Key android:codes="1079" android:keyLabel="" android:popupCharacters="0" android:keyWidth="7.92%p" ask:hintLabel="0"/>
-        <Key android:codes="1093" android:keyLabel="" android:popupCharacters="" android:keyWidth="7.92%p" ask:hintLabel=""/>
-        <Key android:codes="1098" android:keyLabel="" android:popupCharacters="" android:keyWidth="7.92%p" android:keyEdgeFlags="right"/>
+        <Key android:codes="1079" android:keyLabel="" android:popupCharacters="0" ask:hintLabel="0" android:keyWidth="7.92%p"/>
+        <Key android:codes="1093" android:keyLabel="" android:popupCharacters="" ask:hintLabel="" android:keyWidth="7.92%p"/>
+        <Key android:codes="1098" android:keyLabel="" android:popupCharacters="" android:keyEdgeFlags="right" android:keyWidth="7.92%p"/>
     </Row>
 
     <Row android:keyWidth="9.09%p">
