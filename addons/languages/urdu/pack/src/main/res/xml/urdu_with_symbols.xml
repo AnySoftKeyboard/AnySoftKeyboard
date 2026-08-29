@@ -107,7 +107,7 @@
         <Key
             android:codes="\u067E"
             android:keyEdgeFlags="right"
-            android:popupCharacters="\u0660\0\u064F\u064C\u08F1\u0657"
+            android:popupKeyboard="@xml/urdu_with_symbols_p"
             ask:hintLabel="\u0660"
             ask:shiftedCodes="\u064F" />
     </Row>
@@ -213,7 +213,7 @@
         <!-- N -->
         <Key
             android:codes="\u0646"
-            android:popupCharacters="\u061B:\u06BA"
+            android:popupCharacters="\u061B:\u06BA\u0768\u0658"
             ask:hintLabel="\u061B"
             ask:shiftedCodes="\u06BA" />
         <!-- M -->
