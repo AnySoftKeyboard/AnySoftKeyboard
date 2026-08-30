@@ -1,4 +1,6 @@
 apply from: "$rootDir/gradle/apk_module.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 def imageAssetsFolder = new File(new File(rootDir, "addons/StoreStuff"), "assets")
 if (!imageAssetsFolder.exists()) {
@@ -33,8 +35,16 @@ dependencies {
     implementation project(path: ':addons:base:apk')
     implementation libs.androidx.multidex
 
+    implementation platform(libs.androidx.compose.bom)
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.material3
+
     testImplementation project(path: ':ime:base-test')
     testImplementation libs.androidx.test.core.old
+    testImplementation platform(libs.androidx.compose.bom)
+    testImplementation libs.androidx.compose.ui.test.junit4
+    debugImplementation libs.androidx.compose.ui.test.manifest
 }
 
 def activityResDir = "${buildDir.absolutePath}/generated/activity_res"
@@ -44,7 +54,7 @@ def manifestPath = "${buildDir.absolutePath}/generated/AndroidManifest.xml"
 
 android {
     buildFeatures {
-        dataBinding true
+        compose true
     }
 
     defaultConfig {

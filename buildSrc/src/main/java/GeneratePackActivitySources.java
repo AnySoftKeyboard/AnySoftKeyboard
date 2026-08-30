@@ -84,15 +84,14 @@ public class GeneratePackActivitySources extends DefaultTask {
   @InputFile
   @PathSensitive(RELATIVE)
   public File getActivityTemplateFile() {
-    return new File(
-        getProject().getRootDir(), "addons/StoreStuff/assets/MainActivity.java.template");
+    return new File(getProject().getRootDir(), "addons/StoreStuff/assets/MainActivity.kt.template");
   }
 
   @InputFile
   @PathSensitive(RELATIVE)
   public File getActivityTestTemplateFile() {
     return new File(
-        getProject().getRootDir(), "addons/StoreStuff/assets/MainActivityTest.java.template");
+        getProject().getRootDir(), "addons/StoreStuff/assets/MainActivityTest.kt.template");
   }
 
   @InputFile
@@ -210,7 +209,7 @@ public class GeneratePackActivitySources extends DefaultTask {
   }
 
   private void createActivityJavaSourceFile() throws IOException {
-    var srcTarget = new File(getOutputSrcFolder(), "MainActivity.java");
+    var srcTarget = new File(getOutputSrcFolder(), "MainActivity.kt");
     clearTargetFile(srcTarget);
 
     Files.writeString(
@@ -220,7 +219,7 @@ public class GeneratePackActivitySources extends DefaultTask {
   }
 
   private void createActivityTestJavaSourceFile() throws IOException {
-    var srcTarget = new File(getOutputTestSrcFolder(), "MainActivityTest.java");
+    var srcTarget = new File(getOutputTestSrcFolder(), "MainActivityTest.kt");
     clearTargetFile(srcTarget);
 
     Files.writeString(

@@ -1,0 +1,23 @@
+package {{PACKAGE}}
+
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AnySoftKeyboardRobolectricTestRunner::class)
+class MainActivityTest {
+  @get:Rule val composeTestRule = createAndroidComposeRule<MainActivity>()
+
+  @Test
+  fun testActivityIsValid() {
+    val description =
+        composeTestRule.activity.getString(
+            com.anysoftkeyboard.addon.base.apk.R.string.screenshot_content_description,
+        )
+    composeTestRule.onNodeWithContentDescription(description).assertExists()
+  }
+}
+
