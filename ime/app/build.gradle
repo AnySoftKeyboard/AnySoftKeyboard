@@ -20,8 +20,6 @@ android {
         println 'crash report email is: ' + support_email_address
 
         buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"' + support_email_address + '"'
-
-        multiDexEnabled true
     }
 
     buildTypes {
@@ -41,6 +39,12 @@ android {
 
             matchingFallbacks = ['debug']
         }
+    }
+}
+
+androidComponents {
+    beforeVariants(selector().withBuildType("allAddOns")) { variantBuilder ->
+        variantBuilder.enableUnitTest = true
     }
 }
 
@@ -133,8 +137,6 @@ dependencies {
     implementation libs.androidx.navigation.fragment
     implementation libs.androidx.navigation.ui
     implementation libs.androidx.navigation.dynamic.features.fragment
-
-    implementation libs.androidx.multidex
 
     testImplementation project(path: ':ime:base-test')
     testImplementation libs.simpleprovider

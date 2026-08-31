@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 
 apply from: "${rootDir}/gradle/android_general.gradle"
-apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 dependencies {

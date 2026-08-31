@@ -6,10 +6,10 @@ sdkCompile = "37"
 sdkMinimum = "23"
 
 # Android Gradle Plugin and Build Plugins
-agp = "8.13.2"
+agp = "9.3.2"
 kotlin = "2.4.10"
 spotless = "8.8.0"
-playPublisher = "3.13.0"
+playPublisher = "4.1.1"
 errorpronePlugin = "4.4.0"
 navigationSafeArgs = "2.9.8"
 
@@ -22,7 +22,6 @@ androidxConstraintlayout = "2.2.1"
 androidxCore = "1.18.0"
 androidxFragment = "1.8.9"
 androidxLegacySupport = "1.0.0"
-androidxMultidex = "2.0.1"
 androidxNavigation = "2.9.8"
 androidxPalette = "1.0.0"
 androidxPreference = "1.2.1"
@@ -85,7 +84,6 @@ androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "andr
 androidx-legacy-support-core-utils = { module = "androidx.legacy:legacy-support-core-utils", version.ref = "androidxLegacySupport" }
 androidx-legacy-support-v13 = { module = "androidx.legacy:legacy-support-v13", version.ref = "androidxLegacySupport" }
 androidx-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "androidxLegacySupport" }
-androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "androidxMultidex" }
 androidx-navigation-dynamic-features-fragment = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "androidxNavigation" }
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "androidxNavigation" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "androidxNavigation" }

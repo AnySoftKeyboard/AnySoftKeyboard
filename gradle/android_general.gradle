@@ -34,9 +34,6 @@ android {
     }
 
 
-    androidResources {
-        noCompress ''
-    }
 }
 
 apply from: "${rootDir}/gradle/android_unit_test.gradle"
