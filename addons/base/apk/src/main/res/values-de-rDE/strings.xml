@@ -8,9 +8,11 @@
     <string name="not_standalone_app_text">Diese App ist <b>keine</b> Standalone-App, sondern ein Erweiterungspaket (Add-on) für AnySoftKeyboard.</string>
     <string name="add_on_type_language" tools:ignore="UnusedResources">Sprachpaket</string>
     <string name="add_on_type_theme" tools:ignore="UnusedResources">Tastaturdesign</string>
-    <string name="ask_is_missing_need_install"></string>
+    <string name="ask_is_missing_need_install">AnySoftKeyboard ist nicht auf Ihrem Gerät installiert.\nUm dieses Erweiterungspaket nutzen zu können, müssen Sie zuerst AnySoftKeyboard installieren.</string>
     <string name="open_ask_in_vending">Zum Play Store</string>
     <string name="ask_installed">AnySoftKeyboard ist installiert. Möglicherweise müssen Sie es einrichten, um dieses Erweiterungspaket verwenden zu können. </string>
     <string name="open_ask_main_settings">AnySoftKeyboard öffnen</string>
+    <string name="hide_launcher_icon_action">Symbol im Launcher ausblenden</string>
+    <string name="launcher_icon_hidden_toast">Add-on-Launcher-Symbol ausgeblendet.</string>
     <string name="test_add_on_description">Dies ist eine Test-Zusatzbeschreibung, sie kann alles sein</string>
 </resources>
