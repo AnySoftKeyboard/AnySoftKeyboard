@@ -45,6 +45,10 @@ addons/.generated_pack_version
 node_modules
 /dist
 
+#python (addon data-generation scripts)
+__pycache__/
+*.pyc
+
 # IJ Bazel Plugin
 .aswb/
 
@@ -53,3 +57,6 @@ node_modules
 
 # personal scratch work area
 scratch/
+
+# Local-only release signing keystores (mirrored from test keystore)
+**/tmp/anysoftkeyboard.keystore

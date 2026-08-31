@@ -528,6 +528,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
       case KeyCodes.MODE_SYMBOLS:
         nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
         break;
+      case KeyCodes.HOMOPHONE_SEARCH:
+        toggleHomophoneSearch();
+        break;
       case KeyCodes.MODE_ALPHABET:
         if (getKeyboardSwitcher().shouldPopupForLanguageSwitch()) {
           showLanguageSelectionDialog();
@@ -657,6 +660,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             && mSpecialWrapCharacters.get(primaryCode) != null) {
           int[] wrapCharacters = mSpecialWrapCharacters.get(primaryCode);
           wrapSelectionWithCharacters(wrapCharacters[0], wrapCharacters[1]);
+        } else if (isRadicalInputMode() && isCurrentRadicalKeyCode(primaryCode)) {
+          // In radical mode, certain punctuation chars are part of radical sequences
+          // (e.g., Boshiamy uses "na," -> な, "na." -> ナ, ".1" -> ㄅ)
+          handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
         } else if (isWordSeparator(primaryCode)) {
           handleSeparator(primaryCode);
         } else if (mControlKeyState.isActive()) {
@@ -699,6 +706,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
       onFunctionKey(primaryCode, key, fromUI);
     }
     if (ic != null) ic.endBatchEdit();
+  }
+
+  /**
+   * Checks if the given key code is a valid radical sequence character for the current keyboard.
+   * Delegates to the keyboard's own definition of valid radical characters.
+   */
+  private boolean isCurrentRadicalKeyCode(int primaryCode) {
+    final var keyboard = getCurrentAlphabetKeyboard();
+    return keyboard != null && keyboard.isRadicalKeyCode(primaryCode);
   }
 
   private boolean isTerminalEmulation() {
@@ -924,7 +940,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     InputConnection ic = getCurrentInputConnection();
     final WordComposer currentComposedWord = getCurrentComposedWord();
     final boolean wordManipulation =
-        isPredictionOn()
+        (isPredictionOn() || isRadicalInputMode())
             && currentComposedWord.cursorPosition() > 0
             && !currentComposedWord.isEmpty();
     if (isSelectionUpdateDelayed() || ic == null) {
@@ -991,7 +1007,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
   private void handleForwardDelete(InputConnection ic) {
     final WordComposer currentComposedWord = getCurrentComposedWord();
     final boolean wordManipulation =
-        isPredictionOn()
+        (isPredictionOn() || isRadicalInputMode())
             && currentComposedWord.cursorPosition() < currentComposedWord.charCount()
             && !currentComposedWord.isEmpty();
 

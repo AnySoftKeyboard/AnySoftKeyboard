@@ -45,10 +45,22 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
   private static final String XML_ASSETS_ATTRIBUTE = "dictionaryAssertName";
   private static final String XML_RESOURCE_ATTRIBUTE = "dictionaryResourceId";
   private static final String XML_AUTO_TEXT_RESOURCE_ATTRIBUTE = "autoTextResourceId";
+  private static final String XML_RADICAL_DICT_RESOURCE_ATTRIBUTE = "radicalDictionaryResId";
+  private static final String XML_RADICAL_PHRASES_RESOURCE_ATTRIBUTE = "radicalPhrasesResId";
+  private static final String XML_HOMOPHONES_RESOURCE_ATTRIBUTE = "homophonesResId";
+  private static final String XML_CHAR_TO_ZHUYIN_RESOURCE_ATTRIBUTE = "charToZhuyinResId";
+  private static final String XML_CHAR_TO_RADICAL_RESOURCE_ATTRIBUTE = "charToRadicalResId";
+  private static final String XML_EXCLUDE_HOMOPHONE_CHARS_RESOURCE_ATTRIBUTE =
+      "excludeHomophoneCharsResId";
+  private static final String XML_INCLUDE_CHARS_RESOURCE_ATTRIBUTE = "includeCharsResId";
+  private static final String XML_CHAR_FREQUENCY_RESOURCE_ATTRIBUTE = "charFrequencyResId";
+  private static final String XML_SPLIT_MULTI_CODEPOINT_CANDIDATES_ATTRIBUTE =
+      "splitMultiCodepointCandidates";
   private static final String XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE =
       "initialSuggestions";
 
   private final Map<String, DictionaryAddOnAndBuilder> mBuildersByLocale = new ArrayMap<>();
+  private final RadicalOverlayCache mRadicalOverlayCache = new RadicalOverlayCache();
 
   public ExternalDictionaryFactory(Context context) {
     super(
@@ -116,6 +128,16 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     throw new UnsupportedOperationException("This is not supported for dictionaries.");
   }
 
+  /**
+   * Returns the per-process cache that holds materialised user-supplied radical-overlay byte
+   * snapshots. Settings UI code calls {@link RadicalOverlayCache#invalidateAll()} when the user
+   * picks a new overlay folder or taps "refresh imported tables".
+   */
+  @NonNull
+  public RadicalOverlayCache getRadicalOverlayCache() {
+    return mRadicalOverlayCache;
+  }
+
   @Override
   protected DictionaryAddOnAndBuilder createConcreteAddOn(
       Context askContext,
@@ -134,50 +156,95 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     final int autoTextResId =
         attrs.getAttributeResourceValue(
             null, XML_AUTO_TEXT_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final int radicalDictResId =
+        attrs.getAttributeResourceValue(
+            null, XML_RADICAL_DICT_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final int radicalPhrasesResId =
+        attrs.getAttributeResourceValue(
+            null, XML_RADICAL_PHRASES_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final int homophonesResId =
+        attrs.getAttributeResourceValue(
+            null, XML_HOMOPHONES_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final int charToZhuyinResId =
+        attrs.getAttributeResourceValue(
+            null, XML_CHAR_TO_ZHUYIN_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final int charToRadicalResId =
+        attrs.getAttributeResourceValue(
+            null, XML_CHAR_TO_RADICAL_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final int excludeHomophoneCharsResId =
+        attrs.getAttributeResourceValue(
+            null, XML_EXCLUDE_HOMOPHONE_CHARS_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final int includeCharsResId =
+        attrs.getAttributeResourceValue(
+            null, XML_INCLUDE_CHARS_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final int charFrequencyResId =
+        attrs.getAttributeResourceValue(
+            null, XML_CHAR_FREQUENCY_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final boolean splitMultiCodepointCandidates =
+        attrs.getAttributeBooleanValue(null, XML_SPLIT_MULTI_CODEPOINT_CANDIDATES_ATTRIBUTE, false);
     final int initialSuggestionsId =
         attrs.getAttributeResourceValue(
             null, XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
     // asserting
     if ((language == null)
-        || ((assets == null) && (dictionaryResourceId == AddOn.INVALID_RES_ID))) {
+        || ((assets == null)
+            && (dictionaryResourceId == AddOn.INVALID_RES_ID)
+            && (radicalDictResId == AddOn.INVALID_RES_ID))) {
       Logger.e(
           TAG,
-          "External dictionary does not include all mandatory details! Will not create"
-              + " dictionary.");
+          "External dictionary is missing both a binary dictionary and a radical dictionary"
+              + " (language=%s, dictionaryResourceId=%s, radicalDictResId=%s, hasAssets=%s)."
+              + " Will not create dictionary.",
+          language,
+          dictionaryResourceId,
+          radicalDictResId,
+          assets != null);
       return null;
     } else {
-      final DictionaryAddOnAndBuilder creator;
-      if (dictionaryResourceId == AddOn.INVALID_RES_ID)
-        creator =
-            new DictionaryAddOnAndBuilder(
-                askContext,
-                context,
-                apiVersion,
-                prefId,
-                name,
-                description,
-                isHidden,
-                sortIndex,
-                language,
-                assets,
-                initialSuggestionsId);
-      else
-        creator =
-            new DictionaryAddOnAndBuilder(
-                askContext,
-                context,
-                apiVersion,
-                prefId,
-                name,
-                description,
-                isHidden,
-                sortIndex,
-                language,
-                dictionaryResourceId,
-                autoTextResId,
-                initialSuggestionsId);
+      final RadicalDictionaryConfig radicalConfig =
+          new RadicalDictionaryConfig.Builder()
+              .radicalDictResId(radicalDictResId)
+              .radicalPhrasesResId(radicalPhrasesResId)
+              .homophonesResId(homophonesResId)
+              .charToZhuyinResId(charToZhuyinResId)
+              .charToRadicalResId(charToRadicalResId)
+              .excludeHomophoneCharsResId(excludeHomophoneCharsResId)
+              .includeCharsResId(includeCharsResId)
+              .charFrequencyResId(charFrequencyResId)
+              .splitMultiCodepointCandidates(splitMultiCodepointCandidates)
+              .build();
 
-      return creator;
+      if (dictionaryResourceId == AddOn.INVALID_RES_ID) {
+        return new DictionaryAddOnAndBuilder(
+            askContext,
+            context,
+            apiVersion,
+            prefId,
+            name,
+            description,
+            isHidden,
+            sortIndex,
+            language,
+            assets,
+            autoTextResId,
+            initialSuggestionsId,
+            radicalConfig);
+      } else {
+        return new DictionaryAddOnAndBuilder(
+            askContext,
+            context,
+            apiVersion,
+            prefId,
+            name,
+            description,
+            isHidden,
+            sortIndex,
+            language,
+            dictionaryResourceId,
+            autoTextResId,
+            initialSuggestionsId,
+            radicalConfig);
+      }
     }
   }
 

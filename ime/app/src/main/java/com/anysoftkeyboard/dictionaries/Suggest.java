@@ -1,8 +1,10 @@
 package com.anysoftkeyboard.dictionaries;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
+import java.util.Collections;
 import java.util.List;
 
 public interface Suggest {
@@ -42,6 +44,46 @@ public interface Suggest {
    * @return list of suggestions.
    */
   List<CharSequence> getSuggestions(WordComposer wordComposer);
+
+  /**
+   * Returns a list of radical-based suggestions for the given radical sequence. These are
+   * candidates from radical dictionaries (e.g., Boshiamy, Cangjie, Zhuyin).
+   *
+   * @return list of radical suggestions, or empty list if no radical dictionaries are loaded.
+   */
+  default List<CharSequence> getRadicalSuggestions(WordComposer wordComposer) {
+    return Collections.emptyList();
+  }
+
+  /**
+   * Returns the exact radical-dictionary matches for the given radical sequence (no prefix
+   * expansion, no typed-radicals echo). Used for the candidate-selector feature.
+   */
+  @NonNull
+  default List<String> getRadicalExactMatches(@NonNull String radicals) {
+    return Collections.emptyList();
+  }
+
+  default boolean hasRadicalDictionaries() {
+    return false;
+  }
+
+  /** Returns homophones for a character (same Zhuyin pronunciation). */
+  @NonNull
+  default List<CharSequence> getHomophones(@NonNull String character) {
+    return Collections.emptyList();
+  }
+
+  /** Returns the radical input code for a character (e.g., 踩->ozet). */
+  @Nullable
+  default String getRadicalCode(@NonNull String character) {
+    return null;
+  }
+
+  /** Returns true if homophone lookup data is available. */
+  default boolean hasHomophoneData() {
+    return false;
+  }
 
   /**
    * Returns the index of the valid word from the last call to getSuggestions. In most cases, if the
