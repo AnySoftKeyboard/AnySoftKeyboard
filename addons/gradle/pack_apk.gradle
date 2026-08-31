@@ -1,5 +1,4 @@
 apply from: "$rootDir/gradle/apk_module.gradle"
-apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 def imageAssetsFolder = new File(new File(rootDir, "addons/StoreStuff"), "assets")
