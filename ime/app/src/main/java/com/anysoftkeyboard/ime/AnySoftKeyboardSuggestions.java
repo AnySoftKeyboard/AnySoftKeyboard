@@ -1135,7 +1135,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
       // Follow it with a space
       if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {
-        sendKeyChar((char) KeyCodes.SPACE);
+        if (ic != null) {
+          ic.commitText(" ", 1);
+        } else {
+          sendKeyChar((char) KeyCodes.SPACE);
+        }
         setSpaceTimeStamp(true);
       }
       // Add the word to the auto dictionary if it's not a known word

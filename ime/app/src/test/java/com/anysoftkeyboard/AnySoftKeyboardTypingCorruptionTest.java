@@ -16,12 +16,12 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 
 /**
- * Static repro for two reported ASK bugs (evidence-gathering pass, no fix):
- * - typing letter+digit(+letter) can produce an extra letter (k8 -> k8k, k8s -> k8ks)
- * - typing a word then Enter can duplicate the word on the new line
+ * Static repro for two reported ASK bugs (evidence-gathering pass, no fix): - typing
+ * letter+digit(+letter) can produce an extra letter (k8 -> k8k, k8s -> k8ks) - typing a word then
+ * Enter can duplicate the word on the new line
  *
- * <p>Each scenario dumps every InputConnection call ASK emits, plus WordComposer state and
- * the resulting editor text/composing range after each key, then asserts the final text.
+ * <p>Each scenario dumps every InputConnection call ASK emits, plus WordComposer state and the
+ * resulting editor text/composing range after each key, then asserts the final text.
  */
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest {
@@ -34,7 +34,8 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
     // Match the reporter's real config: suggestions on, autocorrect off,
     // auto-pick aggressiveness off, next-word suggestions on, no suggestion restart.
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_auto_pick_suggestion_aggressiveness, "none");
+    SharedPrefsHelper.setPrefsValue(
+        R.string.settings_key_auto_pick_suggestion_aggressiveness, "none");
     SharedPrefsHelper.setPrefsValue(
         R.string.settings_key_next_word_suggestion_aggressiveness, "medium_aggressiveness");
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, false);
@@ -46,19 +47,24 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
   }
 
   private void installIcTracers(TestInputConnection ic) {
-    Mockito.doAnswer(recording("setComposingText", ic)).when(ic)
+    Mockito.doAnswer(recording("setComposingText", ic))
+        .when(ic)
         .setComposingText(Mockito.any(), Mockito.anyInt());
-    Mockito.doAnswer(recording("commitText", ic)).when(ic)
+    Mockito.doAnswer(recording("commitText", ic))
+        .when(ic)
         .commitText(Mockito.any(), Mockito.anyInt());
     Mockito.doAnswer(recording("finishComposingText", ic)).when(ic).finishComposingText();
-    Mockito.doAnswer(recording("setComposingRegion", ic)).when(ic)
+    Mockito.doAnswer(recording("setComposingRegion", ic))
+        .when(ic)
         .setComposingRegion(Mockito.anyInt(), Mockito.anyInt());
     Mockito.doAnswer(recording("beginBatchEdit", ic)).when(ic).beginBatchEdit();
     Mockito.doAnswer(recording("endBatchEdit", ic)).when(ic).endBatchEdit();
     Mockito.doAnswer(recording("sendKeyEvent", ic)).when(ic).sendKeyEvent(Mockito.any());
-    Mockito.doAnswer(recording("deleteSurroundingText", ic)).when(ic)
+    Mockito.doAnswer(recording("deleteSurroundingText", ic))
+        .when(ic)
         .deleteSurroundingText(Mockito.anyInt(), Mockito.anyInt());
-    Mockito.doAnswer(recording("setSelection", ic)).when(ic)
+    Mockito.doAnswer(recording("setSelection", ic))
+        .when(ic)
         .setSelection(Mockito.anyInt(), Mockito.anyInt());
   }
 
@@ -262,5 +268,22 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
         "ENTER with IME_ACTION_SEND must NOT commit a newline",
         0L,
         countTraceMatches("IC commitText             args=[\n, 1]"));
+  }
+
+  @Test
+  public void m_manual_suggestion_pick_uses_commitText_for_autospace_not_sendKeyEvent() {
+    typeChars("hel");
+    mTrace.clear();
+    mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hello", true);
+
+    dumpTraceOnFailure("pickSuggestionManually auto-space check");
+    Assert.assertEquals(
+        "auto-space after suggestion pick must be committed via commitText(\" \", 1)",
+        1L,
+        countTraceMatches("IC commitText             args=[ , 1]"));
+    Assert.assertEquals(
+        "no sendKeyEvent should fire for the auto-space after suggestion pick",
+        0L,
+        countTraceMatches("IC sendKeyEvent"));
   }
 }
