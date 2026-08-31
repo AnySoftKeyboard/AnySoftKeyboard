@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
     <string name="debug_tracing_starting">Protokollieren gestartet!\nVergiss nicht, es später wieder auszuschalten</string>
-    <string name="debug_tracing_starting_failed">Initiierung der Protokollierung ist fehlgeschlagen! Siehe LogCat für weitere Details.</string>
-    <string name="debug_tracing_finished">Protokollieren beendet!\nDie Datei ist 
+    <string name="debug_tracing_starting_failed">Initiierung des Tracings ist fehlgeschlagen! Siehe LogCat für weitere Infos.</string>
+    <string name="debug_tracing_finished">Tracing beendet!\nDie Datei ist 
 <xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Über</string>
     <string name="how_to_pointer_title">Willkommen bei AnySoftKeyboard</string>
@@ -20,21 +20,21 @@
     <string name="ui_theme_settings_tile">Wähle und konfiguriere Tastaturdesigns.</string>
     <string name="ui_effects_settings_tile">Tastatureffekte und Erfahrung.</string>
     <!-- welcome -->
-    <string name="search_market_for_keyboard_addons">Erhalte mehr Tastaturen im Appstore</string>
-    <string name="search_market_for_quick_key_addons">Erhalte weitere <i>Quick-Text</i> Erweiterungen im Appstore…</string>
+    <string name="search_market_for_keyboard_addons">Erhalte mehr Tastaturen im App Store</string>
+    <string name="search_market_for_quick_key_addons">Erhalte weitere <i>Quick-Text</i> Erweiterungen im App Store…</string>
     <string name="keyboard_theme_tweak_group">Optimierungen</string>
     <string name="delete_button">Löschen</string>
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word">Gespeichert:\u0020 <xliff:g id="word">%s</xliff:g></string>
+    <string name="added_word">Gespeichert:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="revert_added_word_question">Entfernen\?</string>
-    <string name="removed_word">Gelöscht: <xliff:g id="word">%s</xliff:g>
+    <string name="removed_word">Gelöscht: \u0020<xliff:g id="word">%s</xliff:g>
     </string>
     <string name="hint_add_to_dictionary">\u2190 Erneut berühren, um zu speichern</string>
     <string name="hint_double_tap_to_close">Drücke nochmal, um die Vorschläge zu entfernen</string>
-    <string name="hint_click_for_inline_suggestions">Verfügbare Auto-Ausfüllen Vorschläge</string>
+    <string name="hint_click_for_inline_suggestions">Verfügbare Vorschläge zur automatischen Vervollständigung</string>
     <!-- voice -->
-    <string name="voice_input_not_installed_title">Sprachpaket ist nicht installiert</string>
-    <string name="voice_input_not_installed_text">Spracheingabe ist nicht auf deinem Gerät installiert.\nDas kann einfach behoben werden: Installiere es jetzt vom Appstore.</string>
+    <string name="voice_input_not_installed_title">Spracheingabe ist nicht installiert</string>
+    <string name="voice_input_not_installed_text">Spracheingabe ist nicht auf deinem Gerät installiert.\nDas kann einfach behoben werden: Installiere es jetzt vom App Store.</string>
     <string name="voice_input_not_installed_action_install">Installieren</string>
     <string name="voice_input_not_installed_action_do_not_install">Nein</string>
     <string name="voice_input_not_voice_pack_in_market">Voice input (com.google.android.voicesearch) konnte nicht im Markt gefunden werden. Es tut uns Leid, aber die Spracheingabe wird auf diesem Gerät nicht funktionieren.</string>
@@ -59,34 +59,34 @@
     <string name="night_mode_state_summary">Derzeitiger Energiesparauslöser: \u0020%s</string>
     <string name="night_mode_dialog_title">Nachtmodus aktivieren</string>
     <string name="night_mode_type_never">Nie</string>
-    <string name="night_mode_type_follow_system">System befolgen</string>
+    <string name="night_mode_type_follow_system">Systemeinstellung folgen</string>
     <string name="night_mode_type_always">Immer</string>
-    <string name="night_mode_app_night_theme">App Einstellungen abdunkeln</string>
+    <string name="night_mode_app_night_theme">App-Einstellungen abdunkeln</string>
     <string name="night_mode_darken_keyboard_theme">Tastaturdesign verdunkeln</string>
     <string name="night_mode_sound_control">Eingabetöne deaktivieren</string>
     <string name="night_mode_vibration_control">Deaktiviere Tastendruckvibrationen</string>
     <string name="power_save_mode_screen">Energiespareinstellungen</string>
-    <string name="power_save_mode_description">Der Energiesparmodus reduziert den Energieverbrauch von AnySoftKeyboard, indem Funktionen deaktiviert werden:</string>
+    <string name="power_save_mode_description">Der Energiesparmodus reduziert den Energieverbrauch von AnySoftKeyboard, indem diese Funktionen deaktiviert werden:</string>
     <string name="power_save_mode_state_summary">Derzeitiger Energiesparauslöser: \u0020%s</string>
-    <string name="power_save_mode_dialog_title">Aktiviere Energiesparmodus</string>
+    <string name="power_save_mode_dialog_title">Energiesparmodus aktivieren</string>
     <string name="power_save_mode_types_never">Nie</string>
     <string name="power_save_mode_types_lower_battery">Bei schwachem Akku</string>
     <string name="power_save_mode_types_always">Immer</string>
     <string name="power_saving_keyboard_theme_name">Energiesparmodusdesign</string>
-    <string name="power_saving_keyboard_theme_description">Dunkle Farben, simples Layout, welches weniger Energie vom Gerät verbraucht.</string>
+    <string name="power_saving_keyboard_theme_description">Dunkle Farben, simples Layout, das weniger Energie vom Gerät verbraucht.</string>
     <string name="power_save_mode_animation_control">Deaktiviere Animationen und Tastenvorschau</string>
     <string name="power_save_mode_sound_control">Deaktiviere Tastenanschlagstöne</string>
     <string name="power_save_mode_vibration_control">Deaktiviere Tastendruckvibrationen</string>
     <string name="power_save_mode_suggestions_control">Deaktiviere Wortvorschläge</string>
-    <string name="power_save_mode_gesture_typing_control">Deaktiviere Gestentippen</string>
-    <string name="power_save_mode_theme_control">Wechsele zu dunklem, einfachen Design</string>
-    <string name="pop_text_type_title">Poptext getippt von Tasten</string>
-    <string name="pop_text_type_summary">Wann das Popup einer gedrückten Taste erscheint. Derzeit:\u0020%s</string>
+    <string name="power_save_mode_gesture_typing_control">Deaktiviere Gesten-Eingabe</string>
+    <string name="power_save_mode_theme_control">Wechsle zu dunklem, einfachem Design</string>
+    <string name="pop_text_type_title">Poptext bei Eingabe</string>
+    <string name="pop_text_type_summary">Wann das Popup erscheint. Derzeit:\u0020%s</string>
     <string name="pop_text_type_dialog_title">Wähle den Poptexttyp</string>
     <string name="pop_text_type_never">Nie</string>
     <string name="pop_text_type_on_correction">Bei Wortkorrektur</string>
     <string name="pop_text_type_on_word">Bei jedem Wort</string>
-    <string name="pop_text_type_any_key">Bei jeder Taste</string>
+    <string name="pop_text_type_any_key">Bei jedem Zeichen</string>
     <string name="input_field_type_password">Passworteingabefeld</string>
     <string name="input_field_type_email">E-Mail-Eingabefeld</string>
     <string name="input_field_type_url">URL-Eingabefeld</string>
@@ -101,7 +101,7 @@
     <string name="vibrate_on_long_press_summary_on">Eine weiche Vibration, wenn lange gedrückt wird.</string>
     <string name="switch_keyboard_on_space">Leerzeichen wechselt die Tastaturen</string>
     <string name="switch_keyboard_on_space_on_summary">Wechsel von Zahlen/Symbolen zum Alphabet beim Drücken der Leertaste.</string>
-    <string name="switch_keyboard_on_space_off_summary">Wechsel nicht von Symbolen/Zahlen zu Buchstaben beim Drücken der Leertaste.</string>
+    <string name="switch_keyboard_on_space_off_summary">Nicht beim Drücken der Leertaste von Symbolen/Zahlen zu Buchstaben wechseln.</string>
     <string name="colorize_nav_bar_title">Anzeige hinter der Navigationsleiste</string>
     <string name="colorize_nav_bar_summary_on">Zeichne den Tastaturhintergrund hinter der Navigationsleiste. Dies wird nicht von allen Geräten unterstützt.</string>
     <string name="colorize_nav_bar_summary_off">Keine Anzeige hinter der Navigationsleiste.</string>
@@ -110,10 +110,10 @@
     <string name="persistent_layout_per_package_id_on_summary">Automatischer Wechsel zum vorherigen Layout, das in der App genutzt wurde.</string>
     <string name="one_shot_quick_text_popup">Nach Tastendruck automatisch schließen</string>
     <string name="one_shot_quick_text_popup_on_summary">Schließe Quick-Text-Popup nach Tastendruck.</string>
-    <string name="one_shot_quick_text_popup_off_summary">Quick-Text-Popup geöffnet halten bis die Schließentaste gedrückt wird.</string>
+    <string name="one_shot_quick_text_popup_off_summary">Quick-Text-Popup geöffnet halten bis die Schließen-Taste gedrückt wird.</string>
     <string name="quick_text_tags_search">Emojis bei Eingabe von Schlagwörtern vorschlagen</string>
-    <string name="quick_text_tags_search_on_summary">Suche Emojis durch ein Schlagwort, wenn die Eingabe mit einem Doppelpunkt beginnt (:)</string>
-    <string name="hide_soft_when_physical">Bildschirmtastatur ausblenden bei echter Tastatur</string>
+    <string name="quick_text_tags_search_on_summary">Suche Emojis mit Schlagwörtern, wenn die Eingabe mit einem Doppelpunkt beginnt</string>
+    <string name="hide_soft_when_physical">Bildschirmtastatur ausblenden bei physischer Tastatur</string>
     <string name="hide_soft_when_physical_on_summary">Blendet die Bildschirmtastatur aus, wenn eine Hardware-Tastatur verwendet wird</string>
     <string name="hide_soft_when_physical_off_summary">Zeige die Bildschirmtastatur, wenn eine Hardware-Tastatur verwendet wird</string>
     <string name="enable_alt_space_language_shortcut">Alt + Leertaste wechselt die Sprache</string>
@@ -124,10 +124,10 @@
     <string name="enable_shift_space_language_shortcut_off_summary">Hardware Shift + Leertaste fügt ein Leerzeichen ein.</string>
     <string name="fullscreen_input_connection_supported">Benutze Vollbildeditor im Querformat</string>
     <string name="fullscreen_input_connection_supported_on_summary">Übernimm den Bildschirm, wenn Text im Querformat eingegeben wird</string>
-    <string name="fullscreen_input_connection_supported_off_summary">Keine Vollbildeingabe im Querformat verwenden</string>
+    <string name="fullscreen_input_connection_supported_off_summary">Vollbildeditor im Querformat nicht verwenden</string>
     <string name="fullscreen_portrait_input_connection_supported">Benutze Vollbildeditor im Hochformat</string>
     <string name="fullscreen_portrait_input_connection_supported_on_summary">Übernimm den Bildschirm, wenn Text im Hochformat eingegeben wird</string>
-    <string name="fullscreen_portrait_input_connection_supported_off_summary">Verwende nicht den Vollbildeditor im Hochformat</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Vollbildeditor im Hochformat nicht verwenden</string>
     <string name="backword_support">Wort löschen-Unterstützung</string>
     <string name="backword_support_on_summary">Umschalt + Rücktaste löscht letztes Wort</string>
     <string name="backword_support_off_summary">Umschalt + Rücktaste löscht letztes Zeichen</string>
@@ -151,24 +151,24 @@
     <string name="swipe_right_space_bar_action_title">Aktion wählen für das Wischen nach rechts von der Leertaste</string>
     <string name="swipe_left_space_bar_action">Von Leertaste nach links wischen</string>
     <string name="swipe_left_space_bar_action_summary">Definiere die Aktion der Wischgeste von der Leertaste nach links. Derzeit %s</string>
-    <string name="swipe_left_space_bar_action_title">Aktion wählen für das Wischen von der Leertaste nach links</string>
+    <string name="swipe_left_space_bar_action_title">Aktion wählen für das Wischen nach links von der Leertaste</string>
     <string name="swipe_left_two_fingers_action">Zweifingerwischen nach links</string>
     <string name="swipe_left_two_fingers_action_summary">Definiere die Aktion der Zweifingerwischgeste nach links. Derzeit %s</string>
     <string name="swipe_right_two_fingers_action">Zweifingerwischen nach rechts</string>
     <string name="swipe_right_two_fingers_action_summary">Definiere die Aktion der Zweifingerwischgeste nach rechts. Derzeit %s</string>
     <string name="swipe_right_two_fingers_action_title">Aktion wählen für das Zweifingerwischen nach rechts</string>
     <string name="pinch_gesture_action">Zusammenschiebenwischgeste</string>
-    <string name="pinch_gesture_action_title">Wähle die Aktion der Zusammenschiebenwischgeste</string>
-    <string name="pinch_gesture_action_summary">Definiere die Aktion der Zusammenschiebenwischgeste. Derzeit %s</string>
-    <string name="separate_gesture_action">Auseinanderziehenwischgeste</string>
-    <string name="separate_gesture_action_title">Wähle die Aktion der Auseinanderziehenwischgeste</string>
-    <string name="separate_gesture_action_summary">Definiere die Aktion der Auseinanderziehenwischgeste. Derzeit %s</string>
+    <string name="pinch_gesture_action_title">Wähle die Aktion der Zusammenschieben-Geste</string>
+    <string name="pinch_gesture_action_summary">Definiere die Aktion der Zusammenschieben-Geste. Derzeit %s</string>
+    <string name="separate_gesture_action">Auseinanderziehen-Geste</string>
+    <string name="separate_gesture_action_title">Wähle die Aktion der Auseinanderziehen-Geste</string>
+    <string name="separate_gesture_action_summary">Definiere die Aktion der Auseinanderziehen-Geste. Derzeit %s</string>
     <string name="swipe_action_name_none">Keine Aktion</string>
     <string name="swipe_action_name_next_alphabet">Nächste Buchstabentastatur</string>
     <string name="swipe_action_name_next_symbols">Nächste Symboltastatur</string>
     <string name="swipe_action_name_next_inside_mode">Weiter im aktuellen Modus</string>
-    <string name="swipe_action_name_cycle_keyboards">Blättere durch alle Tastaturen</string>
-    <string name="swipe_action_name_reverse_cycle_keyboards">Rückwärts alle Tastaturen durchblättern</string>
+    <string name="swipe_action_name_cycle_keyboards">Durchlauf aller Tastaturen</string>
+    <string name="swipe_action_name_reverse_cycle_keyboards">Rückwärts alle Tastaturen durchlaufen</string>
     <string name="swipe_action_name_shift">Umschalttaste</string>
     <string name="swipe_action_name_space">Leerzeichen</string>
     <string name="swipe_action_name_hide">Tastatur ausblenden</string>
@@ -634,6 +634,7 @@
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Layouts dürfen generische Zeilen überschreiben.</string>
     <string name="gesture_typing_settings">Gestentippen ➿</string>
     <string name="gesture_typing_summary">Gib ein Wort ein, indem dein Finger über die Buchstaben gleitet.</string>
+    <string name="gesture_typing_disabled_low_ram">Auf Geräten mit geringem Arbeitsspeicher ist die Gesteneingabe deaktiviert, um eine reibungslose Eingabe zu gewährleisten.</string>
     <string name="gesture_typing_action">Aktiviere Gestentippen [BETA]</string>
     <string name="gesture_typing_alert_title">BETA Funktion!</string>
     <string name="gesture_typing_alert_message">Die Funktion Gestentippen ➿ ist im <b>Beta</b>-Status. Es hat einige Fehler, ist nicht so schnell und nicht vollständig.\nKurz gesagt, du solltest es ausprobieren.</string>
@@ -657,4 +658,7 @@
     <string name="wizard_allow_notification_permission">Benachrichtigungen von AnySoftKeyboard zulassen</string>
     <string name="setup_wizard_step_notification_permissions_details">In seltenen Fällen (z. B. bei App-Abstürzen) müssen wir eine Gerätebenachrichtigung anzeigen. Dies wird empfohlen, aber das Deaktivieren davon wird das Verhalten dieser App nicht beeinträchtigen.</string>
     <string name="wizard_skip_notification_permission">Benachrichtigungen nicht zulassen</string>
+    <string name="touch_trajectory_correction_title">Korrektur der Touch-Spurführung</string>
+    <string name="touch_trajectory_correction_summary_on">Die Genauigkeit beim Tippen verbessern, indem beim schnellen Tippen die Koordinaten beim Anschlagen und Abheben der Finger kombiniert werden</string>
+    <string name="touch_trajectory_correction_summary_off">Nur auf die Koordinaten beim Abheben der Finger beziehen</string>
 </resources>
