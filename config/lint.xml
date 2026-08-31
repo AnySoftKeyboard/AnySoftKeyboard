@@ -62,6 +62,8 @@
 
     <issue id="MissingTranslation" severity="error">
         <ignore path="**/strings_do_not_translate.xml" />
+        <ignore path="**/quick_text_strings*.xml" />
+        <ignore path="**/values-*/quick_text_strings.xml" />
         <ignore path="**/layout/*.xml" />
     </issue>
 

@@ -440,26 +440,7 @@ woordenlijst
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Kies toetsenbord</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Smiley toets</string>
-    <string name="short_smiley_key_name">Kortere smileytoets</string>
-    <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Geschiedenis</string>
-    <string name="default_quick_text_key_name">Eenvoudige emoticons</string>
-    <string name="unicode_quick_text_key_name">Emoticons</string>
-    <string name="unicode_people_quick_text_key_name">Mensen</string>
-    <string name="unicode_gestures_quick_text_key_name">Gebaren</string>
-    <string name="unicode_accessories_quick_text_key_name">Accessoires</string>
-    <string name="unicode_animals_quick_text_key_name">Dieren</string>
-    <string name="unicode_food_quick_text_key_name">Voedsel</string>
-    <string name="unicode_nature_quick_text_key_name">Natuur</string>
-    <string name="unicode_transport_quick_text_key_name">Vervoer</string>
-    <string name="unicode_signs_quick_text_key_name">Tekens</string>
-    <string name="unicode_city_quick_text_key_name">Plaats</string>
-    <string name="unicode_scape_quick_text_key_name">Landschapachtergrond</string>
-    <string name="unicode_activity_quick_text_key_name">Activiteit</string>
-    <string name="unicode_office_quick_text_key_name">Kantoor</string>
-    <string name="unicode_occasions_quick_text_key_name">Gebeurtenissen</string>
-    <string name="unicode_flags_quick_text_key_name">Vlaggen</string>
     <string name="multitap_timeout_title">Multi-tap timeout</string>
     <string name="multitap_timeout_summary">Timeout tussen toetsaanslagen</string>
     <string name="settings_multitap_timeout_disabled">Uitgezet</string>

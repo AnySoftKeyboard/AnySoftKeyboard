@@ -348,7 +348,6 @@
     <string name="label_done_key">Hoàn tất</string>
     <string name="select_keyboard_popup_title">Chọn bàn phím</string>
     <!-- dictionaries -->
-    <string name="unicode_gestures_quick_text_key_name">Cử chỉ</string>
     <!-- User dictionary settings -->
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Từ điển cá nhân</string>

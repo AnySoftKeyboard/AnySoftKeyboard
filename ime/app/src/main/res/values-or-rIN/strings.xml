@@ -44,11 +44,6 @@
     <string name="label_home_key">ଗୃହ</string>
     <!-- dictionaries -->
     <string name="history_quick_text_key_name">ଇତିଵୃତ୍ତି</string>
-    <string name="unicode_gestures_quick_text_key_name">ଅଙ୍ଗଭଙ୍ଗୀ</string>
-    <string name="unicode_food_quick_text_key_name">ଖାଦ୍ୟ</string>
-    <string name="unicode_nature_quick_text_key_name">ପ୍ରକୃତି</string>
-    <string name="unicode_city_quick_text_key_name">ସହର</string>
-    <string name="unicode_activity_quick_text_key_name">ଗତିବିଧି</string>
     <!-- User dictionary settings -->
     <string name="user_dictionary_select_locale">ଭାଷା:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->

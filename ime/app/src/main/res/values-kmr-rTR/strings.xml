@@ -485,26 +485,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Klavyeya hilbijêrin</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Bişkojka bişirek</string>
-    <string name="short_smiley_key_name">Bişkojka Kurteya bişirek</string>
-    <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Dîrok</string>
-    <string name="default_quick_text_key_name">Emojîyên Hêsan</string>
-    <string name="unicode_quick_text_key_name">Emojîyên</string>
-    <string name="unicode_people_quick_text_key_name">Xelk</string>
-    <string name="unicode_gestures_quick_text_key_name">Jest</string>
-    <string name="unicode_accessories_quick_text_key_name">Amûr</string>
-    <string name="unicode_animals_quick_text_key_name">Heywanan</string>
-    <string name="unicode_food_quick_text_key_name">Xwarin</string>
-    <string name="unicode_nature_quick_text_key_name">Xweza</string>
-    <string name="unicode_transport_quick_text_key_name">Veguhastin</string>
-    <string name="unicode_signs_quick_text_key_name">Nîşaneyên</string>
-    <string name="unicode_city_quick_text_key_name">Bajar</string>
-    <string name="unicode_scape_quick_text_key_name">Revî</string>
-    <string name="unicode_activity_quick_text_key_name">Çalakî</string>
-    <string name="unicode_office_quick_text_key_name">Ofîs</string>
-    <string name="unicode_occasions_quick_text_key_name">Bûyer</string>
-    <string name="unicode_flags_quick_text_key_name">Al</string>
     <string name="multitap_timeout_title">Dema bêdem a pir-têlêdan</string>
     <string name="multitap_timeout_summary">Di navbera lêdanên mifteyan de demderbasbûn</string>
     <string name="settings_multitap_timeout_disabled">Ne çalak</string>

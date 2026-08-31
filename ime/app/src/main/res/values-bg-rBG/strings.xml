@@ -419,25 +419,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Избор на клавиатура</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Смайли клавиш</string>
-    <string name="quick_text_kaomoji">Каомоджи</string>
     <string name="history_quick_text_key_name">История</string>
-    <string name="default_quick_text_key_name">Опростени емотикони</string>
-    <string name="unicode_quick_text_key_name">Емотикони</string>
-    <string name="unicode_people_quick_text_key_name">Хора</string>
-    <string name="unicode_gestures_quick_text_key_name">Жестове</string>
-    <string name="unicode_accessories_quick_text_key_name">Аксесоари</string>
-    <string name="unicode_animals_quick_text_key_name">Животни</string>
-    <string name="unicode_food_quick_text_key_name">Храна</string>
-    <string name="unicode_nature_quick_text_key_name">Природа</string>
-    <string name="unicode_transport_quick_text_key_name">Транспорт</string>
-    <string name="unicode_signs_quick_text_key_name">Знаци</string>
-    <string name="unicode_city_quick_text_key_name">Град</string>
-    <string name="unicode_scape_quick_text_key_name">Ландшафт</string>
-    <string name="unicode_activity_quick_text_key_name">Дейност</string>
-    <string name="unicode_office_quick_text_key_name">Офис</string>
-    <string name="unicode_occasions_quick_text_key_name">Случаи</string>
-    <string name="unicode_flags_quick_text_key_name">Знамена</string>
     <string name="multitap_timeout_title">Време за изчакване при множество натискания</string>
     <string name="multitap_timeout_summary">Време за изчакване между клавишни натискания</string>
     <string name="settings_multitap_timeout_disabled">Изключено</string>
