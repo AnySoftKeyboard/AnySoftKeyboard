@@ -58,6 +58,8 @@
         <ignore path="**/strings_do_not_translate.xml" />
         <ignore path="**/layout/*.xml" />
         <ignore path="**/ime/pixel/**/res/*/*.xml" />
+        <ignore path="**/test_values.xml" />
+        <ignore path="**/src/debug/res/**/*.xml" />
     </issue>
 
     <issue id="MissingTranslation" severity="error">

@@ -28,19 +28,23 @@ if (project.plugins.hasPlugin('com.android.application') || project.plugins.hasP
 
 plugins.withId('com.android.application') {
     androidComponents.onVariants(androidComponents.selector().all()) { variant ->
-        def name = variant.name
-        def testTaskName = "test${name.capitalize()}UnitTest"
+        if (variant.unitTest != null) {
+            def name = variant.name
+            def testTaskName = "test${name.capitalize()}UnitTest"
 
-        createJacocoReportTask(testTaskName, name)
+            createJacocoReportTask(testTaskName, name)
+        }
     }
 }
 
 plugins.withId('com.android.library') {
     androidComponents.onVariants(androidComponents.selector().all()) { variant ->
-        def name = variant.name
-        def testTaskName = "test${name.capitalize()}UnitTest"
+        if (variant.unitTest != null) {
+            def name = variant.name
+            def testTaskName = "test${name.capitalize()}UnitTest"
 
-        createJacocoReportTask(testTaskName, name)
+            createJacocoReportTask(testTaskName, name)
+        }
     }
 }
 
