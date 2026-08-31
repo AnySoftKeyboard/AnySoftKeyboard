@@ -209,6 +209,10 @@ public class GeneratePackActivitySources extends DefaultTask {
   }
 
   private void createActivityJavaSourceFile() throws IOException {
+    var legacyJavaTarget = new File(getOutputSrcFolder(), "MainActivity.java");
+    if (legacyJavaTarget.exists()) {
+      legacyJavaTarget.delete();
+    }
     var srcTarget = new File(getOutputSrcFolder(), "MainActivity.kt");
     clearTargetFile(srcTarget);
 
@@ -219,6 +223,10 @@ public class GeneratePackActivitySources extends DefaultTask {
   }
 
   private void createActivityTestJavaSourceFile() throws IOException {
+    var legacyJavaTarget = new File(getOutputTestSrcFolder(), "MainActivityTest.java");
+    if (legacyJavaTarget.exists()) {
+      legacyJavaTarget.delete();
+    }
     var srcTarget = new File(getOutputTestSrcFolder(), "MainActivityTest.kt");
     clearTargetFile(srcTarget);
 
