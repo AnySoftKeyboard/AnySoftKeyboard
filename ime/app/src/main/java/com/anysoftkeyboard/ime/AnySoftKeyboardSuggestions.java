@@ -732,8 +732,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     if (!handledOutputToInputConnection) {
-      for (char c : Character.toChars(primaryCode)) {
-        sendKeyChar(c);
+      if (ic != null) {
+        // sendKeyChar's KeyEvent makes some editors re-insert the just-committed word.
+        ic.commitText(new String(Character.toChars(primaryCode)), 1);
+      } else {
+        for (char c : Character.toChars(primaryCode)) {
+          sendKeyChar(c);
+        }
       }
     }
 
@@ -1130,7 +1135,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
       // Follow it with a space
       if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {
-        sendKeyChar((char) KeyCodes.SPACE);
+        if (ic != null) {
+          ic.commitText(" ", 1);
+        } else {
+          sendKeyChar((char) KeyCodes.SPACE);
+        }
         setSpaceTimeStamp(true);
       }
       // Add the word to the auto dictionary if it's not a known word
