@@ -12,7 +12,9 @@ import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.anysoftkeyboard.addon.apk.ui.AddOnAppScreen
@@ -35,22 +37,26 @@ abstract class MainActivityBase(
 
     setContent {
       AddOnTheme {
-        Surface(
+        Scaffold(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background,
-        ) {
-          AddOnAppScreen(
-              addOnName = addOnName,
-              addOnDescription = addOnDescription,
-              addOnWebsite = addOnWebsite,
-              addOnReleaseNotes = addOnReleaseNotes,
-              screenshot = screenshot,
-              version = version,
-              isAskInstalled = isAnySoftKeyboardInstalled(),
-              onActionClick = { handleActionClick() },
-              onHideLauncherClick = { hideLauncherIcon() },
-              onWebsiteClick = { url -> openWebsite(url) },
-          )
+        ) { innerPadding ->
+          Surface(
+              modifier = Modifier.fillMaxSize().padding(innerPadding),
+              color = MaterialTheme.colorScheme.background,
+          ) {
+            AddOnAppScreen(
+                addOnName = addOnName,
+                addOnDescription = addOnDescription,
+                addOnWebsite = addOnWebsite,
+                addOnReleaseNotes = addOnReleaseNotes,
+                screenshot = screenshot,
+                version = version,
+                isAskInstalled = isAnySoftKeyboardInstalled(),
+                onActionClick = { handleActionClick() },
+                onHideLauncherClick = { hideLauncherIcon() },
+                onWebsiteClick = { url -> openWebsite(url) },
+            )
+          }
         }
       }
     }
