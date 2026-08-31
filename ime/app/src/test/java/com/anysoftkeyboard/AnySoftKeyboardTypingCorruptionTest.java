@@ -110,12 +110,6 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
     return "\"" + s.toString().replace("\n", "\\n") + "\"";
   }
 
-  private void dumpTraceOnFailure(String scenario) {
-    System.out.println("---- TRACE: " + scenario + " ----");
-    for (String line : mTrace) System.out.println(line);
-    System.out.println("---- END TRACE ----");
-  }
-
   private void typeChars(String s) {
     for (char c : s.toCharArray()) {
       mark("key '" + c + "'");
@@ -138,14 +132,7 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
 
   private void assertEditorText(String scenario, String expected) {
     String actual = mIc.getCurrentTextInInputConnection();
-    if (!expected.equals(actual)) {
-      dumpTraceOnFailure(scenario);
-      Assert.fail(
-          "scenario=" + scenario + " expected=" + quote(expected) + " actual=" + quote(actual));
-    } else {
-      // Even on pass, dump the trace so we can see what ASK emitted.
-      dumpTraceOnFailure(scenario + " (PASS)");
-    }
+    Assert.assertEquals("scenario=" + scenario, expected, actual);
   }
 
   @Test
@@ -214,7 +201,6 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
   @Test
   public void j_digit_separator_uses_commitText_not_sendKeyEvent() {
     typeChars("k8s");
-    dumpTraceOnFailure("k8s trace check");
     Assert.assertEquals(
         "digit separator '8' must be committed via commitText",
         1L,
@@ -229,7 +215,6 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
   public void k_enter_as_newline_uses_commitText_not_sendKeyEvent() {
     typeChars("hello");
     pressEnter();
-    dumpTraceOnFailure("hello+ENTER trace check");
     Assert.assertEquals(
         "ENTER-as-newline must be committed via commitText(\"\\n\", 1)",
         1L,
@@ -259,7 +244,6 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
     typeChars("hello");
     pressEnter();
 
-    dumpTraceOnFailure("hello+ENTER with IME_ACTION_SEND");
     Assert.assertEquals(
         "ENTER with IME_ACTION_SEND must call performEditorAction",
         1L,
@@ -276,7 +260,6 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
     mTrace.clear();
     mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hello", true);
 
-    dumpTraceOnFailure("pickSuggestionManually auto-space check");
     Assert.assertEquals(
         "auto-space after suggestion pick must be committed via commitText(\" \", 1)",
         1L,
