@@ -44,6 +44,12 @@ android {
     }
 }
 
+androidComponents {
+    beforeVariants(selector().withBuildType("allAddOns")) { variantBuilder ->
+        variantBuilder.enableUnitTest = true
+    }
+}
+
 //adding TESTING_BUILD
 android {
     buildFeatures {
