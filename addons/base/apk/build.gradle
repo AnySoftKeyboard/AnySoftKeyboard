@@ -2,20 +2,32 @@ apply plugin: 'com.android.library'
 
 apply from: "${rootDir}/gradle/android_general.gradle"
 apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 dependencies {
     implementation project(path: ':api')
     api libs.androidx.appcompat
     api libs.material
-    implementation libs.androidx.constraintlayout
     implementation project(path: ':ime:pixel')
 
+    api platform(libs.androidx.compose.bom)
+    api libs.androidx.activity.compose
+    api libs.androidx.compose.ui
+    api libs.androidx.compose.ui.graphics
+    api libs.androidx.compose.ui.tooling.preview
+    api libs.androidx.compose.material3
+
+    debugImplementation libs.androidx.compose.ui.tooling
+    debugImplementation libs.androidx.compose.ui.test.manifest
+
     testImplementation project(path: ':ime:base-test')
+    testImplementation platform(libs.androidx.compose.bom)
+    testImplementation libs.androidx.compose.ui.test.junit4
 }
 
 android {
     namespace 'com.anysoftkeyboard.addon.base.apk'
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        compose = true
     }
 }

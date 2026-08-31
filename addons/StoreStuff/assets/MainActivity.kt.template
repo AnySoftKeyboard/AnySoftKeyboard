@@ -1,0 +1,12 @@
+package {{PACKAGE}}
+
+import com.anysoftkeyboard.addon.apk.MainActivityBase
+
+class MainActivity :
+    MainActivityBase(
+        R.string.app_name,
+        R.string.app_description,
+        R.string.app_web_site,
+        R.string.app_release_notes,
+        R.drawable.screenshot,
+    )
