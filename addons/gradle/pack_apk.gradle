@@ -32,7 +32,6 @@ def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
 
 dependencies {
     implementation project(path: ':addons:base:apk')
-    implementation libs.androidx.multidex
 
     implementation platform(libs.androidx.compose.bom)
     implementation libs.androidx.activity.compose
@@ -54,10 +53,6 @@ def manifestPath = "${buildDir.absolutePath}/generated/AndroidManifest.xml"
 android {
     buildFeatures {
         compose true
-    }
-
-    defaultConfig {
-        multiDexEnabled true
     }
 
     buildTypes {
