@@ -77,6 +77,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
   private int mExtraBottomOffset;
   private int mWatermarkEdgeX = 0;
   private long mExtensionKeyboardAreaEntranceTime = -1;
+  private boolean mDismissTriggeredByCurrentTouch;
 
   public AnyKeyboardView(Context context, AttributeSet attrs) {
     this(context, attrs, 0);
@@ -255,6 +256,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
     if (action == MotionEvent.ACTION_DOWN) {
       mGestureTypingPathShouldBeDrawn = false;
+      mDismissTriggeredByCurrentTouch = false;
 
       mFirstTouchPoint.x = (int) me.getX();
       mFirstTouchPoint.y = (int) me.getY();
@@ -265,8 +267,16 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
     }
 
     // If the motion event is outside (up or down) the keyboard and it's a MOVE event
-    // coming even before the first MOVE event into the extension/bottom area
-    if (action == MotionEvent.ACTION_MOVE && me.getY() > mDismissYValue) {
+    // coming even before the first MOVE event into the extension/bottom area.
+    // The touch must have started on the keyboard itself (at or above the dismiss
+    // line): touches starting in the bottom system-padding area are taps on dead
+    // space, not swipe-down-to-hide gestures. Only fire once per touch, since a
+    // single swipe generates many MOVE events.
+    if (action == MotionEvent.ACTION_MOVE
+        && !mDismissTriggeredByCurrentTouch
+        && me.getY() > mDismissYValue
+        && mFirstTouchPoint.y <= mDismissYValue) {
+      mDismissTriggeredByCurrentTouch = true;
       MotionEvent cancel =
           MotionEvent.obtain(
               me.getDownTime(),
