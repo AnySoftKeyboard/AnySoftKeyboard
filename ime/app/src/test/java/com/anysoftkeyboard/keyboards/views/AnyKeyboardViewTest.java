@@ -812,6 +812,62 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
   }
 
   @Test
+  public void testTapInBottomPaddingDoesNotSwipeDown() {
+    // simulates the colorized nav-bar bottom padding: touches entirely below the
+    // keyboard must not be treated as swipe-down-to-hide.
+    mViewUnderTest.setBottomOffset(300);
+    final int keyboardHeight = mEnglishKeyboard.getHeight();
+    final int x = mViewUnderTest.getThemedKeyboardDimens().getKeyboardMaxWidth() / 2;
+    final int y = mViewUnderTest.getPaddingTop() + keyboardHeight + 100;
+
+    final long downTime = 1000;
+    MotionEvent down = MotionEvent.obtain(downTime, downTime, MotionEvent.ACTION_DOWN, x, y, 0);
+    mViewUnderTest.onTouchEvent(down);
+    down.recycle();
+    for (int i = 1; i <= 4; i++) {
+      MotionEvent move =
+          MotionEvent.obtain(downTime, downTime + i * 150, MotionEvent.ACTION_MOVE, x, y, 0);
+      mViewUnderTest.onTouchEvent(move);
+      move.recycle();
+    }
+    MotionEvent up = MotionEvent.obtain(downTime, downTime + 800, MotionEvent.ACTION_UP, x, y, 0);
+    mViewUnderTest.onTouchEvent(up);
+    up.recycle();
+
+    Mockito.verify(mMockKeyboardListener, Mockito.never()).onSwipeDown();
+  }
+
+  @Test
+  public void testSwipeDownFromKeyFiresOnlyOnce() {
+    // a real swipe starting on a key and sliding into the bottom padding must
+    // trigger swipe-down exactly once, no matter how many MOVE events follow.
+    mViewUnderTest.setBottomOffset(300);
+    final Point start = getKeyCenterPoint(requireFindKey('a'));
+    final int endY = mViewUnderTest.getPaddingTop() + mEnglishKeyboard.getHeight() + 100;
+
+    final long downTime = 2000;
+    MotionEvent down =
+        MotionEvent.obtain(downTime, downTime, MotionEvent.ACTION_DOWN, start.x, start.y, 0);
+    mViewUnderTest.onTouchEvent(down);
+    down.recycle();
+    // first move leaves the key quickly (cancels long-press), the rest linger
+    // in the padding with no movement so no fling is detected.
+    final long[] moveTimes = {downTime + 50, downTime + 200, downTime + 350, downTime + 500};
+    for (long eventTime : moveTimes) {
+      MotionEvent move =
+          MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_MOVE, start.x, endY, 0);
+      mViewUnderTest.onTouchEvent(move);
+      move.recycle();
+    }
+    MotionEvent up =
+        MotionEvent.obtain(downTime, downTime + 800, MotionEvent.ACTION_UP, start.x, endY, 0);
+    mViewUnderTest.onTouchEvent(up);
+    up.recycle();
+
+    Mockito.verify(mMockKeyboardListener, Mockito.times(1)).onSwipeDown();
+  }
+
+  @Test
   public void testStaticBoundaryCheckSlowTouch() {
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_touch_trajectory_correction, true);
     AnyKeyboard.AnyKey gKey = findKey('g');
