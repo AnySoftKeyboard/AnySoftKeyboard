@@ -727,6 +727,7 @@
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Leyfa framsetningum að taka yfir almennar raðir.</string>
     <string name="gesture_typing_settings">Bendingainnsláttur ➿</string>
     <string name="gesture_typing_summary">Settu inn orð með því að renna fingri í gegnum stafi þess.</string>
+    <string name="gesture_typing_disabled_low_ram">Innsláttur með bendingum er gerður óvirkur á tækjum með lítið minni til að tryggja hnökralausan innslátt.</string>
     <string name="gesture_typing_action">Virkja bendingainnslátt [BETA]</string>
     <string name="gesture_typing_alert_title">BETA-prófunareiginleiki!</string>
     <string name="gesture_typing_alert_message">Bendingainnsláttur ➿ er í <b>beta</b>-prófunum. Hann er með ýmsa galla, er ekki nægilega hraðvirkur og er ekki fullskrifaður.\nSamt sem áður er þess virði að prófa þessa eiginleika.</string>
@@ -752,4 +753,7 @@
     <string name="wizard_allow_notification_permission">Leyfa tilkynningar frá AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">Í einstaka tilfellum (t.d. þegar forritið hrynur) þarf að birta tilkynningu á tækinu. Mælt er með því að það sé leyft, en þótt tilkynningar séu ekki leyfðar hefur það ekki áhrif á hegðun forritsins.</string>
     <string name="wizard_skip_notification_permission">Ekki leyfa tilkynningar</string>
+    <string name="touch_trajectory_correction_title">Leiðrétting snertiferils</string>
+    <string name="touch_trajectory_correction_summary_on">Bættu nákvæmni lykla með því að sameina hnit snertingar og lyftingar við hraðan innslátt</string>
+    <string name="touch_trajectory_correction_summary_off">Reiða sig einvörðungu á hnit lyftingar</string>
 </resources>

@@ -12,5 +12,7 @@
     <string name="open_ask_in_vending">Fara í Play Store hugbúnaðarsafnið</string>
     <string name="ask_installed">AnySoftKeyboard er uppsett. Þú gætir þurft að stilla það til að geta farið að nota þennan aukapakka.</string>
     <string name="open_ask_main_settings">Opna AnySoftKeyboard</string>
+    <string name="hide_launcher_icon_action">Fela tákn af ræsi</string>
+    <string name="launcher_icon_hidden_toast">Tákn viðbótar á ræsi falið.</string>
     <string name="test_add_on_description">Þetta er prófun á lýsingu viðbótar, það má vera hvað sem er</string>
 </resources>
