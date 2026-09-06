@@ -28,6 +28,7 @@ Thank you for the fine contributors:
 1. [mirfatif](https://github.com/mirfatif) (9)
 1. [asl97](https://github.com/asl97) (8)
 1. [bjpardal](https://github.com/bjpardal) (8)
+1. [jeffangelion](https://github.com/jeffangelion) (8)
 1. [PFischbeck](https://github.com/PFischbeck) (8)
 1. [Aiq0](https://github.com/Aiq0) (7)
 1. [azzamsa](https://github.com/azzamsa) (7)
@@ -55,6 +56,7 @@ Thank you for the fine contributors:
 1. [asereze](https://github.com/asereze) (4)
 1. [ccoreilly](https://github.com/ccoreilly) (4)
 1. [chrbauer](https://github.com/chrbauer) (4)
+1. [dependabot](https://github.com/dependabot) (4) 🤖
 1. [friesenkiwi](https://github.com/friesenkiwi) (4)
 1. [Luan1Carlos2](https://github.com/Luan1Carlos2) (4)
 1. [PromyLOPh](https://github.com/PromyLOPh) (4)
@@ -66,7 +68,6 @@ Thank you for the fine contributors:
 1. [avently](https://github.com/avently) (3)
 1. [christofjs](https://github.com/christofjs) (3)
 1. [danielegobbetti](https://github.com/danielegobbetti) (3)
-1. [dependabot](https://github.com/dependabot) (3) 🤖
 1. [fin-w](https://github.com/fin-w) (3)
 1. [llahteinen](https://github.com/llahteinen) (3)
 1. [lubekgc](https://github.com/lubekgc) (3)
@@ -101,4 +102,3 @@ Thank you for the fine contributors:
 1. [andrewrabert](https://github.com/andrewrabert) (1)
 1. [Andy3153](https://github.com/Andy3153) (1)
 1. [Apflkuacha](https://github.com/Apflkuacha) (1)
-1. [baduhai](https://github.com/baduhai) (1)
