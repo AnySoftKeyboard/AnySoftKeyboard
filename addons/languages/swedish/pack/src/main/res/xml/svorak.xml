@@ -89,7 +89,7 @@
             android:codes="115"
             android:keyEdgeFlags="right"
             android:keyLabel="s"
-            android:popupCharacters="ßśŝšșσ" />
+            android:popupCharacters="ßśŝšșσς" />
     </Row>
 
     <Row android:keyWidth="9.09%p">

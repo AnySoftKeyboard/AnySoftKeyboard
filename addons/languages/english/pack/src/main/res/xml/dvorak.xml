@@ -26,7 +26,7 @@
         <Key android:codes="104" android:keyLabel="h" android:popupCharacters="ĥθ"/>
         <Key android:codes="116" android:keyLabel="t" android:popupCharacters="țť\u0163τ"/>
         <Key android:codes="110" android:keyLabel="n" android:popupCharacters="ñńν"/>
-        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="ßśŝšșσ" android:keyEdgeFlags="right"/>
+        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="ßśŝšșσς" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row android:keyWidth="9.09%p">

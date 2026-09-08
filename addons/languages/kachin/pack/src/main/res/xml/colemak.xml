@@ -20,7 +20,7 @@
     <Row>
         <Key android:codes="97" android:keyLabel="a" android:popupCharacters="!àáâãāäåæąăα" ask:hintLabel="!" android:keyEdgeFlags="left"/>
         <Key android:codes="114" android:keyLabel="r" android:popupCharacters="\@řŕρ" ask:hintLabel="\@"/>
-        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="#§ßśŝšșσ" ask:hintLabel="#"/>
+        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="#§ßśŝšșσς" ask:hintLabel="#"/>
         <Key android:codes="116" android:keyLabel="t" android:popupCharacters="$țť\u0163τ" ask:hintLabel="$"/>
         <Key android:codes="100" android:keyLabel="d" android:popupCharacters="%đďδ" ask:hintLabel="%"/>
         <Key android:codes="104" android:keyLabel="h" android:popupCharacters="\u0026ĥθ" ask:hintLabel="\u0026"/>
