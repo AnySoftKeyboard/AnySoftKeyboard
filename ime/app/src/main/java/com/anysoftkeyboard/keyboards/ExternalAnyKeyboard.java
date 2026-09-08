@@ -497,7 +497,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 's':
-          key.popupCharacters = "§ßśŝšșσ";
+          key.popupCharacters = "§ßśŝšșσς";
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 't':
