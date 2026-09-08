@@ -24,7 +24,7 @@ www.workmanlayout.com
 
     <Row>
         <Key android:codes="97" android:keyLabel="a" android:popupCharacters="!àáâãāäåæąăα" ask:hintLabel="!" android:keyEdgeFlags="left"/>
-        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="\@§ßśŝšșσ" ask:hintLabel="\@"/>
+        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="\@§ßśŝšșσς" ask:hintLabel="\@"/>
         <Key android:codes="104" android:keyLabel="h" android:popupCharacters="#ĥθ" ask:hintLabel="#"/>
         <Key android:codes="116" android:keyLabel="t" android:popupCharacters="$țť\u0163τ" ask:hintLabel="$"/>
         <Key android:codes="103" android:keyLabel="g" android:popupCharacters="%ĝ" ask:hintLabel="%"/>
