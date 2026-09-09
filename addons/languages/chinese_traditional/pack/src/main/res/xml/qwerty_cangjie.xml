@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Cangjie 5 (倉頡) layout: each key shows the Cangjie radical character
+    (日月金木水火土...) as the primary label and the Latin letter as the corner
+    hint. Long-press popups follow the Boshiamy convention: symbol-first, then
+    the fullwidth Latin letter, then the Boshiamy-style Bopomofo character.
+    Key codes remain ASCII letters so the radical buffer collects Latin
+    keystrokes for lookup in cangjie_radicals.
+
+    autoCap is disabled because Cangjie radicals are single-character labels;
+    when auto-cap shifts the keyboard, the keyboard view replaces single-char
+    labels with the uppercase form of the key code, which would turn 日 into
+    'A', 田 into 'W', etc. Cangjie has no concept of shift either, so there is
+    no shift key on the bottom row; the freed width goes to the radical keys.
+-->
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyWidth="10%p"
+    android:keyHeight="@integer/key_normal_height"
+    ask:autoCap="false">
+
+    <Row>
+        <Key android:codes="113" android:keyLabel="手"
+             android:popupCharacters="1ｑㄆ" ask:hintLabel="q"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="119" android:keyLabel="田"
+             android:popupCharacters="2ｗㄊ" ask:hintLabel="w"/>
+        <Key android:codes="101" android:keyLabel="水"
+             android:popupCharacters="3ｅㄍˇ" ask:hintLabel="e"/>
+        <Key android:codes="114" android:keyLabel="口"
+             android:popupCharacters="4ｒㄐˋ" ask:hintLabel="r"/>
+        <Key android:codes="116" android:keyLabel="廿"
+             android:popupCharacters="5ｔㄔ" ask:hintLabel="t"/>
+        <Key android:codes="121" android:keyLabel="卜"
+             android:popupCharacters="6ｙㄗˊ" ask:hintLabel="y"/>
+        <Key android:codes="117" android:keyLabel="山"
+             android:popupCharacters="7ｕㄧ˙" ask:hintLabel="u"/>
+        <Key android:codes="105" android:keyLabel="戈"
+             android:popupCharacters="8ｉㄚ" ask:hintLabel="i"/>
+        <Key android:codes="111" android:keyLabel="人"
+             android:popupCharacters="9ｏㄞ" ask:hintLabel="o"/>
+        <Key android:codes="112" android:keyLabel="心"
+             android:popupCharacters="0ｐㄢ" ask:hintLabel="p"
+             android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:horizontalGap="5%p" android:codes="97" android:keyLabel="日"
+             android:popupCharacters="\@ａㄇ" ask:hintLabel="a"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="115" android:keyLabel="尸" android:popupCharacters="\#ｓㄋ" ask:hintLabel="s"/>
+        <Key android:codes="100" android:keyLabel="木" android:popupCharacters="&amp;ｄㄎ" ask:hintLabel="d"/>
+        <Key android:codes="102" android:keyLabel="火" android:popupCharacters="*ｆㄑ" ask:hintLabel="f"/>
+        <Key android:codes="103" android:keyLabel="土" android:popupCharacters="-ｇㄕ" ask:hintLabel="g"/>
+        <Key android:codes="104" android:keyLabel="竹" android:popupCharacters="+ｈㄘ" ask:hintLabel="h"/>
+        <Key android:codes="106" android:keyLabel="十" android:popupCharacters="=ｊㄨ" ask:hintLabel="j"/>
+        <Key android:codes="107" android:keyLabel="大" android:popupCharacters="(ｋㄜ" ask:hintLabel="k"/>
+        <Key android:codes="108" android:keyLabel="中" android:popupCharacters=")ｌㄠㄤ" ask:hintLabel="l"
+             android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="122" android:keyLabel="重"
+             android:keyWidth="12.5%p"
+             android:popupCharacters="!%\?.,[\\]^`{|}~&lt;&gt;_ｚㄈ"
+             ask:hintLabel="z"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="120" android:keyLabel="難"
+             android:keyWidth="12.5%p"
+             android:popupCharacters="$ｘㄌ" ask:hintLabel="x"/>
+        <Key android:codes="99"  android:keyLabel="金"
+             android:keyWidth="12.5%p"
+             android:popupCharacters="&quot;ｃㄏ" ask:hintLabel="c"/>
+        <Key android:codes="118" android:keyLabel="女"
+             android:keyWidth="12.5%p"
+             android:popupCharacters="&apos;ｖㄒ" ask:hintLabel="v"/>
+        <Key android:codes="98"  android:keyLabel="月"
+             android:keyWidth="12.5%p"
+             android:popupCharacters=":ｂㄖ" ask:hintLabel="b"/>
+        <Key android:codes="110" android:keyLabel="弓"
+             android:keyWidth="12.5%p"
+             android:popupCharacters=";ｎㄙ" ask:hintLabel="n"/>
+        <Key android:codes="109" android:keyLabel="一"
+             android:keyWidth="12.5%p"
+             android:popupCharacters="/ｍㄩ" ask:hintLabel="m"/>
+        <Key android:keyWidth="12.5%p" android:codes="-5" android:keyEdgeFlags="right"
+             android:isRepeatable="true"/>
+    </Row>
+</Keyboard>

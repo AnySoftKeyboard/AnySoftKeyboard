@@ -505,8 +505,25 @@ public class KeyboardSwitcher {
       case INPUT_MODE_URL:
       default:
         mKeyboardLocked = false;
+        // Radical IMEs (Boshiamy / Cangjie / Zhuyin / …) need to stay active even in
+        // URL / email fields, users routinely type Chinese into address bars and
+        // page search boxes (Edge & Chrome flag both as TYPE_TEXT_VARIATION_URI /
+        // TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS). Without this guard we'd silently
+        // swap their CJK keyboard for the Internet (English) layout, which is the
+        // exact symptom reported by multi-IME pack users.
+        //
+        // Scoped deliberately to the CURRENTLY-SELECTED keyboard, so users who merely
+        // have a radical keyboard enabled (but are typing on, say, English) keep the
+        // stock Internet-layout behavior. One globe tap restores the radical keyboard
+        // if the field opened before the user switched to it.
+        final boolean currentIsRadicalLayout =
+            mLastSelectedKeyboardIndex >= 0
+                && mLastSelectedKeyboardIndex < mAlphabetKeyboardsCreators.length
+                && mAlphabetKeyboardsCreators[mLastSelectedKeyboardIndex] != null
+                && mAlphabetKeyboardsCreators[mLastSelectedKeyboardIndex].getHasRadicalInput();
         if ((!restarting && mInternetInputLayoutIndex >= 0)
-            && (inputModeId == INPUT_MODE_URL || inputModeId == INPUT_MODE_EMAIL)) {
+            && (inputModeId == INPUT_MODE_URL || inputModeId == INPUT_MODE_EMAIL)
+            && !currentIsRadicalLayout) {
           // starting with English, but only in non-restarting mode
           // this is a fix for issue #62
           mLastSelectedKeyboardIndex = mInternetInputLayoutIndex;

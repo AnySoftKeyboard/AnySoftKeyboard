@@ -66,6 +66,7 @@ public class KeyCodes {
   public static final int PRE_PREPARED_ABBREVIATIONS_POPUP = -150;
   public static final int PRE_PREPARED_TEXT_POPUP = -151;
   public static final int PRE_PREPARED_EMAILS_POPUP = -152;
+  public static final int HOMOPHONE_SEARCH = -153;
 
   public static final int EXTERNAL_INTEGRATION = -200;
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="chinese_traditional_homophones_array">
+        <item>@raw/chinese_homophones</item>
+    </array>
+    <array name="chinese_traditional_char_to_zhuyin_array">
+        <item>@raw/chinese_char_to_zhuyin</item>
+    </array>
+    <array name="chinese_traditional_boshiamy_char_to_radical_array">
+        <item>@raw/boshiamy_char_to_radical</item>
+    </array>
+    <!-- For Traditional keyboards: drop characters that are Simplified-only forms.
+         OpenCC STCharacters.txt has one simp char per line followed by its trad form(s). -->
+    <array name="chinese_traditional_exclude_simplified_chars_array">
+        <item>@raw/chinese_opencc_st_characters</item>
+    </array>
+    <!-- For Simplified keyboards: drop characters that are Traditional-only forms. -->
+    <array name="chinese_traditional_exclude_traditional_chars_array">
+        <item>@raw/chinese_opencc_ts_characters</item>
+    </array>
+    <!-- Per-keyboard CJK / kana codepoint whitelists used to filter both bundled and
+         user-imported (SAF) radical rows. Generated from Unihan IRG sources by
+         scripts/boshiamy_variants.py; see NOTICE.md. -->
+    <array name="chinese_traditional_trad_chars_array">
+        <item>@raw/chinese_chars_trad</item>
+    </array>
+    <array name="chinese_traditional_simp_chars_array">
+        <item>@raw/chinese_chars_simp</item>
+    </array>
+    <array name="chinese_traditional_jp_chars_array">
+        <item>@raw/chinese_chars_jp</item>
+    </array>
+    <!-- Character frequency table used to sort homophone candidates. The file
+         is a single sequence of CJK chars in descending order of common-ness. -->
+    <array name="chinese_traditional_char_frequency_array">
+        <item>@raw/chinese_char_frequency</item>
+    </array>
+</resources>

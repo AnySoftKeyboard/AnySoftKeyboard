@@ -104,4 +104,28 @@
         android:summaryOff="@string/use_contacts_dictionary_off_summary"
         android:dependency="candidates_on"/>
 
+    <androidx.preference.PreferenceCategory
+        android:key="radical_overlay_group"
+        android:title="@string/radical_overlay_group_title">
+
+        <Preference
+            android:key="@string/settings_key_radical_overlay_dir"
+            android:title="@string/radical_overlay_dir_title"
+            android:summary="@string/radical_overlay_dir_summary_default"
+            android:persistent="true"/>
+
+        <Preference
+            android:key="@string/settings_key_radical_overlay_reset"
+            android:title="@string/radical_overlay_reset_title"
+            android:summary="@string/radical_overlay_reset_summary"
+            android:persistent="false"/>
+
+        <Preference
+            android:key="@string/settings_key_radical_overlay_refresh"
+            android:title="@string/radical_overlay_refresh_title"
+            android:summary="@string/radical_overlay_refresh_summary"
+            android:persistent="false"/>
+
+    </androidx.preference.PreferenceCategory>
+
 </androidx.preference.PreferenceScreen>
