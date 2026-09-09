@@ -40,6 +40,11 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
   private static final String DEFAULT_SENTENCE_SEPARATORS = ".,!?)]:;";
   private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE =
       "physicalKeyboardMappingResId";
+  private static final String XML_HAS_RADICAL_INPUT_ATTRIBUTE = "hasRadicalInput";
+  private static final String XML_RADICAL_KEY_CHARACTERS_ATTRIBUTE = "radicalKeyCharacters";
+  private static final String XML_RADICAL_CANDIDATE_SELECTOR_KEYS_ATTRIBUTE =
+      "radicalCandidateSelectorKeys";
+  private static final String XML_ASCII_ONLY_POPUPS_ATTRIBUTE = "asciiOnlyPopups";
   private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
   public static final String PREF_ID_PREFIX = "keyboard_";
 
@@ -87,6 +92,14 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
     final int physicalTranslationResId =
         attrs.getAttributeResourceValue(
             null, XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final boolean hasRadicalInput =
+        attrs.getAttributeBooleanValue(null, XML_HAS_RADICAL_INPUT_ATTRIBUTE, false);
+    final String radicalKeyCharacters =
+        attrs.getAttributeValue(null, XML_RADICAL_KEY_CHARACTERS_ATTRIBUTE);
+    final String radicalCandidateSelectorKeys =
+        attrs.getAttributeValue(null, XML_RADICAL_CANDIDATE_SELECTOR_KEYS_ATTRIBUTE);
+    final boolean asciiOnlyPopups =
+        attrs.getAttributeBooleanValue(null, XML_ASCII_ONLY_POPUPS_ATTRIBUTE, false);
     // A keyboard is enabled by default if it is the first one (index==1)
     final boolean keyboardDefault =
         attrs.getAttributeBooleanValue(null, XML_DEFAULT_ATTRIBUTE, sortIndex == 1);
@@ -131,6 +144,10 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
           description,
           isHidden,
           sortIndex,
+          hasRadicalInput,
+          radicalKeyCharacters,
+          radicalCandidateSelectorKeys,
+          asciiOnlyPopups,
           keyboardDefault);
     }
   }

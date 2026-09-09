@@ -311,6 +311,20 @@
     <string name="use_contacts_dictionary">Contacts dictionary</string>
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
     <string name="use_contacts_dictionary_off_summary"/>
+    <string name="radical_overlay_group_title">Chinese Traditional radical input (advanced)</string>
+    <string name="radical_overlay_dir_title">Choose radical table folder</string>
+    <string name="radical_overlay_dir_summary_default">Using default folder (app-private external storage). Tap to pick a custom folder you can edit with any file manager.</string>
+    <string name="radical_overlay_dir_summary_picked">Using folder: %1$s. Tap to choose a different folder.</string>
+    <string name="radical_overlay_dir_summary_lost">Selected folder is no longer accessible. Tap to choose again.</string>
+    <string name="radical_overlay_reset_title">Reset to default folder</string>
+    <string name="radical_overlay_reset_summary">Stops using the picked folder; reverts to the default app-private external folder.</string>
+    <string name="radical_overlay_refresh_title">Refresh imported radical tables</string>
+    <string name="radical_overlay_refresh_summary">Re-reads the picked folder. Tap after pushing new .tab / .liu files. Changes apply on the next keyboard switch.</string>
+    <string name="radical_overlay_toast_picked">Using radical tables from %1$s. Switch keyboards once to apply.</string>
+    <string name="radical_overlay_toast_pick_failed">Could not save folder selection: %1$s</string>
+    <string name="radical_overlay_toast_no_tables">No radical tables found in %1$s. Keeping the built-in tables. Pick a folder containing liu-uni*.tab, main.tab or liu.box.</string>
+    <string name="radical_overlay_toast_reset">Reverted to default radical table folder. Switch keyboards once to apply.</string>
+    <string name="radical_overlay_toast_refreshed">Radical tables will reload on the next keyboard switch.</string>
     <string name="tweaks_group">Tweaks</string>
     <string name="tweak_sound_group">Sound related tweaks</string>
     <string name="tweak_physical_keyboard_group">Physical keyboard tweaks</string>
@@ -956,4 +970,8 @@
     <string name="touch_trajectory_correction_title">Touch trajectory correction</string>
     <string name="touch_trajectory_correction_summary_on">Improve key accuracy by combining touch-down and lift-off coordinates during fast typing</string>
     <string name="touch_trajectory_correction_summary_off">Rely strictly on touch lift-off coordinates</string>
+    <string name="homophone_search_hint">Homophone search: type a character</string>
+    <string name="homophone_search_hint_zh_tw">同音字查詢：請輸入一個字</string>
+    <string name="homophone_search_hint_zh_cn">同音字查询：请输入一个字</string>
+    <string name="homophone_search_hint_ja">同音字検索：文字を入力してください</string>
 </resources>
