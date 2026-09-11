@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Klingon keys for AnySoftKeyboard</string>
+    <string name="dictionary_name">Klingon dictionary</string>
+    
+    <string name="keyboard_name">tlhIngan quja\'</string>
+    <string name="keyboard_quja_description">Klingon layout quja\'</string>
+    
+    <string name="keyboard_name_slim">tlhIngan quja\' slim</string>
+    <string name="keyboard_quja_slim_description">Slim version of quja\'</string>
+    
+    <string name="keyboard_name_piqad">quja\' with pIqaD cover</string>
+    <string name="keyboard_quja_piqad_description">quja\', with pIqaD covers</string>
+    
+    <string name="keyboard_name_piqadu">unicode quja\' with pIqaD cover</string>
+    <string name="keyboard_quja_piqadu_description">unicode quja\', with pIqaD covers</string>
+    
+    <string name="keyboard_name_roman">quja\' with roman cover</string>
+    <string name="keyboard_quja_roman_description">quja\', with roman covers (no unicode!)</string>
+    
+    <string name="pref_name">Prefixes</string>
+    <string name="vsuff_name">Verb Suffixes</string>
+    <string name="nsuff_name">Noun Suffixes</string>
+    <string name="pref_nameu">Prefixes Unicode</string>
+    <string name="vsuff_nameu">Verb Suffixes Unicode</string>
+    <string name="nsuff_nameu">Noun Suffixes Unicode</string>
+    <string name="quick_label">tlh</string>
+    <string name="key_default_output">quja\'</string>
+    <string name="key_default_outputu"></string>
+</resources>
