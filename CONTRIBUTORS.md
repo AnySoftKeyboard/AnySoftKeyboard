@@ -37,6 +37,7 @@ Thank you for the fine contributors:
 1. [somini](https://github.com/somini) (7)
 1. [abb128](https://github.com/abb128) (6)
 1. [andrewshadura](https://github.com/andrewshadura) (6)
+1. [dependabot](https://github.com/dependabot) (6) 🤖
 1. [dotsensei](https://github.com/dotsensei) (6)
 1. [JellyWX](https://github.com/JellyWX) (6)
 1. [Jonta](https://github.com/Jonta) (6)
@@ -56,7 +57,6 @@ Thank you for the fine contributors:
 1. [asereze](https://github.com/asereze) (4)
 1. [ccoreilly](https://github.com/ccoreilly) (4)
 1. [chrbauer](https://github.com/chrbauer) (4)
-1. [dependabot](https://github.com/dependabot) (4) 🤖
 1. [friesenkiwi](https://github.com/friesenkiwi) (4)
 1. [Luan1Carlos2](https://github.com/Luan1Carlos2) (4)
 1. [PromyLOPh](https://github.com/PromyLOPh) (4)
