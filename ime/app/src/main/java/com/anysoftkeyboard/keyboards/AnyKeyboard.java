@@ -323,6 +323,57 @@ public abstract class AnyKeyboard extends Keyboard {
 
   public abstract boolean isAlphabetKeyboard();
 
+  /**
+   * Returns this keyboard's add-on as a {@link KeyboardAddOnAndBuilder}, or {@code null} if the
+   * add-on is not of that type (e.g. {@link GenericKeyboard}). Centralizes the cast that the
+   * radical-IME helpers below all need.
+   */
+  @Nullable
+  private KeyboardAddOnAndBuilder asExternalAddOn() {
+    final AddOn addOn = getKeyboardAddOn();
+    return (addOn instanceof KeyboardAddOnAndBuilder) ? (KeyboardAddOnAndBuilder) addOn : null;
+  }
+
+  /**
+   * Returns true if this keyboard's add-on declares {@code hasRadicalInput="true"} (i.e. it is a
+   * radical-based IME like Boshiamy, Cangjie, Zhuyin). Returns false for non-external keyboards
+   * (e.g. {@link GenericKeyboard}).
+   */
+  public boolean isRadicalKeyboard() {
+    final KeyboardAddOnAndBuilder addOn = asExternalAddOn();
+    return addOn != null && addOn.getHasRadicalInput();
+  }
+
+  /**
+   * Returns true if {@code primaryCode} is a key the radical-input engine should consume into the
+   * radical buffer (per the per-keyboard {@code radicalChars}/{@code radicalKeyCodeRange}
+   * configuration). Returns false for non-radical keyboards.
+   */
+  public boolean isRadicalKeyCode(int primaryCode) {
+    final KeyboardAddOnAndBuilder addOn = asExternalAddOn();
+    return addOn != null && addOn.isRadicalKeyCode(primaryCode);
+  }
+
+  /**
+   * Returns true if this keyboard's add-on declares {@code asciiOnlyPopups="true"}, in which case
+   * non-ASCII codepoints in long-press popup strings should be stripped (CJK / radical IMEs).
+   */
+  public boolean isAsciiOnlyPopups() {
+    final KeyboardAddOnAndBuilder addOn = asExternalAddOn();
+    return addOn != null && addOn.getAsciiOnlyPopups();
+  }
+
+  /**
+   * Returns the per-keyboard candidate-selector key sequence (e.g. {@code "vrsfwlcbkj"} for
+   * Boshiamy's 2nd–10th candidate picks) or {@code null} if this keyboard does not advertise the
+   * feature.
+   */
+  @Nullable
+  public String getRadicalCandidateSelectorKeys() {
+    final KeyboardAddOnAndBuilder addOn = asExternalAddOn();
+    return addOn != null ? addOn.getRadicalCandidateSelectorKeys() : null;
+  }
+
   private void fixKeyboardDueToGenericRow(
       @NonNull GenericRowKeyboard genericRowKeyboard, final boolean isTopRow) {
     final int genericRowsHeight = genericRowKeyboard.getHeight();
