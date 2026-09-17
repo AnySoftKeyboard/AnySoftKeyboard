@@ -6,19 +6,19 @@
     android:keyHeight="@integer/key_normal_height">
 
     <Row android:rowEdgeFlags="top">
-        <Key android:codes="`" ask:isShiftAlways="true" ask:shiftedKeyOutputText="~" android:popupCharacters="~" ask:hintLabel="~" android:keyWidth="4.5714285%p" android:keyEdgeFlags="left"/>
-        <Key android:codes="49" ask:isShiftAlways="true" ask:shiftedKeyOutputText="!" android:popupCharacters="!¡¹½⅓¼⅛" ask:hintLabel="!" android:keyEdgeFlags="left"/>
-        <Key android:codes="50" ask:isShiftAlways="true" ask:shiftedKeyOutputText="\@" android:popupCharacters="\@²⅔" ask:hintLabel="\@"/>
-        <Key android:codes="51" ask:isShiftAlways="true" ask:shiftedKeyOutputText="#" android:popupCharacters="#³¾⅜♥♠♦♣" ask:hintLabel="#"/>
-        <Key android:codes="52" ask:isShiftAlways="true" ask:shiftedKeyOutputText="$" android:popupCharacters="$⁴¢£€¥" ask:hintLabel="$"/>
-        <Key android:codes="53" ask:isShiftAlways="true" ask:shiftedKeyOutputText="%" android:popupCharacters="%⅝‰" ask:hintLabel="%"/>
-        <Key android:codes="54" ask:isShiftAlways="true" ask:shiftedKeyOutputText="^" android:popupCharacters="^↑↓←→" ask:hintLabel="^"/>
-        <Key android:codes="55" ask:isShiftAlways="true" ask:shiftedKeyOutputText="&amp;" android:popupCharacters="&amp;⅞♪" ask:hintLabel="&amp;"/>
-        <Key android:codes="56" ask:isShiftAlways="true" ask:shiftedKeyOutputText="*" android:popupCharacters="*‡†∞★•" ask:hintLabel="*"/>
-        <Key android:codes="57" ask:isShiftAlways="true" ask:shiftedKeyOutputText="(" android:popupCharacters="(√" ask:hintLabel="("/>
-        <Key android:codes="48" ask:isShiftAlways="true" ask:shiftedKeyOutputText=")" android:popupCharacters=")°ⁿ" ask:hintLabel=")"/>
-        <Key android:codes="-" ask:isShiftAlways="true" ask:shiftedKeyOutputText="_" android:popupCharacters="_–—" ask:hintLabel="_"/>
-        <Key android:codes="=" ask:isShiftAlways="true" ask:shiftedKeyOutputText="+" android:popupCharacters="+÷×±≠≈" ask:hintLabel="+"/>
+        <Key android:codes="`" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="~" android:popupCharacters="~" ask:hintLabel="~" android:keyWidth="4.5714285%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="49" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="!" android:popupCharacters="!¡¹½⅓¼⅛" ask:hintLabel="!" android:keyEdgeFlags="left"/>
+        <Key android:codes="50" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="\@" android:popupCharacters="\@²⅔" ask:hintLabel="\@"/>
+        <Key android:codes="51" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="#" android:popupCharacters="#³¾⅜♥♠♦♣" ask:hintLabel="#"/>
+        <Key android:codes="52" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="$" android:popupCharacters="$⁴¢£€¥" ask:hintLabel="$"/>
+        <Key android:codes="53" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="%" android:popupCharacters="%⅝‰" ask:hintLabel="%"/>
+        <Key android:codes="54" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="^" android:popupCharacters="^↑↓←→" ask:hintLabel="^"/>
+        <Key android:codes="55" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="&amp;" android:popupCharacters="&amp;⅞♪" ask:hintLabel="&amp;"/>
+        <Key android:codes="56" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="*" android:popupCharacters="*‡†∞★•" ask:hintLabel="*"/>
+        <Key android:codes="57" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="(" android:popupCharacters="(√" ask:hintLabel="("/>
+        <Key android:codes="48" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText=")" android:popupCharacters=")°ⁿ" ask:hintLabel=")"/>
+        <Key android:codes="-" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="_" android:popupCharacters="_–—" ask:hintLabel="_"/>
+        <Key android:codes="=" ask:isShiftAlways="true" ask:isShiftAlwaysWhenLocked="false" ask:shiftedKeyOutputText="+" android:popupCharacters="+÷×±≠≈" ask:hintLabel="+"/>
         <Key android:codes="-5" android:keyWidth="9.7142855%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 

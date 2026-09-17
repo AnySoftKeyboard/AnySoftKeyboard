@@ -112,8 +112,12 @@ public abstract class KeyDetector {
   public boolean isKeyShifted(@NonNull Keyboard.Key key) {
     if (mKeyboard == null) return false;
     AnyKeyboard.AnyKey anyKey = (AnyKeyboard.AnyKey) key;
+    boolean shiftCodeApplies = anyKey.isShiftCodesAlways();
+    if (mKeyboard.isShiftLocked()) {
+      shiftCodeApplies = shiftCodeApplies && anyKey.isShiftCodesAlwaysWhenLocked();
+    }
     return mKeyboard.keyboardSupportShift()
         && ((mShiftKey != null && mShiftKey.pressed)
-            || (anyKey.isShiftCodesAlways() && mKeyboard.isShifted()));
+            || (shiftCodeApplies && mKeyboard.isShifted()));
   }
 }
