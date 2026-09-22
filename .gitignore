@@ -46,6 +46,10 @@ addons/.generated_pack_version
 node_modules
 /dist
 
+#python (addon data-generation scripts)
+__pycache__/
+*.pyc
+
 # IJ Bazel Plugin
 .aswb/
 
