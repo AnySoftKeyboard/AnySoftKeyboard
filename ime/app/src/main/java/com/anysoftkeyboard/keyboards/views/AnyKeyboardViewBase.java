@@ -1051,7 +1051,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
   @VisibleForTesting
   CharSequence adjustLabelToShiftState(AnyKey key) {
     CharSequence label = key.label;
-    if (isShiftedAccordingToCaseType(mKeyboard.isShifted())) {
+    if (isShiftedAccordingToCaseType(mKeyDetector.isKeyShifted(key))) {
       if (!TextUtils.isEmpty(key.shiftedKeyLabel)) {
         return key.shiftedKeyLabel;
       } else if (key.shiftedText != null) {

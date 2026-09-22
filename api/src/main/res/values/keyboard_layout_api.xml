@@ -76,6 +76,8 @@ Copyright (C) 2013 Menny Even-Danan
         
         <!-- Should the shift code be outputted even if the shift is only active because of sticky? -->
         <attr name="isShiftAlways" format="reference|boolean"/>
+        <!-- Should the shift code be outputted when shift is locked (caps lock)? Only consulted when isShiftAlways is also true. -->
+        <attr name="isShiftAlwaysWhenLocked" format="reference|boolean"/>
 
         <attr name="shiftedCodes" format="reference|integer|string"/>
 
