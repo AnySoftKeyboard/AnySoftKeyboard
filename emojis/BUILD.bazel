@@ -25,7 +25,7 @@ java_library(
 
 # Data get be taken from https://unicode.org/Public/emoji/latest/emoji-test.txt
 # Usually will run this with:
-# bazel run //emojis:emoji_generator -- "$PWD/emojis/data/emoji-test.txt" "$PWD/ime/app/src/main/res/xml-v35"
+# bazel run //emojis:emoji_generator -- "$PWD/emojis/data/emoji-test.txt" "$PWD/ime/add_ons/quick_text/src/main/res/xml-v35"
 java_binary(
     name = "emoji_generator",
     srcs = ["EmojiLayoutsGenerator.java"],

@@ -434,26 +434,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Issèbera sa tastiera</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Tecla emoticonas</string>
-    <string name="short_smiley_key_name">Tecla emoticonas prus curtzas</string>
-    <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Cronologia</string>
-    <string name="default_quick_text_key_name">Emoticonas sèmplitzes</string>
-    <string name="unicode_quick_text_key_name">Emoticonas</string>
-    <string name="unicode_people_quick_text_key_name">Gente</string>
-    <string name="unicode_gestures_quick_text_key_name">Gestos</string>
-    <string name="unicode_accessories_quick_text_key_name">Atzessòrios</string>
-    <string name="unicode_animals_quick_text_key_name">Animales</string>
-    <string name="unicode_food_quick_text_key_name">Màndigu</string>
-    <string name="unicode_nature_quick_text_key_name">Natura</string>
-    <string name="unicode_transport_quick_text_key_name">Trasportu</string>
-    <string name="unicode_signs_quick_text_key_name">Sinnos</string>
-    <string name="unicode_city_quick_text_key_name">Tzitade</string>
-    <string name="unicode_scape_quick_text_key_name">Paesàgiu</string>
-    <string name="unicode_activity_quick_text_key_name">Atividade</string>
-    <string name="unicode_office_quick_text_key_name">Ufìtziu</string>
-    <string name="unicode_occasions_quick_text_key_name">Ocasiones</string>
-    <string name="unicode_flags_quick_text_key_name">Banderas</string>
     <string name="multitap_timeout_title">Tempus lìmite de tocu mùltiplu</string>
     <string name="multitap_timeout_summary">Intervallu intre s\'incarcadura de sas teclas</string>
     <string name="settings_multitap_timeout_disabled">Disabilitadu</string>

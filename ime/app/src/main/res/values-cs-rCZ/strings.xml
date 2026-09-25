@@ -399,19 +399,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Vyberte klávesnici</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Klávesa smajlíku</string>
     <string name="history_quick_text_key_name">Historie</string>
-    <string name="default_quick_text_key_name">Jednoduché smajlíky</string>
-    <string name="unicode_quick_text_key_name">Smajlíci</string>
-    <string name="unicode_people_quick_text_key_name">Lidé</string>
-    <string name="unicode_gestures_quick_text_key_name">Gesta</string>
-    <string name="unicode_animals_quick_text_key_name">Zvířata</string>
-    <string name="unicode_food_quick_text_key_name">Jídlo</string>
-    <string name="unicode_nature_quick_text_key_name">Příroda</string>
-    <string name="unicode_transport_quick_text_key_name">Doprava</string>
-    <string name="unicode_city_quick_text_key_name">Město</string>
-    <string name="unicode_office_quick_text_key_name">Kancelář</string>
-    <string name="unicode_flags_quick_text_key_name">Vlajky</string>
     <string name="multitap_timeout_title">Čas vícenásobného stisknutí</string>
     <string name="multitap_timeout_summary">Časový limit mezi stisky kláves</string>
     <string name="settings_multitap_timeout_disabled">Zakázán</string>

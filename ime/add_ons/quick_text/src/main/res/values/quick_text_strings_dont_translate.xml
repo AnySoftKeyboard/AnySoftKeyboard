@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quick_text_smiley_key_label">:-)</string>
+    <string name="quick_text_short_smiley_key_label">:)</string>
+    <string name="quick_text_smiley_key_output">:-)\u0020</string>
+    <string name="quick_text_kaomoji_key_label">٩(◕‿◕｡)۶</string>
+    <string name="quick_text_kaomoji_key_output">٩(◕‿◕｡)۶\u0020</string>
+    <string name="quick_text_short_smiley_key_output">:)\u0020</string>
+    <string name="quick_text_smiley_key_unicode_output">😃</string>
+    <string name="quick_text_smiley_key_unicode_people_output">👶</string>
+    <string name="quick_text_smiley_key_unicode_gestures_output">💋</string>
+    <string name="quick_text_smiley_key_unicode_accessories_output">💄</string>
+    <string name="quick_text_smiley_key_unicode_animals_output">🐕</string>
+    <string name="quick_text_smiley_key_unicode_food_output">🍕</string>
+    <string name="quick_text_smiley_key_unicode_nature_output">🌻</string>
+    <string name="quick_text_smiley_key_unicode_transport_output">🚗</string>
+    <string name="quick_text_smiley_key_unicode_signs_output">♈</string>
+    <string name="quick_text_smiley_key_unicode_city_output">🏠</string>
+    <string name="quick_text_smiley_key_unicode_scape_output">⛰</string>
+    <string name="quick_text_smiley_key_unicode_activity_output">🏀</string>
+    <string name="quick_text_smiley_key_unicode_office_output">📊</string>
+    <string name="quick_text_smiley_key_unicode_occasions_output">🎃</string>
+    <string name="quick_text_smiley_key_unicode_flags_output">&#127937;</string>
+    <string name="settings_default_quick_text_key_id">698b8c20-19df-11e1-bddb-0800200c9a66</string>
+</resources>

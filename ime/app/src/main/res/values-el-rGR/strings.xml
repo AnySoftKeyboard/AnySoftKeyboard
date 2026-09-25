@@ -258,8 +258,6 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Επιλέξτε πληκτρολόγιο</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Πλήκτρο φατσούλας</string>
-    <string name="default_quick_text_key_name">Απλό εικονίδιο</string>
     <string name="multitap_timeout_title">Χρονικό όριο για πολλαπλό πάτημα</string>
     <string name="multitap_timeout_summary">Χρονικό όριο μεταξύ πατημάτων πλήκτρων</string>
     <string name="settings_multitap_timeout_disabled">Απενεργοποιημένο</string>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quick_text_kaomoji">কাওমোজি</string>
+    <string name="unicode_people_quick_text_key_name">মানুষ</string>
+    <string name="unicode_animals_quick_text_key_name">প্রাণি</string>
+    <string name="unicode_food_quick_text_key_name">খাদ্য</string>
+    <string name="unicode_nature_quick_text_key_name">প্রকৃতি</string>
+    <string name="unicode_signs_quick_text_key_name">চিহ্ন</string>
+    <string name="unicode_city_quick_text_key_name">শহর</string>
+    <string name="unicode_scape_quick_text_key_name">পরিবেশ</string>
+    <string name="unicode_office_quick_text_key_name">অফিস</string>
+    <string name="unicode_flags_quick_text_key_name">পতাকা</string>
+</resources>

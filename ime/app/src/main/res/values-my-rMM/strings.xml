@@ -158,7 +158,6 @@
     <string name="change_symbols_regular">၁၂၃</string>
     <string name="select_keyboard_popup_title">လက်ကွက်ပုံစံ ရွေးပါ။</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">ခံစားချက်သရုပ်ပြပုံများ</string>
     <string name="settings_multitap_timeout_disabled">ပိတ်ထားရန်</string>
     <string name="settings_multitap_timeout_faster">ပိုမြန်</string>
     <string name="settings_multitap_timeout_fast">အြမန်</string>

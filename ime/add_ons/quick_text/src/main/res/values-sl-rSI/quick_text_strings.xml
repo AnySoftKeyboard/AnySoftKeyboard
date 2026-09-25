@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">Tipka za smeške</string>
+    <string name="short_smiley_key_name">Krajša tipka za smeške</string>
+    <string name="default_quick_text_key_name">Preproste čustvene ikone</string>
+    <string name="unicode_quick_text_key_name">Čustvene ikone</string>
+    <string name="unicode_people_quick_text_key_name">Ljudje</string>
+    <string name="unicode_gestures_quick_text_key_name">Kretnje</string>
+    <string name="unicode_accessories_quick_text_key_name">Dodatki</string>
+    <string name="unicode_animals_quick_text_key_name">Živali</string>
+    <string name="unicode_food_quick_text_key_name">Hrana</string>
+    <string name="unicode_nature_quick_text_key_name">Narava</string>
+    <string name="unicode_transport_quick_text_key_name">Transport</string>
+    <string name="unicode_signs_quick_text_key_name">Znaki</string>
+    <string name="unicode_city_quick_text_key_name">Mesto</string>
+    <string name="unicode_scape_quick_text_key_name">Ubežnica</string>
+    <string name="unicode_activity_quick_text_key_name">Dejavnost</string>
+    <string name="unicode_office_quick_text_key_name">Pisarna</string>
+    <string name="unicode_occasions_quick_text_key_name">Priložnosti</string>
+    <string name="unicode_flags_quick_text_key_name">Zastavice</string>
+</resources>

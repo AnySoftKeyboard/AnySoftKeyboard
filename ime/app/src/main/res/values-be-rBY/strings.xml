@@ -434,26 +434,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Выбраць клавіятуру</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Клавіша смайлаў</string>
-    <string name="short_smiley_key_name">Кароткая клавіша смайлаў</string>
-    <string name="quick_text_kaomoji">Каомоджы</string>
     <string name="history_quick_text_key_name">Гісторыя</string>
-    <string name="default_quick_text_key_name">Простыя смайлы</string>
-    <string name="unicode_quick_text_key_name">Смайлы</string>
-    <string name="unicode_people_quick_text_key_name">Людзі</string>
-    <string name="unicode_gestures_quick_text_key_name">Жэсты</string>
-    <string name="unicode_accessories_quick_text_key_name">Аксэсуары</string>
-    <string name="unicode_animals_quick_text_key_name">Жывёлы</string>
-    <string name="unicode_food_quick_text_key_name">Ежа</string>
-    <string name="unicode_nature_quick_text_key_name">Прырода</string>
-    <string name="unicode_transport_quick_text_key_name">Транспарт</string>
-    <string name="unicode_signs_quick_text_key_name">Знакі</string>
-    <string name="unicode_city_quick_text_key_name">Горад</string>
-    <string name="unicode_scape_quick_text_key_name">Краявід</string>
-    <string name="unicode_activity_quick_text_key_name">Дзейнасць</string>
-    <string name="unicode_office_quick_text_key_name">Офіс</string>
-    <string name="unicode_occasions_quick_text_key_name">Выпадкі</string>
-    <string name="unicode_flags_quick_text_key_name">Сцягі</string>
     <string name="multitap_timeout_title">Інтэрвал мультынаціску</string>
     <string name="multitap_timeout_summary">Час чакання паміж націскамі клавішаў</string>
     <string name="settings_multitap_timeout_disabled">Адключана</string>

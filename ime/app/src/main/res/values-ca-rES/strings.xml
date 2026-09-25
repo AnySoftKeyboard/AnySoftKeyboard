@@ -449,26 +449,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Seleccioneu un teclat</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Mostra les emoticones</string>
-    <string name="short_smiley_key_name">Tecla d\'icones més curta</string>
-    <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Historial</string>
-    <string name="default_quick_text_key_name">Emoticones bàsiques</string>
-    <string name="unicode_quick_text_key_name">Emoticones</string>
-    <string name="unicode_people_quick_text_key_name">Gent</string>
-    <string name="unicode_gestures_quick_text_key_name">Gestos</string>
-    <string name="unicode_accessories_quick_text_key_name">Accessoris</string>
-    <string name="unicode_animals_quick_text_key_name">Animals</string>
-    <string name="unicode_food_quick_text_key_name">Menjar</string>
-    <string name="unicode_nature_quick_text_key_name">Natura</string>
-    <string name="unicode_transport_quick_text_key_name">Transport</string>
-    <string name="unicode_signs_quick_text_key_name">Signes</string>
-    <string name="unicode_city_quick_text_key_name">Ciutat</string>
-    <string name="unicode_scape_quick_text_key_name">Escapa</string>
-    <string name="unicode_activity_quick_text_key_name">Activitat</string>
-    <string name="unicode_office_quick_text_key_name">Oficina</string>
-    <string name="unicode_occasions_quick_text_key_name">Ocasions</string>
-    <string name="unicode_flags_quick_text_key_name">Banderes</string>
     <string name="multitap_timeout_title">Multi toc</string>
     <string name="multitap_timeout_summary">Temps d\'espera entre pulsacions</string>
     <string name="settings_multitap_timeout_disabled">Desactivat</string>

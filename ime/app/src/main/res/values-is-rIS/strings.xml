@@ -468,26 +468,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Veldu lyklaborð</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Broskallalykill</string>
-    <string name="short_smiley_key_name">Styttri broskallalykill</string>
-    <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Ferill</string>
-    <string name="default_quick_text_key_name">Einföld tjáningartákn</string>
-    <string name="unicode_quick_text_key_name">Tjáningartákn</string>
-    <string name="unicode_people_quick_text_key_name">Fólk</string>
-    <string name="unicode_gestures_quick_text_key_name">Bendingar</string>
-    <string name="unicode_accessories_quick_text_key_name">Fylgihlutir</string>
-    <string name="unicode_animals_quick_text_key_name">Dýr</string>
-    <string name="unicode_food_quick_text_key_name">Matur</string>
-    <string name="unicode_nature_quick_text_key_name">Náttúra</string>
-    <string name="unicode_transport_quick_text_key_name">Samgöngur</string>
-    <string name="unicode_signs_quick_text_key_name">Merki</string>
-    <string name="unicode_city_quick_text_key_name">Borg</string>
-    <string name="unicode_scape_quick_text_key_name">Senur</string>
-    <string name="unicode_activity_quick_text_key_name">Athafnir</string>
-    <string name="unicode_office_quick_text_key_name">Skrifstofa</string>
-    <string name="unicode_occasions_quick_text_key_name">Tilefni</string>
-    <string name="unicode_flags_quick_text_key_name">Fánar</string>
     <string name="multitap_timeout_title">Tímamörk milli margra áslátta</string>
     <string name="multitap_timeout_summary">Tímamörk á milli ásláttar lykla</string>
     <string name="settings_multitap_timeout_disabled">Óvirkt</string>
