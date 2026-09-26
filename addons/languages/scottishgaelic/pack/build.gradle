@@ -1,0 +1,8 @@
+ext.status_icon_text = "gd"
+ext.dictionaryInputPossibleCharacters = null
+ext.dictionaryInputAdditionalInnerCharacters = null
+apply from: "$rootDir/addons/gradle/language_pack_lib.gradle"
+
+android {
+    namespace 'com.anysoftkeyboard.languagepack.scottishgaelic'
+}

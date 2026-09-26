@@ -1,0 +1,10 @@
+ext.shouldBePublished = true
+ext.override_app_id = 'com.menny.anysoftkeyboard.scottishgaelic'
+apply from: "$rootDir/addons/gradle/pack_apk.gradle"
+dependencies {
+    implementation project(path: ':addons:languages:scottishgaelic:pack')
+}
+
+android {
+    namespace 'com.menny.anysoftkeyboard.scottishgaelic'
+}
