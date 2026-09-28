@@ -672,6 +672,7 @@
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permet que la disposició reemplaci files genèriques</string>
     <string name="gesture_typing_settings">Escriptura lliscant ➿</string>
     <string name="gesture_typing_summary">Inseriu text simplement lliscant el dit per les tecles.</string>
+    <string name="gesture_typing_disabled_low_ram">L\'escriptura amb gestos està deshabilitada en dispositius amb poca memòria, assegurant una escriptura fluida.</string>
     <string name="gesture_typing_action">Habilita l\'escriptura lliscant [BETA]</string>
     <string name="gesture_typing_alert_title">Característica BETA!</string>
     <string name="gesture_typing_alert_message">L\'escriptura lliscant ➿ és una característica en estat <b>beta</b>. Pot contenir algun error, tenir un rendiment lent o no estar complet.\nAixí tot, hauríeu de provar-ho.</string>
