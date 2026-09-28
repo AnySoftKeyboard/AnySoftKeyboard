@@ -12,5 +12,6 @@
     <string name="open_ask_in_vending">Vés a Play Store</string>
     <string name="ask_installed">S\'ha trobat l\'AnySoftKeyboard. Haureu de configurar-ho per utilitzar aquest complement.</string>
     <string name="open_ask_main_settings">Obre l\'AnySoftKeyboard</string>
+    <string name="hide_launcher_icon_action">Oculta la icona del llançador</string>
     <string name="test_add_on_description">Això és una descripció de prova del complement, pot ser qualsevol cosa</string>
 </resources>
