@@ -1,0 +1,1 @@
+Traditional Chinese input methods for AnySoftKeyboard. Includes Boshiamy (嘸蝦米), Cangjie 5 (倉頡), and Zhuyin (注音/Bopomofo) keyboards. Boshiamy supports Traditional Chinese, Simplified Chinese, Taiwan Simplified, and Japanese radical composition.
