@@ -51,6 +51,7 @@
     <Key android:keyLabel="&#128678;" android:keyOutputText="&#128678;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="vertical,traffic,light,vertical_traffic_light"/>
     <Key android:keyLabel="&#128721;" android:keyOutputText="&#128721;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="stop,sign,stop_sign"/>
     <Key android:keyLabel="&#128679;" android:keyOutputText="&#128679;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="construction"/>
+    <Key android:keyLabel="&#128729;" android:keyOutputText="&#128729;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lighthouse"/>
     <Key android:keyLabel="⚓" android:keyOutputText="⚓" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="anchor"/>
     <Key android:keyLabel="&#128735;" android:keyOutputText="&#128735;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ring,buoy,ring_buoy"/>
     <Key android:keyLabel="⛵" android:keyOutputText="⛵" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sailboat"/>
