@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">Клавіша смайлів</string>
+    <string name="short_smiley_key_name">Коротка кнопка смайликів</string>
+    <string name="quick_text_kaomoji">Каомодзі</string>
+    <string name="default_quick_text_key_name">Прості смайли</string>
+    <string name="unicode_quick_text_key_name">Смайлики</string>
+    <string name="unicode_people_quick_text_key_name">Люди</string>
+    <string name="unicode_gestures_quick_text_key_name">Жести</string>
+    <string name="unicode_accessories_quick_text_key_name">Аксесуари</string>
+    <string name="unicode_animals_quick_text_key_name">Тварини</string>
+    <string name="unicode_food_quick_text_key_name">Їжа</string>
+    <string name="unicode_nature_quick_text_key_name">Природа</string>
+    <string name="unicode_transport_quick_text_key_name">Транспорт</string>
+    <string name="unicode_signs_quick_text_key_name">Знаки</string>
+    <string name="unicode_city_quick_text_key_name">Місто</string>
+    <string name="unicode_scape_quick_text_key_name">Краєвид</string>
+    <string name="unicode_activity_quick_text_key_name">Діяльність</string>
+    <string name="unicode_office_quick_text_key_name">Офіс</string>
+    <string name="unicode_occasions_quick_text_key_name">Випадки</string>
+    <string name="unicode_flags_quick_text_key_name">Прапори</string>
+</resources>

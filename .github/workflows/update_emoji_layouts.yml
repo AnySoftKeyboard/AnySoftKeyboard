@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/update_emoji_layouts.yml'
       - 'emojis/**'
+      - 'gradle/libs.versions.toml'
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,8 +17,7 @@ concurrency:
 env:
   TERM: dumb
   TMPDIR: "/tmp"
-  TARGET_API: "35"
-  TARGET_FOLDER: "ime/app/src/main/res"
+  TARGET_FOLDER: "ime/add_ons/quick_text/src/main/res"
 jobs:
   emoji-update:
     runs-on: ubuntu-24.04
@@ -25,6 +25,10 @@ jobs:
       - uses: actions/checkout@v6.0.3
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - name: determine target android api level
+        run: |
+          TARGET_API=$(grep -E '^[[:space:]]*sdkTarget[[:space:]]*=' gradle/libs.versions.toml | sed -E 's/.*=[[:space:]]*"([0-9]+)".*/\1/')
+          echo "TARGET_API=${TARGET_API}" >> "${GITHUB_ENV}"
       - uses: bazel-contrib/setup-bazel@0.19.0
         with:
           bazelisk-cache: true
@@ -36,7 +40,9 @@ jobs:
         run: |
           wget -O emojis/data/emoji-test.txt https://unicode.org/Public/emoji/latest/emoji-test.txt
       - name: delete old quick-text layout
-        run: rm "${GITHUB_WORKSPACE}/${TARGET_FOLDER}/xml-v${TARGET_API}"/quick_text_unicode_*.xml
+        run: |
+          mkdir -p "${GITHUB_WORKSPACE}/${TARGET_FOLDER}/xml-v${TARGET_API}"
+          rm -f "${GITHUB_WORKSPACE}/${TARGET_FOLDER}/xml-v${TARGET_API}"/quick_text_unicode_*.xml
       - name: update emoji dictionaries
         run: bazel run //emojis:emoji_generator -- "${GITHUB_WORKSPACE}/emojis/data/emoji-test.txt" "${GITHUB_WORKSPACE}/${TARGET_FOLDER}/xml-v${TARGET_API}"
       - name: Create pull request

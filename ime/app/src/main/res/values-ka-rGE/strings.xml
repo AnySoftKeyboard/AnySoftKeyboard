@@ -495,26 +495,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">კლავიატურის არჩევა</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">ტექსტური</string>
-    <string name="short_smiley_key_name">მოკლე ტექსტური</string>
-    <string name="quick_text_kaomoji">კაომოჯი</string>
     <string name="history_quick_text_key_name">ისტორია</string>
-    <string name="default_quick_text_key_name">უბრალო სიცილაკები</string>
-    <string name="unicode_quick_text_key_name">სიცილაკები</string>
-    <string name="unicode_people_quick_text_key_name">ხალხი</string>
-    <string name="unicode_gestures_quick_text_key_name">ჟესტები</string>
-    <string name="unicode_accessories_quick_text_key_name">ნივთები</string>
-    <string name="unicode_animals_quick_text_key_name">ცხოველები</string>
-    <string name="unicode_food_quick_text_key_name">საკვები</string>
-    <string name="unicode_nature_quick_text_key_name">ბუნება</string>
-    <string name="unicode_transport_quick_text_key_name">ტრანსპორტი</string>
-    <string name="unicode_signs_quick_text_key_name">ნიშნები</string>
-    <string name="unicode_city_quick_text_key_name">ქალაქი</string>
-    <string name="unicode_scape_quick_text_key_name">ადგილები</string>
-    <string name="unicode_activity_quick_text_key_name">საქმიანობა</string>
-    <string name="unicode_office_quick_text_key_name">სამუშაო</string>
-    <string name="unicode_occasions_quick_text_key_name">საზეიმო</string>
-    <string name="unicode_flags_quick_text_key_name">დროშები</string>
     <string name="multitap_timeout_title">დაყოვნება შეხებებს შორის</string>
     <string name="multitap_timeout_summary">დაყოვნება ღილაკებზე შეხებისას</string>
     <string name="settings_multitap_timeout_disabled">გამორთული</string>

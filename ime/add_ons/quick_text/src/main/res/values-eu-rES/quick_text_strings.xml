@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simley_key_name">Aurpegieren tekla</string>
+    <string name="short_smiley_key_name">Aurpegieren tekla laburragoa</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
+    <string name="default_quick_text_key_name">Emotikono sinpleak</string>
+    <string name="unicode_quick_text_key_name">Emotikonoak</string>
+    <string name="unicode_people_quick_text_key_name">Jendea</string>
+    <string name="unicode_gestures_quick_text_key_name">Keinuak</string>
+    <string name="unicode_accessories_quick_text_key_name">Osagarriak</string>
+    <string name="unicode_animals_quick_text_key_name">Animaliak</string>
+    <string name="unicode_food_quick_text_key_name">Janaria</string>
+    <string name="unicode_nature_quick_text_key_name">Natura</string>
+    <string name="unicode_transport_quick_text_key_name">Garraioa</string>
+    <string name="unicode_signs_quick_text_key_name">Ikurrak</string>
+    <string name="unicode_city_quick_text_key_name">Hiria</string>
+    <string name="unicode_scape_quick_text_key_name">Ihes</string>
+    <string name="unicode_activity_quick_text_key_name">Jarduera</string>
+    <string name="unicode_office_quick_text_key_name">Bulegoa</string>
+    <string name="unicode_occasions_quick_text_key_name">Gertaerak</string>
+    <string name="unicode_flags_quick_text_key_name">Banderak</string>
+</resources>
