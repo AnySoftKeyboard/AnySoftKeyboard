@@ -114,6 +114,7 @@
     <Key android:keyLabel="☃️" android:keyOutputText="☃️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snowman"/>
     <Key android:keyLabel="⛄" android:keyOutputText="⛄" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snowman,without,snow,snowman_without_snow"/>
     <Key android:keyLabel="☄️" android:keyOutputText="☄️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="comet"/>
+    <Key android:keyLabel="&#129675;" android:keyOutputText="&#129675;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="meteor"/>
     <Key android:keyLabel="&#128293;" android:keyOutputText="&#128293;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fire"/>
     <Key android:keyLabel="&#128167;" android:keyOutputText="&#128167;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="droplet"/>
     <Key android:keyLabel="&#127754;" android:keyOutputText="&#127754;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="water,wave,water_wave"/>

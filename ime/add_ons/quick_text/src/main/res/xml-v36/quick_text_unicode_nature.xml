@@ -118,6 +118,7 @@
     <Key android:keyLabel="&#129450;" android:keyOutputText="&#129450;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="oyster"/>
     <Key android:keyLabel="&#128012;" android:keyOutputText="&#128012;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snail"/>
     <Key android:keyLabel="&#129419;" android:keyOutputText="&#129419;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="butterfly"/>
+    <Key android:keyLabel="&#129740;" android:keyOutputText="&#129740;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="monarch,butterfly,monarch_butterfly"/>
     <Key android:keyLabel="&#128027;" android:keyOutputText="&#128027;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bug"/>
     <Key android:keyLabel="&#128028;" android:keyOutputText="&#128028;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ant"/>
     <Key android:keyLabel="&#128029;" android:keyOutputText="&#128029;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="honeybee"/>
