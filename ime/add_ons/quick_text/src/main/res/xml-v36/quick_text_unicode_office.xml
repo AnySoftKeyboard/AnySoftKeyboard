@@ -85,6 +85,7 @@
     <Key android:keyLabel="&#128396;️" android:keyOutputText="&#128396;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="paintbrush"/>
     <Key android:keyLabel="&#128397;️" android:keyOutputText="&#128397;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crayon"/>
     <Key android:keyLabel="&#128221;" android:keyOutputText="&#128221;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="memo"/>
+    <Key android:keyLabel="&#129676;" android:keyOutputText="&#129676;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="eraser"/>
     <Key android:keyLabel="&#128188;" android:keyOutputText="&#128188;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="briefcase"/>
     <Key android:keyLabel="&#128193;" android:keyOutputText="&#128193;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="file,folder,file_folder"/>
     <Key android:keyLabel="&#128194;" android:keyOutputText="&#128194;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="open,file,folder,open_file_folder"/>
@@ -114,6 +115,7 @@
     <Key android:keyLabel="&#128272;" android:keyOutputText="&#128272;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="locked,with,key,locked_with_key"/>
     <Key android:keyLabel="&#128273;" android:keyOutputText="&#128273;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="key"/>
     <Key android:keyLabel="&#128477;️" android:keyOutputText="&#128477;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="old,key,old_key"/>
+    <Key android:keyLabel="&#129677;" android:keyOutputText="&#129677;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="net,with,handle,net_with_handle"/>
     <Key android:keyLabel="&#128296;" android:keyOutputText="&#128296;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hammer"/>
     <Key android:keyLabel="&#129683;" android:keyOutputText="&#129683;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="axe"/>
     <Key android:keyLabel="⛏️" android:keyOutputText="⛏️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pick"/>

@@ -29,6 +29,7 @@
     <Key android:keyLabel="&#127798;️" android:keyOutputText="&#127798;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,pepper,hot_pepper"/>
     <Key android:keyLabel="&#129745;" android:keyOutputText="&#129745;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bell,pepper,bell_pepper"/>
     <Key android:keyLabel="&#129362;" android:keyOutputText="&#129362;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cucumber"/>
+    <Key android:keyLabel="&#129757;" android:keyOutputText="&#129757;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pickle"/>
     <Key android:keyLabel="&#129388;" android:keyOutputText="&#129388;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="leafy,green,leafy_green"/>
     <Key android:keyLabel="&#129382;" android:keyOutputText="&#129382;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="broccoli"/>
     <Key android:keyLabel="&#129476;" android:keyOutputText="&#129476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="garlic"/>
