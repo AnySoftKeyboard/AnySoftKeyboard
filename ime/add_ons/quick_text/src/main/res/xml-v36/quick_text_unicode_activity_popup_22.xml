@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="15%p">
+  <!--Variants for 🧑‍🦯‍➡️-->
+  <Row>
+    <Key android:keyLabel="&#129489;&#127995;‍&#129455;‍➡️" android:keyOutputText="&#129489;&#127995;‍&#129455;‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:skinTones="Fitzpatrick_2"/>
+    <Key android:keyLabel="&#129489;&#127996;‍&#129455;‍➡️" android:keyOutputText="&#129489;&#127996;‍&#129455;‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:skinTones="Fitzpatrick_3"/>
+    <Key android:keyLabel="&#129489;&#127997;‍&#129455;‍➡️" android:keyOutputText="&#129489;&#127997;‍&#129455;‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:skinTones="Fitzpatrick_4"/>
+    <Key android:keyLabel="&#129489;&#127998;‍&#129455;‍➡️" android:keyOutputText="&#129489;&#127998;‍&#129455;‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:skinTones="Fitzpatrick_5"/>
+    <Key android:keyLabel="&#129489;&#127999;‍&#129455;‍➡️" android:keyOutputText="&#129489;&#127999;‍&#129455;‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:skinTones="Fitzpatrick_6"/>
+  </Row>
+</Keyboard>
