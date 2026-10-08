@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+    tools:ignore="MissingTranslation,TypographyDashes">
+    <string name="scottishgaelic_dictionary">Gàidhlig</string>
+    <string name="scottishgaelic_keyboard">Gàidhlig</string>
+    <string name="main_scottishgaelic_keyboard_id">d4e5f6a7-0000-0000-0000-0000000000cc</string>
+
+    <string-array name="scottishgaelic_initial_suggestions">
+        <item>tha</item>
+        <item>is</item>
+        <item>chan</item>
+        <item>eil</item>
+        <item>agad</item>
+        <item>mhath</item>
+        <item>,</item>
+        <item>\?</item>
+        <item>!</item>
+        <item>\'</item>
+    </string-array>
+</resources>

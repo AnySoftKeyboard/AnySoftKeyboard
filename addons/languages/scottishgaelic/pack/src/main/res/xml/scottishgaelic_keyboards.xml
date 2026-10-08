@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <Keyboard
+        nameResId="@string/scottishgaelic_keyboard"
+        iconResId="@drawable/ic_status_scottishgaelic"
+        layoutResId="@xml/qwerty_gaelic"
+        id="@string/main_scottishgaelic_keyboard_id"
+        defaultDictionaryLocale="gd"
+        description="@string/scottishgaelic_keyboard_description"
+        index="1"
+        defaultEnabled="true"
+        physicalKeyboardMappingResId="@xml/scottishgaelic_physical" />
+</Keyboards>
