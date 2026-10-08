@@ -109,7 +109,7 @@ dependencies {
     implementation project(':ime:releaseinfo')
     implementation project(':ime:addons')
     implementation project(':ime:addons:keyboard_themes')
-    implementation project(':ime:add_ons:quick_text')
+    implementation project(':ime:addons:quick_text')
     implementation project(':ime:dictionaries')
     implementation project(':ime:dictionaries:jnidictionaryv1')
     implementation project(':ime:dictionaries:jnidictionaryv2')
