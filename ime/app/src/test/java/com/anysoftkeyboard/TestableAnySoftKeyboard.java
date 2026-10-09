@@ -724,6 +724,40 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
+    public List<CharSequence> getRadicalSuggestions(WordComposer wordComposer) {
+      return mDelegate.getRadicalSuggestions(wordComposer);
+    }
+
+    @Override
+    public boolean hasRadicalDictionaries() {
+      return mDelegate.hasRadicalDictionaries();
+    }
+
+    @Override
+    @androidx.annotation.NonNull
+    public java.util.List<String> getRadicalExactMatches(
+        @androidx.annotation.NonNull String radicals) {
+      return mDelegate.getRadicalExactMatches(radicals);
+    }
+
+    @Override
+    @NonNull
+    public java.util.List<CharSequence> getHomophones(@NonNull String character) {
+      return mDelegate.getHomophones(character);
+    }
+
+    @Override
+    @androidx.annotation.Nullable
+    public String getRadicalCode(@NonNull String character) {
+      return mDelegate.getRadicalCode(character);
+    }
+
+    @Override
+    public boolean hasHomophoneData() {
+      return mDelegate.hasHomophoneData();
+    }
+
+    @Override
     public int getLastValidSuggestionIndex() {
       return mDelegate.getLastValidSuggestionIndex();
     }

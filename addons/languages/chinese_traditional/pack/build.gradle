@@ -1,0 +1,9 @@
+ext.status_icon_text = "嘸"
+
+ext.dictionaryInputPossibleCharacters = null
+ext.dictionaryInputAdditionalInnerCharacters = null
+
+// Boshiamy uses radical-based input; skip binary dictionary generation
+ext.shouldGenerateDictionary = false
+
+apply from: "$rootDir/addons/gradle/language_pack_lib.gradle"

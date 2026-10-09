@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+           xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+           tools:ignore="MissingTranslation,TypographyDashes">
+
+    <!-- Boshiamy 嘸蝦米 (Traditional, Simplified, TW-Simplified, Japanese) -->
+    <string name="chinese_traditional_boshiamy_dictionary">chinese_traditional_boshiamy</string>
+    <string name="chinese_traditional_boshiamy_dictionary_description">Boshiamy radical dictionary for Traditional Chinese</string>
+    <string name="chinese_traditional_boshiamy_keyboard">嘸蝦米 繁體</string>
+    <string name="chinese_traditional_boshiamy_keyboard_description">Boshiamy (嘸蝦米) Traditional Chinese</string>
+    <string name="chinese_traditional_boshiamy_keyboard_id">f64bc092-7aac-41a5-b5e8-4b6013c2ec6f</string>
+
+    <string name="chinese_traditional_boshiamy_simplified_dictionary">chinese_traditional_boshiamy_simplified</string>
+    <string name="chinese_traditional_boshiamy_simplified_dictionary_description">Boshiamy radical dictionary for Simplified Chinese</string>
+    <string name="chinese_traditional_boshiamy_simplified_keyboard">嘸蝦米 简体</string>
+    <string name="chinese_traditional_boshiamy_simplified_keyboard_description">Boshiamy (嘸蝦米) Simplified Chinese</string>
+    <string name="chinese_traditional_boshiamy_simplified_keyboard_id">a53bc081-6bbd-42a4-a4d7-3b5012d1ec5e</string>
+
+    <string name="chinese_traditional_boshiamy_japanese_dictionary">chinese_traditional_boshiamy_japanese</string>
+    <string name="chinese_traditional_boshiamy_japanese_dictionary_description">Boshiamy radical dictionary for Japanese</string>
+    <string name="chinese_traditional_boshiamy_japanese_keyboard">嘸蝦米 日本語</string>
+    <string name="chinese_traditional_boshiamy_japanese_keyboard_description">Boshiamy (嘸蝦米) Japanese</string>
+    <string name="chinese_traditional_boshiamy_japanese_keyboard_id">c75de203-9ddf-44c6-c6fa-5d8235f3ae8b</string>
+
+    <!-- Cangjie 倉頡 5 -->
+    <string name="chinese_traditional_cangjie_dictionary">chinese_traditional_cangjie</string>
+    <string name="chinese_traditional_cangjie_dictionary_description">Cangjie 5 radical dictionary</string>
+    <string name="chinese_traditional_cangjie_keyboard">倉頡</string>
+    <string name="chinese_traditional_cangjie_keyboard_description">Cangjie 5 (倉頡) Traditional Chinese</string>
+    <string name="chinese_traditional_cangjie_keyboard_id">d86ef314-aef0-55d7-d7fb-6e9346f4bf9c</string>
+
+    <!-- Zhuyin 注音 -->
+    <string name="chinese_traditional_zhuyin_dictionary">chinese_traditional_zhuyin</string>
+    <string name="chinese_traditional_zhuyin_dictionary_description">Zhuyin (注音) phonetic dictionary</string>
+    <string name="chinese_traditional_zhuyin_keyboard">注音</string>
+    <string name="chinese_traditional_zhuyin_keyboard_description">Zhuyin (注音) Traditional Chinese</string>
+    <string name="chinese_traditional_zhuyin_keyboard_id">e97fa425-bf01-66e8-e8ac-7fa457f5cfad</string>
+</resources>
