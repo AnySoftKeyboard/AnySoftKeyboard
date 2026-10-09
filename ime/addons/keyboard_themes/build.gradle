@@ -1,0 +1,13 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/gradle/android_general.gradle"
+
+android {
+    namespace 'com.anysoftkeyboard.addons.keyboardthemes'
+}
+
+dependencies {
+    api project(path: ':api')
+    api project(path: ':addons:base')
+    implementation project(path: ':ime:base')
+}

@@ -17,7 +17,7 @@ concurrency:
 env:
   TERM: dumb
   TMPDIR: "/tmp"
-  TARGET_FOLDER: "ime/add_ons/quick_text/src/main/res"
+  TARGET_FOLDER: "ime/addons/quick_text/src/main/res"
 jobs:
   emoji-update:
     runs-on: ubuntu-24.04
