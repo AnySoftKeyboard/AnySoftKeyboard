@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.preference.CheckBoxPreference;
@@ -34,13 +36,18 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.RadicalOverlayRepository;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.menny.android.anysoftkeyboard.R;
+import io.reactivex.Single;
+import io.reactivex.disposables.CompositeDisposable;
 import net.evendanan.pixel.UiUtils;
 
 public class DictionariesFragment extends PreferenceFragmentCompat
     implements Preference.OnPreferenceClickListener {
 
   private static final String TAG = "DictionariesFragment";
+
+  @NonNull private final CompositeDisposable mDisposable = new CompositeDisposable();
 
   private ActivityResultLauncher<Uri> mPickFolderLauncher;
 
@@ -136,36 +143,67 @@ public class DictionariesFragment extends PreferenceFragmentCompat
     }
   }
 
-  private void onFolderPicked(@Nullable Uri uri) {
+  @VisibleForTesting
+  /*package*/ void onFolderPicked(@Nullable Uri uri) {
     if (uri == null) return; // user cancelled
-    // Reject a folder we can't read anything from, otherwise the pick silently does nothing
-    // and the keyboard just keeps using the bundled tables.
-    if (!RadicalOverlayRepository.looksLikeOverlayFolder(requireContext(), uri)) {
-      Toast.makeText(
-              requireContext(),
-              getString(R.string.radical_overlay_toast_no_tables, displayNameForTreeUri(uri)),
-              Toast.LENGTH_LONG)
-          .show();
-      return;
-    }
-    try {
-      RadicalOverlayRepository.setOverlayUri(requireContext(), uri);
-    } catch (SecurityException e) {
-      Logger.w(TAG, "setOverlayUri failed for %s: %s", uri, e.getMessage());
-      Toast.makeText(
-              requireContext(),
-              getString(R.string.radical_overlay_toast_pick_failed, e.getMessage()),
-              Toast.LENGTH_LONG)
-          .show();
-      return;
-    }
-    updateRadicalOverlaySummary();
-    final String display = displayNameForTreeUri(uri);
-    Toast.makeText(
-            requireContext(),
-            getString(R.string.radical_overlay_toast_picked, display),
-            Toast.LENGTH_LONG)
-        .show();
+    final Context appContext = requireContext().getApplicationContext();
+    mDisposable.add(
+        Single.fromCallable(
+                () -> {
+                  if (!RadicalOverlayRepository.looksLikeOverlayFolder(appContext, uri)) {
+                    return FolderPickOutcome.NO_TABLES;
+                  }
+                  try {
+                    RadicalOverlayRepository.setOverlayUri(appContext, uri);
+                    return FolderPickOutcome.SUCCESS;
+                  } catch (SecurityException e) {
+                    Logger.w(TAG, "setOverlayUri failed for %s: %s", uri, e.getMessage());
+                    return FolderPickOutcome.PERMISSION_FAILED;
+                  }
+                })
+            .subscribeOn(RxSchedulers.background())
+            .observeOn(RxSchedulers.mainThread())
+            .subscribe(
+                outcome -> {
+                  if (!isAdded() || getContext() == null) return;
+                  switch (outcome) {
+                    case NO_TABLES:
+                      Toast.makeText(
+                              requireContext(),
+                              getString(
+                                  R.string.radical_overlay_toast_no_tables,
+                                  displayNameForTreeUri(uri)),
+                              Toast.LENGTH_LONG)
+                          .show();
+                      break;
+                    case PERMISSION_FAILED:
+                      Toast.makeText(
+                              requireContext(),
+                              getString(R.string.radical_overlay_toast_pick_failed, ""),
+                              Toast.LENGTH_LONG)
+                          .show();
+                      break;
+                    case SUCCESS:
+                      updateRadicalOverlaySummary();
+                      final String display = displayNameForTreeUri(uri);
+                      Toast.makeText(
+                              requireContext(),
+                              getString(R.string.radical_overlay_toast_picked, display),
+                              Toast.LENGTH_LONG)
+                          .show();
+                      break;
+                  }
+                },
+                throwable -> {
+                  if (!isAdded() || getContext() == null) return;
+                  Logger.w(TAG, "onFolderPicked failed for %s: %s", uri, throwable.getMessage());
+                  Toast.makeText(
+                          requireContext(),
+                          getString(
+                              R.string.radical_overlay_toast_pick_failed, throwable.getMessage()),
+                          Toast.LENGTH_LONG)
+                      .show();
+                }));
   }
 
   private void resetRadicalOverlayFolder() {
@@ -179,6 +217,23 @@ public class DictionariesFragment extends PreferenceFragmentCompat
     RadicalOverlayRepository.invalidateCache(requireContext());
     Toast.makeText(requireContext(), R.string.radical_overlay_toast_refreshed, Toast.LENGTH_LONG)
         .show();
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    mDisposable.dispose();
+  }
+
+  @VisibleForTesting
+  /*package*/ boolean isDisposed() {
+    return mDisposable.isDisposed();
+  }
+
+  private enum FolderPickOutcome {
+    SUCCESS,
+    NO_TABLES,
+    PERMISSION_FAILED
   }
 
   private void updateRadicalOverlaySummary() {
