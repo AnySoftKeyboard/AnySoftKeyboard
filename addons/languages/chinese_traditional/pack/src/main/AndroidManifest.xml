@@ -2,7 +2,7 @@
 
     <application>
         <receiver
-            android:name="com.anysoftkeyboard.languagepack.chinese_traditional.PackBroadcastReceiver"
+            android:name="com.anysoftkeyboard.languagepack.chinese.traditional.PackBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.menny.android.anysoftkeyboard.KEYBOARD" />

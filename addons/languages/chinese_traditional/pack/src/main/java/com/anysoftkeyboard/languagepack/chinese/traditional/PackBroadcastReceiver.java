@@ -1,7 +1,4 @@
-// CHECKSTYLE:OFF
-package com.anysoftkeyboard.languagepack.chinese_traditional;
-
-// CHECKSTYLE:ON
+package com.anysoftkeyboard.languagepack.chinese.traditional;
 
 import com.anysoftkeyboard.addon.PackBroadcastReceiverBase;
 
