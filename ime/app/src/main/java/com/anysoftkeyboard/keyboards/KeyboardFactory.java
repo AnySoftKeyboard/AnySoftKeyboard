@@ -45,6 +45,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
   private static final String XML_RADICAL_CANDIDATE_SELECTOR_KEYS_ATTRIBUTE =
       "radicalCandidateSelectorKeys";
   private static final String XML_ASCII_ONLY_POPUPS_ATTRIBUTE = "asciiOnlyPopups";
+  private static final String XML_SUPPORTS_GESTURE_TYPING_ATTRIBUTE = "supportsGestureTyping";
   private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
   public static final String PREF_ID_PREFIX = "keyboard_";
 
@@ -100,6 +101,9 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
         attrs.getAttributeValue(null, XML_RADICAL_CANDIDATE_SELECTOR_KEYS_ATTRIBUTE);
     final boolean asciiOnlyPopups =
         attrs.getAttributeBooleanValue(null, XML_ASCII_ONLY_POPUPS_ATTRIBUTE, false);
+    final boolean supportsGestureTyping =
+        attrs.getAttributeBooleanValue(
+            null, XML_SUPPORTS_GESTURE_TYPING_ATTRIBUTE, !hasRadicalInput);
     // A keyboard is enabled by default if it is the first one (index==1)
     final boolean keyboardDefault =
         attrs.getAttributeBooleanValue(null, XML_DEFAULT_ATTRIBUTE, sortIndex == 1);
@@ -148,6 +152,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
           radicalKeyCharacters,
           radicalCandidateSelectorKeys,
           asciiOnlyPopups,
+          supportsGestureTyping,
           keyboardDefault);
     }
   }

@@ -68,6 +68,10 @@ public interface Suggest {
     return false;
   }
 
+  default boolean anyActiveDictionarySupportsGestureTyping() {
+    return true;
+  }
+
   /** Returns homophones for a character (same Zhuyin pronunciation). */
   @NonNull
   default List<CharSequence> getHomophones(@NonNull String character) {

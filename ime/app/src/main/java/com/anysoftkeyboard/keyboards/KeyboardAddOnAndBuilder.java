@@ -34,6 +34,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
   private final String mRadicalKeyCharacters;
   private final String mRadicalCandidateSelectorKeys;
   private final boolean mAsciiOnlyPopups;
+  private final boolean mSupportsGestureTyping;
   private final boolean mKeyboardDefaultEnabled;
   private final Context mAskContext;
 
@@ -57,6 +58,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
       String radicalKeyCharacters,
       String radicalCandidateSelectorKeys,
       boolean asciiOnlyPopups,
+      boolean supportsGestureTyping,
       boolean keyboardDefaultEnabled) {
     super(askContext, packageContext, apiVersion, id, name, description, isHidden, keyboardIndex);
 
@@ -76,8 +78,58 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     mRadicalKeyCharacters = radicalKeyCharacters;
     mRadicalCandidateSelectorKeys = radicalCandidateSelectorKeys;
     mAsciiOnlyPopups = asciiOnlyPopups;
+    mSupportsGestureTyping = supportsGestureTyping;
     mKeyboardDefaultEnabled = keyboardDefaultEnabled;
     mAskContext = askContext;
+  }
+
+  public KeyboardAddOnAndBuilder(
+      Context askContext,
+      Context packageContext,
+      int apiVersion,
+      CharSequence id,
+      CharSequence name,
+      int layoutResId,
+      int landscapeLayoutResId,
+      String defaultDictionary,
+      int iconResId,
+      int physicalTranslationResId,
+      String additionalIsLetterExceptions,
+      String sentenceSeparators,
+      CharSequence description,
+      boolean isHidden,
+      int keyboardIndex,
+      boolean hasRadicalInput,
+      String radicalKeyCharacters,
+      String radicalCandidateSelectorKeys,
+      boolean asciiOnlyPopups,
+      boolean keyboardDefaultEnabled) {
+    this(
+        askContext,
+        packageContext,
+        apiVersion,
+        id,
+        name,
+        layoutResId,
+        landscapeLayoutResId,
+        defaultDictionary,
+        iconResId,
+        physicalTranslationResId,
+        additionalIsLetterExceptions,
+        sentenceSeparators,
+        description,
+        isHidden,
+        keyboardIndex,
+        hasRadicalInput,
+        radicalKeyCharacters,
+        radicalCandidateSelectorKeys,
+        asciiOnlyPopups,
+        !hasRadicalInput,
+        keyboardDefaultEnabled);
+  }
+
+  public boolean supportsGestureTyping() {
+    return mSupportsGestureTyping;
   }
 
   public boolean getKeyboardDefaultEnabled() {

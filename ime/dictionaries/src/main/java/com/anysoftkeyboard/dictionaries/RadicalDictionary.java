@@ -1201,6 +1201,11 @@ public class RadicalDictionary extends Dictionary {
   }
 
   @Override
+  public boolean supportsGestureTyping() {
+    return false;
+  }
+
+  @Override
   public void getLoadedWords(@NonNull GetWordsCallback callback) {
     // Radical dictionaries don't provide loaded words in the traditional sense
     callback.onGetWordsFinished(new char[0][], new int[0]);

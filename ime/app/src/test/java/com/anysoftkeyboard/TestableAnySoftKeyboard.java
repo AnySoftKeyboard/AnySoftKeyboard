@@ -215,7 +215,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                 })));
   }
 
-  // MAGIC: now it is visible for tests
   @VisibleForTesting
   @Override
   public void setIncognito(boolean enable, boolean byUser) {
@@ -503,7 +502,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
   @NonNull
   @Override
-  protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
+  public DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
       @NonNull AnyKeyboard currentAlphabetKeyboard) {
     final DictionaryBackgroundLoader.Listener dictionaryLoadedListener =
         super.getDictionaryLoadedListener(currentAlphabetKeyboard);
@@ -731,6 +730,11 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     public boolean hasRadicalDictionaries() {
       return mDelegate.hasRadicalDictionaries();
+    }
+
+    @Override
+    public boolean anyActiveDictionarySupportsGestureTyping() {
+      return mDelegate.anyActiveDictionarySupportsGestureTyping();
     }
 
     @Override

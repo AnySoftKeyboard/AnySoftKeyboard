@@ -334,6 +334,11 @@ public class SuggestImpl implements Suggest {
   }
 
   @Override
+  public boolean anyActiveDictionarySupportsGestureTyping() {
+    return mSuggestionsProvider.anyActiveDictionarySupportsGestureTyping();
+  }
+
+  @Override
   @NonNull
   public List<String> getRadicalExactMatches(@NonNull String radicals) {
     return mSuggestionsProvider.getRadicalExactMatches(radicals);

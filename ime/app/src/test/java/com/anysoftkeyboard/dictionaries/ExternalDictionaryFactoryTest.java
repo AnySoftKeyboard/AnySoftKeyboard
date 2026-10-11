@@ -59,6 +59,7 @@ public class ExternalDictionaryFactoryTest {
     Assert.assertEquals("en", enBuilder.getLanguage());
     Assert.assertTrue(enBuilder.createInitialSuggestions().size() > 0);
     Assert.assertNotNull(enBuilder.createAutoText());
+    Assert.assertTrue(enBuilder.supportsGestureTyping());
   }
 
   @Test

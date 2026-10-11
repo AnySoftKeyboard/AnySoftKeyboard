@@ -58,6 +58,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
       "splitMultiCodepointCandidates";
   private static final String XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE =
       "initialSuggestions";
+  private static final String XML_SUPPORTS_GESTURE_TYPING_ATTRIBUTE = "supportsGestureTyping";
 
   private final Map<String, DictionaryAddOnAndBuilder> mBuildersByLocale = new ArrayMap<>();
   private final RadicalOverlayCache mRadicalOverlayCache = new RadicalOverlayCache();
@@ -214,6 +215,12 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
               .splitMultiCodepointCandidates(splitMultiCodepointCandidates)
               .build();
 
+      final boolean supportsGestureTyping =
+          attrs.getAttributeBooleanValue(
+              null,
+              XML_SUPPORTS_GESTURE_TYPING_ATTRIBUTE,
+              !radicalConfig.hasRadicalDictionary());
+
       if (dictionaryResourceId == AddOn.INVALID_RES_ID) {
         return new DictionaryAddOnAndBuilder(
             askContext,
@@ -228,6 +235,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
             assets,
             autoTextResId,
             initialSuggestionsId,
+            supportsGestureTyping,
             radicalConfig);
       } else {
         return new DictionaryAddOnAndBuilder(
@@ -243,6 +251,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
             dictionaryResourceId,
             autoTextResId,
             initialSuggestionsId,
+            supportsGestureTyping,
             radicalConfig);
       }
     }

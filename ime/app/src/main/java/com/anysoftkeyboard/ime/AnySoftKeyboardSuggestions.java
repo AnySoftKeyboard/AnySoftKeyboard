@@ -1175,6 +1175,20 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     return NO_OP_DICTIONARY_LOADER_LISTENER;
   }
 
+  protected boolean anyDictionarySupportsGestureTyping(@NonNull AnyKeyboard keyboard) {
+    final List<DictionaryAddOnAndBuilder> builders =
+        AnyApplication.getExternalDictionaryFactory(this).getBuildersForKeyboard(keyboard);
+    if (builders.isEmpty()) {
+      return true;
+    }
+    for (DictionaryAddOnAndBuilder builder : builders) {
+      if (builder.supportsGestureTyping()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @Override
   protected void onOrientationChanged(int oldOrientation, int newOrientation) {
     super.onOrientationChanged(oldOrientation, newOrientation);

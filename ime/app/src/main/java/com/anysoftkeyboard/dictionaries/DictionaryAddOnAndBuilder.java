@@ -37,7 +37,43 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
   private final int mDictionaryResId;
   private final int mAutoTextResId;
   private final int mInitialSuggestionsResId;
+  private final boolean mSupportsGestureTyping;
   @NonNull private final RadicalDictionaryConfig mRadicalConfig;
+
+  /**
+   * Constructor for assets-backed dictionaries with explicit gesture typing support.
+   */
+  public DictionaryAddOnAndBuilder(
+      Context askContext,
+      Context packageContext,
+      int apiVersion,
+      CharSequence id,
+      CharSequence name,
+      CharSequence description,
+      boolean isHidden,
+      int sortIndex,
+      String dictionaryLanguage,
+      @Nullable String assetsFilename,
+      int autoTextResId,
+      int initialSuggestionsResId,
+      boolean supportsGestureTyping,
+      @NonNull RadicalDictionaryConfig radicalConfig) {
+    super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
+    mLanguage = dictionaryLanguage;
+    mAssetsFilename = assetsFilename;
+    mDictionaryResId = AddOn.INVALID_RES_ID;
+    mAutoTextResId = autoTextResId;
+    mInitialSuggestionsResId = initialSuggestionsResId;
+    mSupportsGestureTyping = supportsGestureTyping;
+    mRadicalConfig = radicalConfig;
+    if (assetsFilename == null && !radicalConfig.hasRadicalDictionary()) {
+      Logger.w(
+          TAG,
+          "Dictionary addon '%s' has neither assets nor a radical dictionary; will produce no"
+              + " suggestions.",
+          name);
+    }
+  }
 
   /**
    * Constructor for assets-backed dictionaries. {@code assetsFilename} may be {@code null} only
@@ -59,20 +95,47 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
       int autoTextResId,
       int initialSuggestionsResId,
       @NonNull RadicalDictionaryConfig radicalConfig) {
+    this(
+        askContext,
+        packageContext,
+        apiVersion,
+        id,
+        name,
+        description,
+        isHidden,
+        sortIndex,
+        dictionaryLanguage,
+        assetsFilename,
+        autoTextResId,
+        initialSuggestionsResId,
+        !radicalConfig.hasRadicalDictionary(),
+        radicalConfig);
+  }
+
+  /** Constructor for resource-backed dictionaries with explicit gesture typing support. */
+  public DictionaryAddOnAndBuilder(
+      Context askContext,
+      Context packageContext,
+      int apiVersion,
+      CharSequence id,
+      CharSequence name,
+      CharSequence description,
+      boolean isHidden,
+      int sortIndex,
+      String dictionaryLanguage,
+      int dictionaryResId,
+      int autoTextResId,
+      int initialSuggestionsResId,
+      boolean supportsGestureTyping,
+      @NonNull RadicalDictionaryConfig radicalConfig) {
     super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
     mLanguage = dictionaryLanguage;
-    mAssetsFilename = assetsFilename;
-    mDictionaryResId = AddOn.INVALID_RES_ID;
+    mAssetsFilename = null;
+    mDictionaryResId = dictionaryResId;
     mAutoTextResId = autoTextResId;
     mInitialSuggestionsResId = initialSuggestionsResId;
+    mSupportsGestureTyping = supportsGestureTyping;
     mRadicalConfig = radicalConfig;
-    if (assetsFilename == null && !radicalConfig.hasRadicalDictionary()) {
-      Logger.w(
-          TAG,
-          "Dictionary addon '%s' has neither assets nor a radical dictionary; will produce no"
-              + " suggestions.",
-          name);
-    }
   }
 
   /** Constructor for resource-backed dictionaries. */
@@ -90,13 +153,21 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
       int autoTextResId,
       int initialSuggestionsResId,
       @NonNull RadicalDictionaryConfig radicalConfig) {
-    super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
-    mLanguage = dictionaryLanguage;
-    mAssetsFilename = null;
-    mDictionaryResId = dictionaryResId;
-    mAutoTextResId = autoTextResId;
-    mInitialSuggestionsResId = initialSuggestionsResId;
-    mRadicalConfig = radicalConfig;
+    this(
+        askContext,
+        packageContext,
+        apiVersion,
+        id,
+        name,
+        description,
+        isHidden,
+        sortIndex,
+        dictionaryLanguage,
+        dictionaryResId,
+        autoTextResId,
+        initialSuggestionsResId,
+        !radicalConfig.hasRadicalDictionary(),
+        radicalConfig);
   }
 
   /**
@@ -178,6 +249,10 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 
   public boolean hasRadicalDictionary() {
     return mRadicalConfig.hasRadicalDictionary();
+  }
+
+  public boolean supportsGestureTyping() {
+    return mSupportsGestureTyping;
   }
 
   @Nullable

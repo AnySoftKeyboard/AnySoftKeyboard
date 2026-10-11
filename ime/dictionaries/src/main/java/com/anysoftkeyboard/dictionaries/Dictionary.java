@@ -1458,6 +1458,14 @@ public abstract class Dictionary {
     }
   }
 
+  /**
+   * Returns true if this dictionary provides a whole-word vocabulary suitable for gesture (swipe)
+   * typing. Defaults to true.
+   */
+  public boolean supportsGestureTyping() {
+    return true;
+  }
+
   protected abstract void loadAllResources();
 
   protected final CharSequence getDictionaryName() {

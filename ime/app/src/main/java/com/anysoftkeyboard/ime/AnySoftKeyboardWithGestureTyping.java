@@ -167,9 +167,15 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     destroyAllDetectors();
   }
 
+  private boolean isGestureTypingSupportedFor(@Nullable AnyKeyboard keyboard) {
+    return keyboard != null
+        && keyboard.supportsGestureTyping()
+        && anyDictionarySupportsGestureTyping(keyboard);
+  }
+
   private void setupGestureDetector(@NonNull AnyKeyboard keyboard) {
     mDetectorStateSubscription.dispose();
-    if (mGestureTypingEnabled) {
+    if (mGestureTypingEnabled && isGestureTypingSupportedFor(keyboard)) {
       final String key = getKeyForDetector(keyboard);
       mCurrentGestureDetector = mGestureTypingDetectors.get(key);
       if (mCurrentGestureDetector == null) {
@@ -203,6 +209,10 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     mDetectorReady = false;
                     setupInputViewWatermark();
                   });
+    } else {
+      mCurrentGestureDetector = null;
+      mDetectorReady = false;
+      setupInputViewWatermark();
     }
   }
 
@@ -345,7 +355,9 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
   @Override
   protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
       @NonNull AnyKeyboard currentAlphabetKeyboard) {
-    if (mGestureTypingEnabled && !mDetectorReady) {
+    if (mGestureTypingEnabled
+        && isGestureTypingSupportedFor(currentAlphabetKeyboard)
+        && !mDetectorReady) {
       return new WordListDictionaryListener(currentAlphabetKeyboard, this::onDictionariesLoaded);
     } else {
       return super.getDictionaryLoadedListener(currentAlphabetKeyboard);
@@ -354,7 +366,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
   private void onDictionariesLoaded(
       AnyKeyboard keyboard, List<char[][]> newWords, List<int[]> wordFrequencies) {
-    if (mGestureTypingEnabled && mCurrentGestureDetector != null) {
+    if (mGestureTypingEnabled && isGestureTypingSupportedFor(keyboard) && mCurrentGestureDetector != null) {
       // it might be null if the IME service started with enabled flag set to true. In that
       // case
       // the keyboard object will not be ready yet.
@@ -393,7 +405,10 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
   @Override
   public boolean onGestureTypingInputStart(int x, int y, AnyKeyboard.AnyKey key, long eventTime) {
     final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
-    if (mGestureTypingEnabled && currentGestureDetector != null && isValidGestureTypingStart(key)) {
+    if (mGestureTypingEnabled
+        && currentGestureDetector != null
+        && isGestureTypingSupportedFor(getCurrentAlphabetKeyboard())
+        && isValidGestureTypingStart(key)) {
       mGestureShifted = mShiftKeyState.isActive();
       // we can call this as many times as we want, it has a short-circuit check.
       confirmLastGesture(mPrefsAutoSpace);

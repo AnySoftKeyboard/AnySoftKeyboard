@@ -374,6 +374,16 @@ public abstract class AnyKeyboard extends Keyboard {
     return addOn != null ? addOn.getRadicalCandidateSelectorKeys() : null;
   }
 
+  /**
+   * Returns true if this keyboard supports gesture (swipe) typing. Defaults to true for standard
+   * alphabetic keyboards, and false for radical keyboards or keyboards that explicitly opt out.
+   */
+  public boolean supportsGestureTyping() {
+    if (!isAlphabetKeyboard()) return false;
+    final KeyboardAddOnAndBuilder addOn = asExternalAddOn();
+    return addOn == null || addOn.supportsGestureTyping();
+  }
+
   private void fixKeyboardDueToGenericRow(
       @NonNull GenericRowKeyboard genericRowKeyboard, final boolean isTopRow) {
     final int genericRowsHeight = genericRowKeyboard.getHeight();

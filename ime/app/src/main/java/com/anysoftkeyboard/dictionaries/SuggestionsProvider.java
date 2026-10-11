@@ -82,6 +82,7 @@ public class SuggestionsProvider {
   private int mCurrentSetupHashCode;
 
   @NonNull private final List<Dictionary> mMainDictionary = new ArrayList<>();
+  @NonNull private List<DictionaryAddOnAndBuilder> mCurrentDictionaryBuilders = Collections.emptyList();
   @NonNull private final List<RadicalDictionary> mRadicalDictionary = new ArrayList<>();
   @NonNull private final List<EditableDictionary> mUserDictionary = new ArrayList<>();
   @NonNull private final List<NextWordSuggestions> mUserNextWordDictionary = new ArrayList<>();
@@ -292,6 +293,7 @@ public class SuggestionsProvider {
 
     close();
 
+    mCurrentDictionaryBuilders = new ArrayList<>(dictionaryBuilders);
     mCurrentSetupHashCode = newSetupHashCode;
     final CompositeDisposable disposablesHolder = mDictionaryDisposables;
 
@@ -432,6 +434,7 @@ public class SuggestionsProvider {
   public void close() {
     Logger.d(TAG, "closeDictionaries");
     mCurrentSetupHashCode = 0;
+    mCurrentDictionaryBuilders = Collections.emptyList();
     mMainDictionary.clear();
     mRadicalDictionary.clear();
     mAbbreviationDictionary.clear();
@@ -473,6 +476,16 @@ public class SuggestionsProvider {
 
   public boolean hasRadicalDictionaries() {
     return !mRadicalDictionary.isEmpty();
+  }
+
+  public boolean anyActiveDictionarySupportsGestureTyping() {
+    if (mCurrentDictionaryBuilders.isEmpty()) {
+      return true;
+    }
+    for (DictionaryAddOnAndBuilder builder : mCurrentDictionaryBuilders) {
+      if (builder.supportsGestureTyping()) return true;
+    }
+    return false;
   }
 
   /**
