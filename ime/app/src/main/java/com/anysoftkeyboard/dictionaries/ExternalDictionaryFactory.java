@@ -217,9 +217,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
 
       final boolean supportsGestureTyping =
           attrs.getAttributeBooleanValue(
-              null,
-              XML_SUPPORTS_GESTURE_TYPING_ATTRIBUTE,
-              !radicalConfig.hasRadicalDictionary());
+              null, XML_SUPPORTS_GESTURE_TYPING_ATTRIBUTE, !radicalConfig.hasRadicalDictionary());
 
       if (dictionaryResourceId == AddOn.INVALID_RES_ID) {
         return new DictionaryAddOnAndBuilder(

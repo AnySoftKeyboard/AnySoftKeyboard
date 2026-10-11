@@ -40,9 +40,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
   private final boolean mSupportsGestureTyping;
   @NonNull private final RadicalDictionaryConfig mRadicalConfig;
 
-  /**
-   * Constructor for assets-backed dictionaries with explicit gesture typing support.
-   */
+  /** Constructor for assets-backed dictionaries with explicit gesture typing support. */
   public DictionaryAddOnAndBuilder(
       Context askContext,
       Context packageContext,

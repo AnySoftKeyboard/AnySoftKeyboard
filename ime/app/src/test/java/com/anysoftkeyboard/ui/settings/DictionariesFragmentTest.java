@@ -15,8 +15,7 @@ import org.robolectric.shadows.ShadowToast;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @Config(sdk = Build.VERSION_CODES.M)
-public class DictionariesFragmentTest
-    extends RobolectricFragmentTestCase<DictionariesFragment> {
+public class DictionariesFragmentTest extends RobolectricFragmentTestCase<DictionariesFragment> {
 
   @Override
   protected int getStartFragmentNavigationId() {
@@ -51,8 +50,7 @@ public class DictionariesFragmentTest
     TestRxSchedulers.foregroundFlushAllJobs();
 
     Assert.assertEquals(1, ShadowToast.shownToastCount());
-    Assert.assertTrue(
-        ShadowToast.getTextOfLatestToast().contains("No radical tables found in"));
+    Assert.assertTrue(ShadowToast.getTextOfLatestToast().contains("No radical tables found in"));
   }
 
   @Test

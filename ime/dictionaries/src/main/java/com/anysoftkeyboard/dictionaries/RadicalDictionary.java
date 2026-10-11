@@ -1196,7 +1196,6 @@ public class RadicalDictionary extends Dictionary {
     return mData.validOutputs.contains(word.toString());
   }
 
-
   @Override
   public void getLoadedWords(@NonNull GetWordsCallback callback) {
     // Radical dictionaries don't provide loaded words in the traditional sense

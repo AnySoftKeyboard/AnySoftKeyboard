@@ -23,8 +23,8 @@ import android.net.Uri;
 import android.provider.DocumentsContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -299,7 +299,7 @@ public final class RadicalOverlayRepository {
       // Fall back to the raw SharedPreferences if Rx wrapper is not ready (e.g. very early
       // startup or unit tests).
       try {
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(askContext);
+        final SharedPreferences sp = DirectBootAwareSharedPreferences.create(askContext);
         return sp.getString(askContext.getString(R.string.settings_key_radical_overlay_dir), "");
       } catch (Exception inner) {
         Logger.w(TAG, "Failed to read overlay preference: %s", inner.getMessage());
@@ -310,7 +310,7 @@ public final class RadicalOverlayRepository {
 
   private static void writeOverlayUriString(@NonNull Context askContext, @NonNull String value) {
     try {
-      final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(askContext);
+      final SharedPreferences sp = DirectBootAwareSharedPreferences.create(askContext);
       sp.edit()
           .putString(askContext.getString(R.string.settings_key_radical_overlay_dir), value)
           .apply();

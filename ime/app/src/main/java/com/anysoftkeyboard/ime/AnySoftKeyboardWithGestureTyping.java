@@ -70,6 +70,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
   protected boolean isGestureDetectorReady() {
     return mDetectorReady;
   }
+
   private boolean mJustPerformedGesture = false;
   private boolean mGestureShifted = false;
 

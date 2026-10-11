@@ -33,9 +33,9 @@ import androidx.navigation.Navigation;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.RadicalOverlayRepository;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Single;
@@ -239,7 +239,7 @@ public class DictionariesFragment extends PreferenceFragmentCompat
   private void updateRadicalOverlaySummary() {
     Preference pref = findPreference(getString(R.string.settings_key_radical_overlay_dir));
     if (pref == null) return;
-    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+    final SharedPreferences prefs = DirectBootAwareSharedPreferences.create(requireContext());
     final String value = prefs.getString(getString(R.string.settings_key_radical_overlay_dir), "");
     if (value == null || value.isEmpty()) {
       pref.setSummary(R.string.radical_overlay_dir_summary_default);

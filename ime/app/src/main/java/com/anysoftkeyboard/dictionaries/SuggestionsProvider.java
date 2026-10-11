@@ -82,7 +82,10 @@ public class SuggestionsProvider {
   private int mCurrentSetupHashCode;
 
   @NonNull private final List<Dictionary> mMainDictionary = new ArrayList<>();
-  @NonNull private List<DictionaryAddOnAndBuilder> mCurrentDictionaryBuilders = Collections.emptyList();
+
+  @NonNull
+  private List<DictionaryAddOnAndBuilder> mCurrentDictionaryBuilders = Collections.emptyList();
+
   @NonNull private final List<RadicalDictionary> mRadicalDictionary = new ArrayList<>();
   @NonNull private final List<EditableDictionary> mUserDictionary = new ArrayList<>();
   @NonNull private final List<NextWordSuggestions> mUserNextWordDictionary = new ArrayList<>();
