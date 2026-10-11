@@ -49,7 +49,7 @@ public class FileBasedRadicalOverlayTest {
     Assert.assertNull(overlay.mainTableOverlay());
     Assert.assertNull(overlay.phrasesReplacement());
     Assert.assertNull(overlay.homophonesReplacement());
-    Assert.assertNull(overlay.charToZhuyinReplacement());
+    Assert.assertNull(overlay.charToPhoneticReplacement());
     Assert.assertNull(overlay.charToRadicalReplacement());
     Assert.assertNull(overlay.charFrequencyReplacement());
   }

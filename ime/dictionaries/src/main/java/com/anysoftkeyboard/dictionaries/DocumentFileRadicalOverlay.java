@@ -318,7 +318,7 @@ public final class DocumentFileRadicalOverlay implements RadicalOverlay {
 
   @Nullable
   @Override
-  public List<StreamSupplier> charToZhuyinReplacement() {
+  public List<StreamSupplier> charToPhoneticReplacement() {
     return singleFileIfExists(FileBasedRadicalOverlay.FILE_CHAR_TO_ZHUYIN);
   }
 

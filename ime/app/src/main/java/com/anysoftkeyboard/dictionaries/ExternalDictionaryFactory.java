@@ -48,7 +48,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
   private static final String XML_RADICAL_DICT_RESOURCE_ATTRIBUTE = "radicalDictionaryResId";
   private static final String XML_RADICAL_PHRASES_RESOURCE_ATTRIBUTE = "radicalPhrasesResId";
   private static final String XML_HOMOPHONES_RESOURCE_ATTRIBUTE = "homophonesResId";
-  private static final String XML_CHAR_TO_ZHUYIN_RESOURCE_ATTRIBUTE = "charToZhuyinResId";
+  private static final String XML_CHAR_TO_PHONETIC_RESOURCE_ATTRIBUTE = "charToPhoneticResId";
   private static final String XML_CHAR_TO_RADICAL_RESOURCE_ATTRIBUTE = "charToRadicalResId";
   private static final String XML_EXCLUDE_HOMOPHONE_CHARS_RESOURCE_ATTRIBUTE =
       "excludeHomophoneCharsResId";
@@ -166,9 +166,9 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     final int homophonesResId =
         attrs.getAttributeResourceValue(
             null, XML_HOMOPHONES_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
-    final int charToZhuyinResId =
+    final int charToPhoneticResId =
         attrs.getAttributeResourceValue(
-            null, XML_CHAR_TO_ZHUYIN_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+            null, XML_CHAR_TO_PHONETIC_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
     final int charToRadicalResId =
         attrs.getAttributeResourceValue(
             null, XML_CHAR_TO_RADICAL_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
@@ -207,7 +207,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
               .radicalDictResId(radicalDictResId)
               .radicalPhrasesResId(radicalPhrasesResId)
               .homophonesResId(homophonesResId)
-              .charToZhuyinResId(charToZhuyinResId)
+              .charToPhoneticResId(charToPhoneticResId)
               .charToRadicalResId(charToRadicalResId)
               .excludeHomophoneCharsResId(excludeHomophoneCharsResId)
               .includeCharsResId(includeCharsResId)

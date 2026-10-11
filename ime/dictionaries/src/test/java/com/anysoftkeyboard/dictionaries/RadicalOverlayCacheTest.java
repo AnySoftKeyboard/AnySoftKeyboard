@@ -156,7 +156,7 @@ public class RadicalOverlayCacheTest {
 
       @Override
       @Nullable
-      public List<StreamSupplier> charToZhuyinReplacement() {
+      public List<StreamSupplier> charToPhoneticReplacement() {
         return null;
       }
 

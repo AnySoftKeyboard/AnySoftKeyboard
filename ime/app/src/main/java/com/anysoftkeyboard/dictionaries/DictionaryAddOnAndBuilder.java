@@ -266,7 +266,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         mRadicalConfig.getRadicalDictResId(),
         mRadicalConfig.getRadicalPhrasesResId(),
         mRadicalConfig.getHomophonesResId(),
-        mRadicalConfig.getCharToZhuyinResId(),
+        mRadicalConfig.getCharToPhoneticResId(),
         mRadicalConfig.getCharToRadicalResId(),
         mRadicalConfig.getExcludeHomophoneCharsResId(),
         mRadicalConfig.getIncludeCharsResId(),

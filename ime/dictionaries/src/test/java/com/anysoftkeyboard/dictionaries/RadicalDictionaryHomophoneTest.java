@@ -48,17 +48,17 @@ public class RadicalDictionaryHomophoneTest {
     d.addMapping("a", "對");
     d.loadDictionary();
 
-    Map<String, String> charToZhuyin = new HashMap<>();
-    charToZhuyin.put("對", "ㄉㄨㄟˋ");
-    charToZhuyin.put("队", "ㄉㄨㄟˋ"); // simp char, should be excluded
-    charToZhuyin.put("隊", "ㄉㄨㄟˋ"); // not typable (no radical mapping)
-    Map<String, List<String>> zhuyinToChars = new HashMap<>();
-    zhuyinToChars.put("ㄉㄨㄟˋ", Arrays.asList("對", "队", "隊"));
+    Map<String, String> charToPhonetic = new HashMap<>();
+    charToPhonetic.put("對", "ㄉㄨㄟˋ");
+    charToPhonetic.put("队", "ㄉㄨㄟˋ"); // simp char, should be excluded
+    charToPhonetic.put("隊", "ㄉㄨㄟˋ"); // not typable (no radical mapping)
+    Map<String, List<String>> phoneticToChars = new HashMap<>();
+    phoneticToChars.put("ㄉㄨㄟˋ", Arrays.asList("對", "队", "隊"));
     Map<String, String> charToRadical = new HashMap<>();
     charToRadical.put("對", "a");
 
     d.installHomophoneData(
-        charToZhuyin, zhuyinToChars, charToRadical, setOf("队"), Collections.emptyMap());
+        charToPhonetic, phoneticToChars, charToRadical, setOf("队"), Collections.emptyMap());
 
     List<String> hom = d.getHomophones("對");
     Assert.assertEquals(1, hom.size());
@@ -73,13 +73,13 @@ public class RadicalDictionaryHomophoneTest {
     d.addMapping("c", "懟");
     d.loadDictionary();
 
-    Map<String, String> charToZhuyin = new HashMap<>();
-    charToZhuyin.put("對", "ㄉㄨㄟˋ");
-    charToZhuyin.put("兌", "ㄉㄨㄟˋ");
-    charToZhuyin.put("懟", "ㄉㄨㄟˋ");
-    Map<String, List<String>> zhuyinToChars = new HashMap<>();
+    Map<String, String> charToPhonetic = new HashMap<>();
+    charToPhonetic.put("對", "ㄉㄨㄟˋ");
+    charToPhonetic.put("兌", "ㄉㄨㄟˋ");
+    charToPhonetic.put("懟", "ㄉㄨㄟˋ");
+    Map<String, List<String>> phoneticToChars = new HashMap<>();
     // Provided in arbitrary order; should be sorted by frequency rank.
-    zhuyinToChars.put("ㄉㄨㄟˋ", Arrays.asList("懟", "對", "兌"));
+    phoneticToChars.put("ㄉㄨㄟˋ", Arrays.asList("懟", "對", "兌"));
     Map<String, String> charToRadical = new HashMap<>();
     charToRadical.put("對", "a");
     charToRadical.put("兌", "b");
@@ -90,7 +90,7 @@ public class RadicalDictionaryHomophoneTest {
     rank.put("懟", 2);
 
     d.installHomophoneData(
-        charToZhuyin, zhuyinToChars, charToRadical, Collections.emptySet(), rank);
+        charToPhonetic, phoneticToChars, charToRadical, Collections.emptySet(), rank);
 
     List<String> hom = d.getHomophones("對");
     Assert.assertEquals(Arrays.asList("對", "兌", "懟"), hom);

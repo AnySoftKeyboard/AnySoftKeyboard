@@ -100,9 +100,9 @@ public interface RadicalOverlay {
     return null;
   }
 
-  /** Replacement for char -> Zhuyin lookup. */
+  /** Replacement for char -> phonetic lookup. */
   @Nullable
-  default List<StreamSupplier> charToZhuyinReplacement() {
+  default List<StreamSupplier> charToPhoneticReplacement() {
     return null;
   }
 

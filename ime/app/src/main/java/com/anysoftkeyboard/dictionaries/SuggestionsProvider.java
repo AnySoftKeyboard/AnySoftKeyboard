@@ -539,11 +539,11 @@ public class SuggestionsProvider {
     return null;
   }
 
-  /** Gets the Zhuyin pronunciation for a character. */
+  /** Gets the phonetic pronunciation for a character. */
   @Nullable
-  public String getZhuyin(@NonNull String character) {
+  public String getPhonetic(@NonNull String character) {
     for (RadicalDictionary dict : mRadicalDictionary) {
-      String result = dict.getZhuyin(character);
+      String result = dict.getPhonetic(character);
       if (result != null) return result;
     }
     return null;

@@ -53,7 +53,7 @@ public class RadicalDictionary extends Dictionary {
   private final int mResourceId;
   private final int mPhrasesResourceId;
   private final int mHomophonesResourceId;
-  private final int mCharToZhuyinResourceId;
+  private final int mCharToPhoneticResourceId;
   private final int mCharToRadicalResourceId;
   private final int mExcludeHomophoneCharsResourceId;
   private final int mIncludeCharsResourceId;
@@ -79,8 +79,8 @@ public class RadicalDictionary extends Dictionary {
     final CompactTrie radicalTrie;
     final Set<String> validOutputs;
     final CompactTrie phraseTrie;
-    final Map<String, String> charToZhuyin;
-    final Map<String, List<String>> zhuyinToChars;
+    final Map<String, String> charToPhonetic;
+    final Map<String, List<String>> phoneticToChars;
     final Map<String, String> charToRadical;
     final Set<String> excludeHomophoneChars;
 
@@ -97,8 +97,8 @@ public class RadicalDictionary extends Dictionary {
         CompactTrie radicalTrie,
         Set<String> validOutputs,
         CompactTrie phraseTrie,
-        Map<String, String> charToZhuyin,
-        Map<String, List<String>> zhuyinToChars,
+        Map<String, String> charToPhonetic,
+        Map<String, List<String>> phoneticToChars,
         Map<String, String> charToRadical,
         Set<String> excludeHomophoneChars,
         Set<String> includeChars,
@@ -106,8 +106,8 @@ public class RadicalDictionary extends Dictionary {
       this.radicalTrie = radicalTrie;
       this.validOutputs = validOutputs;
       this.phraseTrie = phraseTrie;
-      this.charToZhuyin = charToZhuyin;
-      this.zhuyinToChars = zhuyinToChars;
+      this.charToPhonetic = charToPhonetic;
+      this.phoneticToChars = phoneticToChars;
       this.charToRadical = charToRadical;
       this.excludeHomophoneChars = excludeHomophoneChars;
       this.includeChars = includeChars;
@@ -135,7 +135,7 @@ public class RadicalDictionary extends Dictionary {
       int resourceId,
       int phrasesResourceId,
       int homophonesResourceId,
-      int charToZhuyinResourceId,
+      int charToPhoneticResourceId,
       int charToRadicalResourceId,
       int excludeHomophoneCharsResourceId,
       int charFrequencyResourceId,
@@ -146,7 +146,7 @@ public class RadicalDictionary extends Dictionary {
         resourceId,
         phrasesResourceId,
         homophonesResourceId,
-        charToZhuyinResourceId,
+        charToPhoneticResourceId,
         charToRadicalResourceId,
         excludeHomophoneCharsResourceId,
         0,
@@ -161,7 +161,7 @@ public class RadicalDictionary extends Dictionary {
       int resourceId,
       int phrasesResourceId,
       int homophonesResourceId,
-      int charToZhuyinResourceId,
+      int charToPhoneticResourceId,
       int charToRadicalResourceId,
       int excludeHomophoneCharsResourceId,
       int includeCharsResourceId,
@@ -173,7 +173,7 @@ public class RadicalDictionary extends Dictionary {
     mResourceId = resourceId;
     mPhrasesResourceId = phrasesResourceId;
     mHomophonesResourceId = homophonesResourceId;
-    mCharToZhuyinResourceId = charToZhuyinResourceId;
+    mCharToPhoneticResourceId = charToPhoneticResourceId;
     mCharToRadicalResourceId = charToRadicalResourceId;
     mExcludeHomophoneCharsResourceId = excludeHomophoneCharsResourceId;
     mIncludeCharsResourceId = includeCharsResourceId;
@@ -188,7 +188,7 @@ public class RadicalDictionary extends Dictionary {
       int resourceId,
       int phrasesResourceId,
       int homophonesResourceId,
-      int charToZhuyinResourceId,
+      int charToPhoneticResourceId,
       int charToRadicalResourceId,
       int excludeHomophoneCharsResourceId,
       int charFrequencyResourceId) {
@@ -198,7 +198,7 @@ public class RadicalDictionary extends Dictionary {
         resourceId,
         phrasesResourceId,
         homophonesResourceId,
-        charToZhuyinResourceId,
+        charToPhoneticResourceId,
         charToRadicalResourceId,
         excludeHomophoneCharsResourceId,
         charFrequencyResourceId,
@@ -211,7 +211,7 @@ public class RadicalDictionary extends Dictionary {
       int resourceId,
       int phrasesResourceId,
       int homophonesResourceId,
-      int charToZhuyinResourceId,
+      int charToPhoneticResourceId,
       int charToRadicalResourceId,
       int excludeHomophoneCharsResourceId) {
     this(
@@ -220,7 +220,7 @@ public class RadicalDictionary extends Dictionary {
         resourceId,
         phrasesResourceId,
         homophonesResourceId,
-        charToZhuyinResourceId,
+        charToPhoneticResourceId,
         charToRadicalResourceId,
         excludeHomophoneCharsResourceId,
         0);
@@ -232,7 +232,7 @@ public class RadicalDictionary extends Dictionary {
       int resourceId,
       int phrasesResourceId,
       int homophonesResourceId,
-      int charToZhuyinResourceId,
+      int charToPhoneticResourceId,
       int charToRadicalResourceId) {
     this(
         dictionaryName,
@@ -240,7 +240,7 @@ public class RadicalDictionary extends Dictionary {
         resourceId,
         phrasesResourceId,
         homophonesResourceId,
-        charToZhuyinResourceId,
+        charToPhoneticResourceId,
         charToRadicalResourceId,
         0,
         0);
@@ -344,35 +344,35 @@ public class RadicalDictionary extends Dictionary {
     }
 
     // Load homophone data if available
-    final HashMap<String, String> charToZhuyin = new HashMap<>();
-    final HashMap<String, List<String>> zhuyinToChars = new HashMap<>();
+    final HashMap<String, String> charToPhonetic = new HashMap<>();
+    final HashMap<String, List<String>> phoneticToChars = new HashMap<>();
     final HashMap<String, String> charToRadical = new HashMap<>();
 
     final List<RadicalOverlay.StreamSupplier> homophonesReplacement =
         mOverlay.homophonesReplacement();
     if (homophonesReplacement != null && !homophonesReplacement.isEmpty()) {
       for (RadicalOverlay.StreamSupplier supplier : homophonesReplacement) {
-        loadOverlayHomophones(supplier, zhuyinToChars);
+        loadOverlayHomophones(supplier, phoneticToChars);
       }
     } else if (mHomophonesResourceId > 0) {
       final int[] homophoneResIds = resolveResourceIds(res, mHomophonesResourceId);
       if (homophoneResIds != null) {
         for (int resId : homophoneResIds) {
-          loadHomophonesFile(res, resId, zhuyinToChars);
+          loadHomophonesFile(res, resId, phoneticToChars);
         }
       }
     }
-    final List<RadicalOverlay.StreamSupplier> charToZhuyinReplacement =
-        mOverlay.charToZhuyinReplacement();
-    if (charToZhuyinReplacement != null && !charToZhuyinReplacement.isEmpty()) {
-      for (RadicalOverlay.StreamSupplier supplier : charToZhuyinReplacement) {
-        loadOverlayKeyValue(supplier, charToZhuyin);
+    final List<RadicalOverlay.StreamSupplier> charToPhoneticReplacement =
+        mOverlay.charToPhoneticReplacement();
+    if (charToPhoneticReplacement != null && !charToPhoneticReplacement.isEmpty()) {
+      for (RadicalOverlay.StreamSupplier supplier : charToPhoneticReplacement) {
+        loadOverlayKeyValue(supplier, charToPhonetic);
       }
-    } else if (mCharToZhuyinResourceId > 0) {
-      final int[] zhuyinResIds = resolveResourceIds(res, mCharToZhuyinResourceId);
-      if (zhuyinResIds != null) {
-        for (int resId : zhuyinResIds) {
-          loadKeyValueFile(res, resId, charToZhuyin);
+    } else if (mCharToPhoneticResourceId > 0) {
+      final int[] phoneticResIds = resolveResourceIds(res, mCharToPhoneticResourceId);
+      if (phoneticResIds != null) {
+        for (int resId : phoneticResIds) {
+          loadKeyValueFile(res, resId, charToPhonetic);
         }
       }
     }
@@ -437,8 +437,8 @@ public class RadicalDictionary extends Dictionary {
             radicalTrie,
             validOutputs,
             phraseTrie,
-            charToZhuyin,
-            zhuyinToChars,
+            charToPhonetic,
+            phoneticToChars,
             charToRadical,
             excludeHomophoneChars,
             includeChars,
@@ -635,9 +635,9 @@ public class RadicalDictionary extends Dictionary {
 
   private void loadOverlayHomophones(
       @NonNull RadicalOverlay.StreamSupplier supplier,
-      @NonNull HashMap<String, List<String>> zhuyinToChars) {
+      @NonNull HashMap<String, List<String>> phoneticToChars) {
     try (InputStream is = supplier.open()) {
-      int count = parseHomophonesStream(is, zhuyinToChars);
+      int count = parseHomophonesStream(is, phoneticToChars);
       Logger.d(TAG, "Loaded %d homophone groups from overlay", count);
     } catch (Exception e) {
       Logger.e(TAG, e, "Failed to load homophones overlay");
@@ -875,9 +875,9 @@ public class RadicalDictionary extends Dictionary {
   }
 
   private void loadHomophonesFile(
-      @NonNull Resources res, int resId, @NonNull HashMap<String, List<String>> zhuyinToChars) {
+      @NonNull Resources res, int resId, @NonNull HashMap<String, List<String>> phoneticToChars) {
     try (InputStream is = res.openRawResource(resId)) {
-      int count = parseHomophonesStream(is, zhuyinToChars);
+      int count = parseHomophonesStream(is, phoneticToChars);
       Logger.d(TAG, "Loaded %d homophone groups from resource %d", count, resId);
     } catch (Exception e) {
       Logger.e(TAG, e, "Failed to load homophones resource %d", resId);
@@ -886,7 +886,7 @@ public class RadicalDictionary extends Dictionary {
 
   @VisibleForTesting
   int parseHomophonesStream(
-      @NonNull InputStream is, @NonNull HashMap<String, List<String>> zhuyinToChars)
+      @NonNull InputStream is, @NonNull HashMap<String, List<String>> phoneticToChars)
       throws IOException {
     int lineCount = 0;
     try (BufferedReader reader =
@@ -898,7 +898,7 @@ public class RadicalDictionary extends Dictionary {
         if (line.isEmpty() || line.startsWith("#")) continue;
         int tabIndex = line.indexOf('\t');
         if (tabIndex <= 0 || tabIndex >= line.length() - 1) continue;
-        String zhuyin = line.substring(0, tabIndex);
+        String phonetic = line.substring(0, tabIndex);
         String chars = line.substring(tabIndex + 1);
         ArrayList<String> charList = new ArrayList<>();
         for (int i = 0; i < chars.length(); ) {
@@ -906,7 +906,7 @@ public class RadicalDictionary extends Dictionary {
           charList.add(new String(Character.toChars(cp)));
           i += Character.charCount(cp);
         }
-        zhuyinToChars.put(zhuyin, charList);
+        phoneticToChars.put(phonetic, charList);
         lineCount++;
       }
     }
@@ -1064,9 +1064,9 @@ public class RadicalDictionary extends Dictionary {
   @NonNull
   public List<String> getHomophones(@NonNull String character) {
     final RadicalData data = mData;
-    String zhuyin = data.charToZhuyin.get(character);
-    if (zhuyin == null) return Collections.emptyList();
-    List<String> homophones = data.zhuyinToChars.get(zhuyin);
+    String phonetic = data.charToPhonetic.get(character);
+    if (phonetic == null) return Collections.emptyList();
+    List<String> homophones = data.phoneticToChars.get(phonetic);
     if (homophones == null || homophones.isEmpty()) return Collections.emptyList();
     final Set<String> exclude = data.excludeHomophoneChars;
     final Map<String, String> radicalCodes = data.charToRadical;
@@ -1095,10 +1095,10 @@ public class RadicalDictionary extends Dictionary {
     return filtered;
   }
 
-  /** Returns the Zhuyin pronunciation for a character, or null if unknown. */
+  /** Returns the phonetic pronunciation for a character, or null if unknown. */
   @Nullable
-  public String getZhuyin(@NonNull String character) {
-    return mData.charToZhuyin.get(character);
+  public String getPhonetic(@NonNull String character) {
+    return mData.charToPhonetic.get(character);
   }
 
   /** Returns the Boshiamy radical code for a character, or null if unknown. */
@@ -1109,7 +1109,7 @@ public class RadicalDictionary extends Dictionary {
 
   /** Returns true if homophone data is loaded and available. */
   public boolean hasHomophoneData() {
-    return !mData.charToZhuyin.isEmpty();
+    return !mData.charToPhonetic.isEmpty();
   }
 
   /**
@@ -1233,8 +1233,8 @@ public class RadicalDictionary extends Dictionary {
             builder.build(),
             outputs,
             current.phraseTrie,
-            current.charToZhuyin,
-            current.zhuyinToChars,
+            current.charToPhonetic,
+            current.phoneticToChars,
             current.charToRadical,
             current.excludeHomophoneChars,
             current.includeChars,
@@ -1254,8 +1254,8 @@ public class RadicalDictionary extends Dictionary {
    */
   @VisibleForTesting(otherwise = VisibleForTesting.NONE)
   protected synchronized void installHomophoneData(
-      @NonNull Map<String, String> charToZhuyin,
-      @NonNull Map<String, List<String>> zhuyinToChars,
+      @NonNull Map<String, String> charToPhonetic,
+      @NonNull Map<String, List<String>> phoneticToChars,
       @NonNull Map<String, String> charToRadical,
       @NonNull Set<String> excludeHomophoneChars,
       @NonNull Map<String, Integer> charFrequencyRank) {
@@ -1269,8 +1269,8 @@ public class RadicalDictionary extends Dictionary {
             builder.build(),
             current.validOutputs,
             current.phraseTrie,
-            charToZhuyin,
-            zhuyinToChars,
+            charToPhonetic,
+            phoneticToChars,
             charToRadical,
             excludeHomophoneChars,
             current.includeChars,

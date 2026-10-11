@@ -27,7 +27,7 @@ public class RadicalDictionaryConfigTest {
             .radicalDictResId(11)
             .radicalPhrasesResId(22)
             .homophonesResId(33)
-            .charToZhuyinResId(44)
+            .charToPhoneticResId(44)
             .charToRadicalResId(55)
             .excludeHomophoneCharsResId(66)
             .charFrequencyResId(77)
@@ -37,7 +37,7 @@ public class RadicalDictionaryConfigTest {
     Assert.assertEquals(11, cfg.getRadicalDictResId());
     Assert.assertEquals(22, cfg.getRadicalPhrasesResId());
     Assert.assertEquals(33, cfg.getHomophonesResId());
-    Assert.assertEquals(44, cfg.getCharToZhuyinResId());
+    Assert.assertEquals(44, cfg.getCharToPhoneticResId());
     Assert.assertEquals(55, cfg.getCharToRadicalResId());
     Assert.assertEquals(66, cfg.getExcludeHomophoneCharsResId());
     Assert.assertEquals(77, cfg.getCharFrequencyResId());

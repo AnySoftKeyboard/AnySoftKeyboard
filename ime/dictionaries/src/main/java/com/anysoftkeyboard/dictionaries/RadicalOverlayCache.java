@@ -130,8 +130,8 @@ public final class RadicalOverlayCache {
 
     @Override
     @Nullable
-    public List<StreamSupplier> charToZhuyinReplacement() {
-      return snapshotFor(mKey, mBase).charToZhuyinReplacement;
+    public List<StreamSupplier> charToPhoneticReplacement() {
+      return snapshotFor(mKey, mBase).charToPhoneticReplacement;
     }
 
     @Override
@@ -153,7 +153,7 @@ public final class RadicalOverlayCache {
     @Nullable final List<RadicalOverlay.StreamSupplier> phrasesReplacement;
     @Nullable final List<RadicalOverlay.StreamSupplier> phrasesOverlay;
     @Nullable final List<RadicalOverlay.StreamSupplier> homophonesReplacement;
-    @Nullable final List<RadicalOverlay.StreamSupplier> charToZhuyinReplacement;
+    @Nullable final List<RadicalOverlay.StreamSupplier> charToPhoneticReplacement;
     @Nullable final List<RadicalOverlay.StreamSupplier> charToRadicalReplacement;
     @Nullable final List<RadicalOverlay.StreamSupplier> charFrequencyReplacement;
 
@@ -163,7 +163,7 @@ public final class RadicalOverlayCache {
         @Nullable List<RadicalOverlay.StreamSupplier> phrasesReplacement,
         @Nullable List<RadicalOverlay.StreamSupplier> phrasesOverlay,
         @Nullable List<RadicalOverlay.StreamSupplier> homophonesReplacement,
-        @Nullable List<RadicalOverlay.StreamSupplier> charToZhuyinReplacement,
+        @Nullable List<RadicalOverlay.StreamSupplier> charToPhoneticReplacement,
         @Nullable List<RadicalOverlay.StreamSupplier> charToRadicalReplacement,
         @Nullable List<RadicalOverlay.StreamSupplier> charFrequencyReplacement) {
       this.mainTableReplacement = mainTableReplacement;
@@ -171,7 +171,7 @@ public final class RadicalOverlayCache {
       this.phrasesReplacement = phrasesReplacement;
       this.phrasesOverlay = phrasesOverlay;
       this.homophonesReplacement = homophonesReplacement;
-      this.charToZhuyinReplacement = charToZhuyinReplacement;
+      this.charToPhoneticReplacement = charToPhoneticReplacement;
       this.charToRadicalReplacement = charToRadicalReplacement;
       this.charFrequencyReplacement = charFrequencyReplacement;
     }
@@ -182,7 +182,7 @@ public final class RadicalOverlayCache {
           && phrasesReplacement == null
           && phrasesOverlay == null
           && homophonesReplacement == null
-          && charToZhuyinReplacement == null
+          && charToPhoneticReplacement == null
           && charToRadicalReplacement == null
           && charFrequencyReplacement == null;
     }
@@ -195,7 +195,7 @@ public final class RadicalOverlayCache {
           materialize(base.phrasesReplacement()),
           materialize(base.phrasesOverlay()),
           materialize(base.homophonesReplacement()),
-          materialize(base.charToZhuyinReplacement()),
+          materialize(base.charToPhoneticReplacement()),
           materialize(base.charToRadicalReplacement()),
           materialize(base.charFrequencyReplacement()));
     }

@@ -33,7 +33,7 @@ public final class RadicalDictionaryConfig {
   private final int mRadicalDictResId;
   private final int mRadicalPhrasesResId;
   private final int mHomophonesResId;
-  private final int mCharToZhuyinResId;
+  private final int mCharToPhoneticResId;
   private final int mCharToRadicalResId;
   private final int mExcludeHomophoneCharsResId;
   private final int mIncludeCharsResId;
@@ -44,7 +44,7 @@ public final class RadicalDictionaryConfig {
     mRadicalDictResId = b.mRadicalDictResId;
     mRadicalPhrasesResId = b.mRadicalPhrasesResId;
     mHomophonesResId = b.mHomophonesResId;
-    mCharToZhuyinResId = b.mCharToZhuyinResId;
+    mCharToPhoneticResId = b.mCharToPhoneticResId;
     mCharToRadicalResId = b.mCharToRadicalResId;
     mExcludeHomophoneCharsResId = b.mExcludeHomophoneCharsResId;
     mIncludeCharsResId = b.mIncludeCharsResId;
@@ -64,8 +64,8 @@ public final class RadicalDictionaryConfig {
     return mHomophonesResId;
   }
 
-  public int getCharToZhuyinResId() {
-    return mCharToZhuyinResId;
+  public int getCharToPhoneticResId() {
+    return mCharToPhoneticResId;
   }
 
   public int getCharToRadicalResId() {
@@ -108,7 +108,7 @@ public final class RadicalDictionaryConfig {
     private int mRadicalDictResId = AddOn.INVALID_RES_ID;
     private int mRadicalPhrasesResId = AddOn.INVALID_RES_ID;
     private int mHomophonesResId = AddOn.INVALID_RES_ID;
-    private int mCharToZhuyinResId = AddOn.INVALID_RES_ID;
+    private int mCharToPhoneticResId = AddOn.INVALID_RES_ID;
     private int mCharToRadicalResId = AddOn.INVALID_RES_ID;
     private int mExcludeHomophoneCharsResId = AddOn.INVALID_RES_ID;
     private int mIncludeCharsResId = AddOn.INVALID_RES_ID;
@@ -130,8 +130,8 @@ public final class RadicalDictionaryConfig {
       return this;
     }
 
-    public Builder charToZhuyinResId(int v) {
-      mCharToZhuyinResId = v;
+    public Builder charToPhoneticResId(int v) {
+      mCharToPhoneticResId = v;
       return this;
     }
 

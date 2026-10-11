@@ -169,7 +169,7 @@ public class RadicalDictionaryIncludeFilterTest {
           /* resourceId= */ 0,
           /* phrasesResourceId= */ 0,
           /* homophonesResourceId= */ 0,
-          /* charToZhuyinResourceId= */ 0,
+          /* charToPhoneticResourceId= */ 0,
           /* charToRadicalResourceId= */ 0,
           /* excludeHomophoneCharsResourceId= */ 0,
           /* charFrequencyResourceId= */ 0,
