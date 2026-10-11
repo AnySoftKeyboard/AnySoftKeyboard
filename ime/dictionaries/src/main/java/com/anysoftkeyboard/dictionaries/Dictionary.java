@@ -1362,10 +1362,16 @@ public abstract class Dictionary {
   private volatile boolean mLoadingResources = true;
   protected final Object mResourceMonitor = new Object();
   private final CharSequence mDictionaryName;
+  private final boolean mSupportsGestureTyping;
   private AtomicBoolean mClosed = new AtomicBoolean(false);
 
   protected Dictionary(CharSequence dictionaryName) {
+    this(dictionaryName, true);
+  }
+
+  protected Dictionary(CharSequence dictionaryName, boolean supportsGestureTyping) {
     mDictionaryName = dictionaryName;
+    mSupportsGestureTyping = supportsGestureTyping;
   }
 
   protected boolean isLoading() {
@@ -1463,7 +1469,7 @@ public abstract class Dictionary {
    * typing. Defaults to true.
    */
   public boolean supportsGestureTyping() {
-    return true;
+    return mSupportsGestureTyping;
   }
 
   protected abstract void loadAllResources();

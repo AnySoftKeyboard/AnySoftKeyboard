@@ -70,6 +70,7 @@ public abstract class AnyKeyboard extends Keyboard {
   private int mMaxGenericRowsWidth = 0;
 
   private KeyboardCondenser mKeyboardCondenser;
+  private final boolean mSupportsGestureTyping;
 
   // for popup keyboard
   // note: the context can be from a different package!
@@ -80,6 +81,11 @@ public abstract class AnyKeyboard extends Keyboard {
       int xmlLayoutResId) {
     // should use the package context for creating the layout
     super(keyboardAddOn, askContext, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
+    final KeyboardAddOnAndBuilder addOn =
+        (keyboardAddOn instanceof KeyboardAddOnAndBuilder)
+            ? (KeyboardAddOnAndBuilder) keyboardAddOn
+            : null;
+    mSupportsGestureTyping = addOn == null || addOn.supportsGestureTyping();
     // no generic rows in popup
   }
 
@@ -92,6 +98,11 @@ public abstract class AnyKeyboard extends Keyboard {
       @KeyboardRowModeId int mode) {
     // should use the package context for creating the layout
     super(keyboardAddOn, askContext, xmlLayoutResId, mode);
+    final KeyboardAddOnAndBuilder addOn =
+        (keyboardAddOn instanceof KeyboardAddOnAndBuilder)
+            ? (KeyboardAddOnAndBuilder) keyboardAddOn
+            : null;
+    mSupportsGestureTyping = addOn == null || addOn.supportsGestureTyping();
   }
 
   @Override
@@ -379,9 +390,7 @@ public abstract class AnyKeyboard extends Keyboard {
    * alphabetic keyboards, and false for radical keyboards or keyboards that explicitly opt out.
    */
   public boolean supportsGestureTyping() {
-    if (!isAlphabetKeyboard()) return false;
-    final KeyboardAddOnAndBuilder addOn = asExternalAddOn();
-    return addOn == null || addOn.supportsGestureTyping();
+    return isAlphabetKeyboard() && mSupportsGestureTyping;
   }
 
   private void fixKeyboardDueToGenericRow(

@@ -59,6 +59,17 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
       };
   @Nullable private GestureTypingDetector mCurrentGestureDetector;
   private boolean mDetectorReady = false;
+
+  @VisibleForTesting
+  @Nullable
+  protected GestureTypingDetector getCurrentGestureDetector() {
+    return mCurrentGestureDetector;
+  }
+
+  @VisibleForTesting
+  protected boolean isGestureDetectorReady() {
+    return mDetectorReady;
+  }
   private boolean mJustPerformedGesture = false;
   private boolean mGestureShifted = false;
 
@@ -366,7 +377,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
   private void onDictionariesLoaded(
       AnyKeyboard keyboard, List<char[][]> newWords, List<int[]> wordFrequencies) {
-    if (mGestureTypingEnabled && isGestureTypingSupportedFor(keyboard) && mCurrentGestureDetector != null) {
+    if (mGestureTypingEnabled && mCurrentGestureDetector != null) {
       // it might be null if the IME service started with enabled flag set to true. In that
       // case
       // the keyboard object will not be ready yet.

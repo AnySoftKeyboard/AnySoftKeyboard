@@ -111,6 +111,8 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     Mockito.doReturn(false).when(nonGestureKeyboard).supportsGestureTyping();
     DictionaryBackgroundLoader.Listener listener =
         mAnySoftKeyboardUnderTest.getDictionaryLoadedListener(nonGestureKeyboard);
+    Assert.assertFalse(
+        listener instanceof AnySoftKeyboardWithGestureTyping.WordListDictionaryListener);
     Dictionary dictionary = Mockito.mock(Dictionary.class);
     listener.onDictionaryLoadingStarted(dictionary);
     listener.onDictionaryLoadingDone(dictionary);
@@ -132,6 +134,8 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
     DictionaryBackgroundLoader.Listener listener =
         mAnySoftKeyboardUnderTest.getDictionaryLoadedListener(keyboard);
+    Assert.assertFalse(
+        listener instanceof AnySoftKeyboardWithGestureTyping.WordListDictionaryListener);
     Dictionary dictionary = Mockito.mock(Dictionary.class);
     listener.onDictionaryLoadingStarted(dictionary);
     listener.onDictionaryLoadingDone(dictionary);
@@ -735,6 +739,43 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
 
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+    ViewTestUtils.assertCurrentWatermarkHasDrawable(
+        mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+    ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
+        mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
+  }
+
+  @Test
+  public void testSwitchingToUnsupportedAlphabetKeyboardClearsDetectorAndBadge() {
+    ViewTestUtils.assertCurrentWatermarkHasDrawable(
+        mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+    ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
+        mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
+    Assert.assertNotNull(mAnySoftKeyboardUnderTest.getCurrentGestureDetector());
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.isGestureDetectorReady());
+
+    AnyKeyboard supportedKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboard();
+    Assert.assertNotNull(supportedKeyboard);
+
+    AnyKeyboard nonGestureKeyboard = Mockito.spy(supportedKeyboard);
+    Mockito.doReturn(false).when(nonGestureKeyboard).supportsGestureTyping();
+
+    mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(nonGestureKeyboard);
+
+    Assert.assertNull(mAnySoftKeyboardUnderTest.getCurrentGestureDetector());
+    Assert.assertFalse(mAnySoftKeyboardUnderTest.isGestureDetectorReady());
+    ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
+        mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+    ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
+        mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
+
+    // Switch back to a supported keyboard
+    Mockito.reset(nonGestureKeyboard);
+    mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(supportedKeyboard);
+    TestRxSchedulers.drainAllTasks();
+
+    Assert.assertNotNull(mAnySoftKeyboardUnderTest.getCurrentGestureDetector());
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.isGestureDetectorReady());
     ViewTestUtils.assertCurrentWatermarkHasDrawable(
         mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
     ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(

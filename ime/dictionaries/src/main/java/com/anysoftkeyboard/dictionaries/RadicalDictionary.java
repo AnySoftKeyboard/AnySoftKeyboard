@@ -168,7 +168,7 @@ public class RadicalDictionary extends Dictionary {
       int charFrequencyResourceId,
       boolean splitMultiCodepointCandidates,
       @NonNull RadicalOverlay overlay) {
-    super(dictionaryName);
+    super(dictionaryName, false);
     mContext = context;
     mResourceId = resourceId;
     mPhrasesResourceId = phrasesResourceId;
@@ -1196,10 +1196,6 @@ public class RadicalDictionary extends Dictionary {
     return mData.validOutputs.contains(word.toString());
   }
 
-  @Override
-  public boolean supportsGestureTyping() {
-    return false;
-  }
 
   @Override
   public void getLoadedWords(@NonNull GetWordsCallback callback) {

@@ -23,6 +23,7 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
+import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.SuggestImpl;
@@ -805,5 +806,15 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public void destroy() {
       mDelegate.destroy();
     }
+  }
+
+  @Override
+  public GestureTypingDetector getCurrentGestureDetector() {
+    return super.getCurrentGestureDetector();
+  }
+
+  @Override
+  public boolean isGestureDetectorReady() {
+    return super.isGestureDetectorReady();
   }
 }
