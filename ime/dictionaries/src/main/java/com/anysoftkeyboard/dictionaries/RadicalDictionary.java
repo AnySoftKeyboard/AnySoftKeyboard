@@ -76,10 +76,9 @@ public class RadicalDictionary extends Dictionary {
 
   /** Snapshot of all radical data, published via a single volatile write of {@link #mData}. */
   private static final class RadicalData {
-    final Map<String, List<String>> radicalMap;
-    final Set<String> prefixes;
+    final CompactTrie radicalTrie;
     final Set<String> validOutputs;
-    final Map<String, List<String>> phraseMap;
+    final CompactTrie phraseTrie;
     final Map<String, String> charToZhuyin;
     final Map<String, List<String>> zhuyinToChars;
     final Map<String, String> charToRadical;
@@ -95,20 +94,18 @@ public class RadicalDictionary extends Dictionary {
     final Map<String, Integer> charFrequencyRank;
 
     RadicalData(
-        Map<String, List<String>> radicalMap,
-        Set<String> prefixes,
+        CompactTrie radicalTrie,
         Set<String> validOutputs,
-        Map<String, List<String>> phraseMap,
+        CompactTrie phraseTrie,
         Map<String, String> charToZhuyin,
         Map<String, List<String>> zhuyinToChars,
         Map<String, String> charToRadical,
         Set<String> excludeHomophoneChars,
         Set<String> includeChars,
         Map<String, Integer> charFrequencyRank) {
-      this.radicalMap = radicalMap;
-      this.prefixes = prefixes;
+      this.radicalTrie = radicalTrie;
       this.validOutputs = validOutputs;
-      this.phraseMap = phraseMap;
+      this.phraseTrie = phraseTrie;
       this.charToZhuyin = charToZhuyin;
       this.zhuyinToChars = zhuyinToChars;
       this.charToRadical = charToRadical;
@@ -120,10 +117,9 @@ public class RadicalDictionary extends Dictionary {
 
   private static final RadicalData EMPTY_DATA =
       new RadicalData(
-          Collections.emptyMap(),
+          CompactTrie.EMPTY,
           Collections.emptySet(),
-          Collections.emptySet(),
-          Collections.emptyMap(),
+          CompactTrie.EMPTY,
           Collections.emptyMap(),
           Collections.emptyMap(),
           Collections.emptyMap(),
@@ -429,13 +425,18 @@ public class RadicalDictionary extends Dictionary {
     // its curated source order untouched.
     applyFrequencyOrdering(radicalMap, charFrequencyRank);
 
+    final CompactTrie radicalTrie = CompactTrie.fromMap(radicalMap);
+    radicalMap.clear();
+
+    final CompactTrie phraseTrie = CompactTrie.fromMap(phraseMap);
+    phraseMap.clear();
+
     // Publish all data atomically via single volatile write
     mData =
         new RadicalData(
-            radicalMap,
-            prefixes,
+            radicalTrie,
             validOutputs,
-            phraseMap,
+            phraseTrie,
             charToZhuyin,
             zhuyinToChars,
             charToRadical,
@@ -445,9 +446,8 @@ public class RadicalDictionary extends Dictionary {
 
     Logger.d(
         TAG,
-        "Loaded radical dictionary: %d mappings, %d prefixes, %d valid outputs",
-        radicalMap.size(),
-        prefixes.size(),
+        "Loaded radical dictionary: %d mappings, %d valid outputs",
+        radicalTrie.size(),
         validOutputs.size());
   }
 
@@ -1120,18 +1120,19 @@ public class RadicalDictionary extends Dictionary {
    */
   @NonNull
   public List<String> getNextWordSuggestions(@NonNull String previousWord) {
+    if (previousWord.isEmpty()) return Collections.emptyList();
     final RadicalData data = mData;
     // Try exact match first
-    List<String> suggestions = data.phraseMap.get(previousWord);
-    if (suggestions != null) return Collections.unmodifiableList(suggestions);
+    List<String> suggestions = data.phraseTrie.get(previousWord);
+    if (!suggestions.isEmpty()) return suggestions;
     // For multi-char words, try the last character as trigger
     if (previousWord.length() > 1) {
       String lastChar =
           previousWord.substring(
               previousWord.length()
                   - Character.charCount(previousWord.codePointBefore(previousWord.length())));
-      suggestions = data.phraseMap.get(lastChar);
-      if (suggestions != null) return Collections.unmodifiableList(suggestions);
+      suggestions = data.phraseTrie.get(lastChar);
+      if (!suggestions.isEmpty()) return suggestions;
     }
     return Collections.emptyList();
   }
@@ -1140,7 +1141,7 @@ public class RadicalDictionary extends Dictionary {
    * Returns exact matches for the given radical sequence.
    *
    * <p>The per-keyboard include filter is applied at parse time (both bundled and overlay rows), so
-   * this method is now a pure lookup against the pre-filtered radical map; it does not run any
+   * this method is now a pure lookup against the pre-filtered radical trie; it does not run any
    * variant filtering or fallback recovery. Cangjie/Zhuyin still get a stable frequency sort via
    * {@link #mSplitMultiCodepointCandidates}.
    *
@@ -1149,12 +1150,7 @@ public class RadicalDictionary extends Dictionary {
    */
   @NonNull
   public List<String> getExactMatches(@NonNull String radicals) {
-    final RadicalData data = mData;
-    List<String> matches = data.radicalMap.get(radicals.toLowerCase(java.util.Locale.ROOT));
-    if (matches == null || matches.isEmpty()) return Collections.emptyList();
-    // Pure lookup: candidate order was already resolved when the table was built
-    // (see applyFrequencyOrdering), so nothing is recomputed per keystroke.
-    return Collections.unmodifiableList(matches);
+    return mData.radicalTrie.get(radicals.toLowerCase(java.util.Locale.ROOT));
   }
 
   /** Returns true if a character is excluded for this dictionary's variant. */
@@ -1170,7 +1166,7 @@ public class RadicalDictionary extends Dictionary {
    * @return true if there are potential matches with more keystrokes
    */
   public boolean hasPartialMatch(@NonNull String radicals) {
-    return mData.prefixes.contains(radicals.toLowerCase(java.util.Locale.ROOT));
+    return mData.radicalTrie.hasPrefix(radicals.toLowerCase(java.util.Locale.ROOT));
   }
 
   @Override
@@ -1228,17 +1224,9 @@ public class RadicalDictionary extends Dictionary {
    */
   protected void addRadicalMapping(@NonNull String radicals, @NonNull String character) {
     RadicalData current = mData;
-    HashMap<String, List<String>> map = new HashMap<>(current.radicalMap);
+    CompactTrie.Builder builder = current.radicalTrie.toBuilder();
     final String lower = radicals.toLowerCase(java.util.Locale.ROOT);
-    List<String> existing = map.get(lower);
-    List<String> next = existing == null ? new ArrayList<>() : new ArrayList<>(existing);
-    next.add(character);
-    map.put(lower, next);
-
-    HashSet<String> prefixes = new HashSet<>(current.prefixes);
-    for (int i = 1; i <= lower.length(); i++) {
-      prefixes.add(lower.substring(0, i));
-    }
+    builder.addCandidate(lower, character);
 
     HashSet<String> outputs = new HashSet<>(current.validOutputs);
     outputs.add(character);
@@ -1246,10 +1234,9 @@ public class RadicalDictionary extends Dictionary {
     // Publish atomically
     mData =
         new RadicalData(
-            map,
-            prefixes,
+            builder.build(),
             outputs,
-            current.phraseMap,
+            current.phraseTrie,
             current.charToZhuyin,
             current.zhuyinToChars,
             current.charToRadical,
@@ -1277,19 +1264,15 @@ public class RadicalDictionary extends Dictionary {
       @NonNull Set<String> excludeHomophoneChars,
       @NonNull Map<String, Integer> charFrequencyRank) {
     RadicalData current = mData;
-    // Frequency data arrives after the mappings in the test flow, so re-apply the
-    // load-time ordering here; production does this inside loadAllResources.
-    Map<String, List<String>> ordered = new HashMap<>();
-    for (Map.Entry<String, List<String>> e : current.radicalMap.entrySet()) {
-      ordered.put(e.getKey(), new ArrayList<>(e.getValue()));
+    CompactTrie.Builder builder = current.radicalTrie.toBuilder();
+    if (mSplitMultiCodepointCandidates && !charFrequencyRank.isEmpty()) {
+      builder.applyFrequencyOrdering(charFrequencyRank);
     }
-    applyFrequencyOrdering(ordered, charFrequencyRank);
     mData =
         new RadicalData(
-            ordered,
-            current.prefixes,
+            builder.build(),
             current.validOutputs,
-            current.phraseMap,
+            current.phraseTrie,
             charToZhuyin,
             zhuyinToChars,
             charToRadical,
