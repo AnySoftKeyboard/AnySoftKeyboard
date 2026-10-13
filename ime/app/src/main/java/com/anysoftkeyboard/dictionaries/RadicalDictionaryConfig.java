@@ -38,6 +38,7 @@ public final class RadicalDictionaryConfig {
   private final int mExcludeHomophoneCharsResId;
   private final int mIncludeCharsResId;
   private final int mCharFrequencyResId;
+  private final int mCandidateConversionResId;
   private final boolean mSplitMultiCodepointCandidates;
 
   private RadicalDictionaryConfig(Builder b) {
@@ -49,6 +50,7 @@ public final class RadicalDictionaryConfig {
     mExcludeHomophoneCharsResId = b.mExcludeHomophoneCharsResId;
     mIncludeCharsResId = b.mIncludeCharsResId;
     mCharFrequencyResId = b.mCharFrequencyResId;
+    mCandidateConversionResId = b.mCandidateConversionResId;
     mSplitMultiCodepointCandidates = b.mSplitMultiCodepointCandidates;
   }
 
@@ -91,6 +93,15 @@ public final class RadicalDictionaryConfig {
   }
 
   /**
+   * Resource id of an OpenCC-style char conversion table applied to user-imported (SAF) radical
+   * candidates and to the phrase table before the include filter, so they match the bundled
+   * variant table. {@link AddOn#INVALID_RES_ID} disables it.
+   */
+  public int getCandidateConversionResId() {
+    return mCandidateConversionResId;
+  }
+
+  /**
    * When true, the loader splits a single multi-codepoint candidate string into one candidate per
    * CJK codepoint. Used by Cangjie and Zhuyin where the source format is {@code key\tchar1char2..}.
    * Boshiamy leaves this off so multi-codepoint outputs such as {@code liu\t嘸蝦米} remain a single
@@ -113,6 +124,7 @@ public final class RadicalDictionaryConfig {
     private int mExcludeHomophoneCharsResId = AddOn.INVALID_RES_ID;
     private int mIncludeCharsResId = AddOn.INVALID_RES_ID;
     private int mCharFrequencyResId = AddOn.INVALID_RES_ID;
+    private int mCandidateConversionResId = AddOn.INVALID_RES_ID;
     private boolean mSplitMultiCodepointCandidates = false;
 
     public Builder radicalDictResId(int v) {
@@ -152,6 +164,11 @@ public final class RadicalDictionaryConfig {
 
     public Builder charFrequencyResId(int v) {
       mCharFrequencyResId = v;
+      return this;
+    }
+
+    public Builder candidateConversionResId(int v) {
+      mCandidateConversionResId = v;
       return this;
     }
 

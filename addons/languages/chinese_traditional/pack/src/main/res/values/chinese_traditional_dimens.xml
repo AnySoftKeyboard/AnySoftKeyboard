@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zhuyin uses four Bopomofo rows instead of three letter rows, so its keys use the
+         normal height in portrait and the short height in landscape (see values-land). -->
+    <integer name="chinese_traditional_zhuyin_key_height">@integer/key_normal_height</integer>
+</resources>

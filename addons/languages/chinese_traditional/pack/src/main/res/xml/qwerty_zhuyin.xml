@@ -19,11 +19,15 @@
     autoCap is disabled because Bopomofo radicals are single-character labels;
     auto-cap would otherwise shift the keyboard view and (for theme renderers
     that fall back to the key code) display the underlying numeric codes.
+
+    keyHeight comes from chinese_traditional_zhuyin_key_height: normal in
+    portrait, short in landscape, because the extra Bopomofo row would
+    otherwise make the landscape keyboard cover the input field.
 -->
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ask="http://schemas.android.com/apk/res-auto"
     android:keyWidth="10%p"
-    android:keyHeight="@integer/key_normal_height"
+    android:keyHeight="@integer/chinese_traditional_zhuyin_key_height"
     ask:autoCap="false">
 
     <Row>

@@ -23,6 +23,7 @@
         charToRadicalResId="@array/chinese_traditional_boshiamy_char_to_radical_array"
         excludeHomophoneCharsResId="@array/chinese_traditional_exclude_traditional_chars_array"
         includeCharsResId="@array/chinese_traditional_simp_chars_array"
+        candidateConversionResId="@array/chinese_traditional_t2s_conversion_array"
         charFrequencyResId="@array/chinese_traditional_char_frequency_array"
         id="a011ad05-816b-41f8-a321-685509dce32b"
         locale="zh-CN"

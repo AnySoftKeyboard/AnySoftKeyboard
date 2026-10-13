@@ -508,9 +508,17 @@ public class SuggestionsProvider {
 
   public void getRadicalNextWords(
       String previousWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
+    getRadicalNextWords(previousWord, null, suggestionsHolder, maxSuggestions);
+  }
+
+  public void getRadicalNextWords(
+      String previousWord,
+      @Nullable String radicalCode,
+      Collection<CharSequence> suggestionsHolder,
+      int maxSuggestions) {
     if (maxSuggestions <= 0) return;
     for (RadicalDictionary dict : mRadicalDictionary) {
-      List<String> suggestions = dict.getNextWordSuggestions(previousWord);
+      List<String> suggestions = dict.getNextWordSuggestions(previousWord, radicalCode);
       for (String suggestion : suggestions) {
         suggestionsHolder.add(suggestion);
         if (--maxSuggestions <= 0) return;

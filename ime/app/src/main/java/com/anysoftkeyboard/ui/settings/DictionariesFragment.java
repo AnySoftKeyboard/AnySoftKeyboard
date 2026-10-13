@@ -153,13 +153,9 @@ public class DictionariesFragment extends PreferenceFragmentCompat
                   if (!RadicalOverlayRepository.looksLikeOverlayFolder(appContext, uri)) {
                     return FolderPickOutcome.NO_TABLES;
                   }
-                  try {
-                    RadicalOverlayRepository.setOverlayUri(appContext, uri);
-                    return FolderPickOutcome.SUCCESS;
-                  } catch (SecurityException e) {
-                    Logger.w(TAG, "setOverlayUri failed for %s: %s", uri, e.getMessage());
-                    return FolderPickOutcome.PERMISSION_FAILED;
-                  }
+                  // A SecurityException goes to the error handler below, which shows its message.
+                  RadicalOverlayRepository.setOverlayUri(appContext, uri);
+                  return FolderPickOutcome.SUCCESS;
                 })
             .subscribeOn(RxSchedulers.background())
             .observeOn(RxSchedulers.mainThread())
@@ -176,13 +172,6 @@ public class DictionariesFragment extends PreferenceFragmentCompat
                               Toast.LENGTH_LONG)
                           .show();
                       break;
-                    case PERMISSION_FAILED:
-                      Toast.makeText(
-                              requireContext(),
-                              getString(R.string.radical_overlay_toast_pick_failed, ""),
-                              Toast.LENGTH_LONG)
-                          .show();
-                      break;
                     case SUCCESS:
                       updateRadicalOverlaySummary();
                       final String display = displayNameForTreeUri(uri);
@@ -195,8 +184,8 @@ public class DictionariesFragment extends PreferenceFragmentCompat
                   }
                 },
                 throwable -> {
-                  if (!isAdded() || getContext() == null) return;
                   Logger.w(TAG, "onFolderPicked failed for %s: %s", uri, throwable.getMessage());
+                  if (!isAdded() || getContext() == null) return;
                   Toast.makeText(
                           requireContext(),
                           getString(
@@ -232,8 +221,7 @@ public class DictionariesFragment extends PreferenceFragmentCompat
 
   private enum FolderPickOutcome {
     SUCCESS,
-    NO_TABLES,
-    PERMISSION_FAILED
+    NO_TABLES
   }
 
   private void updateRadicalOverlaySummary() {

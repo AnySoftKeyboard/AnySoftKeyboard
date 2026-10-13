@@ -54,6 +54,8 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
       "excludeHomophoneCharsResId";
   private static final String XML_INCLUDE_CHARS_RESOURCE_ATTRIBUTE = "includeCharsResId";
   private static final String XML_CHAR_FREQUENCY_RESOURCE_ATTRIBUTE = "charFrequencyResId";
+  private static final String XML_CANDIDATE_CONVERSION_RESOURCE_ATTRIBUTE =
+      "candidateConversionResId";
   private static final String XML_SPLIT_MULTI_CODEPOINT_CANDIDATES_ATTRIBUTE =
       "splitMultiCodepointCandidates";
   private static final String XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE =
@@ -181,6 +183,9 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     final int charFrequencyResId =
         attrs.getAttributeResourceValue(
             null, XML_CHAR_FREQUENCY_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    final int candidateConversionResId =
+        attrs.getAttributeResourceValue(
+            null, XML_CANDIDATE_CONVERSION_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
     final boolean splitMultiCodepointCandidates =
         attrs.getAttributeBooleanValue(null, XML_SPLIT_MULTI_CODEPOINT_CANDIDATES_ATTRIBUTE, false);
     final int initialSuggestionsId =
@@ -212,6 +217,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
               .excludeHomophoneCharsResId(excludeHomophoneCharsResId)
               .includeCharsResId(includeCharsResId)
               .charFrequencyResId(charFrequencyResId)
+              .candidateConversionResId(candidateConversionResId)
               .splitMultiCodepointCandidates(splitMultiCodepointCandidates)
               .build();
 

@@ -18,6 +18,13 @@
     <array name="chinese_traditional_exclude_traditional_chars_array">
         <item>@raw/chinese_opencc_ts_characters</item>
     </array>
+    <!-- For the Simplified Boshiamy keyboard: convert user-imported (SAF) candidates and the
+         shared Traditional phrase table to their simplified form before filtering, the same way
+         scripts/boshiamy_variants.py builds the bundled simplified table. So lw gives 么 (from 麼)
+         first, and 测 gets the next-word suggestions of 測. -->
+    <array name="chinese_traditional_t2s_conversion_array">
+        <item>@raw/chinese_opencc_ts_characters</item>
+    </array>
     <!-- Per-keyboard CJK / kana codepoint whitelists used to filter both bundled and
          user-imported (SAF) radical rows. Generated from Unihan IRG sources by
          scripts/boshiamy_variants.py; see NOTICE.md. -->

@@ -189,6 +189,14 @@ public class SuggestImpl implements Suggest {
   @Override
   public List<CharSequence> getNextSuggestions(
       final CharSequence previousWord, final boolean inAllUpperCaseState) {
+    return getNextSuggestions(previousWord, inAllUpperCaseState, null);
+  }
+
+  @Override
+  public List<CharSequence> getNextSuggestions(
+      final CharSequence previousWord,
+      final boolean inAllUpperCaseState,
+      @Nullable final CharSequence radicalCode) {
     if (previousWord.length() == 0) {
       return Collections.emptyList();
     }
@@ -205,7 +213,10 @@ public class SuggestImpl implements Suggest {
     // Also check radical phrase suggestions (CJK next-word prediction)
     if (mSuggestionsProvider.hasRadicalDictionaries()) {
       mSuggestionsProvider.getRadicalNextWords(
-          previousWord.toString(), mNextSuggestions, mPrefMaxSuggestions - mNextSuggestions.size());
+          previousWord.toString(),
+          radicalCode == null ? null : radicalCode.toString(),
+          mNextSuggestions,
+          mPrefMaxSuggestions - mNextSuggestions.size());
     }
 
     if (!mNextSuggestions.isEmpty()) {

@@ -38,6 +38,16 @@ public interface Suggest {
   List<CharSequence> getNextSuggestions(CharSequence previousWord, boolean inAllUpperCaseState);
 
   /**
+   * Same as {@link #getNextSuggestions(CharSequence, boolean)}, with the radical code that was
+   * typed to commit {@code previousWord} (or null). Radical dictionaries use it to pick the right
+   * phrase rows when one output char can come from several source chars.
+   */
+  default List<CharSequence> getNextSuggestions(
+      CharSequence previousWord, boolean inAllUpperCaseState, @Nullable CharSequence radicalCode) {
+    return getNextSuggestions(previousWord, inAllUpperCaseState);
+  }
+
+  /**
    * Returns a list of words that match the list of character codes passed in. This list will be
    * overwritten the next time this function is called.
    *

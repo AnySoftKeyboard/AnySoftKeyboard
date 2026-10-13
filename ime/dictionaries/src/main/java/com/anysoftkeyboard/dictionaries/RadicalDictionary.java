@@ -33,7 +33,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -60,6 +62,15 @@ public class RadicalDictionary extends Dictionary {
   private final int mCharFrequencyResourceId;
 
   /**
+   * Optional OpenCC-style char conversion table ({@code key\tvalue [value..]}, first value wins)
+   * applied before the include filter to user-imported overlay candidates and to the phrase table.
+   * The Boshiamy Simplified keyboard points this at TSCharacters so an imported liu-uni table gets
+   * the same 台式簡體 order as the bundled one (e.g. {@code lw} offers 么 from 麼 before 磁), and
+   * next-word suggestions work for simplified keys (测 gets the rows of 測).
+   */
+  private final int mCandidateConversionResourceId;
+
+  /**
    * When true the loader splits a single multi-codepoint candidate string into one candidate per
    * CJK codepoint. Used by Cangjie and Zhuyin, both the bundled tables (source format is {@code
    * key\tchar1char2..}) and any user-supplied SAF overlay rows for those IMEs. Boshiamy leaves this
@@ -84,14 +95,15 @@ public class RadicalDictionary extends Dictionary {
     final Map<String, String> charToRadical;
     final Set<String> excludeHomophoneChars;
 
-    /**
-     * Codepoint whitelist for the per-keyboard include filter (see {@link
-     * #valuePassesIncludeFilter(String, Set)}). Empty set means the filter is disabled.
-     */
-    final Set<String> includeChars;
-
     /** Map of CJK char -> rank (lower = more common). Chars not present rank as MAX_VALUE. */
     final Map<String, Integer> charFrequencyRank;
+
+    /**
+     * Converted char -> the source chars that convert to it, e.g. 么 -> [麼, 麽]. Only filled when
+     * {@link #mCandidateConversionResourceId} is set. Used to find which Traditional phrase rows
+     * belong to a committed Simplified char, see {@link #getNextWordSuggestions(String, String)}.
+     */
+    final Map<String, List<String>> convertedFrom;
 
     RadicalData(
         CompactTrie radicalTrie,
@@ -101,8 +113,8 @@ public class RadicalDictionary extends Dictionary {
         Map<String, List<String>> phoneticToChars,
         Map<String, String> charToRadical,
         Set<String> excludeHomophoneChars,
-        Set<String> includeChars,
-        Map<String, Integer> charFrequencyRank) {
+        Map<String, Integer> charFrequencyRank,
+        Map<String, List<String>> convertedFrom) {
       this.radicalTrie = radicalTrie;
       this.validOutputs = validOutputs;
       this.phraseTrie = phraseTrie;
@@ -110,8 +122,8 @@ public class RadicalDictionary extends Dictionary {
       this.phoneticToChars = phoneticToChars;
       this.charToRadical = charToRadical;
       this.excludeHomophoneChars = excludeHomophoneChars;
-      this.includeChars = includeChars;
       this.charFrequencyRank = charFrequencyRank;
+      this.convertedFrom = convertedFrom;
     }
   }
 
@@ -124,7 +136,7 @@ public class RadicalDictionary extends Dictionary {
           Collections.emptyMap(),
           Collections.emptyMap(),
           Collections.emptySet(),
-          Collections.emptySet(),
+          Collections.emptyMap(),
           Collections.emptyMap());
 
   private volatile RadicalData mData = EMPTY_DATA;
@@ -168,6 +180,36 @@ public class RadicalDictionary extends Dictionary {
       int charFrequencyResourceId,
       boolean splitMultiCodepointCandidates,
       @NonNull RadicalOverlay overlay) {
+    this(
+        dictionaryName,
+        context,
+        resourceId,
+        phrasesResourceId,
+        homophonesResourceId,
+        charToPhoneticResourceId,
+        charToRadicalResourceId,
+        excludeHomophoneCharsResourceId,
+        includeCharsResourceId,
+        charFrequencyResourceId,
+        0,
+        splitMultiCodepointCandidates,
+        overlay);
+  }
+
+  public RadicalDictionary(
+      @NonNull CharSequence dictionaryName,
+      @Nullable Context context,
+      int resourceId,
+      int phrasesResourceId,
+      int homophonesResourceId,
+      int charToPhoneticResourceId,
+      int charToRadicalResourceId,
+      int excludeHomophoneCharsResourceId,
+      int includeCharsResourceId,
+      int charFrequencyResourceId,
+      int candidateConversionResourceId,
+      boolean splitMultiCodepointCandidates,
+      @NonNull RadicalOverlay overlay) {
     super(dictionaryName, false);
     mContext = context;
     mResourceId = resourceId;
@@ -178,6 +220,7 @@ public class RadicalDictionary extends Dictionary {
     mExcludeHomophoneCharsResourceId = excludeHomophoneCharsResourceId;
     mIncludeCharsResourceId = includeCharsResourceId;
     mCharFrequencyResourceId = charFrequencyResourceId;
+    mCandidateConversionResourceId = candidateConversionResourceId;
     mSplitMultiCodepointCandidates = splitMultiCodepointCandidates;
     mOverlay = overlay;
   }
@@ -278,9 +321,19 @@ public class RadicalDictionary extends Dictionary {
       }
     }
 
-    final HashMap<String, List<String>> radicalMap = new HashMap<>();
-    final HashSet<String> prefixes = new HashSet<>();
+    final CompactTrie.Builder radicalBuilder = new CompactTrie.Builder();
     final HashSet<String> validOutputs = new HashSet<>();
+
+    // Only needed while parsing overlays, so it is dropped together with includeChars below.
+    final HashMap<String, String> candidateConversion = new HashMap<>();
+    if (mCandidateConversionResourceId > 0) {
+      final int[] conversionResIds = resolveResourceIds(res, mCandidateConversionResourceId);
+      if (conversionResIds != null) {
+        for (int resId : conversionResIds) {
+          loadConversionFile(res, resId, candidateConversion);
+        }
+      }
+    }
 
     // Main radical table: overlay replacement wins over bundled; overlay always merges in addition.
     //
@@ -297,18 +350,30 @@ public class RadicalDictionary extends Dictionary {
     // explicitly wants their custom characters and phrases available on every Boshiamy keyboard
     // regardless of script. Overlays whose source name matches {@code liu.box} are passed through
     // with an empty include-set; everything else uses the per-keyboard include filter.
+    //
+    // The candidate conversion (if configured) is applied to overlay rows only: the bundled table
+    // was already converted at build time by boshiamy_variants.py, and liu.box entries are the
+    // user's own picks, so both are used as-is.
     final List<RadicalOverlay.StreamSupplier> mainOverlay = mOverlay.mainTableOverlay();
     if (mainOverlay != null) {
       for (RadicalOverlay.StreamSupplier supplier : mainOverlay) {
         loadOverlayRadicals(
-            supplier, radicalMap, prefixes, validOutputs, includeCharsFor(supplier, includeChars));
+            supplier,
+            radicalBuilder,
+            validOutputs,
+            includeCharsFor(supplier, includeChars),
+            conversionFor(supplier, candidateConversion));
       }
     }
     final List<RadicalOverlay.StreamSupplier> mainReplacement = mOverlay.mainTableReplacement();
     if (mainReplacement != null && !mainReplacement.isEmpty()) {
       for (RadicalOverlay.StreamSupplier supplier : mainReplacement) {
         loadOverlayRadicals(
-            supplier, radicalMap, prefixes, validOutputs, includeCharsFor(supplier, includeChars));
+            supplier,
+            radicalBuilder,
+            validOutputs,
+            includeCharsFor(supplier, includeChars),
+            conversionFor(supplier, candidateConversion));
       }
     } else {
       final int[] resIds = resolveResourceIds(res, mResourceId);
@@ -317,31 +382,56 @@ public class RadicalDictionary extends Dictionary {
         return;
       }
       for (int resId : resIds) {
-        loadResourceFile(res, resId, radicalMap, prefixes, validOutputs, includeChars);
+        loadResourceFile(res, resId, radicalBuilder, validOutputs, includeChars);
       }
     }
 
-    // Load phrase associations if available
-    final HashMap<String, List<String>> phraseMap = new HashMap<>();
+    // Load phrase associations if available. The phrase table is Traditional. A keyboard that
+    // converts candidates (Boshiamy Simplified) keeps the Traditional trigger keys and converts
+    // only the suggested chars, so the trigger can be matched to the exact Traditional char the
+    // user typed (麼 vs 么), see getNextWordSuggestions(String, String).
+    final CompactTrie.Builder phraseBuilder = new CompactTrie.Builder();
     final List<RadicalOverlay.StreamSupplier> phrasesReplacement = mOverlay.phrasesReplacement();
     if (phrasesReplacement != null && !phrasesReplacement.isEmpty()) {
       for (RadicalOverlay.StreamSupplier supplier : phrasesReplacement) {
-        loadOverlayPhrases(supplier, phraseMap);
+        loadOverlayPhrases(
+            supplier,
+            phraseBuilder,
+            includeCharsFor(supplier, includeChars),
+            conversionFor(supplier, candidateConversion));
       }
     } else if (mPhrasesResourceId > 0) {
       final int[] phraseResIds = resolveResourceIds(res, mPhrasesResourceId);
       if (phraseResIds != null) {
         for (int resId : phraseResIds) {
-          loadPhrasesFile(res, resId, phraseMap);
+          loadPhrasesFile(res, resId, phraseBuilder, includeChars, candidateConversion);
         }
       }
     }
     final List<RadicalOverlay.StreamSupplier> phrasesOverlay = mOverlay.phrasesOverlay();
     if (phrasesOverlay != null) {
       for (RadicalOverlay.StreamSupplier supplier : phrasesOverlay) {
-        loadOverlayPhrases(supplier, phraseMap);
+        loadOverlayPhrases(
+            supplier,
+            phraseBuilder,
+            includeCharsFor(supplier, includeChars),
+            conversionFor(supplier, candidateConversion));
       }
     }
+    final HashMap<String, List<String>> convertedFrom = new HashMap<>();
+    for (Map.Entry<String, String> entry : candidateConversion.entrySet()) {
+      if (!entry.getKey().equals(entry.getValue())) {
+        List<String> sources = convertedFrom.get(entry.getValue());
+        if (sources == null) {
+          sources = new ArrayList<>(1);
+          convertedFrom.put(entry.getValue(), sources);
+        }
+        sources.add(entry.getKey());
+      }
+    }
+    // Parse-time only data, release it before loading the rest.
+    includeChars.clear();
+    candidateConversion.clear();
 
     // Load homophone data if available
     final HashMap<String, String> charToPhonetic = new HashMap<>();
@@ -423,13 +513,12 @@ public class RadicalDictionary extends Dictionary {
     // getExactMatches stays a pure map lookup. Applies to the dictionaries
     // that opted into frequency ordering (Cangjie / Zhuyin); Boshiamy keeps
     // its curated source order untouched.
-    applyFrequencyOrdering(radicalMap, charFrequencyRank);
+    if (mSplitMultiCodepointCandidates) {
+      radicalBuilder.applyFrequencyOrdering(charFrequencyRank);
+    }
 
-    final CompactTrie radicalTrie = CompactTrie.fromMap(radicalMap);
-    radicalMap.clear();
-
-    final CompactTrie phraseTrie = CompactTrie.fromMap(phraseMap);
-    phraseMap.clear();
+    final CompactTrie radicalTrie = radicalBuilder.build();
+    final CompactTrie phraseTrie = phraseBuilder.build();
 
     // Publish all data atomically via single volatile write
     mData =
@@ -441,8 +530,8 @@ public class RadicalDictionary extends Dictionary {
             phoneticToChars,
             charToRadical,
             excludeHomophoneChars,
-            includeChars,
-            charFrequencyRank);
+            charFrequencyRank,
+            convertedFrom);
 
     Logger.d(
         TAG,
@@ -453,10 +542,10 @@ public class RadicalDictionary extends Dictionary {
 
   private void loadOverlayRadicals(
       @NonNull RadicalOverlay.StreamSupplier supplier,
-      @NonNull HashMap<String, List<String>> radicalMap,
-      @NonNull HashSet<String> prefixes,
+      @NonNull CompactTrie.Builder radicals,
       @NonNull HashSet<String> validOutputs,
-      @NonNull Set<String> includeChars) {
+      @NonNull Set<String> includeChars,
+      @NonNull Map<String, String> conversion) {
     final String name = supplier.name();
     // Sniff first bytes for binary detection.
     byte[] sniff;
@@ -474,7 +563,7 @@ public class RadicalDictionary extends Dictionary {
             .IBUS_TAB) {
       // Same on-disk format as the bundled raw resources, parse directly without converting.
       try (InputStream is = new java.io.ByteArrayInputStream(sniff)) {
-        int count = parseRadicalStream(is, radicalMap, prefixes, validOutputs, includeChars);
+        int count = parseRadicalStream(is, radicals, validOutputs, includeChars, conversion);
         Logger.d(TAG, "Loaded %d radical entries from overlay %s", count, name);
       } catch (Exception e) {
         Logger.e(TAG, e, "Failed to load radical overlay %s", name);
@@ -491,32 +580,33 @@ public class RadicalDictionary extends Dictionary {
       for (Map.Entry<String, List<String>> e : parsed.entrySet()) {
         String code = e.getKey().toLowerCase(java.util.Locale.ROOT);
         for (String ch : e.getValue()) {
-          if (!valuePassesIncludeFilter(ch, includeChars)) {
-            skipped++;
-            continue;
-          }
           if (mSplitMultiCodepointCandidates) {
+            boolean addedAny = false;
             int idx = 0;
             int vlen = ch.length();
             while (idx < vlen) {
               int cp = ch.codePointAt(idx);
               int cpLen = Character.charCount(cp);
-              String oneCandidate = ch.substring(idx, idx + cpLen);
-              if (!valuePassesIncludeFilter(oneCandidate, includeChars)) {
+              String oneCandidate =
+                  resolveCandidate(ch.substring(idx, idx + cpLen), includeChars, conversion);
+              idx += cpLen;
+              if (oneCandidate == null) {
                 skipped++;
-                idx += cpLen;
                 continue;
               }
-              addCandidate(radicalMap, code, oneCandidate);
+              radicals.addCandidate(code, oneCandidate);
               validOutputs.add(oneCandidate);
-              idx += cpLen;
+              addedAny = true;
             }
+            if (!addedAny) continue;
           } else {
-            addCandidate(radicalMap, code, ch);
-            validOutputs.add(ch);
-          }
-          for (int i = 1; i <= code.length(); i++) {
-            prefixes.add(code.substring(0, i));
+            final String candidate = resolveCandidate(ch, includeChars, conversion);
+            if (candidate == null) {
+              skipped++;
+              continue;
+            }
+            radicals.addCandidate(code, candidate);
+            validOutputs.add(candidate);
           }
           count++;
         }
@@ -547,42 +637,6 @@ public class RadicalDictionary extends Dictionary {
   }
 
   /**
-   * API-23-safe replacement for {@code map.computeIfAbsent(key, k -> new ArrayList<>())}. {@link
-   * Map#computeIfAbsent} is API 24+ while this module's minSdk is 23, and core-library desugaring
-   * is not enabled for this project.
-   */
-  private static <K, V> List<V> bucket(@NonNull Map<K, List<V>> map, K key) {
-    List<V> list = map.get(key);
-    if (list == null) {
-      list = new ArrayList<>();
-      map.put(key, list);
-    }
-    return list;
-  }
-
-  /**
-   * Appends {@code candidate} for {@code code} unless that exact candidate is already listed.
-   *
-   * <p>Sources overlap: a user can hand us several Boshiamy tables at once (liu-uni, liu-uni2,
-   * liu-uni3, liu-uni4 all cover much of the same ground) and those merge on top of the bundled
-   * table. Without this the candidate strip shows one copy per contributing file, e.g. "趟趟趟趟". The
-   * first occurrence wins, so the bundled/curated order is preserved.
-   *
-   * @return true if the candidate was actually added.
-   */
-  private static boolean addCandidate(
-      @NonNull Map<String, List<String>> radicalMap,
-      @NonNull String code,
-      @NonNull String candidate) {
-    final List<String> list = bucket(radicalMap, code);
-    // Candidate lists are short (a handful of entries), so a linear scan is cheaper than
-    // maintaining a parallel Set for every code.
-    if (list.contains(candidate)) return false;
-    list.add(candidate);
-    return true;
-  }
-
-  /**
    * API-23-safe replacement for {@code rank.getOrDefault(key, Integer.MAX_VALUE)}. {@link
    * Map#getOrDefault} is API 24+ while this module's minSdk is 23. Characters missing from the
    * frequency table sort last.
@@ -590,28 +644,6 @@ public class RadicalDictionary extends Dictionary {
   private static int rankOf(@NonNull Map<String, Integer> rank, String key) {
     Integer r = rank.get(key);
     return r == null ? Integer.MAX_VALUE : r;
-  }
-
-  /**
-   * Sorts every candidate list in {@code radicalMap} by frequency rank, in place, once at load
-   * time. Doing this here keeps {@link #getExactMatches} a pure lookup, so no work is repeated on
-   * each keystroke.
-   *
-   * <p>No-op unless this dictionary opted into frequency ordering via {@code
-   * splitMultiCodepointCandidates} (Cangjie / Zhuyin). Boshiamy deliberately preserves the source
-   * file's curated order, because line 1 of a code is the author's primary character and is also
-   * what the positional selector keys index into.
-   */
-  private void applyFrequencyOrdering(
-      @NonNull Map<String, List<String>> radicalMap, @NonNull Map<String, Integer> rank) {
-    if (!mSplitMultiCodepointCandidates || rank.isEmpty()) return;
-    for (Map.Entry<String, List<String>> entry : radicalMap.entrySet()) {
-      final List<String> candidates = entry.getValue();
-      if (candidates == null || candidates.size() < 2) continue;
-      // Collections.sort is stable (TimSort), so candidates absent from the frequency
-      // table keep their original file order at the end.
-      Collections.sort(candidates, (a, b) -> Integer.compare(rankOf(rank, a), rankOf(rank, b)));
-    }
   }
 
   private static byte[] readAllBytes(@NonNull InputStream is) throws IOException {
@@ -624,9 +656,11 @@ public class RadicalDictionary extends Dictionary {
 
   private void loadOverlayPhrases(
       @NonNull RadicalOverlay.StreamSupplier supplier,
-      @NonNull HashMap<String, List<String>> phraseMap) {
+      @NonNull CompactTrie.Builder phrases,
+      @NonNull Set<String> includeChars,
+      @NonNull Map<String, String> conversion) {
     try (InputStream is = supplier.open()) {
-      int count = parsePhrasesStream(is, phraseMap);
+      int count = parsePhrasesStream(is, phrases, includeChars, conversion);
       Logger.d(TAG, "Loaded %d phrase associations from overlay", count);
     } catch (Exception e) {
       Logger.e(TAG, e, "Failed to load phrases overlay");
@@ -687,12 +721,12 @@ public class RadicalDictionary extends Dictionary {
   private void loadResourceFile(
       @NonNull Resources res,
       int resId,
-      @NonNull HashMap<String, List<String>> radicalMap,
-      @NonNull HashSet<String> prefixes,
+      @NonNull CompactTrie.Builder radicals,
       @NonNull HashSet<String> validOutputs,
       @NonNull Set<String> includeChars) {
     try (InputStream is = res.openRawResource(resId)) {
-      int count = parseRadicalStream(is, radicalMap, prefixes, validOutputs, includeChars);
+      int count =
+          parseRadicalStream(is, radicals, validOutputs, includeChars, Collections.emptyMap());
       Logger.d(TAG, "Loaded %d radical entries from resource %d", count, resId);
     } catch (Exception e) {
       Logger.e(TAG, e, "Failed to load radical dictionary resource %d", resId);
@@ -706,25 +740,36 @@ public class RadicalDictionary extends Dictionary {
    *
    * <p>{@code includeChars} acts as a per-keyboard whitelist: a row is skipped when any CJK or kana
    * codepoint in its value is absent from the set. Pass {@link Collections#emptySet()} to disable
-   * the filter, which is what non-CJK callers and most tests do.
+   * the filter, which is what non-CJK callers and most tests do. {@code conversion} is applied
+   * first, see {@link #resolveCandidate}.
    */
   @VisibleForTesting
   int parseRadicalStream(
       @NonNull InputStream is,
-      @NonNull HashMap<String, List<String>> radicalMap,
-      @NonNull HashSet<String> prefixes,
+      @NonNull CompactTrie.Builder radicals,
       @NonNull HashSet<String> validOutputs)
       throws IOException {
-    return parseRadicalStream(is, radicalMap, prefixes, validOutputs, Collections.emptySet());
+    return parseRadicalStream(
+        is, radicals, validOutputs, Collections.emptySet(), Collections.emptyMap());
   }
 
   @VisibleForTesting
   int parseRadicalStream(
       @NonNull InputStream is,
-      @NonNull HashMap<String, List<String>> radicalMap,
-      @NonNull HashSet<String> prefixes,
+      @NonNull CompactTrie.Builder radicals,
       @NonNull HashSet<String> validOutputs,
       @NonNull Set<String> includeChars)
+      throws IOException {
+    return parseRadicalStream(is, radicals, validOutputs, includeChars, Collections.emptyMap());
+  }
+
+  @VisibleForTesting
+  int parseRadicalStream(
+      @NonNull InputStream is,
+      @NonNull CompactTrie.Builder radicals,
+      @NonNull HashSet<String> validOutputs,
+      @NonNull Set<String> includeChars,
+      @NonNull Map<String, String> conversion)
       throws IOException {
     int lineCount = 0;
     try (BufferedReader reader =
@@ -739,7 +784,7 @@ public class RadicalDictionary extends Dictionary {
         int tabIndex = line.indexOf('\t');
         if (tabIndex <= 0 || tabIndex >= line.length() - 1) continue;
 
-        String radicals = line.substring(0, tabIndex).toLowerCase(java.util.Locale.ROOT);
+        String code = line.substring(0, tabIndex).toLowerCase(java.util.Locale.ROOT);
         String character = line.substring(tabIndex + 1);
 
         if (mSplitMultiCodepointCandidates) {
@@ -752,9 +797,10 @@ public class RadicalDictionary extends Dictionary {
           while (idx < vlen) {
             int cp = character.codePointAt(idx);
             int cpLen = Character.charCount(cp);
-            String oneCandidate = character.substring(idx, idx + cpLen);
-            if (valuePassesIncludeFilter(oneCandidate, includeChars)) {
-              addCandidate(radicalMap, radicals, oneCandidate);
+            String oneCandidate =
+                resolveCandidate(character.substring(idx, idx + cpLen), includeChars, conversion);
+            if (oneCandidate != null) {
+              radicals.addCandidate(code, oneCandidate);
               validOutputs.add(oneCandidate);
               addedAny = true;
             }
@@ -762,14 +808,10 @@ public class RadicalDictionary extends Dictionary {
           }
           if (!addedAny) continue;
         } else {
-          if (!valuePassesIncludeFilter(character, includeChars)) continue;
-          addCandidate(radicalMap, radicals, character);
-          validOutputs.add(character);
-        }
-
-        // Store all prefixes for partial match detection
-        for (int i = 1; i <= radicals.length(); i++) {
-          prefixes.add(radicals.substring(0, i));
+          final String candidate = resolveCandidate(character, includeChars, conversion);
+          if (candidate == null) continue;
+          radicals.addCandidate(code, candidate);
+          validOutputs.add(candidate);
         }
 
         lineCount++;
@@ -825,6 +867,96 @@ public class RadicalDictionary extends Dictionary {
     return includeChars;
   }
 
+  /** Same exemption as {@link #includeCharsFor}: liu.box rows are the user's picks, keep them. */
+  @NonNull
+  private static Map<String, String> conversionFor(
+      @NonNull RadicalOverlay.StreamSupplier supplier, @NonNull Map<String, String> conversion) {
+    final String name = supplier.name();
+    if (name != null && "liu.box".equalsIgnoreCase(name)) {
+      return Collections.emptyMap();
+    }
+    return conversion;
+  }
+
+  /**
+   * Returns the candidate to store for {@code value}, or null if the include filter rejects it.
+   * Mirrors {@code build_simp_rows} in boshiamy_variants.py so imported and bundled tables order
+   * the same way: the converted form wins when it passes the filter, otherwise the original value
+   * is tried. Example on the Simplified keyboard with liu-uni's {@code lw} row "麼 磁 么": 麼
+   * converts to 么 and takes the first slot, 磁 stays, and the later 么 is a duplicate.
+   */
+  @Nullable
+  @VisibleForTesting
+  static String resolveCandidate(
+      @NonNull String value,
+      @NonNull Set<String> includeChars,
+      @NonNull Map<String, String> conversion) {
+    if (!conversion.isEmpty()) {
+      final String converted = convertCodepoints(value, conversion);
+      if (!converted.equals(value) && valuePassesIncludeFilter(converted, includeChars)) {
+        return converted;
+      }
+    }
+    return valuePassesIncludeFilter(value, includeChars) ? value : null;
+  }
+
+  @NonNull
+  private static String convertCodepoints(
+      @NonNull String value, @NonNull Map<String, String> conversion) {
+    final StringBuilder sb = new StringBuilder(value.length());
+    int i = 0;
+    final int len = value.length();
+    while (i < len) {
+      final int cp = value.codePointAt(i);
+      final int cpLen = Character.charCount(cp);
+      final String ch = value.substring(i, i + cpLen);
+      final String mapped = conversion.get(ch);
+      sb.append(mapped != null ? mapped : ch);
+      i += cpLen;
+    }
+    return sb.toString();
+  }
+
+  /**
+   * Loads an OpenCC-style {@code key\tvalue [value..]} file, keeping the first value of each line
+   * (the OpenCC preferred form), the same rule as {@code _load_t2s} in boshiamy_variants.py.
+   */
+  private void loadConversionFile(
+      @NonNull Resources res, int resId, @NonNull HashMap<String, String> conversion) {
+    try (InputStream is = res.openRawResource(resId)) {
+      int count = parseConversionStream(is, conversion);
+      Logger.d(TAG, "Loaded %d candidate conversions from resource %d", count, resId);
+    } catch (Exception e) {
+      Logger.e(TAG, e, "Failed to load candidate conversion resource %d", resId);
+    }
+  }
+
+  @VisibleForTesting
+  static int parseConversionStream(
+      @NonNull InputStream is, @NonNull HashMap<String, String> conversion) throws IOException {
+    int lineCount = 0;
+    try (BufferedReader reader =
+        new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        line = stripBom(line).trim();
+        if (line.isEmpty() || line.startsWith("#")) continue;
+        final int tabIndex = line.indexOf('\t');
+        if (tabIndex <= 0 || tabIndex >= line.length() - 1) continue;
+        final String key = line.substring(0, tabIndex);
+        String value = line.substring(tabIndex + 1).trim();
+        final int space = value.indexOf(' ');
+        if (space > 0) {
+          value = value.substring(0, space);
+        }
+        if (value.isEmpty()) continue;
+        conversion.put(key, value);
+        lineCount++;
+      }
+    }
+    return lineCount;
+  }
+
   private static boolean isCjkOrKanaCodepoint(int cp) {
     return (cp >= 0x3400 && cp <= 0x4DBF) // CJK Ext A
         || (cp >= 0x4E00 && cp <= 0x9FFF) // CJK Unified
@@ -837,9 +969,13 @@ public class RadicalDictionary extends Dictionary {
   }
 
   private void loadPhrasesFile(
-      @NonNull Resources res, int resId, @NonNull HashMap<String, List<String>> phraseMap) {
+      @NonNull Resources res,
+      int resId,
+      @NonNull CompactTrie.Builder phrases,
+      @NonNull Set<String> includeChars,
+      @NonNull Map<String, String> conversion) {
     try (InputStream is = res.openRawResource(resId)) {
-      int count = parsePhrasesStream(is, phraseMap);
+      int count = parsePhrasesStream(is, phrases, includeChars, conversion);
       Logger.d(TAG, "Loaded %d phrase associations from resource %d", count, resId);
     } catch (Exception e) {
       Logger.e(TAG, e, "Failed to load phrases resource %d", resId);
@@ -847,8 +983,26 @@ public class RadicalDictionary extends Dictionary {
   }
 
   @VisibleForTesting
-  int parsePhrasesStream(@NonNull InputStream is, @NonNull HashMap<String, List<String>> phraseMap)
+  int parsePhrasesStream(@NonNull InputStream is, @NonNull CompactTrie.Builder phrases)
       throws IOException {
+    return parsePhrasesStream(is, phrases, Collections.emptySet(), Collections.emptyMap());
+  }
+
+  /**
+   * Parses {@code trigger\tnext} lines. With an empty {@code conversion} the rows are used as-is.
+   * Otherwise the trigger is kept unchanged (it is matched against the source char the user typed,
+   * see {@link #getNextWordSuggestions(String, String)}) and the suggested chars go through
+   * {@link #resolveCandidate}; rows whose suggestion is rejected by the include filter are dropped.
+   * Example on the Simplified keyboard: {@code 測\t試} is stored as 測 -> 试.
+   */
+  @VisibleForTesting
+  int parsePhrasesStream(
+      @NonNull InputStream is,
+      @NonNull CompactTrie.Builder phrases,
+      @NonNull Set<String> includeChars,
+      @NonNull Map<String, String> conversion)
+      throws IOException {
+    final boolean converting = !conversion.isEmpty();
     int lineCount = 0;
     try (BufferedReader reader =
         new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
@@ -865,9 +1019,14 @@ public class RadicalDictionary extends Dictionary {
         String trigger = line.substring(0, tabIndex);
         String nextChars = line.substring(tabIndex + 1);
 
+        if (converting) {
+          nextChars = resolveCandidate(nextChars, includeChars, conversion);
+          if (nextChars == null) continue;
+        }
+
         // Bundled and user-supplied phrase files merge, so drop repeats the same way the
         // radical map does.
-        addCandidate(phraseMap, trigger, nextChars);
+        phrases.addCandidate(trigger, nextChars);
         lineCount++;
       }
     }
@@ -1120,21 +1279,91 @@ public class RadicalDictionary extends Dictionary {
    */
   @NonNull
   public List<String> getNextWordSuggestions(@NonNull String previousWord) {
+    return getNextWordSuggestions(previousWord, null);
+  }
+
+  /**
+   * Same as {@link #getNextWordSuggestions(String)}, with the radical code that was typed to commit
+   * {@code previousWord}, when it is known.
+   *
+   * <p>On a converting keyboard (Boshiamy Simplified) the phrase keys are still the Traditional
+   * chars, and one Simplified char can come from several of them. The typed code tells which one
+   * the user meant, so the suggestions match the Traditional keyboard exactly. Example: 么 typed
+   * with {@code lw} is 麼 (no suggestions), while 么 typed with {@code war} is 么 itself (么兒 ->
+   * 儿). Without a matching code the rows of all sources are merged, converted sources first.
+   */
+  @NonNull
+  public List<String> getNextWordSuggestions(
+      @NonNull String previousWord, @Nullable String radicalCode) {
     if (previousWord.isEmpty()) return Collections.emptyList();
     final RadicalData data = mData;
-    // Try exact match first
-    List<String> suggestions = data.phraseTrie.get(previousWord);
-    if (!suggestions.isEmpty()) return suggestions;
-    // For multi-char words, try the last character as trigger
-    if (previousWord.length() > 1) {
-      String lastChar =
-          previousWord.substring(
-              previousWord.length()
-                  - Character.charCount(previousWord.codePointBefore(previousWord.length())));
-      suggestions = data.phraseTrie.get(lastChar);
+    final String lastChar =
+        previousWord.substring(
+            previousWord.length()
+                - Character.charCount(previousWord.codePointBefore(previousWord.length())));
+    if (data.convertedFrom.isEmpty()) {
+      // Try exact match first
+      List<String> suggestions = data.phraseTrie.get(previousWord);
       if (!suggestions.isEmpty()) return suggestions;
+      // For multi-char words, try the last character as trigger
+      if (!lastChar.equals(previousWord)) {
+        suggestions = data.phraseTrie.get(lastChar);
+        if (!suggestions.isEmpty()) return suggestions;
+      }
+      return Collections.emptyList();
     }
-    return Collections.emptyList();
+
+    final List<String> sources = data.convertedFrom.get(lastChar);
+    if (sources == null) {
+      // Nothing converts to this char, so it is the same char on both keyboards.
+      return data.phraseTrie.get(lastChar);
+    }
+    // The code only describes the char when the whole word is that one char.
+    if (radicalCode != null && lastChar.equals(previousWord)) {
+      final String typed =
+          sourceForCode(lastChar, sources, radicalCode.toLowerCase(Locale.ROOT), data.charToRadical);
+      if (typed != null) return data.phraseTrie.get(typed);
+    }
+    final LinkedHashSet<String> merged = new LinkedHashSet<>();
+    for (String source : sources) {
+      merged.addAll(data.phraseTrie.get(source));
+    }
+    merged.addAll(data.phraseTrie.get(lastChar));
+    return merged.isEmpty()
+        ? Collections.emptyList()
+        : Collections.unmodifiableList(new ArrayList<>(merged));
+  }
+
+  /**
+   * Returns the char among {@code ch} and its {@code sources} whose radical code is {@code code}.
+   * A trailing selector key (e.g. {@code lw} + {@code v}) is also accepted by retrying without the
+   * last key. Only {@code ch} and its few sources are compared, so this cannot pick an unrelated
+   * char.
+   */
+  @Nullable
+  private static String sourceForCode(
+      @NonNull String ch,
+      @NonNull List<String> sources,
+      @NonNull String code,
+      @NonNull Map<String, String> charToRadical) {
+    String found = matchCode(ch, sources, code, charToRadical);
+    if (found == null && code.length() > 1) {
+      found = matchCode(ch, sources, code.substring(0, code.length() - 1), charToRadical);
+    }
+    return found;
+  }
+
+  @Nullable
+  private static String matchCode(
+      @NonNull String ch,
+      @NonNull List<String> sources,
+      @NonNull String code,
+      @NonNull Map<String, String> charToRadical) {
+    if (code.equalsIgnoreCase(charToRadical.get(ch))) return ch;
+    for (String source : sources) {
+      if (code.equalsIgnoreCase(charToRadical.get(source))) return source;
+    }
+    return null;
   }
 
   /**
@@ -1236,8 +1465,8 @@ public class RadicalDictionary extends Dictionary {
             current.phoneticToChars,
             current.charToRadical,
             current.excludeHomophoneChars,
-            current.includeChars,
-            current.charFrequencyRank);
+            current.charFrequencyRank,
+            current.convertedFrom);
   }
 
   /**
@@ -1272,7 +1501,28 @@ public class RadicalDictionary extends Dictionary {
             phoneticToChars,
             charToRadical,
             excludeHomophoneChars,
-            current.includeChars,
-            charFrequencyRank);
+            charFrequencyRank,
+            current.convertedFrom);
+  }
+
+  /**
+   * Installs phrase rows and the converted-from map programmatically, keeping all other data.
+   * Intended for test subclasses that bypass resource loading.
+   */
+  @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+  protected synchronized void installPhraseData(
+      @NonNull CompactTrie.Builder phrases, @NonNull Map<String, List<String>> convertedFrom) {
+    RadicalData current = mData;
+    mData =
+        new RadicalData(
+            current.radicalTrie,
+            current.validOutputs,
+            phrases.build(),
+            current.charToPhonetic,
+            current.phoneticToChars,
+            current.charToRadical,
+            current.excludeHomophoneChars,
+            current.charFrequencyRank,
+            convertedFrom);
   }
 }

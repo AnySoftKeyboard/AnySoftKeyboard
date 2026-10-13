@@ -968,7 +968,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       clearSuggestions();
     } else {
       final List<CharSequence> nextSuggestions =
-          mSuggest.getNextSuggestions(wordToOutput, typedWord.isAllUpperCase());
+          mSuggest.getNextSuggestions(
+              wordToOutput,
+              typedWord.isAllUpperCase(),
+              isRadicalInputMode() ? typedWord.getTypedWord() : null);
       Logger.d(
           TAG,
           "handleSeparator: next suggestions for '%s': %d items",
@@ -1697,7 +1700,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         if (showingAddToDictionaryHint) {
           if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
         } else {
-          setSuggestions(mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()), -1);
+          final CharSequence radicalCode =
+              isRadicalInputMode() && !typedWord.isEmpty() ? typedWord.getTypedWord() : null;
+          setSuggestions(
+              mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase(), radicalCode), -1);
         }
       }
     } finally {
