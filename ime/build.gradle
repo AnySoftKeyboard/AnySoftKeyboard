@@ -4,11 +4,11 @@ autoVersioning {
     enabled = rootProject.hasProperty("withAutoVersioning")
     buildCounterEnvKey = "BUILD_COUNT_FOR_VERSION"
     major = 1
-    minor = 13
+    minor = 14
     /*adding to build-counter value. Should never change (unless build-counter resets).*/
     buildCounterOffset = 6305
     /*decrementing due to minor, every minor/major bump, this should be decremented*/
-    patchOffset = -5170-1790-668-1084
+    patchOffset = -5170-1790-668-1084-1059
     /*F-Droid version file generation*/
     generateVersionFile = true
 }
