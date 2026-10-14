@@ -16,6 +16,7 @@ public class VersionChangeLogs {
             14,
             "",
             Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/96"),
+            "Support for radical-based input methods. Traditional Chinese pack coming.",
             "Updated emoji support and layouts.",
             "Modularity and architecture improvements.",
             "Bug fixes & stability improvements.",
