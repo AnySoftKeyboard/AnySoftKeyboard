@@ -1,11 +1,7 @@
-Gesture-typing: improved accuracy and performance.
-Support Android 15 16KB memory pages.
-Updated emojis for Android 15+.
-Fixed emoji keyboard crash.
-Better edge-to-edge support.
-Minimum Android 6.0 (API 23) required.
+Updated emoji support and layouts.
+Modularity and architecture improvements.
 Bug fixes & stability improvements.
 YABTU.
 Updated translations.
 
-More: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/95
+More: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/96

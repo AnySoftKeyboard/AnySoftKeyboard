@@ -13,6 +13,18 @@ public class VersionChangeLogs {
     log.add(
         new VersionChangeLog(
             1,
+            14,
+            "",
+            Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/96"),
+            "Updated emoji support and layouts.",
+            "Modularity and architecture improvements.",
+            "Bug fixes & stability improvements.",
+            "YABTU.",
+            "Updated translations from the community (at crowdin.net)."));
+
+    log.add(
+        new VersionChangeLog(
+            1,
             13,
             "",
             Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/95"),
