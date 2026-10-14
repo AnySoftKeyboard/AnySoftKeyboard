@@ -59,4 +59,12 @@ public class KeyboardFactoryTest {
             .getInteger(com.anysoftkeyboard.addons.R.integer.anysoftkeyboard_api_version_code),
         english16Keys.getApiVersion());
   }
+
+  @Test
+  public void testSupportsGestureTyping() {
+    final KeyboardAddOnAndBuilder english =
+        mKeyboardFactory.getAddOnById("c7535083-4fe6-49dc-81aa-c5438a1a343a");
+    Assert.assertNotNull(english);
+    Assert.assertTrue(english.supportsGestureTyping());
+  }
 }

@@ -29,6 +29,7 @@ import com.anysoftkeyboard.dictionaries.SuggestImpl;
 import com.anysoftkeyboard.dictionaries.SuggestionsProvider;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
+import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.ime.AnySoftKeyboardClipboard;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -215,7 +216,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                 })));
   }
 
-  // MAGIC: now it is visible for tests
   @VisibleForTesting
   @Override
   public void setIncognito(boolean enable, boolean byUser) {
@@ -503,7 +503,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
   @NonNull
   @Override
-  protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
+  public DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
       @NonNull AnyKeyboard currentAlphabetKeyboard) {
     final DictionaryBackgroundLoader.Listener dictionaryLoadedListener =
         super.getDictionaryLoadedListener(currentAlphabetKeyboard);
@@ -724,6 +724,45 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
+    public List<CharSequence> getRadicalSuggestions(WordComposer wordComposer) {
+      return mDelegate.getRadicalSuggestions(wordComposer);
+    }
+
+    @Override
+    public boolean hasRadicalDictionaries() {
+      return mDelegate.hasRadicalDictionaries();
+    }
+
+    @Override
+    public boolean anyActiveDictionarySupportsGestureTyping() {
+      return mDelegate.anyActiveDictionarySupportsGestureTyping();
+    }
+
+    @Override
+    @androidx.annotation.NonNull
+    public java.util.List<String> getRadicalExactMatches(
+        @androidx.annotation.NonNull String radicals) {
+      return mDelegate.getRadicalExactMatches(radicals);
+    }
+
+    @Override
+    @NonNull
+    public java.util.List<CharSequence> getHomophones(@NonNull String character) {
+      return mDelegate.getHomophones(character);
+    }
+
+    @Override
+    @androidx.annotation.Nullable
+    public String getRadicalCode(@NonNull String character) {
+      return mDelegate.getRadicalCode(character);
+    }
+
+    @Override
+    public boolean hasHomophoneData() {
+      return mDelegate.hasHomophoneData();
+    }
+
+    @Override
     public int getLastValidSuggestionIndex() {
       return mDelegate.getLastValidSuggestionIndex();
     }
@@ -767,5 +806,15 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public void destroy() {
       mDelegate.destroy();
     }
+  }
+
+  @Override
+  public GestureTypingDetector getCurrentGestureDetector() {
+    return super.getCurrentGestureDetector();
+  }
+
+  @Override
+  public boolean isGestureDetectorReady() {
+    return super.isGestureDetectorReady();
   }
 }

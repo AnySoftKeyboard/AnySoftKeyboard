@@ -156,6 +156,22 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     return true;
   }
 
+  @Override
+  public void loadKeyboard(
+      final KeyboardDimens keyboardDimens,
+      @NonNull KeyboardExtension topRowPlugin,
+      @NonNull KeyboardExtension bottomRowPlugin) {
+    super.loadKeyboard(keyboardDimens, topRowPlugin, bottomRowPlugin);
+    // After generic top/bottom rows are merged in, optionally strip non-ASCII
+    // popup characters. Bottom-row keys are created by GenericRowKeyboard so
+    // they don't pass through this class's setupKeyAfterCreation hook.
+    if (isAsciiOnlyPopups()) {
+      for (Key key : getKeys()) {
+        if (key instanceof AnyKey) stripNonAsciiPopup((AnyKey) key);
+      }
+    }
+  }
+
   public KeyboardExtension getExtensionLayout() {
     return mExtensionLayout;
   }
@@ -417,7 +433,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
   @Override
   @CallSuper
   protected boolean setupKeyAfterCreation(AnyKey key) {
-    if (super.setupKeyAfterCreation(key)) return true;
+    if (super.setupKeyAfterCreation(key)) {
+      stripNonAsciiPopup(key);
+      return true;
+    }
     // ABCDEFGHIJKLMNOPQRSTUVWXYZ QWERTY KEYBOARD
     // αβξδεφγθιϊκλμνοπψρστυϋωχηζ VIM digraphs
     // ΑΒΞΔΕΦΓΘΙΪΚΛΜΝΟΠΨΡΣΤΥΫΩΧΗΖ VIM DIGRAPHS
@@ -530,10 +549,44 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         default:
-          return super.setupKeyAfterCreation(key);
+          if (super.setupKeyAfterCreation(key)) {
+            stripNonAsciiPopup(key);
+            return true;
+          }
+          return false;
       }
       return true;
     }
+    if (super.setupKeyAfterCreation(key)) {
+      stripNonAsciiPopup(key);
+      return true;
+    }
     return false;
+  }
+
+  /**
+   * Keyboards with {@code asciiOnlyPopups="true"} should not surface diacritics or non-ASCII
+   * punctuation (¿¡⸮‽…—·) in long-press popups for non-letter keys; those characters are noise for
+   * users of CJK / radical IMEs. Strip non-ASCII codepoints from the popup string.
+   */
+  private void stripNonAsciiPopup(AnyKey key) {
+    if (key == null || key.popupCharacters == null || key.popupCharacters.length() == 0) return;
+    if (!isAsciiOnlyPopups()) return;
+    final CharSequence src = key.popupCharacters;
+    final StringBuilder sb = new StringBuilder(src.length());
+    int i = 0;
+    boolean changed = false;
+    while (i < src.length()) {
+      int cp = Character.codePointAt(src, i);
+      int charLen = Character.charCount(cp);
+      // Keep ASCII printable + tab/newline. Drop everything else.
+      if (cp >= 0x20 && cp < 0x7F) {
+        sb.appendCodePoint(cp);
+      } else {
+        changed = true;
+      }
+      i += charLen;
+    }
+    if (changed) key.popupCharacters = sb.toString();
   }
 }

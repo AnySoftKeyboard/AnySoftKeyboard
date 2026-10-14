@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Boshiamy 嘸蝦米 (3 variants: zh-TW, zh-CN, ja-boshiamy) -->
+    <Keyboard nameResId="@string/chinese_traditional_boshiamy_keyboard"
+              iconResId="@drawable/ic_status_chinese_traditional"
+              layoutResId="@xml/qwerty"
+              id="@string/chinese_traditional_boshiamy_keyboard_id"
+              defaultDictionaryLocale="zh-TW"
+              description="@string/chinese_traditional_boshiamy_keyboard_description"
+              index="2" defaultEnabled="false" hasRadicalInput="true" asciiOnlyPopups="true"
+              radicalKeyCharacters=",.'[];-/" radicalCandidateSelectorKeys="vrsfwlcbkj"
+              physicalKeyboardMappingResId="@xml/chinese_traditional_physical" />
+    <Keyboard nameResId="@string/chinese_traditional_boshiamy_simplified_keyboard"
+              iconResId="@drawable/ic_status_chinese_traditional"
+              layoutResId="@xml/qwerty"
+              id="@string/chinese_traditional_boshiamy_simplified_keyboard_id"
+              defaultDictionaryLocale="zh-CN"
+              description="@string/chinese_traditional_boshiamy_simplified_keyboard_description"
+              index="3" defaultEnabled="false" hasRadicalInput="true" asciiOnlyPopups="true"
+              radicalKeyCharacters=",.'[];-/" radicalCandidateSelectorKeys="vrsfwlcbkj"
+              physicalKeyboardMappingResId="@xml/chinese_traditional_physical" />
+    <Keyboard nameResId="@string/chinese_traditional_boshiamy_japanese_keyboard"
+              iconResId="@drawable/ic_status_chinese_traditional"
+              layoutResId="@xml/qwerty"
+              id="@string/chinese_traditional_boshiamy_japanese_keyboard_id"
+              defaultDictionaryLocale="ja-boshiamy"
+              description="@string/chinese_traditional_boshiamy_japanese_keyboard_description"
+              index="4" defaultEnabled="false" hasRadicalInput="true" asciiOnlyPopups="true"
+              radicalKeyCharacters=",.'[];-/" radicalCandidateSelectorKeys="vrsfwlcbkj"
+              physicalKeyboardMappingResId="@xml/chinese_traditional_physical" />
+
+    <!-- Cangjie 倉頡 5: QWERTY shape, no custom radical chars (',' '.' are plain punctuation) -->
+    <Keyboard nameResId="@string/chinese_traditional_cangjie_keyboard"
+              iconResId="@drawable/ic_status_chinese_traditional"
+              layoutResId="@xml/qwerty_cangjie"
+              id="@string/chinese_traditional_cangjie_keyboard_id"
+              defaultDictionaryLocale="zh-cangjie"
+              description="@string/chinese_traditional_cangjie_keyboard_description"
+              index="6" defaultEnabled="false" hasRadicalInput="true" asciiOnlyPopups="true"
+              physicalKeyboardMappingResId="@xml/chinese_traditional_physical" />
+
+    <!-- Zhuyin 注音: Bopomofo-mapped layout (大千 / Mr. Eten compatible) -->
+    <Keyboard nameResId="@string/chinese_traditional_zhuyin_keyboard"
+              iconResId="@drawable/ic_status_chinese_traditional"
+              layoutResId="@xml/qwerty_zhuyin"
+              id="@string/chinese_traditional_zhuyin_keyboard_id"
+              defaultDictionaryLocale="zh-zhuyin"
+              description="@string/chinese_traditional_zhuyin_keyboard_description"
+              index="7" defaultEnabled="false" hasRadicalInput="true"
+              radicalKeyCharacters="ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩˇˋˊ˙"
+              physicalKeyboardMappingResId="@xml/chinese_traditional_physical" />
+</Keyboards>

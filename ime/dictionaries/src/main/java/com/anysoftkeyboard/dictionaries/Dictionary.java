@@ -1362,10 +1362,16 @@ public abstract class Dictionary {
   private volatile boolean mLoadingResources = true;
   protected final Object mResourceMonitor = new Object();
   private final CharSequence mDictionaryName;
+  private final boolean mSupportsGestureTyping;
   private AtomicBoolean mClosed = new AtomicBoolean(false);
 
   protected Dictionary(CharSequence dictionaryName) {
+    this(dictionaryName, true);
+  }
+
+  protected Dictionary(CharSequence dictionaryName, boolean supportsGestureTyping) {
     mDictionaryName = dictionaryName;
+    mSupportsGestureTyping = supportsGestureTyping;
   }
 
   protected boolean isLoading() {
@@ -1456,6 +1462,14 @@ public abstract class Dictionary {
         mLoadingResources = false;
       }
     }
+  }
+
+  /**
+   * Returns true if this dictionary provides a whole-word vocabulary suitable for gesture (swipe)
+   * typing. Defaults to true.
+   */
+  public boolean supportsGestureTyping() {
+    return mSupportsGestureTyping;
   }
 
   protected abstract void loadAllResources();
