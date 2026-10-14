@@ -882,8 +882,8 @@ public class RadicalDictionary extends Dictionary {
    * Returns the candidate to store for {@code value}, or null if the include filter rejects it.
    * Mirrors {@code build_simp_rows} in boshiamy_variants.py so imported and bundled tables order
    * the same way: the converted form wins when it passes the filter, otherwise the original value
-   * is tried. Example on the Simplified keyboard with liu-uni's {@code lw} row "麼 磁 么": 麼
-   * converts to 么 and takes the first slot, 磁 stays, and the later 么 is a duplicate.
+   * is tried. Example on the Simplified keyboard with liu-uni's {@code lw} row "麼 磁 么": 麼 converts
+   * to 么 and takes the first slot, 磁 stays, and the later 么 is a duplicate.
    */
   @Nullable
   @VisibleForTesting
@@ -991,8 +991,8 @@ public class RadicalDictionary extends Dictionary {
   /**
    * Parses {@code trigger\tnext} lines. With an empty {@code conversion} the rows are used as-is.
    * Otherwise the trigger is kept unchanged (it is matched against the source char the user typed,
-   * see {@link #getNextWordSuggestions(String, String)}) and the suggested chars go through
-   * {@link #resolveCandidate}; rows whose suggestion is rejected by the include filter are dropped.
+   * see {@link #getNextWordSuggestions(String, String)}) and the suggested chars go through {@link
+   * #resolveCandidate}; rows whose suggestion is rejected by the include filter are dropped.
    * Example on the Simplified keyboard: {@code 測\t試} is stored as 測 -> 试.
    */
   @VisibleForTesting
@@ -1289,8 +1289,8 @@ public class RadicalDictionary extends Dictionary {
    * <p>On a converting keyboard (Boshiamy Simplified) the phrase keys are still the Traditional
    * chars, and one Simplified char can come from several of them. The typed code tells which one
    * the user meant, so the suggestions match the Traditional keyboard exactly. Example: 么 typed
-   * with {@code lw} is 麼 (no suggestions), while 么 typed with {@code war} is 么 itself (么兒 ->
-   * 儿). Without a matching code the rows of all sources are merged, converted sources first.
+   * with {@code lw} is 麼 (no suggestions), while 么 typed with {@code war} is 么 itself (么兒 -> 儿).
+   * Without a matching code the rows of all sources are merged, converted sources first.
    */
   @NonNull
   public List<String> getNextWordSuggestions(
@@ -1321,7 +1321,8 @@ public class RadicalDictionary extends Dictionary {
     // The code only describes the char when the whole word is that one char.
     if (radicalCode != null && lastChar.equals(previousWord)) {
       final String typed =
-          sourceForCode(lastChar, sources, radicalCode.toLowerCase(Locale.ROOT), data.charToRadical);
+          sourceForCode(
+              lastChar, sources, radicalCode.toLowerCase(Locale.ROOT), data.charToRadical);
       if (typed != null) return data.phraseTrie.get(typed);
     }
     final LinkedHashSet<String> merged = new LinkedHashSet<>();
@@ -1335,8 +1336,8 @@ public class RadicalDictionary extends Dictionary {
   }
 
   /**
-   * Returns the char among {@code ch} and its {@code sources} whose radical code is {@code code}.
-   * A trailing selector key (e.g. {@code lw} + {@code v}) is also accepted by retrying without the
+   * Returns the char among {@code ch} and its {@code sources} whose radical code is {@code code}. A
+   * trailing selector key (e.g. {@code lw} + {@code v}) is also accepted by retrying without the
    * last key. Only {@code ch} and its few sources are compared, so this cannot pick an unrelated
    * char.
    */

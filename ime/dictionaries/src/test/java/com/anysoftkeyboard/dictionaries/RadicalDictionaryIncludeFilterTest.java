@@ -161,8 +161,7 @@ public class RadicalDictionaryIncludeFilterTest {
   @Test
   public void resolveCandidate_keepsOriginalWhenConvertedFormIsRejected() {
     // 乾 is valid on its own, but its converted form is not in this keyboard's set.
-    Assert.assertEquals(
-        "乾", RadicalDictionary.resolveCandidate("乾", setOf("乾"), t2s("乾", "干")));
+    Assert.assertEquals("乾", RadicalDictionary.resolveCandidate("乾", setOf("乾"), t2s("乾", "干")));
   }
 
   @Test
@@ -174,8 +173,7 @@ public class RadicalDictionaryIncludeFilterTest {
   public void resolveCandidate_emptyConversion_behavesLikeIncludeFilter() {
     Assert.assertEquals(
         "對", RadicalDictionary.resolveCandidate("對", setOf("對"), Collections.emptyMap()));
-    Assert.assertNull(
-        RadicalDictionary.resolveCandidate("们", setOf("對"), Collections.emptyMap()));
+    Assert.assertNull(RadicalDictionary.resolveCandidate("们", setOf("對"), Collections.emptyMap()));
   }
 
   @Test

@@ -94,8 +94,8 @@ public final class RadicalDictionaryConfig {
 
   /**
    * Resource id of an OpenCC-style char conversion table applied to user-imported (SAF) radical
-   * candidates and to the phrase table before the include filter, so they match the bundled
-   * variant table. {@link AddOn#INVALID_RES_ID} disables it.
+   * candidates and to the phrase table before the include filter, so they match the bundled variant
+   * table. {@link AddOn#INVALID_RES_ID} disables it.
    */
   public int getCandidateConversionResId() {
     return mCandidateConversionResId;
