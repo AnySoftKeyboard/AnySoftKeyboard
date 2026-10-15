@@ -83,6 +83,36 @@ public class KeyboardExtensionFactoryTest {
         KeyboardExtension.TYPE_EXTENSION);
   }
 
+  @Test
+  public void testKeyboardExtensionScope() {
+    KeyboardExtension defaultTopRow =
+        AnyApplication.getTopRowFactory(getApplicationContext()).getEnabledAddOn();
+    Assert.assertNotNull(defaultTopRow);
+    Assert.assertEquals(KeyboardExtension.SCOPE_ANY, defaultTopRow.getExtensionScope());
+    Assert.assertTrue(defaultTopRow.isCompatible(KeyboardExtension.SCOPE_ALPHABET));
+    Assert.assertTrue(defaultTopRow.isCompatible(KeyboardExtension.SCOPE_SYMBOLS));
+
+    KeyboardExtension numberRow =
+        AnyApplication.getTopRowFactory(getApplicationContext())
+            .getAddOnById("1fae0220-ded6-11e0-9572-0800200c9a66");
+    Assert.assertNotNull(numberRow);
+    Assert.assertEquals(KeyboardExtension.SCOPE_ALPHABET, numberRow.getExtensionScope());
+    Assert.assertTrue(numberRow.isCompatible(KeyboardExtension.SCOPE_ALPHABET));
+    Assert.assertFalse(numberRow.isCompatible(KeyboardExtension.SCOPE_SYMBOLS));
+
+    KeyboardExtension numberRowAlt =
+        AnyApplication.getTopRowFactory(getApplicationContext())
+            .getAddOnById("69520BA1-7EB1-424B-B5C5-C3C4857E53FE");
+    Assert.assertNotNull(numberRowAlt);
+    Assert.assertEquals(KeyboardExtension.SCOPE_ALPHABET, numberRowAlt.getExtensionScope());
+
+    KeyboardExtension numberRowSimple =
+        AnyApplication.getTopRowFactory(getApplicationContext())
+            .getAddOnById("d9d6f590-db8b-11e7-8f1a-0800200c9a66");
+    Assert.assertNotNull(numberRowSimple);
+    Assert.assertEquals(KeyboardExtension.SCOPE_ALPHABET, numberRowSimple.getExtensionScope());
+  }
+
   private void assertBasicListDetails(
       List<KeyboardExtension> availableExtensions,
       int extensionsCount,

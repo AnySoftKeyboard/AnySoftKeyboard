@@ -77,6 +77,46 @@ public class GenericKeyboardTest {
   }
 
   @Test
+  public void testIsNotAlphabetKeyboard() {
+    GenericKeyboard keyboard =
+        new GenericKeyboard(
+            mDefaultAddOn,
+            mContext,
+            R.xml.symbols,
+            R.xml.symbols,
+            "test",
+            "test",
+            Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+    Assert.assertFalse(keyboard.isAlphabetKeyboard());
+    Assert.assertEquals(KeyboardExtension.SCOPE_SYMBOLS, keyboard.getKeyboardScope());
+  }
+
+  @Test
+  public void testDoNotShowAlphabetScopedTopRowOnSymbolsKeyboard() {
+    KeyboardExtension numberTopRow =
+        AnyApplication.getTopRowFactory(mContext)
+            .getAddOnById("1fae0220-ded6-11e0-9572-0800200c9a66");
+    Assert.assertNotNull(numberTopRow);
+
+    GenericKeyboard keyboard =
+        new GenericKeyboard(
+            mDefaultAddOn,
+            mContext,
+            R.xml.symbols,
+            R.xml.symbols,
+            "test",
+            "test",
+            Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+    keyboard.loadKeyboard(SIMPLE_KeyboardDimens, numberTopRow, mBottomRow);
+
+    // Number row should not be added on top of symbols keyboard;
+    // first key should be 1 (code 49) from symbols.xml row 1 itself, not a prepended generic row.
+    Assert.assertEquals(49, keyboard.getKeys().get(0).getPrimaryCode());
+    // And second row begins with ! (code 33)
+    Assert.assertEquals(33, keyboard.getKeys().get(10).getPrimaryCode());
+  }
+
+  @Test
   public void testFalseShowPreviewAtRoot() throws Exception {
     GenericKeyboard anyKeyboard =
         new GenericKeyboard(
