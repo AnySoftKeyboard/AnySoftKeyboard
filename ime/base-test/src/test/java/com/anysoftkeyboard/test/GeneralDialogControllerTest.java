@@ -6,7 +6,6 @@ import static com.anysoftkeyboard.test.GeneralDialogTestUtil.getTitleFromDialog;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.ArgumentMatchers.notNull;
 
 import android.app.Dialog;
 import androidx.appcompat.app.AlertDialog;
@@ -49,16 +48,16 @@ public class GeneralDialogControllerTest {
 
     Mockito.doAnswer(
             invocation -> {
-              AlertDialog.Builder builder = invocation.getArgument(1);
+              AlertDialog.Builder builder = invocation.getArgument(0);
               builder.setTitle("TEST 32");
 
               return null;
             })
         .when(mPresenter)
-        .onSetupDialogRequired(notNull(), any(), eq(32), isNull());
+        .onSetupDialogRequired(any(), eq(32), isNull());
 
     mUnderTest.showDialog(32);
-    Mockito.verify(mPresenter).onSetupDialogRequired(notNull(), any(), eq(32), isNull());
+    Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
     Mockito.verify(mPresenter).beforeDialogShown(any(), isNull());
     Mockito.verifyNoMoreInteractions(mPresenter);
 
@@ -79,17 +78,17 @@ public class GeneralDialogControllerTest {
   public void testAlsoCallBeforeShow() {
     Mockito.doAnswer(
             invocation -> {
-              AlertDialog.Builder builder = invocation.getArgument(1);
+              AlertDialog.Builder builder = invocation.getArgument(0);
               builder.setTitle("TEST 32");
 
               return null;
             })
         .when(mPresenter)
-        .onSetupDialogRequired(notNull(), any(), eq(32), isNull());
+        .onSetupDialogRequired(any(), eq(32), isNull());
 
     final ArgumentCaptor<AlertDialog> argumentCaptor = ArgumentCaptor.forClass(AlertDialog.class);
     mUnderTest.showDialog(32);
-    Mockito.verify(mPresenter).onSetupDialogRequired(notNull(), any(), eq(32), isNull());
+    Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
     Mockito.verify(mPresenter).beforeDialogShown(argumentCaptor.capture(), isNull());
     Mockito.verifyNoMoreInteractions(mPresenter);
 
@@ -101,7 +100,7 @@ public class GeneralDialogControllerTest {
     Assert.assertNull(ShadowDialog.getLatestDialog());
 
     mUnderTest.showDialog(32);
-    Mockito.verify(mPresenter).onSetupDialogRequired(notNull(), any(), eq(32), isNull());
+    Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
     Mockito.verify(mPresenter).beforeDialogShown(any(), isNull());
     Mockito.verifyNoMoreInteractions(mPresenter);
 
@@ -111,7 +110,7 @@ public class GeneralDialogControllerTest {
     Assert.assertSame(getLatestShownDialog(), alertDialogFor32);
 
     mUnderTest.showDialog(11, "DATA");
-    Mockito.verify(mPresenter).onSetupDialogRequired(notNull(), any(), eq(11), eq("DATA"));
+    Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(11), eq("DATA"));
     Mockito.verify(mPresenter).beforeDialogShown(any(), eq("DATA"));
     Assert.assertFalse(alertDialogFor32.isShowing());
     final Dialog alertDialogFor11 = ShadowDialog.getLatestDialog();
