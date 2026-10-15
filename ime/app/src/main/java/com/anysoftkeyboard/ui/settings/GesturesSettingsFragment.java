@@ -44,8 +44,7 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
         new GeneralDialogController(getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
   }
 
-  private void setupDialog(
-      Context context, AlertDialog.Builder builder, int optionId, Object data) {
+  private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
     builder
         .setTitle(R.string.gesture_typing_alert_title)
         .setMessage(R.string.gesture_typing_alert_message)

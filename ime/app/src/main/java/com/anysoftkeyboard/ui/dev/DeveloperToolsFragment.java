@@ -115,8 +115,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
     }
   }
 
-  private void setupDialog(
-      Context context, AlertDialog.Builder builder, int optionId, Object data) {
+  private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
     switch (optionId) {
       case TRACING_ENABLED_DIALOG:
         builder
