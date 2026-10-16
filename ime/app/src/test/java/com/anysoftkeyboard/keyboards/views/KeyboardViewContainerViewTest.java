@@ -413,4 +413,32 @@ public class KeyboardViewContainerViewTest {
     // being offset
     Assert.assertEquals(candidateY + 1f, e.getY(), 0.01f);
   }
+
+  @Test
+  public void testPredictiveBackProgressAndReset() {
+    mUnderTest.layout(0, 0, 1000, 500);
+
+    mUnderTest.setPredictiveBackProgress(0.5f);
+    Assert.assertEquals(0.5f, mUnderTest.getPredictiveBackProgress(), 0.01f);
+    Assert.assertEquals(75f, mUnderTest.getTranslationY(), 0.01f);
+    Assert.assertEquals(0.8f, mUnderTest.getAlpha(), 0.01f);
+
+    mUnderTest.resetPredictiveBackProgress();
+    Assert.assertEquals(0f, mUnderTest.getPredictiveBackProgress(), 0.01f);
+    Assert.assertEquals(0f, mUnderTest.getTranslationY(), 0.01f);
+    Assert.assertEquals(1.0f, mUnderTest.getAlpha(), 0.01f);
+  }
+
+  @Test
+  public void testPredictiveBackCancelAnimation() {
+    mUnderTest.layout(0, 0, 1000, 500);
+    mUnderTest.setPredictiveBackProgress(0.8f);
+
+    mUnderTest.animatePredictiveBackCancel();
+    mUnderTest.cancelPredictiveBackAnimation();
+    mUnderTest.resetPredictiveBackProgress();
+    Assert.assertEquals(0f, mUnderTest.getPredictiveBackProgress(), 0.01f);
+    Assert.assertEquals(0f, mUnderTest.getTranslationY(), 0.01f);
+    Assert.assertEquals(1.0f, mUnderTest.getAlpha(), 0.01f);
+  }
 }
