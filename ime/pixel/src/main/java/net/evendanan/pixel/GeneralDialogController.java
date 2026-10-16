@@ -46,7 +46,7 @@ public class GeneralDialogController {
     dismiss();
 
     AlertDialog.Builder builder = new AlertDialog.Builder(mContext, mStyle);
-    mDialogPresenter.onSetupDialogRequired(mContext, builder, optionId, data);
+    mDialogPresenter.onSetupDialogRequired(builder, optionId, data);
     mDialog = builder.create();
     mDialog.getWindow().getDecorView().setTag(TAG_ID, TAG_VALUE);
     mDialogPresenter.beforeDialogShown(mDialog, data);
@@ -72,8 +72,7 @@ public class GeneralDialogController {
   }
 
   public interface JustSetupDialogPresenter {
-    void onSetupDialogRequired(
-        Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data);
+    void onSetupDialogRequired(AlertDialog.Builder builder, int optionId, @Nullable Object data);
   }
 
   private static class NoOpImpl implements DialogPresenter {
@@ -88,8 +87,8 @@ public class GeneralDialogController {
 
     @Override
     public void onSetupDialogRequired(
-        Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data) {
-      mDialogPresenter.onSetupDialogRequired(context, builder, optionId, data);
+        AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+      mDialogPresenter.onSetupDialogRequired(builder, optionId, data);
     }
   }
 }
