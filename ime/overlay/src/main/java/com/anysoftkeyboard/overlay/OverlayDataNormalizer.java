@@ -9,7 +9,7 @@ import androidx.annotation.VisibleForTesting;
 
 public class OverlayDataNormalizer implements OverlyDataCreator {
 
-  private static final int GRAY_LUM = luminance(Color.GRAY);
+  public static final int GRAY_LUM = luminance(Color.GRAY);
 
   private final OverlyDataCreator mOriginal;
   private final int mRequiredTextColorDiff;
@@ -51,7 +51,7 @@ public class OverlayDataNormalizer implements OverlyDataCreator {
 
   /** Code taken (mostly) from AOSP Color class. */
   @VisibleForTesting
-  static int luminance(@ColorInt int color) {
+  public static int luminance(@ColorInt int color) {
     double r = Color.red(color) * 0.2126;
     double g = Color.green(color) * 0.7152;
     double b = Color.blue(color) * 0.0722;

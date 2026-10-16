@@ -100,6 +100,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
         mCurrentTheme,
         actualInputView.getLabelTextSize(),
         actualInputView.getCurrentResourcesHolder().getKeyTextColor(),
+        actualInputView.getCurrentResourcesHolder().getNameTextColor(),
         actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL),
         actualInputView.getDrawableForKeyCode(KeyCodes.DELETE),
         actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
