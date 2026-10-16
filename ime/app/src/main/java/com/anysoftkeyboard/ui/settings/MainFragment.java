@@ -305,8 +305,7 @@ public class MainFragment extends Fragment {
     mDialogController.dismiss();
   }
 
-  private void onSetupDialogRequired(
-      Context context, AlertDialog.Builder builder, int optionId, Object data) {
+  private void onSetupDialogRequired(AlertDialog.Builder builder, int optionId, Object data) {
     switch (optionId) {
       case R.id.backup_prefs:
       case R.id.restore_prefs:
