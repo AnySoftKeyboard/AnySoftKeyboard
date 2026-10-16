@@ -295,7 +295,8 @@ public abstract class AnyKeyboard extends Keyboard {
     final boolean disallowGenericRowsOverride =
         KeyboardPrefs.disallowGenericRowOverride(mLocalContext);
     mGenericRowsHeight = 0;
-    if (!mTopRowWasCreated || disallowGenericRowsOverride) {
+    if ((!mTopRowWasCreated || disallowGenericRowsOverride)
+        && topRowPlugin.isCompatible(getKeyboardScope())) {
       Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
       GenericRowKeyboard rowKeyboard =
           new GenericRowKeyboard(
@@ -306,7 +307,8 @@ public abstract class AnyKeyboard extends Keyboard {
               mKeyboardMode);
       fixKeyboardDueToGenericRow(rowKeyboard, true);
     }
-    if (!mBottomRowWasCreated || disallowGenericRowsOverride) {
+    if ((!mBottomRowWasCreated || disallowGenericRowsOverride)
+        && bottomRowPlugin.isCompatible(getKeyboardScope())) {
       Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
       GenericRowKeyboard rowKeyboard =
           new GenericRowKeyboard(
@@ -333,6 +335,13 @@ public abstract class AnyKeyboard extends Keyboard {
   }
 
   public abstract boolean isAlphabetKeyboard();
+
+  @KeyboardExtension.KeyboardExtensionScope
+  public int getKeyboardScope() {
+    return isAlphabetKeyboard()
+        ? KeyboardExtension.SCOPE_ALPHABET
+        : KeyboardExtension.SCOPE_SYMBOLS;
+  }
 
   /**
    * Returns this keyboard's add-on as a {@link KeyboardAddOnAndBuilder}, or {@code null} if the

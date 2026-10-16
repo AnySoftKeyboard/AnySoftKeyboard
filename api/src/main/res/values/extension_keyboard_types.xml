@@ -4,4 +4,7 @@
     <integer name="extension_keyboard_type_top_row">2</integer>
     <integer name="extension_keyboard_type_extension_keyboard">3</integer>
     <integer name="extension_keyboard_type_utility_keyboard">4</integer>
+    <integer name="extension_keyboard_scope_any">-1</integer>
+    <integer name="extension_keyboard_scope_alphabet">1</integer>
+    <integer name="extension_keyboard_scope_symbols">2</integer>
 </resources>
