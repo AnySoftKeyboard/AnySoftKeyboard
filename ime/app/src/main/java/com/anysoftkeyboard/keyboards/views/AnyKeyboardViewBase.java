@@ -1773,6 +1773,10 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     return mThemeOverlayCombiner.getThemeResources();
   }
 
+  public void setKeyTextColor(ColorStateList keyTextColor) {
+    mThemeOverlayCombiner.setThemeTextColor(keyTextColor);
+  }
+
   /**
    * Called when a key is long pressed. By default this will open any popup keyboard associated with
    * this key through the attributes popupLayout and popupCharacters.
