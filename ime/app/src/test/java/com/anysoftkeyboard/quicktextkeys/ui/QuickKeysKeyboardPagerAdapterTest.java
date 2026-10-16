@@ -2,6 +2,8 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -121,6 +123,17 @@ public class QuickKeysKeyboardPagerAdapterTest {
     Assert.assertNotNull(keyboardView1Again);
     // non history is not recreated!
     Assert.assertSame(keyboardView1.getKeyboard(), keyboardView1Again.getKeyboard());
+  }
+
+  @Test
+  public void testSetKeyTextColor() {
+    ViewGroup container = new LinearLayout(getApplicationContext());
+    ColorStateList customColor = ColorStateList.valueOf(Color.CYAN);
+    mUnderTest.setKeyTextColor(customColor);
+    Object instance = mUnderTest.instantiateItem(container, 0);
+    QuickKeysKeyboardView keyboardView = ((View) instance).findViewById(R.id.keys_container);
+    Assert.assertEquals(
+        Color.CYAN, keyboardView.getCurrentResourcesHolder().getKeyTextColor().getDefaultColor());
   }
 
   @Test

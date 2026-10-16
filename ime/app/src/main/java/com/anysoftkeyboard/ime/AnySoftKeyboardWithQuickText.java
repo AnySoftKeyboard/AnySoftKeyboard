@@ -96,10 +96,12 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
             mDefaultSkinTonePrefTracker,
             mDefaultGenderPrefTracker);
     actualInputView.resetInputView();
+    final var resourcesHolder = actualInputView.getCurrentResourcesHolder();
     quickTextsLayout.setThemeValues(
         mCurrentTheme,
         actualInputView.getLabelTextSize(),
-        actualInputView.getCurrentResourcesHolder().getKeyTextColor(),
+        resourcesHolder.getKeyTextColor(),
+        resourcesHolder.getNameTextColor(),
         actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL),
         actualInputView.getDrawableForKeyCode(KeyCodes.DELETE),
         actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
