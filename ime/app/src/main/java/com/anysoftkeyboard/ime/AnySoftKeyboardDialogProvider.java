@@ -18,6 +18,7 @@ package com.anysoftkeyboard.ime;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.IBinder;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -165,11 +166,27 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
     public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
       OptionsDialogData dialogData = (OptionsDialogData) data;
       Window window = dialog.getWindow();
+      final IBinder windowToken = ((View) getInputView()).getWindowToken();
+
+      // Set initial attributes (may not persist on some devices until dialog is shown)
       WindowManager.LayoutParams lp = window.getAttributes();
-      lp.token = ((View) getInputView()).getWindowToken();
+      lp.token = windowToken;
       lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
       window.setAttributes(lp);
       window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+      // Re-apply attributes after dialog is shown, when window is fully attached.
+      // This fixes clipboard popup closing immediately in apps like Chrome/OpenChamber
+      // where the target app's focus changes can invalidate the initial token.
+      dialog.setOnShowListener(dialogInterface -> {
+        Window shownWindow = dialog.getWindow();
+        if (shownWindow != null) {
+          WindowManager.LayoutParams shownLp = shownWindow.getAttributes();
+          shownLp.token = windowToken;
+          shownLp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+          shownWindow.setAttributes(shownLp);
+        }
+      });
 
       if (dialogData.mExtraPresenter != null) {
         dialogData.mExtraPresenter.beforeDialogShown(dialog, data);
