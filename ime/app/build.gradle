@@ -95,6 +95,10 @@ android {
         allAddOns {
             buildConfigField("boolean", "TESTING_BUILD", "true")
         }
+
+        sideBySide {
+            buildConfigField("boolean", "TESTING_BUILD", "true")
+        }
     }
 }
 
