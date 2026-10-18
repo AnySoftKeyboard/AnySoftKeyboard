@@ -167,7 +167,8 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
       OptionsDialogData dialogData = (OptionsDialogData) data;
       Window window = dialog.getWindow();
       // Use the IME service's window token (more stable than input view's token)
-      final IBinder imeWindowToken = getWindow().getAttributes().token;
+      // getWindow() from InputMethodService returns the IME Dialog, need getWindow() again for Window
+      final IBinder imeWindowToken = getWindow().getWindow().getAttributes().token;
 
       // Set initial attributes
       WindowManager.LayoutParams lp = window.getAttributes();
