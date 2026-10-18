@@ -174,22 +174,20 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
       WindowManager.LayoutParams lp = window.getAttributes();
       lp.token = imeWindowToken;
       lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-      // Don't steal focus from the target app - this prevents Chrome/OpenChamber from dismissing us
-      lp.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-          | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
-          | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+      // Keep dialog focusable for interaction (allows clicks on items)
+      // FLAG_ALT_FOCUSABLE_IM lets IME handle input while dialog is up
+      lp.flags |= WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
       window.setAttributes(lp);
 
-      // Re-apply after show as a safety net
+      // Re-apply after show as a safety net - Chrome/OpenChamber focus changes
+      // can invalidate the token between creation and show
       dialog.setOnShowListener(dialogInterface -> {
         Window shownWindow = dialog.getWindow();
         if (shownWindow != null) {
           WindowManager.LayoutParams shownLp = shownWindow.getAttributes();
           shownLp.token = imeWindowToken;
           shownLp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-          shownLp.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-              | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
-              | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+          shownLp.flags |= WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
           shownWindow.setAttributes(shownLp);
         }
       });
