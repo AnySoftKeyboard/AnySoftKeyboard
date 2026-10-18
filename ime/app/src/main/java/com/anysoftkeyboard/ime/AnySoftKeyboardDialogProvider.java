@@ -166,24 +166,29 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
     public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
       OptionsDialogData dialogData = (OptionsDialogData) data;
       Window window = dialog.getWindow();
-      final IBinder windowToken = ((View) getInputView()).getWindowToken();
+      // Use the IME service's window token (more stable than input view's token)
+      final IBinder imeWindowToken = getWindow().getAttributes().token;
 
-      // Set initial attributes (may not persist on some devices until dialog is shown)
+      // Set initial attributes
       WindowManager.LayoutParams lp = window.getAttributes();
-      lp.token = windowToken;
+      lp.token = imeWindowToken;
       lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+      // Don't steal focus from the target app - this prevents Chrome/OpenChamber from dismissing us
+      lp.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+          | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+          | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
       window.setAttributes(lp);
-      window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
-      // Re-apply attributes after dialog is shown, when window is fully attached.
-      // This fixes clipboard popup closing immediately in apps like Chrome/OpenChamber
-      // where the target app's focus changes can invalidate the initial token.
+      // Re-apply after show as a safety net
       dialog.setOnShowListener(dialogInterface -> {
         Window shownWindow = dialog.getWindow();
         if (shownWindow != null) {
           WindowManager.LayoutParams shownLp = shownWindow.getAttributes();
-          shownLp.token = windowToken;
+          shownLp.token = imeWindowToken;
           shownLp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+          shownLp.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+              | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+              | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
           shownWindow.setAttributes(shownLp);
         }
       });
