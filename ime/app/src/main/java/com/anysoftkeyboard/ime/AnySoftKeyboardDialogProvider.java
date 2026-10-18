@@ -166,31 +166,25 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
     public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
       OptionsDialogData dialogData = (OptionsDialogData) data;
       Window window = dialog.getWindow();
-      // Use the IME service's window token (more stable than input view's token)
-      // getWindow() from InputMethodService returns the IME Dialog, need getWindow() again for Window
-      final IBinder imeWindowToken = getWindow().getWindow().getAttributes().token;
 
-      // Set initial attributes
-      WindowManager.LayoutParams lp = window.getAttributes();
-      lp.token = imeWindowToken;
-      lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-      // Keep dialog focusable for interaction (allows clicks on items)
-      // FLAG_ALT_FOCUSABLE_IM lets IME handle input while dialog is up
-      lp.flags |= WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-      window.setAttributes(lp);
+      // Try IME service window token first, fall back to input view token
+      IBinder windowToken = null;
+      Window imeWindow = getWindow().getWindow();
+      if (imeWindow != null) {
+        windowToken = imeWindow.getAttributes().token;
+      }
+      if (windowToken == null && getInputView() != null) {
+        windowToken = ((View) getInputView()).getWindowToken();
+      }
 
-      // Re-apply after show as a safety net - Chrome/OpenChamber focus changes
-      // can invalidate the token between creation and show
-      dialog.setOnShowListener(dialogInterface -> {
-        Window shownWindow = dialog.getWindow();
-        if (shownWindow != null) {
-          WindowManager.LayoutParams shownLp = shownWindow.getAttributes();
-          shownLp.token = imeWindowToken;
-          shownLp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-          shownLp.flags |= WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-          shownWindow.setAttributes(shownLp);
-        }
-      });
+      if (windowToken != null) {
+        // Set initial attributes
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.token = windowToken;
+        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+        lp.flags |= WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+        window.setAttributes(lp);
+      }
 
       if (dialogData.mExtraPresenter != null) {
         dialogData.mExtraPresenter.beforeDialogShown(dialog, data);
