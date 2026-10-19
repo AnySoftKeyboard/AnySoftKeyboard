@@ -40,6 +40,7 @@ include ':addons:languages:icelandic:pack', ':addons:languages:icelandic:apk'
 include ':addons:languages:indonesian:pack', ':addons:languages:indonesian:apk'
 include ':addons:languages:italian:pack', ':addons:languages:italian:apk'
 include ':addons:languages:kachin:pack', ':addons:languages:kachin:apk'
+include ":addons:languages:klingon:pack", ":addons:languages:klingon:apk"
 include ':addons:languages:kurdish:pack', ':addons:languages:kurdish:apk'
 include ':addons:languages:latvian:pack', ':addons:languages:latvian:apk'
 include ':addons:languages:lithuanian:pack', ':addons:languages:lithuanian:apk'
