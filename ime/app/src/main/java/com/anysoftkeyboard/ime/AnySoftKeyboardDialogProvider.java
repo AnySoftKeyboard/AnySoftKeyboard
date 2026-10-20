@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.ime;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.view.Window;
@@ -145,7 +144,7 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
   private class ImeDialogPresenter implements GeneralDialogController.DialogPresenter {
     @Override
     public void onSetupDialogRequired(
-        Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+        AlertDialog.Builder builder, int optionId, @Nullable Object data) {
       OptionsDialogData dialogData = (OptionsDialogData) data;
       builder.setCancelable(true);
       builder.setIcon(dialogData.mIcon);
@@ -157,7 +156,7 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
       getInputView().resetInputView();
 
       if (dialogData.mExtraPresenter != null) {
-        dialogData.mExtraPresenter.onSetupDialogRequired(context, builder, optionId, data);
+        dialogData.mExtraPresenter.onSetupDialogRequired(builder, optionId, data);
       }
     }
 

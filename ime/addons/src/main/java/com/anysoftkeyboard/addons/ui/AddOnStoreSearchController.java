@@ -52,8 +52,7 @@ public class AddOnStoreSearchController {
         new GeneralDialogController(context, R.style.Theme_AskAlertDialog, this::setupDialog);
   }
 
-  private void setupDialog(
-      Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+  private void setupDialog(AlertDialog.Builder builder, int optionId, @Nullable Object data) {
     switch (optionId) {
       case LEAVE:
         builder
