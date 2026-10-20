@@ -33,7 +33,7 @@
     "commander": "^14.0.3",
     "eslint": "^9.39.4",
     "fast-xml-parser": "^5.7.2",
-    "follow-redirects": "^1.16.0",
+    "follow-redirects": "^1.16.1",
     "globals": "^16.5.0",
     "js-yaml": "^4.3.2",
     "mock-fs": "^5.5.0",
