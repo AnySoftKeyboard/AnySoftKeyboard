@@ -464,7 +464,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
           break;
         case 'e':
           key.popupCharacters =
-              "\u00e8\u00e9\u00ea\u00eb\u0119\u20ac\u0117\u03b5\u0113"; // "èéêëęėε€";
+              "\u00e8\u00e9\u00ea\u00eb\u011b\u0119\u20ac\u0117\u03b5\u0113"; // "èéêëęėε€";
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 'f':
@@ -500,7 +500,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 'n':
-          key.popupCharacters = "ñńν";
+          key.popupCharacters = "ñńňν";
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 'o':
@@ -512,7 +512,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 'r':
-          key.popupCharacters = "ρ";
+          key.popupCharacters = "řŕρ";
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 's':
@@ -520,12 +520,12 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 't':
-          key.popupCharacters = "τ";
+          key.popupCharacters = "ťțţτ";
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 'u':
           key.popupCharacters =
-              "\u00f9\u00fa\u00fb\u00fc\u016d\u0171\u016B\u0173\u03b8"; // "ùúûüŭűųθ";
+              "\u00f9\u00fa\u00fb\u00fc\u016d\u0171\u016f\u016B\u0173\u03b8"; // "ùúûüŭűųθ";
           key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
           break;
         case 'v':
