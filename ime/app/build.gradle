@@ -39,6 +39,14 @@ android {
 
             matchingFallbacks = ['debug']
         }
+
+        // Side-by-side install: different app ID + label + debug signing
+        sideBySide {
+            initWith buildTypes.debug
+            applicationIdSuffix ".fix"
+            manifestPlaceholders = [appName: "AnySoftKeyboard Fix"]
+            matchingFallbacks = ['debug']
+        }
     }
 }
 
@@ -85,6 +93,10 @@ android {
         }
 
         allAddOns {
+            buildConfigField("boolean", "TESTING_BUILD", "true")
+        }
+
+        sideBySide {
             buildConfigField("boolean", "TESTING_BUILD", "true")
         }
     }
