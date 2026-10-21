@@ -2,13 +2,16 @@ package com.anysoftkeyboard.keyboardextensions;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
+import android.util.AttributeSet;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardExtensionFactoryTest {
@@ -81,6 +84,118 @@ public class KeyboardExtensionFactoryTest {
         AnyApplication.getKeyboardExtensionFactory(getApplicationContext()).getAllAddOns(),
         1,
         KeyboardExtension.TYPE_EXTENSION);
+  }
+
+  @Test
+  public void testKeyboardExtensionScope() {
+    KeyboardExtension defaultTopRow =
+        AnyApplication.getTopRowFactory(getApplicationContext()).getEnabledAddOn();
+    Assert.assertNotNull(defaultTopRow);
+    Assert.assertEquals(KeyboardExtension.SCOPE_ANY, defaultTopRow.getExtensionScope());
+    Assert.assertTrue(defaultTopRow.isCompatible(KeyboardExtension.SCOPE_ALPHABET));
+    Assert.assertTrue(defaultTopRow.isCompatible(KeyboardExtension.SCOPE_SYMBOLS));
+
+    KeyboardExtension numberRow =
+        AnyApplication.getTopRowFactory(getApplicationContext())
+            .getAddOnById("1fae0220-ded6-11e0-9572-0800200c9a66");
+    Assert.assertNotNull(numberRow);
+    Assert.assertEquals(KeyboardExtension.SCOPE_ALPHABET, numberRow.getExtensionScope());
+    Assert.assertTrue(numberRow.isCompatible(KeyboardExtension.SCOPE_ALPHABET));
+    Assert.assertFalse(numberRow.isCompatible(KeyboardExtension.SCOPE_SYMBOLS));
+
+    KeyboardExtension numberRowAlt =
+        AnyApplication.getTopRowFactory(getApplicationContext())
+            .getAddOnById("69520BA1-7EB1-424B-B5C5-C3C4857E53FE");
+    Assert.assertNotNull(numberRowAlt);
+    Assert.assertEquals(KeyboardExtension.SCOPE_ALPHABET, numberRowAlt.getExtensionScope());
+
+    KeyboardExtension numberRowSimple =
+        AnyApplication.getTopRowFactory(getApplicationContext())
+            .getAddOnById("d9d6f590-db8b-11e7-8f1a-0800200c9a66");
+    Assert.assertNotNull(numberRowSimple);
+    Assert.assertEquals(KeyboardExtension.SCOPE_ALPHABET, numberRowSimple.getExtensionScope());
+  }
+
+  @Test
+  public void testLegacyConstructorDefaultsToScopeAny() {
+    KeyboardExtension ext =
+        new KeyboardExtension(
+            getApplicationContext(),
+            getApplicationContext(),
+            1,
+            "test-id",
+            "Test Name",
+            R.xml.ext_kbd_bottom_row_regular_with_voice,
+            KeyboardExtension.TYPE_BOTTOM,
+            "Test description",
+            false,
+            1);
+    Assert.assertEquals(KeyboardExtension.SCOPE_ANY, ext.getExtensionScope());
+    Assert.assertTrue(ext.isCompatible(KeyboardExtension.SCOPE_ALPHABET));
+    Assert.assertTrue(ext.isCompatible(KeyboardExtension.SCOPE_SYMBOLS));
+  }
+
+  @Test
+  public void testParseScopeFromResource() {
+    AttributeSet attrs = Mockito.mock(AttributeSet.class);
+    Mockito.doReturn(com.anysoftkeyboard.api.R.integer.extension_keyboard_scope_symbols)
+        .when(attrs)
+        .getAttributeResourceValue(
+            null, KeyboardExtensionFactory.XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    Assert.assertEquals(
+        KeyboardExtension.SCOPE_SYMBOLS,
+        KeyboardExtensionFactory.parseScope(getApplicationContext(), attrs));
+  }
+
+  @Test
+  public void testParseScopeStringValues() {
+    AttributeSet attrs = Mockito.mock(AttributeSet.class);
+    Mockito.doReturn(AddOn.INVALID_RES_ID)
+        .when(attrs)
+        .getAttributeResourceValue(
+            null, KeyboardExtensionFactory.XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+
+    Mockito.doReturn(null)
+        .when(attrs)
+        .getAttributeValue(null, KeyboardExtensionFactory.XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE);
+    Assert.assertEquals(
+        KeyboardExtension.SCOPE_ANY,
+        KeyboardExtensionFactory.parseScope(getApplicationContext(), attrs));
+
+    Mockito.doReturn("")
+        .when(attrs)
+        .getAttributeValue(null, KeyboardExtensionFactory.XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE);
+    Assert.assertEquals(
+        KeyboardExtension.SCOPE_ANY,
+        KeyboardExtensionFactory.parseScope(getApplicationContext(), attrs));
+
+    Mockito.doReturn("alphabet|symbols")
+        .when(attrs)
+        .getAttributeValue(null, KeyboardExtensionFactory.XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE);
+    Assert.assertEquals(
+        KeyboardExtension.SCOPE_ALPHABET | KeyboardExtension.SCOPE_SYMBOLS,
+        KeyboardExtensionFactory.parseScope(getApplicationContext(), attrs));
+
+    Mockito.doReturn("any")
+        .when(attrs)
+        .getAttributeValue(null, KeyboardExtensionFactory.XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE);
+    Assert.assertEquals(
+        KeyboardExtension.SCOPE_ANY,
+        KeyboardExtensionFactory.parseScope(getApplicationContext(), attrs));
+
+    Mockito.doReturn("2")
+        .when(attrs)
+        .getAttributeValue(null, KeyboardExtensionFactory.XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE);
+    Assert.assertEquals(
+        KeyboardExtension.SCOPE_SYMBOLS,
+        KeyboardExtensionFactory.parseScope(getApplicationContext(), attrs));
+
+    Mockito.doReturn("invalid_scope_value")
+        .when(attrs)
+        .getAttributeValue(null, KeyboardExtensionFactory.XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE);
+    Assert.assertEquals(
+        KeyboardExtension.SCOPE_ANY,
+        KeyboardExtensionFactory.parseScope(getApplicationContext(), attrs));
   }
 
   private void assertBasicListDetails(

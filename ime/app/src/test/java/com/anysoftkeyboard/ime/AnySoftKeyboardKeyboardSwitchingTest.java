@@ -62,6 +62,38 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
   }
 
   @Test
+  public void testSwitchToSymbolsWithNumberRowTopExtension() {
+    AnyApplication.getTopRowFactory(getApplicationContext())
+        .setAddOnEnabled("1fae0220-ded6-11e0-9572-0800200c9a66", true);
+
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
+
+    // On alphabet keyboard, number row is present at the top (keys: 1..0)
+    Assert.assertEquals(
+        '1',
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0).getPrimaryCode());
+    Assert.assertEquals(
+        'q',
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(10).getPrimaryCode());
+
+    // Switch to symbols
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
+    Assert.assertEquals(
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
+        getApplicationContext().getString(R.string.symbols_keyboard));
+
+    // On symbols keyboard, number row must NOT be duplicated above symbols.
+    // The top row is symbols own number row (keys: 1..0), followed by ! row.
+    Assert.assertEquals(
+        '1',
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0).getPrimaryCode());
+    Assert.assertEquals(
+        '!',
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(10).getPrimaryCode());
+  }
+
+  @Test
   public void testCreateOrUseCacheKeyboard() {
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
     verifyCreatedGenericKeyboard("symbols_keyboard", KeyboardSwitcher.INPUT_MODE_TEXT);

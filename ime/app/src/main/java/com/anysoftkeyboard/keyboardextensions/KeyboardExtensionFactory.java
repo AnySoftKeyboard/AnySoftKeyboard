@@ -21,9 +21,11 @@ import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_EXTE
 import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_TOP;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -42,6 +44,9 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
 
   private static final String XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE = "extensionKeyboardResId";
   private static final String XML_EXT_KEYBOARD_TYPE_ATTRIBUTE = "extensionKeyboardType";
+
+  @VisibleForTesting
+  static final String XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE = "extensionKeyboardScope";
 
   @KeyboardExtension.KeyboardExtensionType private final int mExtensionType;
 
@@ -97,12 +102,14 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
       extensionType =
           attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
     }
+    final int extensionScope = parseScope(context, attrs);
     Logger.d(
         mTag,
-        "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d",
+        "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d, scope %d",
         prefId,
         keyboardResId,
-        extensionType);
+        extensionType,
+        extensionScope);
 
     //noinspection WrongConstant
     if (extensionType == AddOn.INVALID_RES_ID) {
@@ -124,6 +131,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
             name,
             keyboardResId,
             extensionType,
+            extensionScope,
             description,
             isHidden,
             sortIndex);
@@ -131,6 +139,43 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
         return null;
       }
     }
+  }
+
+  @VisibleForTesting
+  @KeyboardExtension.KeyboardExtensionScope
+  static int parseScope(@NonNull Context context, @NonNull AttributeSet attrs) {
+    final int resId =
+        attrs.getAttributeResourceValue(
+            null, XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    if (resId != AddOn.INVALID_RES_ID) {
+      return context.getResources().getInteger(resId);
+    }
+    final String scopeValue = attrs.getAttributeValue(null, XML_EXT_KEYBOARD_SCOPE_ATTRIBUTE);
+    if (TextUtils.isEmpty(scopeValue)) {
+      return KeyboardExtension.SCOPE_ANY;
+    }
+    int scope = 0;
+    for (String part : scopeValue.split("\\|")) {
+      String trimmed = part.trim().toLowerCase(Locale.ROOT);
+      switch (trimmed) {
+        case "any":
+          return KeyboardExtension.SCOPE_ANY;
+        case "alphabet":
+          scope |= KeyboardExtension.SCOPE_ALPHABET;
+          break;
+        case "symbols":
+          scope |= KeyboardExtension.SCOPE_SYMBOLS;
+          break;
+        default:
+          try {
+            scope |= Integer.parseInt(trimmed);
+          } catch (NumberFormatException e) {
+            Logger.w("ASK_EKF", "Unknown keyboard extension scope: %s", trimmed);
+          }
+          break;
+      }
+    }
+    return scope == 0 ? KeyboardExtension.SCOPE_ANY : scope;
   }
 
   @KeyboardExtension.KeyboardExtensionType

@@ -30,6 +30,7 @@
             nameResId="@string/extension_kbd_top_small_numbers"
             extensionKeyboardResId="@xml/ext_kbd_top_row_numbers"
             extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+            extensionKeyboardScope="alphabet"
             description=""
             index="4"
             />
@@ -38,6 +39,7 @@
             nameResId="@string/extension_kbd_top_numbers_alt"
             extensionKeyboardResId="@xml/ext_kbd_top_row_numbers_alt"
             extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+            extensionKeyboardScope="alphabet"
             description=""
             index="5"
             />
@@ -70,6 +72,7 @@
             nameResId="@string/extension_kbd_top_numbers_simple"
             extensionKeyboardResId="@xml/ext_kbd_top_row_numbers_simple"
             extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+            extensionKeyboardScope="alphabet"
             description=""
             index="9"
             />
