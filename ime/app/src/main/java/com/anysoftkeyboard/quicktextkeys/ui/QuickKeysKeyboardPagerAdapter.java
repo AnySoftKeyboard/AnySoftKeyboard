@@ -1,10 +1,12 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
@@ -36,6 +38,7 @@ import net.evendanan.pixel.ViewPagerWithDisable;
   private final DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
   private final DefaultGenderPrefTracker mDefaultGenderPrefTracker;
   private KeyboardTheme mKeyboardTheme;
+  @Nullable private ColorStateList mKeyTextColor;
   @NonNull private OverlayData mOverlayData = new OverlayDataImpl();
   private int mBottomPadding;
 
@@ -48,6 +51,28 @@ import net.evendanan.pixel.ViewPagerWithDisable;
       @NonNull DefaultGenderPrefTracker defaultGenderPrefTracker,
       @NonNull KeyboardTheme keyboardTheme,
       int bottomPadding) {
+    this(
+        context,
+        ownerPager,
+        keyAddOns,
+        keyboardActionListener,
+        defaultSkinTonePrefTracker,
+        defaultGenderPrefTracker,
+        keyboardTheme,
+        null,
+        bottomPadding);
+  }
+
+  public QuickKeysKeyboardPagerAdapter(
+      @NonNull Context context,
+      @NonNull ViewPagerWithDisable ownerPager,
+      @NonNull List<QuickTextKey> keyAddOns,
+      @NonNull OnKeyboardActionListener keyboardActionListener,
+      @NonNull DefaultSkinTonePrefTracker defaultSkinTonePrefTracker,
+      @NonNull DefaultGenderPrefTracker defaultGenderPrefTracker,
+      @NonNull KeyboardTheme keyboardTheme,
+      @Nullable ColorStateList keyTextColor,
+      int bottomPadding) {
     mViewPager = ownerPager;
     mDefaultLocalAddOn = new DefaultAddOn(context, context);
     mContext = context;
@@ -59,6 +84,7 @@ import net.evendanan.pixel.ViewPagerWithDisable;
     mDefaultSkinTonePrefTracker = defaultSkinTonePrefTracker;
     mDefaultGenderPrefTracker = defaultGenderPrefTracker;
     mKeyboardTheme = keyboardTheme;
+    mKeyTextColor = keyTextColor;
     mBottomPadding = bottomPadding;
   }
 
@@ -83,6 +109,9 @@ import net.evendanan.pixel.ViewPagerWithDisable;
 
     final QuickKeysKeyboardView keyboardView = root.findViewById(R.id.keys_container);
     keyboardView.setKeyboardTheme(mKeyboardTheme);
+    if (mKeyTextColor != null) {
+      keyboardView.setKeyTextColor(mKeyTextColor);
+    }
     keyboardView.setThemeOverlay(mOverlayData);
     keyboardView.setOnPopupShownListener(
         new PopupKeyboardShownHandler(mViewPager, scrollViewWithDisable));
@@ -161,6 +190,11 @@ import net.evendanan.pixel.ViewPagerWithDisable;
 
   public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
     mKeyboardTheme = theme;
+    notifyDataSetChanged();
+  }
+
+  public void setKeyTextColor(@Nullable ColorStateList keyTextColor) {
+    mKeyTextColor = keyTextColor;
     notifyDataSetChanged();
   }
 

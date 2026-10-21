@@ -4,12 +4,21 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
+import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.remote.MediaType;
@@ -49,7 +58,7 @@ public class QuickTextPagerViewTest {
     mUnderTest.setThemeValues(
         mKeyboardTheme,
         10f,
-        new ColorStateList(new int[][] {{0}}, new int[] {Color.WHITE}),
+        ColorStateList.valueOf(Color.WHITE),
         context.getDrawable(R.drawable.ic_cancel),
         context.getDrawable(R.drawable.sym_keyboard_delete_light),
         context.getDrawable(R.drawable.ic_action_settings),
@@ -74,7 +83,7 @@ public class QuickTextPagerViewTest {
     mUnderTest.setThemeValues(
         mKeyboardTheme,
         10f,
-        new ColorStateList(new int[][] {{0}}, new int[] {Color.WHITE}),
+        ColorStateList.valueOf(Color.WHITE),
         context.getDrawable(R.drawable.ic_cancel),
         context.getDrawable(R.drawable.sym_keyboard_delete_light),
         context.getDrawable(R.drawable.ic_action_settings),
@@ -91,7 +100,7 @@ public class QuickTextPagerViewTest {
     mUnderTest.setThemeValues(
         mKeyboardTheme,
         10f,
-        new ColorStateList(new int[][] {{0}}, new int[] {Color.WHITE}),
+        ColorStateList.valueOf(Color.WHITE),
         context.getDrawable(R.drawable.ic_cancel),
         context.getDrawable(R.drawable.sym_keyboard_delete_light),
         context.getDrawable(R.drawable.ic_action_settings),
@@ -271,6 +280,132 @@ public class QuickTextPagerViewTest {
 
     com.astuetz.PagerSlidingTabStrip pagerTabStrip = mUnderTest.findViewById(R.id.pager_tabs);
     // Normalized against primaryDarkColor (BLACK), text color must be WHITE (not BLACK)
+    Assert.assertEquals(Color.WHITE, pagerTabStrip.getTextColor().getDefaultColor());
+  }
+
+  @Test
+  public void testEnsureContrastColor_keepsGoodContrast() {
+    Drawable bg = new ColorDrawable(Color.BLACK);
+    ColorStateList keyTextColor = ColorStateList.valueOf(Color.WHITE);
+    ColorStateList result = QuickTextPagerView.ensureContrastColor(keyTextColor, Color.YELLOW, bg);
+    Assert.assertEquals(Color.WHITE, result.getDefaultColor());
+  }
+
+  @Test
+  public void testEnsureContrastColor_fallsBackToNameTextColor() {
+    Drawable bg = new ColorDrawable(Color.BLACK);
+    ColorStateList keyTextColor = ColorStateList.valueOf(Color.DKGRAY);
+    ColorStateList result = QuickTextPagerView.ensureContrastColor(keyTextColor, Color.WHITE, bg);
+    Assert.assertEquals(Color.WHITE, result.getDefaultColor());
+  }
+
+  @Test
+  public void testEnsureContrastColor_fallsBackToAutoBlackOrWhite() {
+    Drawable darkBg = new ColorDrawable(Color.BLACK);
+    ColorStateList darkKeyText = ColorStateList.valueOf(Color.DKGRAY);
+    ColorStateList darkResult =
+        QuickTextPagerView.ensureContrastColor(darkKeyText, Color.DKGRAY, darkBg);
+    Assert.assertEquals(Color.WHITE, darkResult.getDefaultColor());
+
+    Drawable lightBg = new ColorDrawable(Color.WHITE);
+    ColorStateList lightKeyText = ColorStateList.valueOf(Color.LTGRAY);
+    ColorStateList lightResult =
+        QuickTextPagerView.ensureContrastColor(lightKeyText, Color.LTGRAY, lightBg);
+    Assert.assertEquals(Color.BLACK, lightResult.getDefaultColor());
+  }
+
+  @Test
+  public void testExtractDrawableColor() {
+    Assert.assertEquals(Color.BLACK, QuickTextPagerView.extractDrawableColor(null));
+    Assert.assertEquals(
+        Color.RED, QuickTextPagerView.extractDrawableColor(new ColorDrawable(Color.RED)));
+    Assert.assertEquals(
+        Color.BLACK,
+        QuickTextPagerView.extractDrawableColor(new ColorDrawable(Color.argb(10, 255, 0, 0))));
+
+    Rect nonColorBounds = new Rect(1, 2, 3, 4);
+    Drawable nonColorDrawable =
+        new Drawable() {
+          @Override
+          public void draw(@NonNull Canvas canvas) {}
+
+          @Override
+          public void setAlpha(int alpha) {}
+
+          @Override
+          public void setColorFilter(@Nullable ColorFilter colorFilter) {}
+
+          @Override
+          public int getOpacity() {
+            return PixelFormat.OPAQUE;
+          }
+        };
+    nonColorDrawable.setBounds(nonColorBounds);
+    Assert.assertEquals(Color.BLACK, QuickTextPagerView.extractDrawableColor(nonColorDrawable));
+    Assert.assertEquals(nonColorBounds, nonColorDrawable.getBounds());
+
+    Rect originalBounds = new Rect(10, 20, 30, 40);
+    Drawable throwingDrawable =
+        new Drawable() {
+          @Override
+          public void draw(@NonNull Canvas canvas) {
+            throw new RuntimeException("Simulated draw failure");
+          }
+
+          @Override
+          public void setAlpha(int alpha) {}
+
+          @Override
+          public void setColorFilter(@Nullable ColorFilter colorFilter) {}
+
+          @Override
+          public int getOpacity() {
+            return PixelFormat.TRANSLUCENT;
+          }
+        };
+    throwingDrawable.setBounds(originalBounds);
+    Assert.assertEquals(Color.BLACK, QuickTextPagerView.extractDrawableColor(throwingDrawable));
+    Assert.assertEquals(originalBounds, throwingDrawable.getBounds());
+  }
+
+  @Test
+  public void testSetThemeValues_updatesAdapterKeyTextColorWhenAdapterNotNull() {
+    OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
+    mUnderTest.setOnKeyboardActionListener(listener);
+    Context context = getApplicationContext();
+    mUnderTest.setThemeValues(
+        mKeyboardTheme,
+        12f,
+        ColorStateList.valueOf(Color.GREEN),
+        context.getDrawable(R.drawable.ic_cancel),
+        context.getDrawable(R.drawable.sym_keyboard_delete_light),
+        context.getDrawable(R.drawable.ic_action_settings),
+        new ColorDrawable(Color.BLACK),
+        context.getDrawable(R.drawable.ic_media_insertion),
+        context.getDrawable(R.drawable.ic_delete_forever_dark),
+        10,
+        Collections.singleton(MediaType.Image));
+    ViewPagerWithDisable pager = mUnderTest.findViewById(R.id.quick_text_keyboards_pager);
+    Assert.assertNotNull(pager.getAdapter());
+  }
+
+  @Test
+  public void testThemeOverlayNormalizedApplied() {
+    OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
+    mUnderTest.setOnKeyboardActionListener(listener);
+
+    OverlayData overlayData = Mockito.mock(OverlayData.class);
+    Mockito.doReturn(true).when(overlayData).isValid();
+    Mockito.doReturn(Color.BLACK).when(overlayData).getPrimaryDarkColor();
+    Mockito.doReturn(Color.BLACK).when(overlayData).getSecondaryTextColor();
+    Mockito.doReturn(Color.BLACK).when(overlayData).getPrimaryColor();
+    Mockito.doReturn(Color.BLACK).when(overlayData).getPrimaryTextColor();
+
+    mUnderTest.setThemeOverlay(overlayData);
+
+    com.astuetz.PagerSlidingTabStrip pagerTabStrip = mUnderTest.findViewById(R.id.pager_tabs);
+    Assert.assertNotNull(pagerTabStrip);
+    // OverlayDataNormalizer will normalize black text on black background to WHITE
     Assert.assertEquals(Color.WHITE, pagerTabStrip.getTextColor().getDefaultColor());
   }
 }
