@@ -768,6 +768,7 @@ public abstract class AnyKeyboard extends Keyboard {
     @ShowKeyInLayoutType public int showKeyInLayout;
     @NonNull int[] mShiftedCodes = EMPTY_INT_ARRAY;
     private boolean mShiftCodesAlways;
+    private boolean mShiftCodesAlwaysWhenLocked = true;
     private boolean mFunctionalKey;
     private boolean mEnabled;
     @NonNull private List<String> mKeyTags = Collections.emptyList();
@@ -823,6 +824,9 @@ public abstract class AnyKeyboard extends Keyboard {
             case R.attr.isShiftAlways:
               mShiftCodesAlwaysOverride = true;
               mShiftCodesAlways = a.getBoolean(remoteIndex, false);
+              break;
+            case R.attr.isShiftAlwaysWhenLocked:
+              mShiftCodesAlwaysWhenLocked = a.getBoolean(remoteIndex, true);
               break;
             case R.attr.hintLabel:
               hintLabel = a.getString(remoteIndex);
@@ -914,6 +918,10 @@ public abstract class AnyKeyboard extends Keyboard {
 
     public boolean isShiftCodesAlways() {
       return mShiftCodesAlways;
+    }
+
+    public boolean isShiftCodesAlwaysWhenLocked() {
+      return mShiftCodesAlwaysWhenLocked;
     }
 
     public void enable() {
