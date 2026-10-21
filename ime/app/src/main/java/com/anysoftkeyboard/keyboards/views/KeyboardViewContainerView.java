@@ -1,5 +1,8 @@
 package com.anysoftkeyboard.keyboards.views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
@@ -43,6 +47,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
   private ClicksExtraDraw mClicksDrawer;
 
   private int mBottomPadding;
+  private float mPredictiveBackProgress = 0f;
+  private ValueAnimator mBackCancelAnimator;
 
   public KeyboardViewContainerView(Context context) {
     super(context);
@@ -303,6 +309,81 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
       if (getChildAt(childIndex) instanceof MainChild v) {
         v.setBottomOffset(bottomPadding);
       }
+    }
+  }
+
+  public void setPredictiveBackProgress(float progress) {
+    mPredictiveBackProgress = progress;
+    setTranslationY(progress * 0.3f * getHeight());
+    setAlpha(1.0f - (0.4f * progress));
+    invalidate();
+  }
+
+  public void resetPredictiveBackProgress() {
+    cancelPredictiveBackAnimation();
+    mPredictiveBackProgress = 0f;
+    setTranslationY(0f);
+    setAlpha(1.0f);
+    invalidate();
+  }
+
+  public void animatePredictiveBackCancel() {
+    cancelPredictiveBackAnimation();
+    if (mPredictiveBackProgress <= 0f) {
+      resetPredictiveBackProgress();
+      return;
+    }
+    mBackCancelAnimator = ValueAnimator.ofFloat(mPredictiveBackProgress, 0f);
+    mBackCancelAnimator.setDuration(150);
+    mBackCancelAnimator.addUpdateListener(
+        animation -> setPredictiveBackProgress((Float) animation.getAnimatedValue()));
+    mBackCancelAnimator.addListener(
+        new AnimatorListenerAdapter() {
+          @Override
+          public void onAnimationEnd(Animator animation) {
+            mBackCancelAnimator = null;
+            resetPredictiveBackProgress();
+          }
+
+          @Override
+          public void onAnimationCancel(Animator animation) {
+            mBackCancelAnimator = null;
+            resetPredictiveBackProgress();
+          }
+        });
+    mBackCancelAnimator.start();
+  }
+
+  public void cancelPredictiveBackAnimation() {
+    if (mBackCancelAnimator != null) {
+      final ValueAnimator animator = mBackCancelAnimator;
+      mBackCancelAnimator = null;
+      animator.cancel();
+    }
+  }
+
+  @VisibleForTesting
+  ValueAnimator getBackCancelAnimator() {
+    return mBackCancelAnimator;
+  }
+
+  @VisibleForTesting
+  public float getPredictiveBackProgress() {
+    return mPredictiveBackProgress;
+  }
+
+  @Override
+  protected void onDetachedFromWindow() {
+    super.onDetachedFromWindow();
+    resetPredictiveBackProgress();
+  }
+
+  @Override
+  protected void dispatchDraw(Canvas canvas) {
+    super.dispatchDraw(canvas);
+    if (mPredictiveBackProgress > 0f) {
+      final int scrimAlpha = (int) (mPredictiveBackProgress * 0.4f * 255);
+      canvas.drawColor(Color.argb(scrimAlpha, 0, 0, 0));
     }
   }
 
