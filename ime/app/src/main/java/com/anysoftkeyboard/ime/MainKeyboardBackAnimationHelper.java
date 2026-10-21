@@ -58,6 +58,7 @@ public interface MainKeyboardBackAnimationHelper {
     @NonNull private final Runnable mHideWindowRunnable;
     @NonNull private final BooleanSupplier mAnimationsEnabledSupplier;
     @NonNull private final OnBackAnimationCallback mCallback;
+    private boolean mRegistered = false;
 
     public Api34MainKeyboardBackAnimationHelper(
         @NonNull Supplier<Window> windowSupplier,
@@ -73,19 +74,26 @@ public interface MainKeyboardBackAnimationHelper {
 
     @Override
     public void register() {
+      if (mRegistered) {
+        return;
+      }
       Window window = mWindowSupplier.get();
       if (window != null) {
         window
             .getOnBackInvokedDispatcher()
             .registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT, mCallback);
+        mRegistered = true;
       }
     }
 
     @Override
     public void unregister() {
-      Window window = mWindowSupplier.get();
-      if (window != null) {
-        window.getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(mCallback);
+      if (mRegistered) {
+        Window window = mWindowSupplier.get();
+        if (window != null) {
+          window.getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(mCallback);
+        }
+        mRegistered = false;
       }
       KeyboardViewContainerView container = mContainerSupplier.get();
       if (container != null) {

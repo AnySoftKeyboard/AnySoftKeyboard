@@ -62,7 +62,8 @@ public class MainKeyboardBackAnimationHelperTest {
 
     Assert.assertNotNull(helper);
     helper.register();
-    Mockito.verify(dispatcher)
+    helper.register(); // Idempotent check
+    Mockito.verify(dispatcher, Mockito.times(1))
         .registerOnBackInvokedCallback(
             Mockito.eq(OnBackInvokedDispatcher.PRIORITY_DEFAULT),
             Mockito.any(OnBackAnimationCallback.class));
@@ -95,7 +96,9 @@ public class MainKeyboardBackAnimationHelperTest {
     Assert.assertTrue(hideWindowCalled.get());
 
     helper.unregister();
-    Mockito.verify(dispatcher).unregisterOnBackInvokedCallback(Mockito.eq(callback));
+    helper.unregister(); // Idempotent check
+    Mockito.verify(dispatcher, Mockito.times(1))
+        .unregisterOnBackInvokedCallback(Mockito.eq(callback));
   }
 
   @Test

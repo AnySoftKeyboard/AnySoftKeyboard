@@ -33,6 +33,7 @@
     <suppress files="GeneralDialogController\.java" id="UsingSupportAlertDialog" />
     <suppress files="GeneralDialogTestUtil\.java" id="UsingNativeDialog" />
     <suppress files="GeneralDialogControllerTest\.java" id="UsingNativeDialog" />
+    <suppress files="AnySoftKeyboardPredictiveBackApi34Test\.java" id="UsingNativeDialog" />
     <suppress files="ActivityHelper\.java" id="UsingNativeAlertDialog" />
     <suppress files="ActivityHelper\.java" id="UsingNativeAlertDialog" />
 
