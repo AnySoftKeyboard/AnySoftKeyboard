@@ -35,9 +35,7 @@ jobs:
       - name: Github Action Linter
         run: bazel run @multitool//tools/actionlint:cwd -- -config-file "${{ github.workspace }}/.github/actionlint.yaml"
       - name: Code formatting
-        run: |
-          bazel run //:format
-          if [[ $(git status --porcelain) ]]; then echo "**** run 'bazel run //:format' to fix formatting errors:\n$(git status)\n$(git diff)"; exit 1; fi
+        run: bazel run //tools:format.check
       - name: ensure all bazel binaries are working
         run: bazel query 'kind('js_binary', //...) union kind('java_binary', //...)' | xargs -I %s bazel run %s -- -h || true
       - name: bazel code-coverage
