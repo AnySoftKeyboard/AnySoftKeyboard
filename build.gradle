@@ -4,8 +4,6 @@ import java.nio.file.Files
 
 System.setProperty("file.encoding", "UTF-8")
 
-def logFile = new File(buildDir.absoluteFile,"build-logging/build-log-${System.currentTimeMillis()}.log")
-gradle.addBuildListener(new BuildLogger(logFile))
 
 buildscript {
     repositories {

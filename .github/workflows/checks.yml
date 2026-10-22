@@ -202,12 +202,6 @@ jobs:
         with:
           name: tests-${{ matrix.shard_variant }}
           path: collected_reports
-      - uses: actions/upload-artifact@v6.0.0
-        if: always()
-        continue-on-error: true
-        with:
-          name: tests-build-logging-${{ matrix.shard_variant }}
-          path: build/build-logging
   deploy-dry-run:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
