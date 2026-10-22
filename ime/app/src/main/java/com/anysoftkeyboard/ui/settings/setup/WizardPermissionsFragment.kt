@@ -141,10 +141,12 @@ class WizardPermissionsFragment : WizardPageBaseFragment(), View.OnClickListener
         .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true)
         .apply()
 
-    if (PermissionRequestHelper.check(
-        this,
-        PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE,
-    )) {
+    val granted =
+        PermissionRequestHelper.check(
+            this,
+            PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE,
+        )
+    if (granted) {
       refreshWizardPager()
     }
   }
