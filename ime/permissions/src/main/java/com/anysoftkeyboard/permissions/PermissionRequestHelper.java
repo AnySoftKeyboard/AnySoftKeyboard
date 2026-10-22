@@ -24,7 +24,7 @@ public abstract class PermissionRequestHelper {
           new PermissionRequest.Builder(fragment, requestCode, permissions)
               .setRationale(getRationale(requestCode))
               .setPositiveButtonText(R.string.allow_permission)
-              .setTheme(R.style.Theme_AppCompat_Dialog_Alert)
+              .setTheme(androidx.appcompat.R.style.Theme_AppCompat_Dialog_Alert)
               .build());
       return false;
     }
@@ -40,7 +40,7 @@ public abstract class PermissionRequestHelper {
           new PermissionRequest.Builder(activity, requestCode, permissions)
               .setRationale(getRationale(requestCode))
               .setPositiveButtonText(R.string.allow_permission)
-              .setTheme(R.style.Theme_AppCompat_Dialog_Alert)
+              .setTheme(androidx.appcompat.R.style.Theme_AppCompat_Dialog_Alert)
               .build());
       return false;
     }

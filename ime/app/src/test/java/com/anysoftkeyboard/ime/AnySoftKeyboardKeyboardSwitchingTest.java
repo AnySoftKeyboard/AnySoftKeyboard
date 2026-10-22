@@ -38,7 +38,8 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
   public void testSwitchToSymbols() {
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
-        getApplicationContext().getString(R.string.english_keyboard));
+        getApplicationContext()
+            .getString(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard));
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
@@ -58,7 +59,8 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
-        getApplicationContext().getString(R.string.english_keyboard));
+        getApplicationContext()
+            .getString(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard));
   }
 
   @Test
@@ -224,7 +226,8 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
   public void testModeSwitch() {
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
-        getApplicationContext().getString(R.string.english_keyboard));
+        getApplicationContext()
+            .getString(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard));
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
@@ -232,7 +235,8 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
-        getApplicationContext().getString(R.string.english_keyboard));
+        getApplicationContext()
+            .getString(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard));
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
@@ -276,12 +280,14 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
-        getApplicationContext().getString(R.string.english_keyboard));
+        getApplicationContext()
+            .getString(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard));
     configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
     mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
-        getApplicationContext().getString(R.string.english_keyboard));
+        getApplicationContext()
+            .getString(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard));
 
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
     Assert.assertEquals(
@@ -293,7 +299,8 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     // switches back to symbols since this is a non-restarting event.
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
-        getApplicationContext().getString(R.string.english_keyboard));
+        getApplicationContext()
+            .getString(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard));
   }
 
   @Test
@@ -333,7 +340,8 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         phoneKeyboardInstance, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
     Assert.assertEquals(
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(),
-        getApplicationContext().getString(R.string.english_keyboard));
+        getApplicationContext()
+            .getString(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard));
   }
 
   @Test
@@ -481,13 +489,13 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     Assert.assertEquals(4, latestAlertDialog.getListView().getCount());
 
     Assert.assertEquals(
-        getResText(R.string.english_keyboard),
+        getResText(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard),
         latestAlertDialog.getListView().getAdapter().getItem(0));
     Assert.assertEquals(
-        getResText(R.string.compact_keyboard_16keys),
+        getResText(com.anysoftkeyboard.language.english.pack.R.string.compact_keyboard_16keys),
         latestAlertDialog.getListView().getAdapter().getItem(1));
     Assert.assertEquals(
-        getResText(R.string.english_keyboard),
+        getResText(com.anysoftkeyboard.language.english.pack.R.string.english_keyboard),
         latestAlertDialog.getListView().getAdapter().getItem(2));
     Assert.assertEquals(
         "Setup languages…", latestAlertDialog.getListView().getAdapter().getItem(3));

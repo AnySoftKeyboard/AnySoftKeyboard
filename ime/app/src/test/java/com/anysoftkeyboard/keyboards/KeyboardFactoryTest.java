@@ -56,7 +56,7 @@ public class KeyboardFactoryTest {
     Assert.assertEquals(
         getApplicationContext()
             .getResources()
-            .getInteger(com.anysoftkeyboard.addons.R.integer.anysoftkeyboard_api_version_code),
+            .getInteger(com.anysoftkeyboard.api.R.integer.anysoftkeyboard_api_version_code),
         english16Keys.getApiVersion());
   }
 

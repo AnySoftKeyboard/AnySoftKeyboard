@@ -23,7 +23,7 @@ public class ResourceBinaryDictionaryTest {
     mDictionary =
         new TestableResourceBinaryDictionary(
             ApplicationProvider.getApplicationContext(),
-            com.menny.android.anysoftkeyboard.R.array.english_words_dict_array);
+            com.anysoftkeyboard.language.english.pack.R.array.english_words_dict_array);
   }
 
   @Test

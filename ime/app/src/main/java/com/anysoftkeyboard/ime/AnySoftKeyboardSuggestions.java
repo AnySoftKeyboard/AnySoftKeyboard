@@ -211,8 +211,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 powerSavingShowSuggestionsObservable,
                 prefs()
                     .getString(
-                        R.string.settings_key_auto_pick_suggestion_aggressiveness,
-                        R.string.settings_default_auto_pick_suggestion_aggressiveness)
+                        com.anysoftkeyboard.nextword.R.string
+                            .settings_key_auto_pick_suggestion_aggressiveness,
+                        com.anysoftkeyboard.nextword.R.string
+                            .settings_default_auto_pick_suggestion_aggressiveness)
                     .asObservable(),
                 prefs()
                     .getBoolean(

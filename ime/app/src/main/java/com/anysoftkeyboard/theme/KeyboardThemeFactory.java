@@ -52,7 +52,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
         "KeyboardThemes",
         "KeyboardTheme",
         PREF_ID_PREFIX,
-        R.xml.keyboard_themes,
+        com.anysoftkeyboard.addons.keyboardthemes.R.xml.keyboard_themes,
         R.string.settings_default_keyboard_theme_key,
         true,
         BuildConfig.TESTING_BUILD);
