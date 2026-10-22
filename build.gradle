@@ -20,7 +20,6 @@ buildscript {
         classpath "com.github.triplet.gradle:play-publisher:${libs.versions.playPublisher.get()}"
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:${libs.versions.errorpronePlugin.get()}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${libs.versions.navigationSafeArgs.get()}"
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:${libs.versions.spotless.get()}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}"
         classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:${libs.versions.kotlin.get()}"
     }

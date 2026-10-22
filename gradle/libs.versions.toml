@@ -8,7 +8,6 @@ sdkMinimum = "23"
 # Android Gradle Plugin and Build Plugins
 agp = "9.3.2"
 kotlin = "2.4.10"
-spotless = "8.8.0"
 playPublisher = "4.1.1"
 errorpronePlugin = "4.4.0"
 navigationSafeArgs = "2.9.8"
@@ -147,7 +146,6 @@ guava = { module = "com.google.guava:guava", version.ref = "guava" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 play-publisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
 errorprone = { id = "net.ltgt.errorprone", version.ref = "errorpronePlugin" }
 navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "navigationSafeArgs" }
