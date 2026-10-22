@@ -806,42 +806,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
       TypedArray remoteTypeArray,
       final int localAttrId,
       final int remoteTypedArrayIndex) {
-    final int keyCode =
-        switch (localAttrId) {
-          case R.attr.iconKeyShift -> KeyCodes.SHIFT;
-          case R.attr.iconKeyControl -> KeyCodes.CTRL;
-          case R.attr.iconKeyAction -> KeyCodes.ENTER;
-          case R.attr.iconKeyBackspace -> KeyCodes.DELETE;
-          case R.attr.iconKeyCancel -> KeyCodes.CANCEL;
-          case R.attr.iconKeyGlobe -> KeyCodes.MODE_ALPHABET;
-          case R.attr.iconKeySpace -> KeyCodes.SPACE;
-          case R.attr.iconKeyTab -> KeyCodes.TAB;
-          case R.attr.iconKeyArrowDown -> KeyCodes.ARROW_DOWN;
-          case R.attr.iconKeyArrowLeft -> KeyCodes.ARROW_LEFT;
-          case R.attr.iconKeyArrowRight -> KeyCodes.ARROW_RIGHT;
-          case R.attr.iconKeyArrowUp -> KeyCodes.ARROW_UP;
-          case R.attr.iconKeyInputMoveHome -> KeyCodes.MOVE_HOME;
-          case R.attr.iconKeyInputMoveEnd -> KeyCodes.MOVE_END;
-          case R.attr.iconKeyMic -> KeyCodes.VOICE_INPUT;
-          case R.attr.iconKeySettings -> KeyCodes.SETTINGS;
-          case R.attr.iconKeyCondenseNormal -> KeyCodes.MERGE_LAYOUT;
-          case R.attr.iconKeyCondenseSplit -> KeyCodes.SPLIT_LAYOUT;
-          case R.attr.iconKeyCondenseCompactToRight -> KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
-          case R.attr.iconKeyCondenseCompactToLeft -> KeyCodes.COMPACT_LAYOUT_TO_LEFT;
-          case R.attr.iconKeyClipboardCopy -> KeyCodes.CLIPBOARD_COPY;
-          case R.attr.iconKeyClipboardCut -> KeyCodes.CLIPBOARD_CUT;
-          case R.attr.iconKeyClipboardPaste -> KeyCodes.CLIPBOARD_PASTE;
-          case R.attr.iconKeyClipboardSelect -> KeyCodes.CLIPBOARD_SELECT_ALL;
-          case R.attr.iconKeyClipboardFineSelect -> KeyCodes.CLIPBOARD_SELECT;
-          case R.attr.iconKeyQuickTextPopup -> KeyCodes.QUICK_TEXT_POPUP;
-          case R.attr.iconKeyQuickText -> KeyCodes.QUICK_TEXT;
-          case R.attr.iconKeyUndo -> KeyCodes.UNDO;
-          case R.attr.iconKeyRedo -> KeyCodes.REDO;
-          case R.attr.iconKeyForwardDelete -> KeyCodes.FORWARD_DELETE;
-          case R.attr.iconKeyImageInsert -> KeyCodes.IMAGE_MEDIA_POPUP;
-          case R.attr.iconKeyClearQuickTextHistory -> KeyCodes.CLEAR_QUICK_TEXT_HISTORY;
-          default -> 0;
-        };
+    final int keyCode = ThemeAttributeKeyCodes.getKeyCodeForIconThemeAttribute(localAttrId);
     if (keyCode == 0) {
       if (BuildConfig.DEBUG) {
         throw new IllegalArgumentException(
