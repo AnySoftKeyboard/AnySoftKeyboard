@@ -21,3 +21,28 @@ common --strategy=CopyFile=sandboxed,local
 common --strategy=CopyDirectory=sandboxed,local
 common --strategy=CopyToDirectory=sandboxed,local
 common --strategy=NpmLifecycleHook=sandboxed,local
+
+# Hermetiq · AnySoftKeyboard
+build:hermetiq --bes_instance_name=75d5b5ec-949e-40ad-b7c8-5f368a7992a9
+build:hermetiq --bes_backend=grpcs://bep.cloud-grpc.hermetiq.io
+build:hermetiq --bes_results_url=https://dashboard.hermetiq.io/build/
+build:hermetiq --bes_upload_mode=wait_for_upload_complete
+build:hermetiq --credential_helper="bep.cloud-grpc.hermetiq.io=%workspace%/tools/hermetiq-credential-helper.sh"
+build:hermetiq --credential_helper="lb.bb.cloud-grpc.hermetiq.io=%workspace%/tools/hermetiq-credential-helper.sh"
+
+# Build metadata · branch, commit and repo, so the filters work
+build:hermetiq --workspace_status_command=$(pwd)/tools/set-build-metadata.sh
+
+# Enhanced metrics · powers the critical path view
+build:hermetiq --generate_json_trace_profile
+build:hermetiq --experimental_profile_include_primary_output
+build:hermetiq --experimental_profile_include_target_label
+build:hermetiq --noslim_profile
+
+# Hermetiq remote cache
+build:hermetiq --remote_instance_name=75d5b5ec-949e-40ad-b7c8-5f368a7992a9
+build:hermetiq --remote_cache=grpcs://lb.bb.cloud-grpc.hermetiq.io
+
+# Hermetiq remote exec
+build:hermetiq --remote_executor=grpcs://lb.bb.cloud-grpc.hermetiq.io
+build:hermetiq --remote_default_exec_properties=pool=sizeclass
