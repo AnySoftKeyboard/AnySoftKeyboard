@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HELPER_SCRIPT="${SCRIPT_DIR}/hermetiq-credential-helper.sh"
+
+# If the helper script file exists on disk, add --config=hermetiq to build commands
+if [[ -f "${HELPER_SCRIPT}" ]]; then
+  args=()
+  inserted=false
+
+  for arg in "$@"; do
+    args+=("${arg}")
+    if [[ "${inserted}" == false ]]; then
+      case "${arg}" in
+        build|test|run|coverage|cquery|aquery|info|clean|mobile-install)
+          args+=("--config=hermetiq")
+          inserted=true
+          ;;
+      esac
+    fi
+  done
+
+  exec "${BAZEL_REAL}" "${args[@]}"
+else
+  exec "${BAZEL_REAL}" "$@"
+fi
