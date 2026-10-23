@@ -231,7 +231,7 @@ jobs:
       - name: Install NDK
         run: echo "y" | sdkmanager "ndk;29.0.14206865"
       - name: Install ImageMagick
-        run: sudo apt-get install -y imagemagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
       - uses: gradle/actions/setup-gradle@v5
       - name: setup
         run: ./scripts/ci/ci_setup.sh
