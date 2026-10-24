@@ -102,7 +102,9 @@ public class MainFragment extends Fragment {
 
     mDialogController =
         new GeneralDialogController(
-            getActivity(), R.style.Theme_AskAlertDialog, this::onSetupDialogRequired);
+            getActivity(),
+            net.evendanan.pixel.R.style.Theme_AskAlertDialog,
+            this::onSetupDialogRequired);
     final ViewGroup latestChangeLogCard = view.findViewById(R.id.latest_change_log_card);
     final View latestChangeLogCardContent =
         ChangeLogFragment.LatestChangeLogViewFactory.createLatestChangeLogView(

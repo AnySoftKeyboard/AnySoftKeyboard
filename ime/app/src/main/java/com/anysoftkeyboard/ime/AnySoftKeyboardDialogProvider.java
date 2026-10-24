@@ -28,7 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.pixel.GeneralDialogController;
 
 public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardService {
@@ -40,7 +39,8 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
   public void onCreate() {
     super.onCreate();
     mGeneralDialogController =
-        new GeneralDialogController(this, R.style.Theme_AskAlertDialog, new ImeDialogPresenter());
+        new GeneralDialogController(
+            this, net.evendanan.pixel.R.style.Theme_AskAlertDialog, new ImeDialogPresenter());
   }
 
   protected void showToastMessage(@StringRes int resId, boolean forShortTime) {

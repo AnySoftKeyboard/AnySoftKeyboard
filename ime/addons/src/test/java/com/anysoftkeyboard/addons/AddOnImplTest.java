@@ -48,11 +48,13 @@ public class AddOnImplTest {
     Assert.assertEquals(8, resourceMapping.getApiVersion());
     // always returns the same thing
     Assert.assertSame(
-        R.styleable.KeyboardLayout_Key,
-        resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key));
+        com.anysoftkeyboard.api.R.styleable.KeyboardLayout_Key,
+        resourceMapping.getRemoteStyleableArrayFromLocal(
+            com.anysoftkeyboard.api.R.styleable.KeyboardLayout_Key));
     Assert.assertEquals(3355, resourceMapping.getLocalAttrId(3355));
     Assert.assertEquals(
-        R.attr.keyDynamicEmblem, resourceMapping.getLocalAttrId(R.attr.keyDynamicEmblem));
+        com.anysoftkeyboard.api.R.attr.keyDynamicEmblem,
+        resourceMapping.getLocalAttrId(com.anysoftkeyboard.api.R.attr.keyDynamicEmblem));
   }
 
   @Test
@@ -77,14 +79,17 @@ public class AddOnImplTest {
     Assert.assertEquals(9, resourceMapping.getApiVersion());
 
     Assert.assertArrayEquals(
-        R.styleable.KeyboardLayout_Key,
-        resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key));
+        com.anysoftkeyboard.api.R.styleable.KeyboardLayout_Key,
+        resourceMapping.getRemoteStyleableArrayFromLocal(
+            com.anysoftkeyboard.api.R.styleable.KeyboardLayout_Key));
     Assert.assertNotSame(
-        R.styleable.KeyboardLayout_Key,
-        resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key));
+        com.anysoftkeyboard.api.R.styleable.KeyboardLayout_Key,
+        resourceMapping.getRemoteStyleableArrayFromLocal(
+            com.anysoftkeyboard.api.R.styleable.KeyboardLayout_Key));
     Assert.assertEquals(0, resourceMapping.getLocalAttrId(3355));
     Assert.assertEquals(
-        R.attr.keyDynamicEmblem, resourceMapping.getLocalAttrId(R.attr.keyDynamicEmblem));
+        com.anysoftkeyboard.api.R.attr.keyDynamicEmblem,
+        resourceMapping.getLocalAttrId(com.anysoftkeyboard.api.R.attr.keyDynamicEmblem));
   }
 
   @Test

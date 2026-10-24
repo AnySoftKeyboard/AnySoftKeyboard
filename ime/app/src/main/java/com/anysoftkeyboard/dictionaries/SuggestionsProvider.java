@@ -195,8 +195,10 @@ public class SuggestionsProvider {
     mPrefsDisposables.add(
         rxSharedPrefs
             .getString(
-                R.string.settings_key_next_word_suggestion_aggressiveness,
-                R.string.settings_default_next_word_suggestion_aggressiveness)
+                com.anysoftkeyboard.nextword.R.string
+                    .settings_key_next_word_suggestion_aggressiveness,
+                com.anysoftkeyboard.nextword.R.string
+                    .settings_default_next_word_suggestion_aggressiveness)
             .asObservable()
             .subscribe(
                 aggressiveness -> {
@@ -220,8 +222,8 @@ public class SuggestionsProvider {
     mPrefsDisposables.add(
         rxSharedPrefs
             .getString(
-                R.string.settings_key_next_word_dictionary_type,
-                R.string.settings_default_next_words_dictionary_type)
+                com.anysoftkeyboard.nextword.R.string.settings_key_next_word_dictionary_type,
+                com.anysoftkeyboard.nextword.R.string.settings_default_next_words_dictionary_type)
             .asObservable()
             .subscribe(
                 type -> {

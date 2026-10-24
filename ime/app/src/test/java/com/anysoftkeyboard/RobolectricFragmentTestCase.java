@@ -55,7 +55,7 @@ public abstract class RobolectricFragmentTestCase<F extends Fragment>
 
     @Override
     protected void onCreate(Bundle icicle) {
-      setTheme(R.style.Theme_AskApp_NoTitle_NoActionBar);
+      setTheme(net.evendanan.pixel.R.style.Theme_AskApp_NoTitle_NoActionBar);
       super.onCreate(icicle);
     }
 

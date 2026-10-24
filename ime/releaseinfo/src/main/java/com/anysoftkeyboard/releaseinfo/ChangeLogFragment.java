@@ -135,11 +135,12 @@ public abstract class ChangeLogFragment extends Fragment {
         @NonNull Runnable onClick) {
       final LayoutInflater layoutInflater = fragment.getLayoutInflater();
       final View rootView =
-          layoutInflater.inflate(R.layout.card_with_more_container, changeLogViewParent, false);
-      ViewGroup container = rootView.findViewById(R.id.card_with_read_more);
+          layoutInflater.inflate(
+              net.evendanan.pixel.R.layout.card_with_more_container, changeLogViewParent, false);
+      ViewGroup container = rootView.findViewById(net.evendanan.pixel.R.id.card_with_read_more);
       UiUtils.setupLink(
           container,
-          R.id.read_more_link,
+          net.evendanan.pixel.R.id.read_more_link,
           new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {

@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 import org.junit.After;
 import org.junit.Assert;
@@ -98,7 +97,7 @@ public class AnySoftKeyboardTest {
     testableAnySoftKeyboard.updateFullscreenMode();
 
     Assert.assertEquals(
-        R.drawable.yochees_dark_main_background,
+        com.anysoftkeyboard.addons.keyboardthemes.R.drawable.yochees_dark_main_background,
         Shadows.shadowOf(extractView.getBackground()).getCreatedFromResId());
     Assert.assertEquals(Color.WHITE, extractEditText.getTextColors().getDefaultColor());
   }

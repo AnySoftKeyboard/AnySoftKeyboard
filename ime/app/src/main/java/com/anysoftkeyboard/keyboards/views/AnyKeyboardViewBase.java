@@ -93,9 +93,16 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
   public static final int NOT_A_KEY = -1;
   static final String TAG = "ASKKbdViewBase";
   private static final int[] ACTION_KEY_TYPES =
-      new int[] {R.attr.action_done, R.attr.action_search, R.attr.action_go};
+      new int[] {
+        com.anysoftkeyboard.api.R.attr.action_done,
+        com.anysoftkeyboard.api.R.attr.action_search,
+        com.anysoftkeyboard.api.R.attr.action_go
+      };
   private static final int[] KEY_TYPES =
-      new int[] {R.attr.key_type_function, R.attr.key_type_action};
+      new int[] {
+        com.anysoftkeyboard.api.R.attr.key_type_function,
+        com.anysoftkeyboard.api.R.attr.key_type_action
+      };
   private static final long TWO_FINGERS_LINGER_TIME = 30;
   protected final DefaultAddOn mDefaultAddOn;
 
@@ -195,7 +202,10 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
   private final ThemeOverlayCombiner mThemeOverlayCombiner = new ThemeOverlayCombiner();
 
   public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
-    this(context, attrs, R.style.PlainLightAnySoftKeyboard);
+    this(
+        context,
+        attrs,
+        com.anysoftkeyboard.addons.keyboardthemes.R.style.PlainLightAnySoftKeyboard);
   }
 
   public AnyKeyboardViewBase(Context context, AttributeSet attrs, int defStyle) {
@@ -467,19 +477,21 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     final int[] remoteKeyboardThemeStyleable =
         theme
             .getResourceMapping()
-            .getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+            .getRemoteStyleableArrayFromLocal(
+                com.anysoftkeyboard.api.R.styleable.AnyKeyboardViewTheme);
     final int[] remoteKeyboardIconsThemeStyleable =
         theme
             .getResourceMapping()
-            .getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewIconsTheme);
+            .getRemoteStyleableArrayFromLocal(
+                com.anysoftkeyboard.api.R.styleable.AnyKeyboardViewIconsTheme);
 
     final int[] padding = new int[] {0, 0, 0, 0};
 
-    int keyTypeFunctionAttrId = R.attr.key_type_function;
-    int keyActionAttrId = R.attr.key_type_action;
-    int keyActionTypeDoneAttrId = R.attr.action_done;
-    int keyActionTypeSearchAttrId = R.attr.action_search;
-    int keyActionTypeGoAttrId = R.attr.action_go;
+    int keyTypeFunctionAttrId = com.anysoftkeyboard.api.R.attr.key_type_function;
+    int keyActionAttrId = com.anysoftkeyboard.api.R.attr.key_type_action;
+    int keyActionTypeDoneAttrId = com.anysoftkeyboard.api.R.attr.action_done;
+    int keyActionTypeSearchAttrId = com.anysoftkeyboard.api.R.attr.action_search;
+    int keyActionTypeGoAttrId = com.anysoftkeyboard.api.R.attr.action_go;
 
     HashSet<Integer> doneLocalAttributeIds = new HashSet<>();
     TypedArray a =
@@ -494,7 +506,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
 
       if (setValueFromThemeInternal(a, padding, localAttrId, remoteIndex)) {
         doneLocalAttributeIds.add(localAttrId);
-        if (localAttrId == R.attr.keyBackground) {
+        if (localAttrId == com.anysoftkeyboard.api.R.attr.keyBackground) {
           // keyTypeFunctionAttrId and keyActionAttrId are remote
           final int[] keyStateAttributes =
               theme.getResourceMapping().getRemoteStyleableArrayFromLocal(KEY_TYPES);
@@ -521,7 +533,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
 
         if (setKeyIconValueFromTheme(theme, a, localAttrId, remoteIndex)) {
           doneLocalAttributeIds.add(localAttrId);
-          if (localAttrId == R.attr.iconKeyAction) {
+          if (localAttrId == com.anysoftkeyboard.api.R.attr.iconKeyAction) {
             // keyActionTypeDoneAttrId and keyActionTypeSearchAttrId and
             // keyActionTypeGoAttrId are remote
             final int[] keyStateAttributes =
@@ -541,12 +553,13 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         fallbackTheme
             .getPackageContext()
             .obtainStyledAttributes(
-                keyboardFallbackThemeStyleResId, R.styleable.AnyKeyboardViewTheme);
+                keyboardFallbackThemeStyleResId,
+                com.anysoftkeyboard.api.R.styleable.AnyKeyboardViewTheme);
 
     final int fallbackCount = a.getIndexCount();
     for (int i = 0; i < fallbackCount; i++) {
       final int index = a.getIndex(i);
-      final int attrId = R.styleable.AnyKeyboardViewTheme[index];
+      final int attrId = com.anysoftkeyboard.api.R.styleable.AnyKeyboardViewTheme[index];
       if (doneLocalAttributeIds.contains(attrId)) {
         continue;
       }
@@ -558,12 +571,14 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     a =
         fallbackTheme
             .getPackageContext()
-            .obtainStyledAttributes(fallbackIconSetStyleId, R.styleable.AnyKeyboardViewIconsTheme);
+            .obtainStyledAttributes(
+                fallbackIconSetStyleId,
+                com.anysoftkeyboard.api.R.styleable.AnyKeyboardViewIconsTheme);
 
     final int fallbackIconsCount = a.getIndexCount();
     for (int i = 0; i < fallbackIconsCount; i++) {
       final int index = a.getIndex(i);
-      final int attrId = R.styleable.AnyKeyboardViewIconsTheme[index];
+      final int attrId = com.anysoftkeyboard.api.R.styleable.AnyKeyboardViewIconsTheme[index];
       if (doneLocalAttributeIds.contains(attrId)) {
         continue;
       }
@@ -655,23 +670,23 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
       padding[3] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
       if (padding[3] == -1) return false;
       mKeyboardDimens.setPaddingBottom(padding[3]);
-    } else if (localAttrId == R.attr.keyBackground) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyBackground) {
       Drawable keyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
       if (keyBackground == null) {
         return false;
       } else {
         mThemeOverlayCombiner.setThemeKeyBackground(keyBackground);
       }
-    } else if (localAttrId == R.attr.verticalCorrection) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.verticalCorrection) {
       mOriginalVerticalCorrection =
           remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
       if (mOriginalVerticalCorrection == -1) return false;
-    } else if (localAttrId == R.attr.keyTextSize) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyTextSize) {
       mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
       if (mKeyTextSize == -1) return false;
       mKeyTextSize = mKeyTextSize * mKeysHeightFactor;
       Logger.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
-    } else if (localAttrId == R.attr.keyTextColor) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyTextColor) {
       ColorStateList keyTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
       if (keyTextColor == null) {
         keyTextColor =
@@ -680,54 +695,54 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                 new int[] {remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
       }
       mThemeOverlayCombiner.setThemeTextColor(keyTextColor);
-    } else if (localAttrId == R.attr.labelTextSize) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.labelTextSize) {
       mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
       if (mLabelTextSize == -1) return false;
       mLabelTextSize *= mKeysHeightFactor;
-    } else if (localAttrId == R.attr.keyboardNameTextSize) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyboardNameTextSize) {
       mKeyboardNameTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
       if (mKeyboardNameTextSize == -1) return false;
       mKeyboardNameTextSize *= mKeysHeightFactor;
-    } else if (localAttrId == R.attr.keyboardNameTextColor) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyboardNameTextColor) {
       mThemeOverlayCombiner.setThemeNameTextColor(
           remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE));
-    } else if (localAttrId == R.attr.shadowColor) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.shadowColor) {
       mShadowColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0);
-    } else if (localAttrId == R.attr.shadowRadius) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.shadowRadius) {
       mShadowRadius = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-    } else if (localAttrId == R.attr.shadowOffsetX) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.shadowOffsetX) {
       mShadowOffsetX = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-    } else if (localAttrId == R.attr.shadowOffsetY) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.shadowOffsetY) {
       mShadowOffsetY = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-    } else if (localAttrId == R.attr.backgroundDimAmount) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.backgroundDimAmount) {
       mBackgroundDimAmount = remoteTypedArray.getFloat(remoteTypedArrayIndex, -1f);
       if (mBackgroundDimAmount == -1f) return false;
-    } else if (localAttrId == R.attr.keyPreviewBackground) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyPreviewBackground) {
       Drawable keyPreviewBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
       if (keyPreviewBackground == null) return false;
       mPreviewPopupTheme.setPreviewKeyBackground(keyPreviewBackground);
-    } else if (localAttrId == R.attr.keyPreviewTextColor) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyPreviewTextColor) {
       mPreviewPopupTheme.setPreviewKeyTextColor(
           remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
-    } else if (localAttrId == R.attr.keyPreviewTextSize) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyPreviewTextSize) {
       int keyPreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
       if (keyPreviewTextSize == -1) return false;
       keyPreviewTextSize = (int) (keyPreviewTextSize * mKeysHeightFactor);
       mPreviewPopupTheme.setPreviewKeyTextSize(keyPreviewTextSize);
-    } else if (localAttrId == R.attr.keyPreviewLabelTextSize) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyPreviewLabelTextSize) {
       int keyPreviewLabelTextSize =
           remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
       if (keyPreviewLabelTextSize == -1) return false;
       keyPreviewLabelTextSize = (int) (keyPreviewLabelTextSize * mKeysHeightFactor);
       mPreviewPopupTheme.setPreviewLabelTextSize(keyPreviewLabelTextSize);
-    } else if (localAttrId == R.attr.keyPreviewOffset) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyPreviewOffset) {
       mPreviewPopupTheme.setVerticalOffset(
           remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
-    } else if (localAttrId == R.attr.previewAnimationType) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.previewAnimationType) {
       int previewAnimationType = remoteTypedArray.getInteger(remoteTypedArrayIndex, -1);
       if (previewAnimationType == -1) return false;
       mPreviewPopupTheme.setPreviewAnimationType(previewAnimationType);
-    } else if (localAttrId == R.attr.keyTextStyle) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyTextStyle) {
       int textStyle = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
       switch (textStyle) {
         case 0 -> mKeyTextStyle = Typeface.DEFAULT;
@@ -736,41 +751,41 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         default -> mKeyTextStyle = Typeface.defaultFromStyle(textStyle);
       }
       mPreviewPopupTheme.setKeyStyle(mKeyTextStyle);
-    } else if (localAttrId == R.attr.keyHorizontalGap) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyHorizontalGap) {
       float themeHorizontalKeyGap =
           remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
       if (themeHorizontalKeyGap == -1) return false;
       mKeyboardDimens.setHorizontalKeyGap(themeHorizontalKeyGap);
-    } else if (localAttrId == R.attr.keyVerticalGap) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyVerticalGap) {
       float themeVerticalRowGap =
           remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
       if (themeVerticalRowGap == -1) return false;
       mKeyboardDimens.setVerticalRowGap(themeVerticalRowGap);
-    } else if (localAttrId == R.attr.keyNormalHeight) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyNormalHeight) {
       int themeNormalKeyHeight =
           remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
       if (themeNormalKeyHeight == -1) return false;
       mKeyboardDimens.setNormalKeyHeight(themeNormalKeyHeight);
-    } else if (localAttrId == R.attr.keyLargeHeight) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyLargeHeight) {
       int themeLargeKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
       if (themeLargeKeyHeight == -1) return false;
       mKeyboardDimens.setLargeKeyHeight(themeLargeKeyHeight);
-    } else if (localAttrId == R.attr.keySmallHeight) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keySmallHeight) {
       int themeSmallKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
       if (themeSmallKeyHeight == -1) return false;
       mKeyboardDimens.setSmallKeyHeight(themeSmallKeyHeight);
-    } else if (localAttrId == R.attr.hintTextSize) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.hintTextSize) {
       mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
       if (mHintTextSize == -1) return false;
       mHintTextSize *= mKeysHeightFactor;
-    } else if (localAttrId == R.attr.hintTextColor) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.hintTextColor) {
       mThemeOverlayCombiner.setThemeHintTextColor(
           remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000));
-    } else if (localAttrId == R.attr.hintLabelVAlign) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.hintLabelVAlign) {
       mThemeHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
-    } else if (localAttrId == R.attr.hintLabelAlign) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.hintLabelAlign) {
       mThemeHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
-    } else if (localAttrId == R.attr.keyTextCaseStyle) {
+    } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyTextCaseStyle) {
       mTextCaseType = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
     }
     return true;

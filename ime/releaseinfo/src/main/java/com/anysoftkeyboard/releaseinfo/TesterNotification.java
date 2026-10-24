@@ -54,7 +54,7 @@ public class TesterNotification {
               .buildNotification(
                   NotificationIds.Tester,
                   R.drawable.ic_notification_debug_version,
-                  R.string.ime_name)
+                  net.evendanan.pixel.R.string.ime_name)
               .setContentText(context.getText(R.string.notification_text_testers))
               .setContentIntent(contentIntent)
               .setColor(

@@ -49,7 +49,8 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
   @Test
   public void testRootViewHasLatestLog() {
-    ViewGroup rootView = startFragment().getView().findViewById(R.id.card_with_read_more);
+    ViewGroup rootView =
+        startFragment().getView().findViewById(net.evendanan.pixel.R.id.card_with_read_more);
     Assert.assertTrue(rootView.getChildAt(0) instanceof LinearLayout);
     LinearLayout container = (LinearLayout) rootView.getChildAt(0);
 
@@ -60,11 +61,11 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     for (int childViewIndex = 0; childViewIndex < container.getChildCount(); childViewIndex++) {
       final View childView = container.getChildAt(childViewIndex);
       final int id = childView.getId();
-      if (id == R.id.changelog_version_title) {
+      if (id == com.anysoftkeyboard.releaseinfo.R.id.changelog_version_title) {
         headersFound++;
-      } else if (id == R.id.chang_log_item) {
+      } else if (id == com.anysoftkeyboard.releaseinfo.R.id.chang_log_item) {
         changeLogItems++;
-      } else if (id == R.id.change_log__web_link_item) {
+      } else if (id == com.anysoftkeyboard.releaseinfo.R.id.change_log__web_link_item) {
         linkItems++;
         if (childView.getVisibility() != View.GONE) visibleLinkItems++;
       }
@@ -78,9 +79,13 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
   @Test
   public void testChangeLogDoesNotHaveLinkToOpenWebChangeLog() {
-    LinearLayout rootView = startFragment().getView().findViewById(R.id.card_with_read_more);
+    LinearLayout rootView =
+        startFragment().getView().findViewById(net.evendanan.pixel.R.id.card_with_read_more);
     Assert.assertEquals(
-        View.GONE, rootView.findViewById(R.id.change_log__web_link_item).getVisibility());
+        View.GONE,
+        rootView
+            .findViewById(com.anysoftkeyboard.releaseinfo.R.id.change_log__web_link_item)
+            .getVisibility());
   }
 
   @Test
@@ -126,7 +131,8 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     MainFragment fragment = startFragment();
     final View changeLogCard = fragment.getView().findViewById(R.id.latest_change_log_card);
     Assert.assertNotNull(changeLogCard);
-    final TextView title = changeLogCard.findViewById(R.id.changelog_version_title);
+    final TextView title =
+        changeLogCard.findViewById(com.anysoftkeyboard.releaseinfo.R.id.changelog_version_title);
     Assert.assertNotNull(title);
     String actual = title.getText().toString().trim();
     var matchRegex =
@@ -290,7 +296,10 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
             Observable.fromIterable(ShadowDialog.getShownDialogs())
                 .filter(dialog -> !dialog.isShowing())
                 .filter(
-                    dialog -> dialog.findViewById(R.id.progress_dialog_message_text_view) != null)
+                    dialog ->
+                        dialog.findViewById(
+                                net.evendanan.pixel.R.id.progress_dialog_message_text_view)
+                            != null)
                 .lastOrError()));
     // closing dialog
     Assert.assertTrue(
@@ -333,7 +342,10 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
             Observable.fromIterable(ShadowDialog.getShownDialogs())
                 .filter(dialog -> !dialog.isShowing())
                 .filter(
-                    dialog -> dialog.findViewById(R.id.progress_dialog_message_text_view) != null)
+                    dialog ->
+                        dialog.findViewById(
+                                net.evendanan.pixel.R.id.progress_dialog_message_text_view)
+                            != null)
                 .lastOrError()));
     // closing dialog
     Assert.assertTrue(

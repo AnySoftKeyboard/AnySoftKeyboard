@@ -35,7 +35,8 @@ public class AnyPopupKeyboardTest {
   @Test
   public void testKeyboardResourceConstructor() throws Exception {
     AnyPopupKeyboard keyboard =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
+        createAnyPopupKeyboard(
+            com.anysoftkeyboard.addons.quicktext.R.xml.quick_text_unicode_emoticons, null, null);
     Assert.assertEquals("POP_KEYBOARD", keyboard.getKeyboardName());
 
     Assert.assertEquals(98, keyboard.getKeys().size());
@@ -45,7 +46,8 @@ public class AnyPopupKeyboardTest {
   @Config(sdk = Build.VERSION_CODES.M)
   public void testKeyboardResourceConstructorReadsTags() throws Exception {
     AnyPopupKeyboard keyboard =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
+        createAnyPopupKeyboard(
+            com.anysoftkeyboard.addons.quicktext.R.xml.quick_text_unicode_emoticons, null, null);
 
     Assert.assertArrayEquals(
         "face,grin".split(","),
@@ -59,7 +61,8 @@ public class AnyPopupKeyboardTest {
   @Config(sdk = Build.VERSION_CODES.N)
   public void testKeyboardResourceConstructorReadsTagsWithExtension() throws Exception {
     AnyPopupKeyboard keyboard =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
+        createAnyPopupKeyboard(
+            com.anysoftkeyboard.addons.quicktext.R.xml.quick_text_unicode_emoticons, null, null);
 
     Assert.assertArrayEquals(
         "grinning,face,grinning_face".split(","),
@@ -392,13 +395,16 @@ public class AnyPopupKeyboardTest {
   @Config(sdk = Build.VERSION_CODES.N)
   public void testKeyboardSwitchesSkinTone() throws Exception {
     AnyPopupKeyboard keyboardWithGeneric =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
+        createAnyPopupKeyboard(
+            com.anysoftkeyboard.addons.quicktext.R.xml.quick_text_unicode_people, null, null);
     Assert.assertEquals("\uD83D\uDC85", keyboardWithGeneric.getKeys().get(1).text);
     Assert.assertEquals("\uD83D\uDC85", keyboardWithGeneric.getKeys().get(1).label);
 
     AnyPopupKeyboard keyboardWithSkinTone =
         createAnyPopupKeyboard(
-            R.xml.quick_text_unicode_people, EmojiUtils.SkinTone.Fitzpatrick_2, null);
+            com.anysoftkeyboard.addons.quicktext.R.xml.quick_text_unicode_people,
+            EmojiUtils.SkinTone.Fitzpatrick_2,
+            null);
 
     Assert.assertEquals("\uD83D\uDC85\uD83C\uDFFB", keyboardWithSkinTone.getKeys().get(1).text);
     Assert.assertEquals("\uD83D\uDC85\uD83C\uDFFB", keyboardWithSkinTone.getKeys().get(1).label);
@@ -407,11 +413,15 @@ public class AnyPopupKeyboardTest {
   @Test
   @Config(sdk = Build.VERSION_CODES.M)
   public void testHidesKeysWithNoGlyph() throws Exception {
-    AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
+    AnyPopupKeyboard keyboard =
+        createAnyPopupKeyboard(
+            com.anysoftkeyboard.addons.quicktext.R.xml.quick_text_unicode_people, null, null);
 
     MyShadowPaint.addStringWithoutGlyph(keyboard.getKeys().get(2).text.toString());
 
-    keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
+    keyboard =
+        createAnyPopupKeyboard(
+            com.anysoftkeyboard.addons.quicktext.R.xml.quick_text_unicode_people, null, null);
 
     Assert.assertTrue(keyboard.getKeys().get(0).width > 0);
     Assert.assertTrue(keyboard.getKeys().get(0).text.length() > 0);
@@ -424,7 +434,9 @@ public class AnyPopupKeyboardTest {
   public void testDoesNotHideKeysWithJustText() throws Exception {
     MyShadowPaint.addStringWithoutGlyph(
         "(* ^ ω ^) "); // this should not matter since `hasGlyph` should not be called
-    AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.popup_kaomoji, null, null);
+    AnyPopupKeyboard keyboard =
+        createAnyPopupKeyboard(
+            com.anysoftkeyboard.addons.quicktext.R.xml.popup_kaomoji, null, null);
     Assert.assertEquals("(* ^ ω ^) ", keyboard.getKeys().get(0).text);
   }
 }
