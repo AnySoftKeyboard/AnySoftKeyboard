@@ -9,12 +9,22 @@ if [[ -f "${HELPER_SCRIPT}" ]]; then
   args=()
   inserted=false
 
+  is_ci=false
+  case "${CI:-}" in
+    true|TRUE|1)
+      is_ci=true
+      ;;
+  esac
+
   for arg in "$@"; do
     args+=("${arg}")
     if [[ "${inserted}" == false ]]; then
       case "${arg}" in
         build|test|run|coverage|cquery|aquery|info|clean|mobile-install)
           args+=("--config=hermetiq")
+          if [[ "${is_ci}" == true ]]; then
+            args+=("--remote_download_minimal")
+          fi
           inserted=true
           ;;
       esac

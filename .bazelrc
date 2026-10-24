@@ -42,6 +42,9 @@ build:hermetiq --noslim_profile
 # Hermetiq remote cache
 build:hermetiq --remote_instance_name=75d5b5ec-949e-40ad-b7c8-5f368a7992a9
 build:hermetiq --remote_cache=grpcs://lb.bb.cloud-grpc.hermetiq.io
+build:hermetiq --remote_upload_local_results=false
+build:hermetiq --remote_cache_async
+build:hermetiq --remote_download_toplevel
 
 # Hermetiq remote exec
 build:hermetiq --remote_executor=grpcs://lb.bb.cloud-grpc.hermetiq.io
