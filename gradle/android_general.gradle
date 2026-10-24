@@ -43,9 +43,6 @@ afterEvaluate {
         task.options.compilerArgs << '-Xlint:all'
         //we need to support old devices, so we can trust Java's detection here.
         task.options.compilerArgs << '-Xlint:-deprecation' << '-Xlint:-processing' << '-Xlint:-this-escape'
-        if (JavaVersion.current().isCompatibleWith(JavaVersion.toVersion("23"))) {
-            task.options.compilerArgs << '-Xlint:-dangling-doc-comments'
-        }
         if (task.name.contains('UnitTest')) {
             //for tests, we do not check other stuff too
             task.options.compilerArgs << '-Xlint:-rawtypes' << '-Xlint:-cast' << '-Xlint:-unchecked' << '-Xlint:-classfile'
