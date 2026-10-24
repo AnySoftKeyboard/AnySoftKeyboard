@@ -52,7 +52,8 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mGeneralDialogController =
-        new GeneralDialogController(getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
+        new GeneralDialogController(
+            getActivity(), net.evendanan.pixel.R.style.Theme_AskAlertDialog, this::setupDialog);
     findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
   }
 

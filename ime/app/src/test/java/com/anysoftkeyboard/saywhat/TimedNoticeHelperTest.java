@@ -4,7 +4,6 @@ import android.os.SystemClock;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
-import com.menny.android.anysoftkeyboard.R;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.Assert;
@@ -18,7 +17,9 @@ public class TimedNoticeHelperTest {
   public void testHappyPath() {
     TimedNoticeHelper helper =
         new TimedNoticeHelper(
-            ApplicationProvider.getApplicationContext(), R.string.pref_test_key, 213);
+            ApplicationProvider.getApplicationContext(),
+            com.anysoftkeyboard.prefs.R.string.pref_test_key,
+            213);
     // nothing is set now, so it should be shown
     Assert.assertTrue(helper.shouldShow());
     helper.markAsShown();
@@ -41,7 +42,7 @@ public class TimedNoticeHelperTest {
     TimedNoticeHelper helper =
         new TimedNoticeHelper(
             ApplicationProvider.getApplicationContext(),
-            R.string.pref_test_key,
+            com.anysoftkeyboard.prefs.R.string.pref_test_key,
             timesShown -> longProvider.getAndIncrement());
     // nothing is set now, so it should be shown
     Assert.assertTrue(helper.shouldShow());
@@ -78,7 +79,7 @@ public class TimedNoticeHelperTest {
     TimedNoticeHelper helper =
         new TimedNoticeHelper(
             ApplicationProvider.getApplicationContext(),
-            R.string.pref_test_key,
+            com.anysoftkeyboard.prefs.R.string.pref_test_key,
             longProvider::getAndAdd);
     // nothing is set now, so it should be shown
     Assert.assertTrue(helper.shouldShow());
@@ -113,10 +114,13 @@ public class TimedNoticeHelperTest {
   public void testInitialData() {
     final long initialTime = SystemClock.elapsedRealtime();
     // we setting the next to be 2000
-    SharedPrefsHelper.setPrefsValue(R.string.pref_test_key, Long.toString(initialTime + 2000L));
+    SharedPrefsHelper.setPrefsValue(
+        com.anysoftkeyboard.prefs.R.string.pref_test_key, Long.toString(initialTime + 2000L));
     TimedNoticeHelper helper =
         new TimedNoticeHelper(
-            ApplicationProvider.getApplicationContext(), R.string.pref_test_key, 213);
+            ApplicationProvider.getApplicationContext(),
+            com.anysoftkeyboard.prefs.R.string.pref_test_key,
+            213);
 
     // still not enough time passed
     Assert.assertFalse(helper.shouldShow());
@@ -140,7 +144,9 @@ public class TimedNoticeHelperTest {
   public void testPushesShowTimeLaterIfShownAgain() {
     TimedNoticeHelper helper =
         new TimedNoticeHelper(
-            ApplicationProvider.getApplicationContext(), R.string.pref_test_key, 213);
+            ApplicationProvider.getApplicationContext(),
+            com.anysoftkeyboard.prefs.R.string.pref_test_key,
+            213);
     // nothing is set now, so it should be shown
     Assert.assertTrue(helper.shouldShow());
     helper.markAsShown();

@@ -70,7 +70,8 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mGeneralDialogController =
-        new GeneralDialogController(getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
+        new GeneralDialogController(
+            getActivity(), net.evendanan.pixel.R.style.Theme_AskAlertDialog, this::setupDialog);
     ((TextView) view.findViewById(R.id.dev_title))
         .setText(DeveloperUtils.getAppDetails(requireContext().getApplicationContext()));
 

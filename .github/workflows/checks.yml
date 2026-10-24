@@ -202,12 +202,6 @@ jobs:
         with:
           name: tests-${{ matrix.shard_variant }}
           path: collected_reports
-      - uses: actions/upload-artifact@v6.0.0
-        if: always()
-        continue-on-error: true
-        with:
-          name: tests-build-logging-${{ matrix.shard_variant }}
-          path: build/build-logging
   deploy-dry-run:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
@@ -237,7 +231,7 @@ jobs:
       - name: Install NDK
         run: echo "y" | sdkmanager "ndk;29.0.14206865"
       - name: Install ImageMagick
-        run: sudo apt-get install -y imagemagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
       - uses: gradle/actions/setup-gradle@v5
       - name: setup
         run: ./scripts/ci/ci_setup.sh

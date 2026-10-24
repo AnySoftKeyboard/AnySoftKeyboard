@@ -1249,10 +1249,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         new ExternalAnyKeyboard(
             currentKeyboard.getKeyboardAddOn(),
             ApplicationProvider.getApplicationContext(),
-            R.xml.qwerty,
-            R.xml.qwerty,
+            com.anysoftkeyboard.language.english.pack.R.xml.qwerty,
+            com.anysoftkeyboard.language.english.pack.R.xml.qwerty,
             "fr",
-            R.drawable.ic_status_english,
+            com.anysoftkeyboard.language.english.pack.R.drawable.ic_status_english,
             0,
             "fr",
             "",

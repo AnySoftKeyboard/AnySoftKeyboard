@@ -229,7 +229,8 @@ public abstract class Keyboard {
       verticalGap = parent.getVerticalGap();
       // now reading from the XML
       int[] remoteKeyboardLayoutStyleable =
-          resourceMap.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
+          resourceMap.getRemoteStyleableArrayFromLocal(
+              com.anysoftkeyboard.api.R.styleable.KeyboardLayout);
       TypedArray a =
           res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
       int n = a.getIndexCount();
@@ -264,7 +265,8 @@ public abstract class Keyboard {
       }
       a.recycle();
       int[] remoteKeyboardRowLayoutStyleable =
-          resourceMap.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Row);
+          resourceMap.getRemoteStyleableArrayFromLocal(
+              com.anysoftkeyboard.api.R.styleable.KeyboardLayout_Row);
       a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardRowLayoutStyleable);
       n = a.getIndexCount();
       for (int i = 0; i < n; i++) {
@@ -448,7 +450,8 @@ public abstract class Keyboard {
 
       // loading data from XML
       int[] remoteKeyboardLayoutStyleable =
-          resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
+          resourceMapping.getRemoteStyleableArrayFromLocal(
+              com.anysoftkeyboard.api.R.styleable.KeyboardLayout);
       TypedArray a =
           keyboardContext.obtainStyledAttributes(
               Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
@@ -463,7 +466,8 @@ public abstract class Keyboard {
       x += gap;
 
       int[] remoteKeyboardKeyLayoutStyleable =
-          resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key);
+          resourceMapping.getRemoteStyleableArrayFromLocal(
+              com.anysoftkeyboard.api.R.styleable.KeyboardLayout_Key);
       a =
           keyboardContext.obtainStyledAttributes(
               Xml.asAttributeSet(parser), remoteKeyboardKeyLayoutStyleable);
@@ -521,9 +525,9 @@ public abstract class Keyboard {
         popupResId = a.getResourceId(remoteIndex, 0);
       } else if (localAttrId == android.R.attr.isRepeatable) {
         repeatable = a.getBoolean(remoteIndex, false);
-      } else if (localAttrId == R.attr.showPreview) {
+      } else if (localAttrId == com.anysoftkeyboard.api.R.attr.showPreview) {
         showPreview = a.getBoolean(remoteIndex, mKeyboard.showPreview);
-      } else if (localAttrId == R.attr.keyDynamicEmblem) {
+      } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyDynamicEmblem) {
         dynamicEmblem = a.getInt(remoteIndex, KEY_EMBLEM_NONE);
       } else if (localAttrId == android.R.attr.isModifier) {
         modifier = a.getBoolean(remoteIndex, false);
@@ -538,11 +542,11 @@ public abstract class Keyboard {
         label = a.getText(remoteIndex);
       } else if (localAttrId == android.R.attr.keyOutputText) {
         text = a.getText(remoteIndex);
-      } else if (localAttrId == R.attr.shiftedKeyOutputText) {
+      } else if (localAttrId == com.anysoftkeyboard.api.R.attr.shiftedKeyOutputText) {
         shiftedText = a.getText(remoteIndex);
-      } else if (localAttrId == R.attr.keyOutputTyping) {
+      } else if (localAttrId == com.anysoftkeyboard.api.R.attr.keyOutputTyping) {
         typedText = a.getText(remoteIndex);
-      } else if (localAttrId == R.attr.shiftedKeyOutputTyping) {
+      } else if (localAttrId == com.anysoftkeyboard.api.R.attr.shiftedKeyOutputTyping) {
         shiftedTypedText = a.getText(remoteIndex);
       }
     }
@@ -948,7 +952,8 @@ public abstract class Keyboard {
   private void parseKeyboardAttributes(Resources res, XmlResourceParser parser) {
     final AddOn.AddOnResourceMapping addOnResourceMapping = mKeyboardResourceMap;
     int[] remoteKeyboardLayoutStyleable =
-        addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
+        addOnResourceMapping.getRemoteStyleableArrayFromLocal(
+            com.anysoftkeyboard.api.R.styleable.KeyboardLayout);
     TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
     // some defaults
     mDefaultWidth = mDisplayWidth / 10;
@@ -970,12 +975,12 @@ public abstract class Keyboard {
           mDefaultHeightCode = getKeyHeightCode(a, remoteIndex, -1);
         } else if (localAttrId == android.R.attr.horizontalGap) {
           mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, 0);
-        } else if (localAttrId == R.attr.showPreview) {
+        } else if (localAttrId == com.anysoftkeyboard.api.R.attr.showPreview) {
           showPreview = a.getBoolean(remoteIndex, true /*showing preview by default*/);
         } else if (localAttrId == android.R.attr.verticalGap) {
           mDefaultVerticalGap =
               getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
-        } else if (localAttrId == R.attr.autoCap) {
+        } else if (localAttrId == com.anysoftkeyboard.api.R.attr.autoCap) {
           autoCap = a.getBoolean(remoteIndex, true /*auto caps by default*/);
         }
       } catch (Exception e) {

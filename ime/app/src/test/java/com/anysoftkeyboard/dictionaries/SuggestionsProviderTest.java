@@ -1,9 +1,9 @@
 package com.anysoftkeyboard.dictionaries;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-import static com.menny.android.anysoftkeyboard.R.array.english_initial_suggestions;
-import static com.menny.android.anysoftkeyboard.R.integer.anysoftkeyboard_api_version_code;
-import static com.menny.android.anysoftkeyboard.R.xml.english_autotext;
+import static com.anysoftkeyboard.api.R.integer.anysoftkeyboard_api_version_code;
+import static com.anysoftkeyboard.language.english.pack.R.array.english_initial_suggestions;
+import static com.anysoftkeyboard.language.english.pack.R.xml.english_autotext;
 
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -503,7 +503,7 @@ public class SuggestionsProviderTest {
           false,
           1,
           "en",
-          R.array.english_words_dict_array,
+          com.anysoftkeyboard.language.english.pack.R.array.english_words_dict_array,
           english_autotext,
           english_initial_suggestions,
           RadicalDictionaryConfig.EMPTY);

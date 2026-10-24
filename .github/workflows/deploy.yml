@@ -71,12 +71,6 @@ jobs:
         if: always()
         continue-on-error: true
         with:
-          name: deploy-logging
-          path: build/build-logging
-      - uses: actions/upload-artifact@v6.0.0
-        if: always()
-        continue-on-error: true
-        with:
           name: bundles
           path: outputs/bundle
       - uses: actions/upload-artifact@v6.0.0

@@ -23,7 +23,6 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-import com.menny.android.anysoftkeyboard.R;
 import java.util.Locale;
 
 public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<QuickTextKey> {
@@ -48,8 +47,8 @@ public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<Qui
         "QuickTextKeys",
         "QuickTextKey",
         PREF_ID_PREFIX,
-        R.xml.quick_text_keys,
-        R.string.settings_default_quick_text_key_id,
+        com.anysoftkeyboard.addons.quicktext.R.xml.quick_text_keys,
+        com.anysoftkeyboard.addons.quicktext.R.string.settings_default_quick_text_key_id,
         true,
         BuildConfig.TESTING_BUILD);
   }

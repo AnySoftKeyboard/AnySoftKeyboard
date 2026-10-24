@@ -295,7 +295,10 @@ public class UserDictionaryEditorFragment extends Fragment
     private final int mMargin;
 
     MarginDecoration(Context context) {
-      mMargin = context.getResources().getDimensionPixelSize(R.dimen.global_content_padding_side);
+      mMargin =
+          context
+              .getResources()
+              .getDimensionPixelSize(net.evendanan.pixel.R.dimen.global_content_padding_side);
     }
 
     @Override

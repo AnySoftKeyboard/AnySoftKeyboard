@@ -162,7 +162,8 @@ public class KeyboardViewContainerViewTest {
     final Drawable darkIcon = originalView.getCloseIcon();
     Assert.assertNotNull(darkIcon);
     Assert.assertEquals(
-        R.drawable.yochees_dark_close_suggetions, Shadows.shadowOf(darkIcon).getCreatedFromResId());
+        com.anysoftkeyboard.addons.keyboardthemes.R.drawable.yochees_dark_close_suggetions,
+        Shadows.shadowOf(darkIcon).getCreatedFromResId());
   }
 
   @Test
