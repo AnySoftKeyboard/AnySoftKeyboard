@@ -4,34 +4,26 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HELPER_SCRIPT="${SCRIPT_DIR}/hermetiq-credential-helper.sh"
 
-# If the helper script file exists on disk, add --config=hermetiq to build commands
+extra_args=()
+
+# If the helper script file exists on disk, add --bazelrc=tools/rc/hermetiq.bazelrc
 if [[ -f "${HELPER_SCRIPT}" ]]; then
-  args=()
-  inserted=false
-
-  is_ci=false
-  case "${CI:-}" in
-    true|TRUE|1)
-      is_ci=true
-      ;;
-  esac
-
-  for arg in "$@"; do
-    args+=("${arg}")
-    if [[ "${inserted}" == false ]]; then
-      case "${arg}" in
-        build|test|run|coverage|cquery|aquery|info|clean|mobile-install)
-          args+=("--config=hermetiq")
-          if [[ "${is_ci}" == true ]]; then
-            args+=("--remote_download_minimal")
-          fi
-          inserted=true
-          ;;
-      esac
-    fi
-  done
-
-  exec "${BAZEL_REAL}" "${args[@]}"
-else
-  exec "${BAZEL_REAL}" "$@"
+  hermetiq_rc="tools/rc/hermetiq.bazelrc"
+  if [[ ! -f "${hermetiq_rc}" && -f "${SCRIPT_DIR}/rc/hermetiq.bazelrc" ]]; then
+    hermetiq_rc="${SCRIPT_DIR}/rc/hermetiq.bazelrc"
+  fi
+  extra_args+=("--bazelrc=${hermetiq_rc}")
 fi
+
+# If in CI, also add --bazelrc=tools/rc/ci.bazelrc
+case "${CI:-}" in
+  true|TRUE|1)
+    ci_rc="tools/rc/ci.bazelrc"
+    if [[ ! -f "${ci_rc}" && -f "${SCRIPT_DIR}/rc/ci.bazelrc" ]]; then
+      ci_rc="${SCRIPT_DIR}/rc/ci.bazelrc"
+    fi
+    extra_args+=("--bazelrc=${ci_rc}")
+    ;;
+esac
+
+exec "${BAZEL_REAL}" ${extra_args[@]+"${extra_args[@]}"} "$@"

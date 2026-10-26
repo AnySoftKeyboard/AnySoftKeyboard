@@ -1,0 +1,27 @@
+# Hermetiq
+build --bes_instance_name=75d5b5ec-949e-40ad-b7c8-5f368a7992a9
+build --bes_backend=grpcs://bep.cloud-grpc.hermetiq.io
+build --bes_results_url=https://dashboard.hermetiq.io/build/
+build --bes_upload_mode=wait_for_upload_complete
+build --credential_helper="bep.cloud-grpc.hermetiq.io=%workspace%/tools/hermetiq-credential-helper.sh"
+build --credential_helper="lb.bb.cloud-grpc.hermetiq.io=%workspace%/tools/hermetiq-credential-helper.sh"
+
+# Build metadata · branch, commit and repo, so the filters work
+build --workspace_status_command=$(pwd)/tools/set-build-metadata.sh
+
+# Enhanced metrics · powers the critical path view
+build --generate_json_trace_profile
+build --experimental_profile_include_primary_output
+build --experimental_profile_include_target_label
+build --noslim_profile
+
+# Hermetiq remote cache
+build --remote_instance_name=75d5b5ec-949e-40ad-b7c8-5f368a7992a9
+build --remote_cache=grpcs://lb.bb.cloud-grpc.hermetiq.io
+build --remote_upload_local_results=false
+build --remote_cache_async
+build --remote_download_toplevel
+
+# Hermetiq remote exec
+build --remote_executor=grpcs://lb.bb.cloud-grpc.hermetiq.io
+build --remote_default_exec_properties=pool=sizeclass
