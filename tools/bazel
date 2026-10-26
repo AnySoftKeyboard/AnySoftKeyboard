@@ -18,4 +18,8 @@ case "${CI:-}" in
     ;;
 esac
 
-exec "${BAZEL_REAL}" ${extra_args[@]+"${extra_args[@]}"} "$@"
+if [[ ${#extra_args[@]} -gt 0 ]]; then
+  exec "${BAZEL_REAL}" "${extra_args[@]}" "$@"
+else
+  exec "${BAZEL_REAL}" "$@"
+fi
