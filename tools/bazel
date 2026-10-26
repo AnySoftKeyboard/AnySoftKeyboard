@@ -6,23 +6,15 @@ HELPER_SCRIPT="${SCRIPT_DIR}/hermetiq-credential-helper.sh"
 
 extra_args=()
 
-# If the helper script file exists on disk, add --bazelrc=tools/rc/hermetiq.bazelrc
+# If the helper script file exists on disk, add hermetiq.bazelrc
 if [[ -f "${HELPER_SCRIPT}" ]]; then
-  hermetiq_rc="tools/rc/hermetiq.bazelrc"
-  if [[ ! -f "${hermetiq_rc}" && -f "${SCRIPT_DIR}/rc/hermetiq.bazelrc" ]]; then
-    hermetiq_rc="${SCRIPT_DIR}/rc/hermetiq.bazelrc"
-  fi
-  extra_args+=("--bazelrc=${hermetiq_rc}")
+  extra_args+=("--bazelrc=${SCRIPT_DIR}/rc/hermetiq.bazelrc")
 fi
 
-# If in CI, also add --bazelrc=tools/rc/ci.bazelrc
+# If in CI, also add ci.bazelrc
 case "${CI:-}" in
   true|TRUE|1)
-    ci_rc="tools/rc/ci.bazelrc"
-    if [[ ! -f "${ci_rc}" && -f "${SCRIPT_DIR}/rc/ci.bazelrc" ]]; then
-      ci_rc="${SCRIPT_DIR}/rc/ci.bazelrc"
-    fi
-    extra_args+=("--bazelrc=${ci_rc}")
+    extra_args+=("--bazelrc=${SCRIPT_DIR}/rc/ci.bazelrc")
     ;;
 esac
 
