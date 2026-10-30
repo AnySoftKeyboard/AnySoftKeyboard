@@ -272,6 +272,14 @@ jobs:
 
           ./gradlew -PwithAutoVersioning -DdeployChannel=canart -PonlyPublishSupporting=canary \
               $(cat /tmp/gradle.tasks_canary.lst)
+
+      - name: dry-run-sidebyside-build
+        if: ${{ matrix.shard_type == 'app' }}
+        run: |
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type }} assembleSideBySide /tmp/gradle.tasks_sidebyside.lst
+
+          ./gradlew -PwithAutoVersioning -DdeployChannel=sidebyside -PonlyPublishSupporting=sidebyside \
+              $(cat /tmp/gradle.tasks_sidebyside.lst)
       - name: fix-fs
         if: always()
         run: ./scripts/ci/ci_fix_fs.sh
@@ -284,6 +292,12 @@ jobs:
         continue-on-error: true
         with:
           name: binaries-dry-run-${{ matrix.shard_type }}
+          path: outputs/apk
+      - uses: actions/upload-artifact@v6.0.0
+        if: ${{ matrix.shard_type == 'app' }}
+        continue-on-error: true
+        with:
+          name: sidebyside-dry-run-app
           path: outputs/apk
   all-green-requirement:
     needs: [static-checks, linters, tests, deploy-dry-run, bazel]
