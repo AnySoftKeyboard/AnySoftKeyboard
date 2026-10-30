@@ -8,5 +8,7 @@
     <string name="finnish_keyboard_qwerty_numbers_description">Finnish keyboard with numbers by llahteinen</string>
     <string name="finnish_keyboard_qwerty_numbers_symbols_description">Finnish keyboard with numbers and symbols by llahteinen</string>
     <string name="finnish_keyboard_qwerty_symbols_top_row_numbers_description">Finnish keyboard with number top row and symbols by llahteinen</string>
+    <string name="finnish_keyboard_dvorak_with_symbols">Finnish Dvorak based keyboard with symbols</string>
+    <string name="finnish_keyboard_dvorak">Finnish Dvorak based keyboard</string>
     
 </resources>
