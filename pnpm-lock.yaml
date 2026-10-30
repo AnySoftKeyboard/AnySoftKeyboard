@@ -57,8 +57,8 @@ importers:
         specifier: ^5.7.2
         version: 5.8.0
       follow-redirects:
-        specifier: ^1.16.0
-        version: 1.16.0
+        specifier: ^1.16.1
+        version: 1.16.1
       globals:
         specifier: ^16.5.0
         version: 16.5.0
@@ -630,8 +630,8 @@ packages:
   flatted@3.4.2:
     resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==, tarball: https://registry.npmjs.org/flatted/-/flatted-3.4.2.tgz}
 
-  follow-redirects@1.16.0:
-    resolution: {integrity: sha512-y5rN/uOsadFT/JfYwhxRS5R7Qce+g3zG97+JrtFZlC9klX/W5hD7iiLzScI4nZqUS7DNUdhPgw4xI8W2LuXlUw==, tarball: https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.16.0.tgz}
+  follow-redirects@1.16.1:
+    resolution: {integrity: sha512-FNvFGzoMLWmE6Yj9spb/zjd7yiNCHiAW9/Tg9CXrQ8wuu32HtlJOwWO11OJafl5FfY3DxTdQ0vj42zU1kvv5jg==, tarball: https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.16.1.tgz}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -1643,7 +1643,7 @@ snapshots:
 
   flatted@3.4.2: {}
 
-  follow-redirects@1.16.0: {}
+  follow-redirects@1.16.1: {}
 
   form-data@4.0.5:
     dependencies:
