@@ -12,6 +12,7 @@ import android.os.Build;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -1103,5 +1104,30 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     Assert.assertFalse(
         mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isFullyVisible());
     Assert.assertTrue(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+  }
+
+  @Test
+  public void testClipboardPopupDialogHasAttachedWindowToken() {
+    // Setup: copy something so clipboard has entries
+    mAnySoftKeyboardUnderTest.simulateTextTyping("test text");
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+
+    // Trigger the clipboard popup dialog
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+    Assert.assertNotNull("Clipboard popup dialog should be shown", dialog);
+    Assert.assertTrue("Dialog should be showing", dialog.isShowing());
+
+    // Verify window attributes are set for attached dialog (prevents auto-close in Chrome/OpenChamber)
+    final WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+    Assert.assertNotNull("Window token should be set", lp.token);
+    Assert.assertEquals(
+        "Dialog type should be APPLICATION_ATTACHED_DIALOG",
+        WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG,
+        lp.type);
+    Assert.assertTrue(
+        "FLAG_ALT_FOCUSABLE_IM should be set",
+        (lp.flags & WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM) != 0);
   }
 }
