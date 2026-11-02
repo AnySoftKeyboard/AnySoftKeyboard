@@ -168,8 +168,15 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
       WindowManager.LayoutParams lp = window.getAttributes();
       lp.token = ((View) getInputView()).getWindowToken();
       lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+      // FLAG_NOT_FOCUSABLE: the dialog must NOT steal focus from the target app.
+      // On Android 16+, when the dialog takes focus the app (Chrome/OpenChamber) calls
+      // hideSoftInputFromWindow(), the system hides the IME window, and this attached
+      // dialog is removed -> popup flashes and closes. Not taking focus avoids that.
+      // Touch still works for tapping items; WATCH_OUTSIDE_TOUCH dismisses on outside tap.
+      lp.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+          | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+          | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
       window.setAttributes(lp);
-      window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
       if (dialogData.mExtraPresenter != null) {
         dialogData.mExtraPresenter.beforeDialogShown(dialog, data);

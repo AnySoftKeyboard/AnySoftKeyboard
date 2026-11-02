@@ -1129,6 +1129,11 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     Assert.assertTrue(
         "FLAG_ALT_FOCUSABLE_IM should be set",
         (lp.flags & WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM) != 0);
+    Assert.assertTrue(
+        "FLAG_NOT_FOCUSABLE must be set so the dialog does not steal focus from the target app "
+            + "(on Android 16+, focus theft makes the app call hideSoftInput, hiding the IME "
+            + "window and dismissing this attached dialog)",
+        (lp.flags & WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE) != 0);
   }
 
   @Test
