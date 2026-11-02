@@ -41,6 +41,8 @@ import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.releaseinfo.ChangeLogFragment;
+import com.anysoftkeyboard.saywhat.OnUiPage;
+import com.anysoftkeyboard.saywhat.PublicNotice;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
@@ -105,6 +107,26 @@ public class MainFragment extends Fragment {
             getActivity(),
             net.evendanan.pixel.R.style.Theme_AskAlertDialog,
             this::onSetupDialogRequired);
+    final ViewGroup publicNoticesContainer = view.findViewById(R.id.public_notices_container);
+    if (publicNoticesContainer != null) {
+      for (PublicNotice notice :
+          ((AnyApplication) requireActivity().getApplication()).getPublicNotices()) {
+        if (notice instanceof OnUiPage uiNotice) {
+          try {
+            final View noticeView = uiNotice.inflateContentView(requireContext());
+            if (noticeView != null) {
+              if (noticeView.getParent() instanceof ViewGroup parentGroup) {
+                parentGroup.removeView(noticeView);
+              }
+              publicNoticesContainer.addView(noticeView);
+            }
+          } catch (Throwable t) {
+            Logger.w(TAG, t, "Failed to inflate or add public notice %s", uiNotice.getName());
+          }
+        }
+      }
+    }
+
     final ViewGroup latestChangeLogCard = view.findViewById(R.id.latest_change_log_card);
     final View latestChangeLogCardContent =
         ChangeLogFragment.LatestChangeLogViewFactory.createLatestChangeLogView(
