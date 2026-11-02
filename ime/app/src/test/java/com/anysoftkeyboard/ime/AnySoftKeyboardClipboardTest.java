@@ -1130,4 +1130,25 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         "FLAG_ALT_FOCUSABLE_IM should be set",
         (lp.flags & WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM) != 0);
   }
+
+  @Test
+  public void testHideWindowDoesNotDismissShowingClipboardPopup() {
+    // Regression test: in apps like Chrome/WebView, showing the popup steals focus from the
+    // target app, which makes the system call hideWindow() on the IME. hideWindow() must NOT
+    // dismiss our own showing popup (otherwise the popup flashes and closes immediately).
+    mAnySoftKeyboardUnderTest.simulateTextTyping("test text");
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+    Assert.assertNotNull("Clipboard popup dialog should be shown", dialog);
+    Assert.assertTrue(dialog.isShowing());
+
+    // Simulate the system requesting a hide (focus moved to the dialog in Chrome)
+    mAnySoftKeyboardUnderTest.hideWindow();
+
+    Assert.assertTrue(
+        "Popup dialog should still be showing after hideWindow() while it is on screen",
+        dialog.isShowing());
+  }
 }

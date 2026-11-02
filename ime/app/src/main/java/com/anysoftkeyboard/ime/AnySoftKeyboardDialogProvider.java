@@ -18,7 +18,6 @@ package com.anysoftkeyboard.ime;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.IBinder;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -166,25 +165,11 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
     public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
       OptionsDialogData dialogData = (OptionsDialogData) data;
       Window window = dialog.getWindow();
-
-      // Try IME service window token first, fall back to input view token
-      IBinder windowToken = null;
-      Window imeWindow = getWindow().getWindow();
-      if (imeWindow != null) {
-        windowToken = imeWindow.getAttributes().token;
-      }
-      if (windowToken == null && getInputView() != null) {
-        windowToken = ((View) getInputView()).getWindowToken();
-      }
-
-      if (windowToken != null) {
-        // Set initial attributes
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.token = windowToken;
-        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-        lp.flags |= WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-        window.setAttributes(lp);
-      }
+      WindowManager.LayoutParams lp = window.getAttributes();
+      lp.token = ((View) getInputView()).getWindowToken();
+      lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+      window.setAttributes(lp);
+      window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
       if (dialogData.mExtraPresenter != null) {
         dialogData.mExtraPresenter.beforeDialogShown(dialog, data);

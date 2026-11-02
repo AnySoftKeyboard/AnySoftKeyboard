@@ -319,6 +319,17 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
   /** This will ask the OS to hide all views of AnySoftKeyboard. */
   @Override
   public void hideWindow() {
+    if (hasStuffToClose()) {
+      // One of our own popups (options dialog or mini-keyboard popup) is currently on
+      // screen. In apps like Chrome/WebView, showing such a window steals focus from the
+      // target app, which makes the system call hideWindow() right away. If we proceed,
+      // handleCloseRequest() dismisses our popup and super.hideWindow() hides the IME
+      // window, so the popup appears to flash and close immediately. The popup has its
+      // own dismiss handling (cancel button / back gesture / outside touch), so it is
+      // safe to ignore this focus-induced hide request while our UI is visible.
+      Logger.i(TAG, "hideWindow() deferred: a popup/dialog is currently showing");
+      return;
+    }
     while (handleCloseRequest()) {
       Logger.i(TAG, "Still have stuff to close. Trying handleCloseRequest again.");
     }
