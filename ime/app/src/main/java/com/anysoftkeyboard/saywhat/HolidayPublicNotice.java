@@ -1,0 +1,178 @@
+package com.anysoftkeyboard.saywhat;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import com.anysoftkeyboard.ime.InputViewBinder;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
+import com.anysoftkeyboard.keyboards.views.extradraw.TypingExtraDraw;
+import com.menny.android.anysoftkeyboard.R;
+import java.util.Calendar;
+import java.util.Locale;
+
+public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisible {
+
+  private final String mName;
+  private final OnKeyWordHelper[] mWordHelpers;
+  private final String mExtraDrawText;
+  private final KeyboardViewContainerView.StripActionProvider mStripAction;
+  private boolean mIsActive;
+  private Calendar mOverrideCalendar;
+  private Locale mOverrideLocale;
+
+  protected HolidayPublicNotice(
+      @NonNull String name,
+      @Nullable String[] triggerWords,
+      @Nullable String extraDrawText,
+      @Nullable String stripEmoji,
+      @Nullable String toastGreeting) {
+    mName = name;
+    mExtraDrawText = extraDrawText;
+    if (triggerWords != null && triggerWords.length > 0) {
+      mWordHelpers = new OnKeyWordHelper[triggerWords.length];
+      for (int i = 0; i < triggerWords.length; i++) {
+        mWordHelpers[i] = new OnKeyWordHelper(triggerWords[i]);
+      }
+    } else {
+      mWordHelpers = null;
+    }
+    if (stripEmoji != null) {
+      mStripAction = new HolidayStripAction(stripEmoji, toastGreeting);
+    } else {
+      mStripAction = null;
+    }
+  }
+
+  @NonNull
+  @Override
+  public String getName() {
+    return mName;
+  }
+
+  protected abstract boolean isDateActive(@NonNull Calendar now, @NonNull Locale locale);
+
+  @VisibleForTesting
+  public void setTestCalendar(@Nullable Calendar calendar) {
+    mOverrideCalendar = calendar;
+  }
+
+  @VisibleForTesting
+  public void setTestLocale(@Nullable Locale locale) {
+    mOverrideLocale = locale;
+  }
+
+  @NonNull
+  protected Calendar getCurrentCalendar() {
+    if (mOverrideCalendar != null) {
+      return (Calendar) mOverrideCalendar.clone();
+    }
+    return Calendar.getInstance();
+  }
+
+  @NonNull
+  protected Locale getCurrentLocale(@NonNull Context context) {
+    if (mOverrideLocale != null) {
+      return mOverrideLocale;
+    }
+    return Locale.getDefault();
+  }
+
+  @Override
+  public void onVisible(PublicNotices ime, AnyKeyboard keyboard, EditorInfo editorInfo) {
+    mIsActive = isDateActive(getCurrentCalendar(), getCurrentLocale(ime));
+    if (mIsActive && mStripAction != null) {
+      ime.getInputViewContainer().addStripAction(mStripAction, true);
+    }
+  }
+
+  @Override
+  public void onHidden(PublicNotices ime, AnyKeyboard keyboard) {
+    if (mStripAction != null) {
+      ime.getInputViewContainer().removeStripAction(mStripAction);
+    }
+  }
+
+  @Override
+  public void onKey(PublicNotices ime, int primaryCode, Keyboard.Key key) {
+    if (!mIsActive || mWordHelpers == null || mExtraDrawText == null) {
+      return;
+    }
+    final int lowerCode = Character.toLowerCase(primaryCode);
+    boolean matched = false;
+    for (int i = 0; i < mWordHelpers.length; i++) {
+      if (mWordHelpers[i].shouldShow(lowerCode)) {
+        matched = true;
+        break;
+      }
+    }
+    if (matched) {
+      final InputViewBinder inputView = ime.getInputView();
+      if (inputView instanceof AnyKeyboardViewWithExtraDraw) {
+        final AnyKeyboardViewWithExtraDraw anyKeyboardView =
+            (AnyKeyboardViewWithExtraDraw) inputView;
+        anyKeyboardView.addExtraDraw(
+            new TypingExtraDraw(
+                mExtraDrawText,
+                new Point(anyKeyboardView.getWidth() / 2, anyKeyboardView.getHeight() / 2),
+                120,
+                this::adjustPaint));
+        if (mStripAction != null) {
+          ime.getInputViewContainer().addStripAction(mStripAction, true);
+        }
+      }
+    }
+  }
+
+  private Paint adjustPaint(Paint paint, AnyKeyboardViewWithExtraDraw ime, Float fraction) {
+    Paint newPaint = new Paint(paint);
+    ime.setPaintToKeyText(newPaint);
+    newPaint.setTextSkewX(0.2f);
+    newPaint.setAlpha((int) (255 * (1f - fraction)));
+    newPaint.setTextScaleX(1 + fraction);
+    newPaint.setShadowLayer(5, 0, 0, Color.BLACK);
+    return newPaint;
+  }
+
+  private static class HolidayStripAction implements KeyboardViewContainerView.StripActionProvider {
+    @NonNull private final String mEmoji;
+    @Nullable private final String mToastGreeting;
+
+    HolidayStripAction(@NonNull String emoji, @Nullable String toastGreeting) {
+      mEmoji = emoji;
+      mToastGreeting = toastGreeting;
+    }
+
+    @NonNull
+    @Override
+    public View inflateActionView(@NonNull ViewGroup parent) {
+      final Context context = parent.getContext();
+      final View root =
+          LayoutInflater.from(context).inflate(R.layout.holiday_strip_action, parent, false);
+      final TextView textView = root.findViewById(R.id.holiday_strip_action_text);
+      if (textView != null) {
+        textView.setText(mEmoji);
+      }
+      if (mToastGreeting != null) {
+        root.setOnClickListener(
+            v -> Toast.makeText(v.getContext(), mToastGreeting, Toast.LENGTH_SHORT).show());
+      }
+      return root;
+    }
+
+    @Override
+    public void onRemoved() {}
+  }
+}

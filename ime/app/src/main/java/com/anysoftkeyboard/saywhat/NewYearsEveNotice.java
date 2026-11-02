@@ -1,0 +1,25 @@
+package com.anysoftkeyboard.saywhat;
+
+import androidx.annotation.NonNull;
+import com.menny.android.anysoftkeyboard.R;
+import java.util.Calendar;
+import java.util.Locale;
+
+public class NewYearsEveNotice extends HolidayCardPublicNotice {
+
+  public NewYearsEveNotice() {
+    super(
+        "HolidayNewYearsEve",
+        new String[] {"new year", "countdown"},
+        "🎆 Happy New Year! 🥳",
+        "🎆",
+        "Happy New Year! 🎆✨",
+        R.string.public_notice_new_year_title,
+        R.string.public_notice_new_year_message);
+  }
+
+  @Override
+  protected boolean isDateActive(@NonNull Calendar now, @NonNull Locale locale) {
+    return HolidayScheduleHelper.isNewYearsEveActive(now);
+  }
+}
