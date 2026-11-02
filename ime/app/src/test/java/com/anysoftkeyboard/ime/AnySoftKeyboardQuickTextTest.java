@@ -681,8 +681,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
     Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
-    Assert.assertEquals(
-        "hello" + KEY_OUTPUT, inputConnection.getCurrentTextInInputConnection());
+    Assert.assertEquals("hello" + KEY_OUTPUT, inputConnection.getCurrentTextInInputConnection());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
@@ -694,5 +693,4 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.simulateTextTyping(" world");
     Assert.assertEquals("hello world", inputConnection.getCurrentTextInInputConnection());
   }
-
 }
