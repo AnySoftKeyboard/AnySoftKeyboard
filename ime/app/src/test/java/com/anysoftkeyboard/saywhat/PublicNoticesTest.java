@@ -1,21 +1,31 @@
 package com.anysoftkeyboard.saywhat;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.text.TextUtils;
-import androidx.test.core.app.ApplicationProvider;
-import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.menny.android.anysoftkeyboard.AnyRoboApplication;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
-@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-public class PublicNoticesTest {
+public class PublicNoticesTest extends AnySoftKeyboardBaseTest {
+
+  @After
+  public void tearDownNotices() {
+    AnyRoboApplication application = getApplicationContext();
+    for (PublicNotice notice : application.getPublicNotices()) {
+      Mockito.reset(notice);
+    }
+  }
+
   @Test
   public void testUniqueNames() {
-    AnyRoboApplication application = ApplicationProvider.getApplicationContext();
+    AnyRoboApplication application = getApplicationContext();
     Set<String> seenNames = new HashSet<>();
     for (PublicNotice publicNotice : application.getPublicNoticesProduction()) {
       Assert.assertNotNull(publicNotice);
@@ -27,7 +37,7 @@ public class PublicNoticesTest {
 
   @Test
   public void testSameNoticesInstancesInTestingOfEachType() {
-    AnyRoboApplication application = ApplicationProvider.getApplicationContext();
+    AnyRoboApplication application = getApplicationContext();
     List<PublicNotice> publicNoticesProduction = application.getPublicNotices();
     Assert.assertEquals(3, publicNoticesProduction.size());
     Assert.assertNotSame(publicNoticesProduction, application.getPublicNotices());
@@ -43,7 +53,7 @@ public class PublicNoticesTest {
 
   @Test
   public void testSameNoticesInstancesInProduction() {
-    AnyRoboApplication application = ApplicationProvider.getApplicationContext();
+    AnyRoboApplication application = getApplicationContext();
     List<PublicNotice> publicNoticesProduction = application.getPublicNoticesProduction();
     Assert.assertFalse(publicNoticesProduction.isEmpty());
     List<PublicNotice> publicNoticesProduction2 = application.getPublicNoticesProduction();
@@ -59,7 +69,7 @@ public class PublicNoticesTest {
 
   @Test(expected = UnsupportedOperationException.class)
   public void testCanNotChangePublicNoticesList() {
-    AnyRoboApplication application = ApplicationProvider.getApplicationContext();
+    AnyRoboApplication application = getApplicationContext();
     List<PublicNotice> publicNoticesProduction = application.getPublicNoticesProduction();
 
     publicNoticesProduction.remove(0);
@@ -67,9 +77,79 @@ public class PublicNoticesTest {
 
   @Test(expected = UnsupportedOperationException.class)
   public void testCanNotChangePublicNoticesListInTesting() {
-    AnyRoboApplication application = ApplicationProvider.getApplicationContext();
+    AnyRoboApplication application = getApplicationContext();
     List<PublicNotice> publicNoticesProduction = application.getPublicNotices();
 
     publicNoticesProduction.remove(0);
+  }
+
+  @Test
+  public void testOnKeyCircuitBreakerCatchesAndDisablesNotice() {
+    AnyRoboApplication application = getApplicationContext();
+    OnKey onKey =
+        (OnKey)
+            application.getPublicNotices().stream()
+                .filter(p -> p instanceof OnKey)
+                .findFirst()
+                .orElseThrow();
+
+    Mockito.clearInvocations(onKey);
+    Mockito.doThrow(new RuntimeException("Simulated onKey crash"))
+        .when(onKey)
+        .onKey(Mockito.any(), Mockito.anyInt(), Mockito.any());
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress('a');
+    Mockito.verify(onKey, Mockito.times(1))
+        .onKey(Mockito.any(), Mockito.eq((int) 'a'), Mockito.any());
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress('b');
+    Mockito.verify(onKey, Mockito.times(1))
+        .onKey(Mockito.any(), Mockito.anyInt(), Mockito.any());
+  }
+
+  @Test
+  public void testOnVisibleCircuitBreakerCatchesAndDisablesNotice() {
+    AnyRoboApplication application = getApplicationContext();
+    OnVisible onVisible =
+        (OnVisible)
+            application.getPublicNotices().stream()
+                .filter(p -> p instanceof OnVisible)
+                .findFirst()
+                .orElseThrow();
+
+    Mockito.clearInvocations(onVisible);
+    Mockito.doThrow(new RuntimeException("Simulated onVisible crash"))
+        .when(onVisible)
+        .onVisible(Mockito.any(), Mockito.any(), Mockito.any());
+
+    simulateOnStartInputFlow();
+    Mockito.verify(onVisible, Mockito.times(1))
+        .onVisible(Mockito.any(), Mockito.any(), Mockito.any());
+
+    simulateOnStartInputFlow();
+    Mockito.verify(onVisible, Mockito.times(1))
+        .onVisible(Mockito.any(), Mockito.any(), Mockito.any());
+  }
+
+  @Test
+  public void testOnHiddenCircuitBreakerCatchesAndDisablesNotice() {
+    AnyRoboApplication application = getApplicationContext();
+    OnVisible onVisible =
+        (OnVisible)
+            application.getPublicNotices().stream()
+                .filter(p -> p instanceof OnVisible)
+                .findFirst()
+                .orElseThrow();
+
+    Mockito.clearInvocations(onVisible);
+    Mockito.doThrow(new RuntimeException("Simulated onHidden crash"))
+        .when(onVisible)
+        .onHidden(Mockito.any(), Mockito.any());
+
+    simulateFinishInputFlow();
+    Mockito.verify(onVisible, Mockito.times(1)).onHidden(Mockito.any(), Mockito.any());
+
+    simulateFinishInputFlow();
+    Mockito.verify(onVisible, Mockito.times(1)).onHidden(Mockito.any(), Mockito.any());
   }
 }
