@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.saywhat;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public abstract class HolidayCardPublicNotice extends HolidayPublicNotice implem
     return isDateActive(now, locale);
   }
 
+  @SuppressLint("InflateParams")
   @Nullable
   @Override
   public View inflateContentView(@NonNull Context context) {

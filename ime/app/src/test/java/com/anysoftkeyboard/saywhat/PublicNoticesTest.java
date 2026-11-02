@@ -103,8 +103,7 @@ public class PublicNoticesTest extends AnySoftKeyboardBaseTest {
         .onKey(Mockito.any(), Mockito.eq((int) 'a'), Mockito.any());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('b');
-    Mockito.verify(onKey, Mockito.times(1))
-        .onKey(Mockito.any(), Mockito.anyInt(), Mockito.any());
+    Mockito.verify(onKey, Mockito.times(1)).onKey(Mockito.any(), Mockito.anyInt(), Mockito.any());
   }
 
   @Test

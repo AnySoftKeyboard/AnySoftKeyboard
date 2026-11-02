@@ -75,10 +75,7 @@ public abstract class PublicNotices extends AnySoftKeyboard {
           onVisibleListener.onHidden(this, getCurrentKeyboard());
         } catch (Throwable t) {
           Logger.w(
-              TAG,
-              t,
-              "PublicNotice %s threw onHidden! Disabling it.",
-              onVisibleListener.getName());
+              TAG, t, "PublicNotice %s threw onHidden! Disabling it.", onVisibleListener.getName());
           mOnVisibleListeners[i] = null;
         }
       }

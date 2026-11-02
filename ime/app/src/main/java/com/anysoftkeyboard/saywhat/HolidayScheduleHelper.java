@@ -9,9 +9,7 @@ public final class HolidayScheduleHelper {
 
   private HolidayScheduleHelper() {}
 
-  /**
-   * Thanksgiving (US only): 4th Thursday of November, active 1 week before through the day of.
-   */
+  /** Thanksgiving (US only): 4th Thursday of November, active 1 week before through the day of. */
   public static boolean isThanksgivingActive(@NonNull Calendar calendar, @Nullable Locale locale) {
     if (locale == null || !"US".equalsIgnoreCase(locale.getCountry())) {
       return false;
@@ -38,8 +36,7 @@ public final class HolidayScheduleHelper {
   }
 
   /**
-   * Halloween: Oct 29 through Oct 31 (inclusive).
-   * Observing locales: US, CA, GB, IE, AU, NZ, MX.
+   * Halloween: Oct 29 through Oct 31 (inclusive). Observing locales: US, CA, GB, IE, AU, NZ, MX.
    */
   public static boolean isHalloweenActive(@NonNull Calendar calendar, @Nullable Locale locale) {
     if (locale == null || !isHalloweenObservingLocale(locale.getCountry())) {
@@ -64,9 +61,7 @@ public final class HolidayScheduleHelper {
         || country.equals("MX");
   }
 
-  /**
-   * New Year's Eve: Dec 31, between 21:00 and 23:59:59.
-   */
+  /** New Year's Eve: Dec 31, between 21:00 and 23:59:59. */
   public static boolean isNewYearsEveActive(@NonNull Calendar calendar) {
     if (calendar.get(Calendar.MONTH) != Calendar.DECEMBER) {
       return false;
@@ -78,17 +73,13 @@ public final class HolidayScheduleHelper {
     return hour >= 21;
   }
 
-  /**
-   * New Year's Day (Keyboard celebration): Jan 1.
-   */
+  /** New Year's Day (Keyboard celebration): Jan 1. */
   public static boolean isNewYearsDayKeyboardActive(@NonNull Calendar calendar) {
     return calendar.get(Calendar.MONTH) == Calendar.JANUARY
         && calendar.get(Calendar.DAY_OF_MONTH) == 1;
   }
 
-  /**
-   * New Year's Day (UI Card): Jan 1 through Jan 3 (inclusive).
-   */
+  /** New Year's Day (UI Card): Jan 1 through Jan 3 (inclusive). */
   public static boolean isNewYearsDayUiActive(@NonNull Calendar calendar) {
     if (calendar.get(Calendar.MONTH) != Calendar.JANUARY) {
       return false;
@@ -97,35 +88,26 @@ public final class HolidayScheduleHelper {
     return day >= 1 && day <= 3;
   }
 
-  /**
-   * Global Encryption / World Privacy Day: Jan 28.
-   */
+  /** Global Encryption / World Privacy Day: Jan 28. */
   public static boolean isPrivacyDayActive(@NonNull Calendar calendar) {
     return calendar.get(Calendar.MONTH) == Calendar.JANUARY
         && calendar.get(Calendar.DAY_OF_MONTH) == 28;
   }
 
-  /**
-   * Earth Day: April 22.
-   */
+  /** Earth Day: April 22. */
   public static boolean isEarthDayActive(@NonNull Calendar calendar) {
     return calendar.get(Calendar.MONTH) == Calendar.APRIL
         && calendar.get(Calendar.DAY_OF_MONTH) == 22;
   }
 
-  /**
-   * Pi Day: March 14.
-   */
+  /** Pi Day: March 14. */
   public static boolean isPiDayActive(@NonNull Calendar calendar) {
     return calendar.get(Calendar.MONTH) == Calendar.MARCH
         && calendar.get(Calendar.DAY_OF_MONTH) == 14;
   }
 
-  /**
-   * Star Wars Day: May 4.
-   */
+  /** Star Wars Day: May 4. */
   public static boolean isStarWarsDayActive(@NonNull Calendar calendar) {
-    return calendar.get(Calendar.MONTH) == Calendar.MAY
-        && calendar.get(Calendar.DAY_OF_MONTH) == 4;
+    return calendar.get(Calendar.MONTH) == Calendar.MAY && calendar.get(Calendar.DAY_OF_MONTH) == 4;
   }
 }

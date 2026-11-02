@@ -120,7 +120,8 @@ public class HolidayScheduleHelperTest {
     Assert.assertFalse(
         HolidayScheduleHelper.isPrivacyDayActive(createCalendar(2025, Calendar.JANUARY, 27, 0, 0)));
     Assert.assertTrue(
-        HolidayScheduleHelper.isPrivacyDayActive(createCalendar(2025, Calendar.JANUARY, 28, 12, 0)));
+        HolidayScheduleHelper.isPrivacyDayActive(
+            createCalendar(2025, Calendar.JANUARY, 28, 12, 0)));
     Assert.assertFalse(
         HolidayScheduleHelper.isPrivacyDayActive(createCalendar(2025, Calendar.JANUARY, 29, 0, 0)));
 
