@@ -666,4 +666,33 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         4, mAnySoftKeyboardUnderTest.getCurrentTestInputConnection().getCurrentStartPosition());
     Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
   }
+
+  @Test
+  public void testOutputEmojiAfterTypingDoesNotLeaveComposingSpanOnDelete() {
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
+    TestInputConnection inputConnection =
+        (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+    final String initialText = "hello";
+    mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+    Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    Assert.assertEquals(
+        "hello" + KEY_OUTPUT, inputConnection.getCurrentTextInInputConnection());
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+    Assert.assertEquals(initialText, inputConnection.getCurrentTextInInputConnection());
+    Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    final var state = inputConnection.getCurrentState();
+    Assert.assertEquals(state.candidateStart, state.candidateEnd);
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping(" world");
+    Assert.assertEquals("hello world", inputConnection.getCurrentTextInInputConnection());
+  }
+
 }
