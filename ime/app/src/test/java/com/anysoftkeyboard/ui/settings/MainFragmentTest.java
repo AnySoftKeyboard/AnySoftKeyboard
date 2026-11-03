@@ -5,7 +5,6 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -426,7 +425,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                 .orElseThrow();
     Mockito.doAnswer(invocation -> new View(app))
         .when(uiNotice)
-        .inflateContentView(Mockito.any(Context.class));
+        .inflateContentView(Mockito.any(ViewGroup.class));
 
     MainFragment fragment = startFragment();
     ViewGroup container = fragment.getView().findViewById(R.id.public_notices_container);
@@ -445,7 +444,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                 .filter(p -> p instanceof OnUiPage)
                 .findFirst()
                 .orElseThrow();
-    Mockito.doReturn(null).when(uiNotice).inflateContentView(Mockito.any(Context.class));
+    Mockito.doReturn(null).when(uiNotice).inflateContentView(Mockito.any(ViewGroup.class));
 
     MainFragment fragment = startFragment();
     ViewGroup container = fragment.getView().findViewById(R.id.public_notices_container);
@@ -466,7 +465,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                 .orElseThrow();
     Mockito.doThrow(new RuntimeException("Simulated crash"))
         .when(uiNotice)
-        .inflateContentView(Mockito.any(Context.class));
+        .inflateContentView(Mockito.any(ViewGroup.class));
 
     MainFragment fragment = startFragment();
     ViewGroup container = fragment.getView().findViewById(R.id.public_notices_container);

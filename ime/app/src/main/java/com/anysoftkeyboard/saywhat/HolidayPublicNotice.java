@@ -87,6 +87,13 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
     if (mOverrideLocale != null) {
       return mOverrideLocale;
     }
+    final var resources = context.getResources();
+    if (resources != null) {
+      final var configuration = resources.getConfiguration();
+      if (configuration != null && configuration.locale != null) {
+        return configuration.locale;
+      }
+    }
     return Locale.getDefault();
   }
 
@@ -167,12 +174,11 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
     @Override
     public View inflateActionView(@NonNull ViewGroup parent) {
       final Context context = parent.getContext();
-      final View root =
-          LayoutInflater.from(context).inflate(R.layout.holiday_strip_action, parent, false);
-      final TextView textView = root.findViewById(R.id.holiday_strip_action_text);
-      if (textView != null) {
-        textView.setText(mEmoji);
-      }
+      final TextView root =
+          (TextView)
+              LayoutInflater.from(context).inflate(R.layout.holiday_strip_action, parent, false);
+      root.setText(mEmoji);
+      root.setContentDescription(mToastGreeting != null ? mToastGreeting : mEmoji);
       if (mToastGreeting != null) {
         root.setOnClickListener(
             v -> Toast.makeText(v.getContext(), mToastGreeting, Toast.LENGTH_SHORT).show());

@@ -113,7 +113,7 @@ public class MainFragment extends Fragment {
           ((AnyApplication) requireActivity().getApplication()).getPublicNotices()) {
         if (notice instanceof OnUiPage uiNotice) {
           try {
-            final View noticeView = uiNotice.inflateContentView(requireContext());
+            final View noticeView = uiNotice.inflateContentView(publicNoticesContainer);
             if (noticeView != null) {
               if (noticeView.getParent() instanceof ViewGroup parentGroup) {
                 parentGroup.removeView(noticeView);

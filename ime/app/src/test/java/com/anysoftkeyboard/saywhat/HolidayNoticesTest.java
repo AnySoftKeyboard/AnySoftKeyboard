@@ -4,6 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.menny.android.anysoftkeyboard.R;
@@ -221,5 +222,38 @@ public class HolidayNoticesTest extends AnySoftKeyboardBaseTest {
     notice.onVisible(mockIme, null, null);
     notice.onKey(mockIme, '3', null);
     notice.onHidden(mockIme, null);
+  }
+
+  @Test
+  public void testCardInflatesWithParentLayoutParams() {
+    ThanksgivingNotice notice = new ThanksgivingNotice();
+    notice.setTestLocale(Locale.US);
+    Calendar thanksgiving = Calendar.getInstance();
+    thanksgiving.set(2025, Calendar.NOVEMBER, 27, 12, 0, 0);
+    notice.setTestCalendar(thanksgiving);
+
+    LinearLayout parent = new LinearLayout(mContext);
+    View cardView = notice.inflateContentView(parent);
+    Assert.assertNotNull(cardView);
+    Assert.assertNotNull(cardView.getLayoutParams());
+  }
+
+  @Test
+  public void testStripActionTalkBackAccessibility() {
+    PiDayNotice notice = new PiDayNotice();
+    Calendar activeCal = Calendar.getInstance();
+    activeCal.set(2025, Calendar.MARCH, 14, 15, 0, 0);
+    notice.setTestCalendar(activeCal);
+
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    var container = mAnySoftKeyboardUnderTest.getInputViewContainer();
+    Assert.assertNotNull(container);
+
+    var stripAction = container.findViewById(R.id.holiday_strip_action_text);
+    Assert.assertNotNull(stripAction);
+    Assert.assertNotNull(stripAction.getContentDescription());
+    Assert.assertEquals("π = 3.1415926535...", stripAction.getContentDescription().toString());
+
+    notice.onHidden(mAnySoftKeyboardUnderTest, null);
   }
 }

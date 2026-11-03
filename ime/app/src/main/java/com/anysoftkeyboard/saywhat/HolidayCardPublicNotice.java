@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,15 +35,29 @@ public abstract class HolidayCardPublicNotice extends HolidayPublicNotice implem
     return isDateActive(now, locale);
   }
 
-  @SuppressLint("InflateParams")
   @Nullable
   @Override
   public View inflateContentView(@NonNull Context context) {
+    return inflateContentViewInternal(context, null);
+  }
+
+  @Nullable
+  @Override
+  public View inflateContentView(@NonNull ViewGroup parent) {
+    return inflateContentViewInternal(parent.getContext(), parent);
+  }
+
+  @SuppressLint("InflateParams")
+  @Nullable
+  private View inflateContentViewInternal(@NonNull Context context, @Nullable ViewGroup parent) {
     if (!isUiActive(getCurrentCalendar(), getCurrentLocale(context))) {
       return null;
     }
     final View view =
-        LayoutInflater.from(context).inflate(R.layout.holiday_public_notice_card, null);
+        parent != null
+            ? LayoutInflater.from(context)
+                .inflate(R.layout.holiday_public_notice_card, parent, false)
+            : LayoutInflater.from(context).inflate(R.layout.holiday_public_notice_card, null);
     final TextView titleView = view.findViewById(R.id.public_notice_card_title);
     final TextView messageView = view.findViewById(R.id.public_notice_card_message);
     if (titleView != null) {
