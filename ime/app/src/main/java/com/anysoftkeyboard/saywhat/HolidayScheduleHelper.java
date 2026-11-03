@@ -73,6 +73,12 @@ public final class HolidayScheduleHelper {
     return hour >= 21;
   }
 
+  /** New Year's Eve (UI Card): Dec 31 all day. */
+  public static boolean isNewYearsEveUiActive(@NonNull Calendar calendar) {
+    return calendar.get(Calendar.MONTH) == Calendar.DECEMBER
+        && calendar.get(Calendar.DAY_OF_MONTH) == 31;
+  }
+
   /** New Year's Day (Keyboard celebration): Jan 1. */
   public static boolean isNewYearsDayKeyboardActive(@NonNull Calendar calendar) {
     return calendar.get(Calendar.MONTH) == Calendar.JANUARY

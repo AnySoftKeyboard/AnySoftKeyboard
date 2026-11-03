@@ -22,4 +22,9 @@ public class NewYearsEveNotice extends HolidayCardPublicNotice {
   protected boolean isDateActive(@NonNull Calendar now, @NonNull Locale locale) {
     return HolidayScheduleHelper.isNewYearsEveActive(now);
   }
+
+  @Override
+  protected boolean isUiActive(@NonNull Calendar now, @NonNull Locale locale) {
+    return HolidayScheduleHelper.isNewYearsEveUiActive(now);
+  }
 }

@@ -90,18 +90,26 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
     return Locale.getDefault();
   }
 
+  private final Paint mDrawPaint = new Paint();
+
   @Override
   public void onVisible(PublicNotices ime, AnyKeyboard keyboard, EditorInfo editorInfo) {
     mIsActive = isDateActive(getCurrentCalendar(), getCurrentLocale(ime));
     if (mIsActive && mStripAction != null) {
-      ime.getInputViewContainer().addStripAction(mStripAction, true);
+      final KeyboardViewContainerView container = ime.getInputViewContainer();
+      if (container != null) {
+        container.addStripAction(mStripAction, true);
+      }
     }
   }
 
   @Override
   public void onHidden(PublicNotices ime, AnyKeyboard keyboard) {
     if (mStripAction != null) {
-      ime.getInputViewContainer().removeStripAction(mStripAction);
+      final KeyboardViewContainerView container = ime.getInputViewContainer();
+      if (container != null) {
+        container.removeStripAction(mStripAction);
+      }
     }
   }
 
@@ -113,10 +121,7 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
     final int lowerCode = Character.toLowerCase(primaryCode);
     boolean matched = false;
     for (int i = 0; i < mWordHelpers.length; i++) {
-      if (mWordHelpers[i].shouldShow(lowerCode)) {
-        matched = true;
-        break;
-      }
+      matched |= mWordHelpers[i].shouldShow(lowerCode);
     }
     if (matched) {
       final InputViewBinder inputView = ime.getInputView();
@@ -130,20 +135,23 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
                 120,
                 this::adjustPaint));
         if (mStripAction != null) {
-          ime.getInputViewContainer().addStripAction(mStripAction, true);
+          final KeyboardViewContainerView container = ime.getInputViewContainer();
+          if (container != null) {
+            container.addStripAction(mStripAction, true);
+          }
         }
       }
     }
   }
 
   private Paint adjustPaint(Paint paint, AnyKeyboardViewWithExtraDraw ime, Float fraction) {
-    Paint newPaint = new Paint(paint);
-    ime.setPaintToKeyText(newPaint);
-    newPaint.setTextSkewX(0.2f);
-    newPaint.setAlpha((int) (255 * (1f - fraction)));
-    newPaint.setTextScaleX(1 + fraction);
-    newPaint.setShadowLayer(5, 0, 0, Color.BLACK);
-    return newPaint;
+    mDrawPaint.set(paint);
+    ime.setPaintToKeyText(mDrawPaint);
+    mDrawPaint.setTextSkewX(0.2f);
+    mDrawPaint.setAlpha((int) (255 * (1f - fraction)));
+    mDrawPaint.setTextScaleX(1 + fraction);
+    mDrawPaint.setShadowLayer(5, 0, 0, Color.BLACK);
+    return mDrawPaint;
   }
 
   private static class HolidayStripAction implements KeyboardViewContainerView.StripActionProvider {

@@ -12,6 +12,7 @@ import java.util.Locale;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class HolidayNoticesTest extends AnySoftKeyboardBaseTest {
 
@@ -190,5 +191,35 @@ public class HolidayNoticesTest extends AnySoftKeyboardBaseTest {
     for (int i = 0; i < text.length(); i++) {
       notice.onKey(mAnySoftKeyboardUnderTest, text.charAt(i), null);
     }
+  }
+
+  @Test
+  public void testNewYearsEveCardActiveAllDay() {
+    NewYearsEveNotice eveNotice = new NewYearsEveNotice();
+    Calendar eveMorning = Calendar.getInstance();
+    eveMorning.set(2025, Calendar.DECEMBER, 31, 10, 0, 0);
+    eveNotice.setTestCalendar(eveMorning);
+
+    // UI card is active in the morning
+    Assert.assertNotNull(eveNotice.inflateContentView(mContext));
+    // But keyboard is not active until 21:00
+    Assert.assertFalse(eveNotice.isDateActive(eveMorning, Locale.US));
+  }
+
+  @Test
+  public void testNullInputViewContainerSafe() {
+    PiDayNotice notice = new PiDayNotice();
+    Calendar activeCal = Calendar.getInstance();
+    activeCal.set(2025, Calendar.MARCH, 14, 15, 0, 0);
+    notice.setTestCalendar(activeCal);
+
+    PublicNotices mockIme = Mockito.mock(PublicNotices.class);
+    Mockito.doReturn(null).when(mockIme).getInputViewContainer();
+    Mockito.doReturn(null).when(mockIme).getInputView();
+
+    // Must not throw when getInputViewContainer() is null
+    notice.onVisible(mockIme, null, null);
+    notice.onKey(mockIme, '3', null);
+    notice.onHidden(mockIme, null);
   }
 }

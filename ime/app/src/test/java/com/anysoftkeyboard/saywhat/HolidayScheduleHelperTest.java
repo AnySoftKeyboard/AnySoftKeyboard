@@ -91,6 +91,13 @@ public class HolidayScheduleHelperTest {
     Assert.assertTrue(HolidayScheduleHelper.isNewYearsEveActive(dec31Active1));
     Assert.assertTrue(HolidayScheduleHelper.isNewYearsEveActive(dec31Active2));
     Assert.assertFalse(HolidayScheduleHelper.isNewYearsEveActive(jan1));
+
+    // UI active all day on Dec 31
+    Assert.assertFalse(HolidayScheduleHelper.isNewYearsEveUiActive(dec30));
+    Assert.assertTrue(HolidayScheduleHelper.isNewYearsEveUiActive(dec31Early));
+    Assert.assertTrue(HolidayScheduleHelper.isNewYearsEveUiActive(dec31Active1));
+    Assert.assertTrue(HolidayScheduleHelper.isNewYearsEveUiActive(dec31Active2));
+    Assert.assertFalse(HolidayScheduleHelper.isNewYearsEveUiActive(jan1));
   }
 
   @Test
