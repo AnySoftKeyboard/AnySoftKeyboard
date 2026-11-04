@@ -22,7 +22,9 @@ import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
+import com.anysoftkeyboard.saywhat.OnUiPage;
 import com.anysoftkeyboard.test.GeneralDialogTestUtil;
+import com.menny.android.anysoftkeyboard.AnyRoboApplication;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
 import java.io.FileInputStream;
@@ -33,6 +35,7 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
@@ -409,5 +412,66 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     var fragment = startFragment();
     var card = fragment.getView().findViewById(R.id.no_notifications_permission_click_here_root);
     Assert.assertEquals(View.GONE, card.getVisibility());
+  }
+
+  @Test
+  public void testPublicNoticesAddedToContainer() {
+    AnyRoboApplication app = getApplicationContext();
+    OnUiPage uiNotice =
+        (OnUiPage)
+            app.getPublicNotices().stream()
+                .filter(p -> p instanceof OnUiPage)
+                .findFirst()
+                .orElseThrow();
+    Mockito.doAnswer(invocation -> new View(app))
+        .when(uiNotice)
+        .inflateContentView(Mockito.any(ViewGroup.class));
+
+    MainFragment fragment = startFragment();
+    ViewGroup container = fragment.getView().findViewById(R.id.public_notices_container);
+    Assert.assertNotNull(container);
+    Assert.assertEquals(1, container.getChildCount());
+
+    Mockito.reset(uiNotice);
+  }
+
+  @Test
+  public void testPublicNoticesNullNotAddedToContainer() {
+    AnyRoboApplication app = getApplicationContext();
+    OnUiPage uiNotice =
+        (OnUiPage)
+            app.getPublicNotices().stream()
+                .filter(p -> p instanceof OnUiPage)
+                .findFirst()
+                .orElseThrow();
+    Mockito.doReturn(null).when(uiNotice).inflateContentView(Mockito.any(ViewGroup.class));
+
+    MainFragment fragment = startFragment();
+    ViewGroup container = fragment.getView().findViewById(R.id.public_notices_container);
+    Assert.assertNotNull(container);
+    Assert.assertEquals(0, container.getChildCount());
+
+    Mockito.reset(uiNotice);
+  }
+
+  @Test
+  public void testPublicNoticesThrowingDoesNotCrash() {
+    AnyRoboApplication app = getApplicationContext();
+    OnUiPage uiNotice =
+        (OnUiPage)
+            app.getPublicNotices().stream()
+                .filter(p -> p instanceof OnUiPage)
+                .findFirst()
+                .orElseThrow();
+    Mockito.doThrow(new RuntimeException("Simulated crash"))
+        .when(uiNotice)
+        .inflateContentView(Mockito.any(ViewGroup.class));
+
+    MainFragment fragment = startFragment();
+    ViewGroup container = fragment.getView().findViewById(R.id.public_notices_container);
+    Assert.assertNotNull(container);
+    Assert.assertEquals(0, container.getChildCount());
+
+    Mockito.reset(uiNotice);
   }
 }

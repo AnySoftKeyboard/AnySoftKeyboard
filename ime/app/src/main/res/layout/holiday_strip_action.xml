@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/holiday_strip_action_text"
+    android:layout_width="@dimen/candidate_strip_height"
+    android:layout_height="@dimen/candidate_strip_height"
+    android:gravity="center"
+    android:background="@android:color/transparent"
+    android:textSize="18sp" />
