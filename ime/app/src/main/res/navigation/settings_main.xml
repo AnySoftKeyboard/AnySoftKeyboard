@@ -172,6 +172,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_dictionariesFragment_to_ignoredWordsEditorFragment"
+            app:destination="@id/ignoredWordsEditorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_dictionariesFragment_to_abbreviationDictionaryEditorFragment"
             app:destination="@id/abbreviationDictionaryEditorFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -202,6 +209,10 @@
         android:id="@+id/userDictionaryEditorFragment"
         android:name="com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment"
         android:label="UserDictionaryEditorFragment" />
+    <fragment
+        android:id="@+id/ignoredWordsEditorFragment"
+        android:name="com.anysoftkeyboard.ui.settings.wordseditor.IgnoredWordsEditorFragment"
+        android:label="IgnoredWordsEditorFragment" />
     <fragment
         android:id="@+id/abbreviationDictionaryEditorFragment"
         android:name="com.anysoftkeyboard.ui.settings.wordseditor.AbbreviationDictionaryEditorFragment"

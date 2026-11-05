@@ -28,6 +28,11 @@
         android:dependency="candidates_on">
     </Preference>
 
+    <Preference android:title="@string/ignored_words_dict_editor"
+        android:key="@string/ignored_words_dict_editor_key"
+        android:dependency="candidates_on">
+    </Preference>
+
     <Preference android:title="@string/next_word_dict_settings"
                 android:key="@string/next_word_dict_settings_key"
                 android:dependency="candidates_on">

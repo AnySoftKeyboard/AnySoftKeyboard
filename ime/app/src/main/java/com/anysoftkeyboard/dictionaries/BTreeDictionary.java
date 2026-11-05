@@ -130,7 +130,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
   }
 
   @Override
-  public final void deleteWord(String word) {
+  public void deleteWord(String word) {
     synchronized (mResourceMonitor) {
       if (isClosed()) {
         Logger.d(

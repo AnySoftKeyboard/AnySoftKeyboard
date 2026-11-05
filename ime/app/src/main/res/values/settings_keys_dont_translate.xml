@@ -299,6 +299,7 @@
     <string name="settings_key_persistent_layout_per_package_id">settings_key_persistent_layout_per_package_id</string>
     <string name="settings_key_double_space_to_period">double_space_to_period</string>
     <string name="user_dict_editor_key">user_dict_editor_key</string>
+    <string name="ignored_words_dict_editor_key">ignored_words_dict_editor_key</string>
     <string name="abbreviation_dict_editor_key">abbreviation_dict_editor_key</string>
 
     <string name="tweaks_group_key">tweaks</string>

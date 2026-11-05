@@ -475,6 +475,57 @@ public class SuggestionsProviderTest {
     inOrder.verifyNoMoreInteractions();
   }
 
+  @Test
+  public void testIgnoredWordsFilteringFromMainDictionary() {
+    mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+    TestRxSchedulers.drainAllTasks();
+
+    mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hell"));
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hello"));
+    Assert.assertTrue(mSuggestionsProvider.isValidWord("hell"));
+
+    mSuggestionsProvider.ignoreWord("hell");
+    Assert.assertTrue(mSuggestionsProvider.isWordIgnored("hell"));
+    Assert.assertFalse(mSuggestionsProvider.isValidWord("hell"));
+
+    mWordsCallback.wordsReceived.clear();
+    mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+    Assert.assertFalse(mWordsCallback.wordsReceived.contains("hell"));
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hello"));
+
+    // Case-insensitivity test
+    Assert.assertTrue(mSuggestionsProvider.isWordIgnored("HELL"));
+
+    // Un-ignoring / adding to user dictionary restores it
+    mSuggestionsProvider.unignoreWord("hell");
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("hell"));
+    Assert.assertTrue(mSuggestionsProvider.isValidWord("hell"));
+
+    mWordsCallback.wordsReceived.clear();
+    mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hell"));
+  }
+
+  @Test
+  public void testRemoveWordFromUserDictionaryIgnoresMainDictionaryWord() {
+    mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+    TestRxSchedulers.drainAllTasks();
+
+    Assert.assertTrue(mSuggestionsProvider.isValidWord("hello"));
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("hello"));
+
+    // Deleting a word that exists in the main dictionary ignores it
+    mSuggestionsProvider.removeWordFromUserDictionary("hello");
+    Assert.assertTrue(mSuggestionsProvider.isWordIgnored("hello"));
+    Assert.assertFalse(mSuggestionsProvider.isValidWord("hello"));
+
+    // Re-adding it to user dictionary un-ignores it
+    mSuggestionsProvider.addWordToUserDictionary("hello");
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("hello"));
+    Assert.assertTrue(mSuggestionsProvider.isValidWord("hello"));
+  }
+
   private static class WordsHolder implements Dictionary.WordCallback {
     public final List<String> wordsReceived = new ArrayList<>();
 
