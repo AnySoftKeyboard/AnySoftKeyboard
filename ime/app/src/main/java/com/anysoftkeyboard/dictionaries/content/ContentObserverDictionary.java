@@ -44,7 +44,7 @@ public abstract class ContentObserverDictionary extends BTreeDictionary {
     }
   }
 
-  void onStorageChanged() {
+  protected void onStorageChanged() {
     if (isClosed()) return;
     resetDictionary();
     mDictionaryReLoaderDisposable.dispose();
