@@ -322,6 +322,14 @@ public class SuggestionsProvider {
               dictionaryBuilder.getLanguage());
           disposablesHolder.add(
               DictionaryBackgroundLoader.loadDictionaryInBackground(cb, dictionary));
+
+          final IgnoredWordsDictionary ignoredWordsDictionary =
+              createIgnoredWordsDictionaryForLocale(dictionaryBuilder.getLanguage());
+          mIgnoredWordsDictionary.add(ignoredWordsDictionary);
+          Logger.d(
+              TAG, " Loading ignored words dictionary for %s...", dictionaryBuilder.getLanguage());
+          disposablesHolder.add(
+              DictionaryBackgroundLoader.loadDictionaryInBackground(ignoredWordsDictionary));
         }
       } catch (Exception e) {
         Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilder.getId());
@@ -375,13 +383,6 @@ public class SuggestionsProvider {
       mAutoDictionary = new AutoDictionary(mContext, dictionaryBuilder.getLanguage());
       Logger.d(TAG, " Loading auto dictionary for %s...", dictionaryBuilder.getLanguage());
       disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(mAutoDictionary));
-
-      final IgnoredWordsDictionary ignoredWordsDictionary =
-          createIgnoredWordsDictionaryForLocale(dictionaryBuilder.getLanguage());
-      mIgnoredWordsDictionary.add(ignoredWordsDictionary);
-      Logger.d(TAG, " Loading ignored words dictionary for %s...", dictionaryBuilder.getLanguage());
-      disposablesHolder.add(
-          DictionaryBackgroundLoader.loadDictionaryInBackground(ignoredWordsDictionary));
     }
 
     if (mContactsDictionaryEnabled && mContactsDictionary == NullDictionary) {

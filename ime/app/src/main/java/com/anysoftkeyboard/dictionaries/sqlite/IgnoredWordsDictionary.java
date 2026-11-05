@@ -40,6 +40,7 @@ public class IgnoredWordsDictionary extends SQLiteUserDictionaryBase {
   public boolean addWord(String word, int frequency) {
     synchronized (mResourceMonitor) {
       if (isClosed() || word == null) return false;
+      deleteWord(word);
       mIgnoredWords.add(word.toLowerCase(currentLocale()));
       addWordToStorage(word, frequency);
       return true;

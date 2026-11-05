@@ -37,8 +37,7 @@ public class IgnoredWordsEditorFragmentTest
         R.id.word_editor_view_type_empty_view_row,
         wordsRecyclerView.getAdapter().getItemViewType(0));
 
-    RecyclerView.ViewHolder viewHolder =
-        wordsRecyclerView.findViewHolderForAdapterPosition(0);
+    RecyclerView.ViewHolder viewHolder = wordsRecyclerView.findViewHolderForAdapterPosition(0);
     if (viewHolder == null) {
       viewHolder =
           wordsRecyclerView
