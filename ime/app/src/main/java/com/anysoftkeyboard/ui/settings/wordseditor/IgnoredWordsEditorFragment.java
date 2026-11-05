@@ -22,6 +22,29 @@ public class IgnoredWordsEditorFragment extends UserDictionaryEditorFragment {
     return new MyIgnoredWordsDictionary(requireContext().getApplicationContext(), locale);
   }
 
+  @Override
+  protected EditorWordsAdapter createAdapterForWords(List<LoadedWord> wordsList) {
+    android.app.Activity activity = getActivity();
+    if (activity == null) return null;
+    return new IgnoredWordsEditorWordsAdapter(
+        wordsList, android.view.LayoutInflater.from(activity), this);
+  }
+
+  private static class IgnoredWordsEditorWordsAdapter extends EditorWordsAdapter {
+
+    public IgnoredWordsEditorWordsAdapter(
+        List<LoadedWord> editorWords,
+        android.view.LayoutInflater layoutInflater,
+        DictionaryCallbacks dictionaryCallbacks) {
+      super(editorWords, layoutInflater, dictionaryCallbacks);
+    }
+
+    @Override
+    protected void bindEmptyViewText(android.widget.TextView emptyView) {
+      emptyView.setText(R.string.ignored_words_dict_empty_text);
+    }
+  }
+
   private static class MyIgnoredWordsDictionary extends IgnoredWordsDictionary
       implements MyEditableDictionary {
 

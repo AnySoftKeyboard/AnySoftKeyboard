@@ -97,6 +97,8 @@ public class EditorWordsAdapter
     wordView.setText(editorWord.word);
   }
 
+  protected void bindEmptyViewText(TextView emptyView) {}
+
   protected void bindEditingWordViewText(
       EditText wordView, UserDictionaryEditorFragment.LoadedWord editorWord) {
     wordView.setText(editorWord.word);
@@ -127,9 +129,20 @@ public class EditorWordsAdapter
   private class EditorWordViewHolderAddNew extends EditorWordViewHolder
       implements View.OnClickListener {
 
+    private final TextView mEmptyTextView;
+
     public EditorWordViewHolderAddNew(View itemView) {
       super(itemView);
+      mEmptyTextView = itemView.findViewById(R.id.empty_user_words_editor_text);
       itemView.setOnClickListener(this);
+    }
+
+    @Override
+    public void bind(UserDictionaryEditorFragment.LoadedWord editorWord) {
+      super.bind(editorWord);
+      if (mEmptyTextView != null) {
+        bindEmptyViewText(mEmptyTextView);
+      }
     }
 
     @Override

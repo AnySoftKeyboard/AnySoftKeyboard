@@ -114,8 +114,7 @@ public class DictionariesFragment extends PreferenceFragmentCompat
       return true;
     } else if (key.equals(getString(R.string.ignored_words_dict_editor_key))) {
       navController.navigate(
-          DictionariesFragmentDirections
-              .actionDictionariesFragmentToIgnoredWordsEditorFragment());
+          DictionariesFragmentDirections.actionDictionariesFragmentToIgnoredWordsEditorFragment());
       return true;
     } else if (key.equals(getString(R.string.abbreviation_dict_editor_key))) {
       navController.navigate(

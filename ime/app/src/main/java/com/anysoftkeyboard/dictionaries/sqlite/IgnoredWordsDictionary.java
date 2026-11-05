@@ -4,14 +4,15 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class IgnoredWordsDictionary extends SQLiteUserDictionaryBase {
   public static final String IGNORED_WORDS_DB = "ignored_words.db";
 
-  private final Set<String> mIgnoredWords = new HashSet<>();
+  private final Set<String> mIgnoredWords = Collections.newSetFromMap(new ConcurrentHashMap<>());
   private final Locale mLocale;
 
   public IgnoredWordsDictionary(Context context, String locale) {

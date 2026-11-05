@@ -36,5 +36,21 @@ public class IgnoredWordsEditorFragmentTest
     Assert.assertEquals(
         R.id.word_editor_view_type_empty_view_row,
         wordsRecyclerView.getAdapter().getItemViewType(0));
+
+    RecyclerView.ViewHolder viewHolder =
+        wordsRecyclerView.findViewHolderForAdapterPosition(0);
+    if (viewHolder == null) {
+      viewHolder =
+          wordsRecyclerView
+              .getAdapter()
+              .createViewHolder(wordsRecyclerView, R.id.word_editor_view_type_empty_view_row);
+      wordsRecyclerView.getAdapter().bindViewHolder(viewHolder, 0);
+    }
+    android.widget.TextView emptyTextView =
+        viewHolder.itemView.findViewById(R.id.empty_user_words_editor_text);
+    Assert.assertNotNull(emptyTextView);
+    Assert.assertEquals(
+        fragment.getString(R.string.ignored_words_dict_empty_text),
+        emptyTextView.getText().toString());
   }
 }
