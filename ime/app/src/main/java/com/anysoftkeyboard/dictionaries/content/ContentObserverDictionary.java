@@ -38,9 +38,16 @@ public abstract class ContentObserverDictionary extends BTreeDictionary {
                   null,
                   true,
                   RxSchedulers.background())
+              .skip(1)
               .subscribeOn(RxSchedulers.background())
               .observeOn(RxSchedulers.mainThread())
               .forEach(query -> onStorageChanged());
+    }
+  }
+
+  protected void notifyStorageChanged() {
+    if (mDictionaryChangedUri != null) {
+      mContext.getContentResolver().notifyChange(mDictionaryChangedUri, null);
     }
   }
 

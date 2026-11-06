@@ -16,80 +16,41 @@
 
 package com.anysoftkeyboard.dictionaries.sqlite;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
+import android.net.Uri;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.content.ContentObserverDictionary;
-import com.anysoftkeyboard.rx.GenericOnError;
-import com.anysoftkeyboard.rx.RxSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
-import io.reactivex.subjects.PublishSubject;
 
 public abstract class SQLiteUserDictionaryBase extends ContentObserverDictionary {
   private static final String TAG = "SQLiteUserDictBase";
 
-  private static final PublishSubject<StorageChangedEvent> msStorageChangedSubject =
-      PublishSubject.create();
-
   private final String mLocale;
   private volatile WordsSQLiteConnection mStorage;
-  @NonNull private Disposable mStorageChangedDisposable = Disposables.disposed();
-
-  private static class StorageChangedEvent {
-    @NonNull final Object source;
-    @NonNull final CharSequence dictionaryName;
-    @Nullable final String locale;
-
-    StorageChangedEvent(
-        @NonNull Object source, @NonNull CharSequence dictionaryName, @Nullable String locale) {
-      this.source = source;
-      this.dictionaryName = dictionaryName;
-      this.locale = locale;
-    }
-  }
 
   protected SQLiteUserDictionaryBase(String dictionaryName, Context context, String locale) {
-    super(dictionaryName, context, null /*internal storage, we know when it changes*/);
+    super(dictionaryName, context, createStorageChangeUri(context, dictionaryName, locale));
     mLocale = locale;
     Logger.d(TAG, "Created instance of %s for locale %s.", dictionaryName, locale);
   }
 
+  @NonNull
+  private static Uri createStorageChangeUri(
+      @NonNull Context context, @NonNull String dictionaryName, @Nullable String locale) {
+    return new Uri.Builder()
+        .scheme(ContentResolver.SCHEME_CONTENT)
+        .authority(context.getPackageName() + ".dictionary")
+        .appendPath(dictionaryName)
+        .appendPath(TextUtils.isEmpty(locale) ? "all" : locale)
+        .build();
+  }
+
   public String getLocale() {
     return mLocale;
-  }
-
-  @Override
-  protected void loadAllResources() {
-    super.loadAllResources();
-
-    if (mStorageChangedDisposable.isDisposed()) {
-      mStorageChangedDisposable =
-          msStorageChangedSubject
-              .filter(
-                  event ->
-                      !isClosed()
-                          && event.source != this
-                          && TextUtils.equals(event.dictionaryName, getDictionaryName())
-                          && TextUtils.equals(event.locale, mLocale))
-              .observeOn(RxSchedulers.mainThread())
-              .subscribe(
-                  event -> {
-                    if (!isClosed()) {
-                      onStorageChanged();
-                    }
-                  },
-                  GenericOnError.onError("SQLiteUserDictionaryBase.msStorageChangedSubject"));
-    }
-  }
-
-  @Override
-  protected void closeAllResources() {
-    super.closeAllResources();
-    mStorageChangedDisposable.dispose();
   }
 
   @Override
@@ -142,10 +103,6 @@ public abstract class SQLiteUserDictionaryBase extends ContentObserverDictionary
   protected final void deleteWordFromStorage(String word) {
     if (mStorage != null) mStorage.deleteWord(word);
     notifyStorageChanged();
-  }
-
-  protected void notifyStorageChanged() {
-    msStorageChangedSubject.onNext(new StorageChangedEvent(this, getDictionaryName(), mLocale));
   }
 
   @Override
