@@ -110,4 +110,16 @@ public class IgnoredWordsDictionaryTest {
 
     frenchDict.close();
   }
+
+  @Test
+  public void testSelfStorageChangeDoesNotResetOrReloadDictionary() {
+    mDictionary.addWord("self_added", 1);
+    Assert.assertTrue(mDictionary.isIgnored("self_added"));
+
+    // Draining all background tasks should process any pending URI notifications
+    com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
+
+    // Word must still be present and valid without any reload gap
+    Assert.assertTrue(mDictionary.isIgnored("self_added"));
+  }
 }

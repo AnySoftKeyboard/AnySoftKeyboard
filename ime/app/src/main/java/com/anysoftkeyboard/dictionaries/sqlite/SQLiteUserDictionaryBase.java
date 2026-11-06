@@ -33,7 +33,12 @@ public abstract class SQLiteUserDictionaryBase extends ContentObserverDictionary
   private volatile WordsSQLiteConnection mStorage;
 
   protected SQLiteUserDictionaryBase(String dictionaryName, Context context, String locale) {
-    super(dictionaryName, context, createStorageChangeUri(context, dictionaryName, locale));
+    this(dictionaryName, context, locale, createStorageChangeUri(context, dictionaryName, locale));
+  }
+
+  protected SQLiteUserDictionaryBase(
+      String dictionaryName, Context context, String locale, @Nullable Uri changeUri) {
+    super(dictionaryName, context, changeUri);
     mLocale = locale;
     Logger.d(TAG, "Created instance of %s for locale %s.", dictionaryName, locale);
   }

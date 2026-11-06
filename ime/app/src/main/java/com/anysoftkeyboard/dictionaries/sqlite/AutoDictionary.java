@@ -34,7 +34,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
   private int mLearnWordThreshold;
 
   public AutoDictionary(Context context, String locale) {
-    super("Auto", context, locale);
+    super("Auto", context, locale, null /* internal-only, no multi-instance or UI editor */);
     mPrefDisposable =
         AnyApplication.prefs(context)
             .getString(
