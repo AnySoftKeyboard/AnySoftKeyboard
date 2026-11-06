@@ -2,7 +2,6 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
-import android.database.ContentObserver;
 import android.net.Uri;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
@@ -34,27 +33,30 @@ public class AutoDictionaryTest {
   @Test
   public void testDoesNotEmitStorageChangeNotifications() {
     final AtomicBoolean changeDetected = new AtomicBoolean(false);
-    ContentObserver observer =
-        new ContentObserver(null) {
-          @Override
-          public void onChange(boolean selfChange, Uri uri) {
-            changeDetected.set(true);
-          }
-        };
-
     Uri uri =
         Uri.parse(
             "content://"
                 + getApplicationContext().getPackageName()
                 + ".dictionary/Auto/en");
-    getApplicationContext().getContentResolver().registerContentObserver(uri, true, observer);
+    io.reactivex.disposables.Disposable disposable =
+        app.cash.copper.rx2.RxContentResolver.observeQuery(
+                getApplicationContext().getContentResolver(),
+                uri,
+                null,
+                null,
+                null,
+                null,
+                true,
+                com.anysoftkeyboard.rx.RxSchedulers.mainThread())
+            .skip(1)
+            .forEach(query -> changeDetected.set(true));
 
     try {
       mAutoDictionary.addWord("unfamiliar", 1);
       TestRxSchedulers.drainAllTasks();
       Assert.assertFalse(changeDetected.get());
     } finally {
-      getApplicationContext().getContentResolver().unregisterContentObserver(observer);
+      disposable.dispose();
     }
   }
 

@@ -98,6 +98,18 @@ public abstract class SQLiteUserDictionaryBase extends ContentObserverDictionary
     return new WordsSQLiteConnection(mContext, getDictionaryName() + ".db", locale);
   }
 
+  protected volatile boolean mInAddWord = false;
+
+  @Override
+  public boolean addWord(String word, int frequency) {
+    mInAddWord = true;
+    try {
+      return super.addWord(word, frequency);
+    } finally {
+      mInAddWord = false;
+    }
+  }
+
   @Override
   protected final void addWordToStorage(String word, int frequency) {
     if (mStorage != null) mStorage.addWord(word, frequency);
@@ -107,7 +119,9 @@ public abstract class SQLiteUserDictionaryBase extends ContentObserverDictionary
   @Override
   protected final void deleteWordFromStorage(String word) {
     if (mStorage != null) mStorage.deleteWord(word);
-    notifyStorageChanged();
+    if (!mInAddWord) {
+      notifyStorageChanged();
+    }
   }
 
   @Override
