@@ -97,8 +97,7 @@ public class IgnoredWordsDictionaryTest {
 
   @Test
   public void testStorageChangeDoesNotAffectDifferentLocale() {
-    IgnoredWordsDictionary frenchDict =
-        new IgnoredWordsDictionary(getApplicationContext(), "fr");
+    IgnoredWordsDictionary frenchDict = new IgnoredWordsDictionary(getApplicationContext(), "fr");
     frenchDict.loadDictionary();
     com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
 

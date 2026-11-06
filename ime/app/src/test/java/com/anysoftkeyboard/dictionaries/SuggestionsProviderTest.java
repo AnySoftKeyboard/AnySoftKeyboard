@@ -545,8 +545,7 @@ public class SuggestionsProviderTest {
     Assert.assertTrue(mWordsCallback.wordsReceived.contains("hello"));
     Assert.assertFalse(mSuggestionsProvider.isWordIgnored("hello"));
 
-    IgnoredWordsDictionary externalDict =
-        new IgnoredWordsDictionary(getApplicationContext(), "en");
+    IgnoredWordsDictionary externalDict = new IgnoredWordsDictionary(getApplicationContext(), "en");
     externalDict.loadDictionary();
     externalDict.addWord("hello", 1);
 

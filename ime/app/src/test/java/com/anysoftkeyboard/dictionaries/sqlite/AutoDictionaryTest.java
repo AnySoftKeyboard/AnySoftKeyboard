@@ -34,10 +34,7 @@ public class AutoDictionaryTest {
   public void testDoesNotEmitStorageChangeNotifications() {
     final AtomicBoolean changeDetected = new AtomicBoolean(false);
     Uri uri =
-        Uri.parse(
-            "content://"
-                + getApplicationContext().getPackageName()
-                + ".dictionary/Auto/en");
+        Uri.parse("content://" + getApplicationContext().getPackageName() + ".dictionary/Auto/en");
     io.reactivex.disposables.Disposable disposable =
         app.cash.copper.rx2.RxContentResolver.observeQuery(
                 getApplicationContext().getContentResolver(),

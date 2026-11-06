@@ -33,9 +33,7 @@ public class DictionaryContentProviderTest {
     Context context = getApplicationContext();
     Uri uri =
         Uri.parse(
-            "content://"
-                + context.getPackageName()
-                + ".dictionary/IgnoredWordsDictionary/en");
+            "content://" + context.getPackageName() + ".dictionary/IgnoredWordsDictionary/en");
 
     Assert.assertNull(mProvider.query(uri, null, null, null, null));
     Assert.assertNull(mProvider.getType(uri));
