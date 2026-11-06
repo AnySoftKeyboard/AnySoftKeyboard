@@ -39,7 +39,6 @@ public abstract class ContentObserverDictionary extends BTreeDictionary {
                   true,
                   RxSchedulers.background())
               .skip(1)
-              .subscribeOn(RxSchedulers.background())
               .observeOn(RxSchedulers.mainThread())
               .forEach(query -> onStorageChanged());
     }

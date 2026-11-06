@@ -19,6 +19,7 @@ public class IgnoredWordsDictionaryTest {
     getApplicationContext().deleteDatabase(IgnoredWordsDictionary.IGNORED_WORDS_DB);
     mDictionary = new IgnoredWordsDictionary(getApplicationContext(), "en");
     mDictionary.loadDictionary();
+    com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
   }
 
   @After
@@ -72,6 +73,7 @@ public class IgnoredWordsDictionaryTest {
     IgnoredWordsDictionary secondInstance =
         new IgnoredWordsDictionary(getApplicationContext(), "en");
     secondInstance.loadDictionary();
+    com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
 
     Assert.assertFalse(mDictionary.isIgnored("externally_added"));
     Assert.assertFalse(secondInstance.isIgnored("externally_added"));
@@ -98,6 +100,7 @@ public class IgnoredWordsDictionaryTest {
     IgnoredWordsDictionary frenchDict =
         new IgnoredWordsDictionary(getApplicationContext(), "fr");
     frenchDict.loadDictionary();
+    com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
 
     frenchDict.addWord("bonjour", 1);
     com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
