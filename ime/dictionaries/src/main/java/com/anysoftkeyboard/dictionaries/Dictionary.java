@@ -1397,6 +1397,21 @@ public abstract class Dictionary {
   public abstract boolean isValidWord(CharSequence word);
 
   /**
+   * Checks if the given character array occurs in the dictionary
+   *
+   * @param word the character array containing the word
+   * @param offset the start offset in the array
+   * @param length the number of characters
+   * @return true if the word exists, false otherwise
+   */
+  public boolean isValidWord(char[] word, int offset, int length) {
+    if (word == null || length <= 0 || offset < 0 || offset + length > word.length) {
+      return false;
+    }
+    return isValidWord(new String(word, offset, length));
+  }
+
+  /**
    * Compares the contents of the character array with the typed word and returns true if they are
    * the same.
    *

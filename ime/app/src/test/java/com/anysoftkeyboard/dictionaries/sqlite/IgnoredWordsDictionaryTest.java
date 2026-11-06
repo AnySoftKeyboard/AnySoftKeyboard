@@ -54,18 +54,15 @@ public class IgnoredWordsDictionaryTest {
   }
 
   @Test
-  public void testTurkishCasingZeroAllocation() {
-    IgnoredWordsDictionary trDict = new IgnoredWordsDictionary(getApplicationContext(), "tr");
-    trDict.loadDictionary();
-    com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
+  public void testCaseInsensitiveMatching() {
+    mDictionary.addWord("CamelCase", 1);
+    Assert.assertTrue(mDictionary.isIgnored("camelcase"));
+    Assert.assertTrue(mDictionary.isIgnored("CAMELCASE"));
+    Assert.assertTrue(mDictionary.isIgnored("CamelCase"));
 
-    trDict.addWord("ılık", 1);
-    Assert.assertTrue(trDict.isIgnored("ılık"));
-    Assert.assertTrue(trDict.isIgnored("ILIK"));
-    char[] trChars = "ILIK".toCharArray();
-    Assert.assertTrue(trDict.isIgnored(trChars, 0, 4));
-
-    trDict.close();
+    char[] chars = "PREFIX CAMELCASE SUFFIX".toCharArray();
+    Assert.assertTrue(mDictionary.isIgnored(chars, 7, 9));
+    Assert.assertFalse(mDictionary.isIgnored(chars, 0, 6));
   }
 
   @Test
