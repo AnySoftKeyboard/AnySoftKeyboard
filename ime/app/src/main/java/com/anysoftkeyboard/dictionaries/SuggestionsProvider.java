@@ -422,9 +422,7 @@ public class SuggestionsProvider {
     for (EditableDictionary dictionary : mUserDictionary) {
       dictionary.deleteWord(word);
     }
-    if (allDictionariesIsValid(mMainDictionary, word)) {
-      ignoreWord(word);
-    }
+    ignoreWord(word);
   }
 
   public boolean addWordToUserDictionary(String word) {

@@ -76,6 +76,17 @@ public class IgnoredWordsDictionaryTest {
   }
 
   @Test
+  public void testDeleteWordCaseInsensitive() {
+    mDictionary.addWord("CamelCase", 1);
+    Assert.assertTrue(mDictionary.isIgnored("camelcase"));
+
+    mDictionary.deleteWord("CAMELCASE");
+    Assert.assertFalse(mDictionary.isIgnored("camelcase"));
+    Assert.assertFalse(mDictionary.isIgnored("CamelCase"));
+    Assert.assertTrue(mDictionary.isEmpty());
+  }
+
+  @Test
   public void testPersistsToDatabase() {
     mDictionary.addWord("persisted", 1);
     mDictionary.close();
