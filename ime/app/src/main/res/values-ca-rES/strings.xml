@@ -487,6 +487,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Diccionari de l\'usuari</string>
     <string name="user_dict_editor">Editor de paraules</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Editor d\'abreviacions</string>
     <string name="abbreviation_dict_editor">Editor d\'abreviacions</string>
@@ -679,4 +680,5 @@
     <string name="wizard_allow_notification_permission">Permet notificacions de l\'AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">En situacions poc habituals (p. ex. si l\'aplicació falla) necessitarem enviar una notificació. És una opció recomanable, però inhabilitar el servei de notificacions no afectarà el comportament de l\'aplicació.</string>
     <string name="wizard_skip_notification_permission">No permitis notificacions</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

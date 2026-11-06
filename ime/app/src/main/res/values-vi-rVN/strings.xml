@@ -351,6 +351,7 @@
     <!-- User dictionary settings -->
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Từ điển cá nhân</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Bảng gõ tắt</string>
     <string name="abbreviation_dict_editor">Bảng gõ tắt</string>
@@ -383,4 +384,5 @@
     <string name="gesture_typing_action">Bật nhập bằng cử chỉ [BETA]</string>
     <string name="gesture_typing_alert_title">Tính năng BETA!</string>
     <string name="gesture_typing_alert_button">Đã hiểu</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

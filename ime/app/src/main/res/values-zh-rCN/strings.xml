@@ -216,10 +216,12 @@
     <!-- dictionaries -->
     <!-- User dictionary settings -->
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <!-- Holiday and Event Public Notices -->
 </resources>
