@@ -406,6 +406,21 @@ public class SuggestImpl implements Suggest {
   }
 
   @Override
+  public void ignoreWord(String word) {
+    mSuggestionsProvider.ignoreWord(word);
+  }
+
+  @Override
+  public void unignoreWord(String word) {
+    mSuggestionsProvider.unignoreWord(word);
+  }
+
+  @Override
+  public boolean isWordIgnored(CharSequence word) {
+    return mSuggestionsProvider.isWordIgnored(word);
+  }
+
+  @Override
   public void setTagsSearcher(@NonNull TagsExtractor extractor) {
     mTagsSearcher = extractor;
   }

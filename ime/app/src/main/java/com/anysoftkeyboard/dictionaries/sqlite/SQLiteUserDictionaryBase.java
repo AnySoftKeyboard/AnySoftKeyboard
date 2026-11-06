@@ -16,20 +16,42 @@
 
 package com.anysoftkeyboard.dictionaries.sqlite;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
+import android.net.Uri;
+import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.content.ContentObserverDictionary;
 
 public abstract class SQLiteUserDictionaryBase extends ContentObserverDictionary {
   private static final String TAG = "SQLiteUserDictBase";
+
   private final String mLocale;
   private volatile WordsSQLiteConnection mStorage;
 
   protected SQLiteUserDictionaryBase(String dictionaryName, Context context, String locale) {
-    super(dictionaryName, context, null /*internal storage, we know when it changes*/);
+    this(dictionaryName, context, locale, createStorageChangeUri(context, dictionaryName, locale));
+  }
+
+  protected SQLiteUserDictionaryBase(
+      String dictionaryName, Context context, String locale, @Nullable Uri changeUri) {
+    super(dictionaryName, context, changeUri);
     mLocale = locale;
     Logger.d(TAG, "Created instance of %s for locale %s.", dictionaryName, locale);
+  }
+
+  @NonNull
+  private static Uri createStorageChangeUri(
+      @NonNull Context context, @NonNull String dictionaryName, @Nullable String locale) {
+    return new Uri.Builder()
+        .scheme(ContentResolver.SCHEME_CONTENT)
+        .authority(context.getPackageName() + ".dictionary")
+        .appendPath(dictionaryName)
+        .appendPath(TextUtils.isEmpty(locale) ? "all" : locale)
+        .build();
   }
 
   public String getLocale() {
@@ -76,14 +98,30 @@ public abstract class SQLiteUserDictionaryBase extends ContentObserverDictionary
     return new WordsSQLiteConnection(mContext, getDictionaryName() + ".db", locale);
   }
 
+  protected volatile boolean mInAddWord = false;
+
+  @Override
+  public boolean addWord(String word, int frequency) {
+    mInAddWord = true;
+    try {
+      return super.addWord(word, frequency);
+    } finally {
+      mInAddWord = false;
+    }
+  }
+
   @Override
   protected final void addWordToStorage(String word, int frequency) {
     if (mStorage != null) mStorage.addWord(word, frequency);
+    notifyStorageChanged();
   }
 
   @Override
   protected final void deleteWordFromStorage(String word) {
     if (mStorage != null) mStorage.deleteWord(word);
+    if (!mInAddWord) {
+      notifyStorageChanged();
+    }
   }
 
   @Override

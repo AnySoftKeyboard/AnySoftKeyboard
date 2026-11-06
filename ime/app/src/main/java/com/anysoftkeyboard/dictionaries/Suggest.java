@@ -112,6 +112,14 @@ public interface Suggest {
 
   void removeWordFromUserDictionary(String word);
 
+  default void ignoreWord(String word) {}
+
+  default void unignoreWord(String word) {}
+
+  default boolean isWordIgnored(CharSequence word) {
+    return false;
+  }
+
   void setTagsSearcher(@NonNull TagsExtractor extractor);
 
   boolean tryToLearnNewWord(CharSequence newWord, AdditionType additionType);

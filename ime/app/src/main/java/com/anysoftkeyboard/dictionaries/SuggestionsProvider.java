@@ -11,6 +11,7 @@ import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
+import com.anysoftkeyboard.dictionaries.sqlite.IgnoredWordsDictionary;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -82,6 +83,7 @@ public class SuggestionsProvider {
   private int mCurrentSetupHashCode;
 
   @NonNull private final List<Dictionary> mMainDictionary = new ArrayList<>();
+  @NonNull private final List<IgnoredWordsDictionary> mIgnoredWordsDictionary = new ArrayList<>();
 
   @NonNull
   private List<DictionaryAddOnAndBuilder> mCurrentDictionaryBuilders = Collections.emptyList();
@@ -320,6 +322,14 @@ public class SuggestionsProvider {
               dictionaryBuilder.getLanguage());
           disposablesHolder.add(
               DictionaryBackgroundLoader.loadDictionaryInBackground(cb, dictionary));
+
+          final IgnoredWordsDictionary ignoredWordsDictionary =
+              createIgnoredWordsDictionaryForLocale(dictionaryBuilder.getLanguage());
+          mIgnoredWordsDictionary.add(ignoredWordsDictionary);
+          Logger.d(
+              TAG, " Loading ignored words dictionary for %s...", dictionaryBuilder.getLanguage());
+          disposablesHolder.add(
+              DictionaryBackgroundLoader.loadDictionaryInBackground(ignoredWordsDictionary));
         }
       } catch (Exception e) {
         Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilder.getId());
@@ -402,15 +412,23 @@ public class SuggestionsProvider {
     return new UserDictionary(mContext, locale);
   }
 
+  @NonNull
+  @VisibleForTesting
+  protected IgnoredWordsDictionary createIgnoredWordsDictionaryForLocale(@NonNull String locale) {
+    return new IgnoredWordsDictionary(mContext, locale);
+  }
+
   public void removeWordFromUserDictionary(String word) {
     for (EditableDictionary dictionary : mUserDictionary) {
       dictionary.deleteWord(word);
     }
+    ignoreWord(word);
   }
 
   public boolean addWordToUserDictionary(String word) {
     if (mIncognitoMode) return false;
 
+    unignoreWord(word);
     if (mUserDictionary.size() > 0) {
       return mUserDictionary.get(0).addWord(word, 128);
     } else {
@@ -423,9 +441,50 @@ public class SuggestionsProvider {
       return false;
     }
 
-    return allDictionariesIsValid(mMainDictionary, word)
+    final boolean isMainValid =
+        allDictionariesIsValid(mMainDictionary, word) && !isWordIgnored(word);
+
+    return isMainValid
         || allDictionariesIsValid(mUserDictionary, word)
         || mContactsDictionary.isValidWord(word);
+  }
+
+  public boolean hasIgnoredWords() {
+    for (IgnoredWordsDictionary dict : mIgnoredWordsDictionary) {
+      if (!dict.isEmpty()) return true;
+    }
+    return false;
+  }
+
+  public boolean isWordIgnored(@Nullable CharSequence word) {
+    if (TextUtils.isEmpty(word)) return false;
+    for (IgnoredWordsDictionary dict : mIgnoredWordsDictionary) {
+      if (dict.isIgnored(word)) return true;
+    }
+    return false;
+  }
+
+  public boolean isWordIgnored(char[] word, int offset, int length) {
+    for (IgnoredWordsDictionary dict : mIgnoredWordsDictionary) {
+      if (dict.isIgnored(word, offset, length)) return true;
+    }
+    return false;
+  }
+
+  public void ignoreWord(String word) {
+    if (TextUtils.isEmpty(word)) return;
+    for (int i = 0; i < mMainDictionary.size() && i < mIgnoredWordsDictionary.size(); i++) {
+      if (mMainDictionary.get(i).isValidWord(word)) {
+        mIgnoredWordsDictionary.get(i).addWord(word, 1);
+      }
+    }
+  }
+
+  public void unignoreWord(String word) {
+    if (TextUtils.isEmpty(word)) return;
+    for (IgnoredWordsDictionary dict : mIgnoredWordsDictionary) {
+      dict.deleteWord(word);
+    }
   }
 
   public void setIncognitoMode(boolean incognitoMode) {
@@ -444,6 +503,10 @@ public class SuggestionsProvider {
     mRadicalDictionary.clear();
     mAbbreviationDictionary.clear();
     mUserDictionary.clear();
+    for (Dictionary dictionary : mIgnoredWordsDictionary) {
+      dictionary.close();
+    }
+    mIgnoredWordsDictionary.clear();
     mQuickFixesAutoText.clear();
     mUserNextWordDictionary.clear();
     mInitialSuggestionsList.clear();
@@ -471,7 +534,19 @@ public class SuggestionsProvider {
   public void getSuggestions(KeyCodesProvider wordComposer, Dictionary.WordCallback wordCallback) {
     mContactsDictionary.getSuggestions(wordComposer, wordCallback);
     allDictionariesGetWords(mUserDictionary, wordComposer, wordCallback);
-    allDictionariesGetWords(mMainDictionary, wordComposer, wordCallback);
+    if (hasIgnoredWords()) {
+      allDictionariesGetWords(
+          mMainDictionary,
+          wordComposer,
+          (word, offset, length, frequency, from) -> {
+            if (!isWordIgnored(word, offset, length)) {
+              return wordCallback.addWord(word, offset, length, frequency, from);
+            }
+            return true;
+          });
+    } else {
+      allDictionariesGetWords(mMainDictionary, wordComposer, wordCallback);
+    }
   }
 
   public void getRadicalSuggestions(

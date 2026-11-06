@@ -8,6 +8,7 @@ import androidx.core.util.Pair;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.prefsprovider.UserDictionaryPrefsProvider;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
+import com.anysoftkeyboard.dictionaries.sqlite.IgnoredWordsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnectionPrefsProvider;
 import com.anysoftkeyboard.nextword.NextWordPrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
@@ -49,7 +50,13 @@ public class GlobalPrefsBackup {
         new ProviderDetails(
             new WordsSQLiteConnectionPrefsProvider(
                 context, AbbreviationsDictionary.ABBREVIATIONS_DB),
-            R.string.abbreviation_dict_prefs_provider));
+            R.string.abbreviation_dict_prefs_provider),
+        new ProviderDetails(
+            new WordsSQLiteConnectionPrefsProvider(
+                context,
+                IgnoredWordsDictionary.IGNORED_WORDS_DB,
+                "IgnoredWordsSQLiteConnectionPrefsProvider"),
+            R.string.ignored_words_dict_prefs_provider));
   }
 
   private static Boolean backupProvider(PrefsProvider provider, PrefsRoot prefsRoot) {

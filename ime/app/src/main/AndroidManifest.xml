@@ -109,6 +109,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <provider
+            android:name="com.anysoftkeyboard.dictionaries.content.DictionaryContentProvider"
+            android:authorities="${applicationId}.dictionary"
+            android:exported="false" />
+
     </application>
 
     <queries>

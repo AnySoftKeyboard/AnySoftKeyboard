@@ -83,6 +83,14 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
     }
   }
 
+  @Override
+  protected void resetDictionary() {
+    super.resetDictionary();
+    if (mAbbreviationsMap != null) {
+      mAbbreviationsMap.clear();
+    }
+  }
+
   public static String getAbbreviation(@NonNull String word, int frequency) {
     return word.substring(0, frequency);
   }

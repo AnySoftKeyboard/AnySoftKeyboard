@@ -11,6 +11,7 @@
     <item name="word_editor_view_type_editing_row" type="id" />
     <item name="word_editor_view_type_add_new_row" type="id" />
     <item name="word_editor_view_type_empty_view_row" type="id" />
+    <item name="empty_user_words_editor_text" type="id" />
 
     <item name="notification_icon_debug_version" type="id" />
 

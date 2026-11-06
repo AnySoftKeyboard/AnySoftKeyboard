@@ -68,6 +68,8 @@ public class DictionariesFragment extends PreferenceFragmentCompat
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     findPreference(getString(R.string.user_dict_editor_key)).setOnPreferenceClickListener(this);
+    findPreference(getString(R.string.ignored_words_dict_editor_key))
+        .setOnPreferenceClickListener(this);
     findPreference(getString(R.string.abbreviation_dict_editor_key))
         .setOnPreferenceClickListener(this);
     findPreference(getString(R.string.next_word_dict_settings_key))
@@ -109,6 +111,10 @@ public class DictionariesFragment extends PreferenceFragmentCompat
       navController.navigate(
           DictionariesFragmentDirections
               .actionDictionariesFragmentToUserDictionaryEditorFragment());
+      return true;
+    } else if (key.equals(getString(R.string.ignored_words_dict_editor_key))) {
+      navController.navigate(
+          DictionariesFragmentDirections.actionDictionariesFragmentToIgnoredWordsEditorFragment());
       return true;
     } else if (key.equals(getString(R.string.abbreviation_dict_editor_key))) {
       navController.navigate(

@@ -654,6 +654,11 @@
     <string name="user_dict_settings_titlebar">User dictionary</string>
     <string name="user_dict_editor">Words editor</string>
 
+    <!-- Ignored words dictionary settings -->
+    <string name="ignored_words_dict_settings_titlebar">Ignored words</string>
+    <string name="ignored_words_dict_editor">Ignored words editor</string>
+    <string name="ignored_words_dict_empty_text">You do not have any ignored words in the dictionary.\nYou can add a word to ignore now.</string>
+
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Abbreviation editor</string>
     <string name="abbreviation_dict_editor">Abbreviation editor</string>
@@ -898,6 +903,7 @@
     <string name="user_dict_prefs_provider">User words</string>
     <string name="next_word_dict_prefs_provider">Next words</string>
     <string name="abbreviation_dict_prefs_provider">Abbreviations</string>
+    <string name="ignored_words_dict_prefs_provider">Ignored words</string>
     <string name="pick_prefs_providers_to_backup">What would you like to backup?</string>
     <string name="pick_prefs_providers_to_restore">What would you like to restore?</string>
     <string name="prefs_providers_operation_success">Success</string>

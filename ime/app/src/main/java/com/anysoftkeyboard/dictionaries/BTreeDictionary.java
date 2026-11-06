@@ -42,10 +42,15 @@ public abstract class BTreeDictionary extends EditableDictionary {
   private final int mMaxWordsToRead;
 
   private NodeArray mRoots;
+  private volatile int mWordCount = 0;
   private int mMaxDepth;
   private int mInputLength;
   private final char[] mWordBuilder = new char[MAX_WORD_LENGTH];
   private final boolean mIncludeTypedWord;
+
+  public boolean isEmpty() {
+    return mWordCount == 0;
+  }
 
   protected BTreeDictionary(String dictionaryName, Context context) {
     this(dictionaryName, context, true);
@@ -130,7 +135,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
   }
 
   @Override
-  public final void deleteWord(String word) {
+  public void deleteWord(String word) {
     synchronized (mResourceMonitor) {
       if (isClosed()) {
         Logger.d(
@@ -157,6 +162,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
         if (offset == length - 1) { // last character in the word to delete
           // we need to delete this node. But only if it terminal
           if (node.terminal) {
+            mWordCount--;
             if (node.children == null || node.children.length == 0) {
               // terminal node, with no children - can be safely removed
               children.deleteNode(j);
@@ -220,6 +226,11 @@ public abstract class BTreeDictionary extends EditableDictionary {
     return getWordFrequency(word) > 0;
   }
 
+  @Override
+  public boolean isValidWord(char[] word, int offset, int length) {
+    return getWordFrequency(word, offset, length) > 0;
+  }
+
   /**
    * Checks for the given word's frequency.
    *
@@ -227,19 +238,35 @@ public abstract class BTreeDictionary extends EditableDictionary {
    * @return frequency value (higher is better. 0 means not exists, 1 is minimum, 255 is maximum).
    */
   public final int getWordFrequency(CharSequence word) {
-    if (isLoading() || isClosed()) return 0;
+    if (isLoading() || isClosed() || word == null || word.length() == 0) return 0;
     synchronized (mResourceMonitor) {
       return getWordFrequencyRec(mRoots, word, 0, word.length());
+    }
+  }
+
+  public final int getWordFrequency(char[] word, int offset, int length) {
+    if (isLoading()
+        || isClosed()
+        || word == null
+        || length <= 0
+        || offset < 0
+        || offset + length > word.length) {
+      return 0;
+    }
+    synchronized (mResourceMonitor) {
+      return getWordFrequencyRec(mRoots, word, offset, offset + length);
     }
   }
 
   private int getWordFrequencyRec(
       final NodeArray children, final CharSequence word, final int offset, final int length) {
     final int count = children.length;
-    char currentChar = word.charAt(offset);
+    final char currentChar = word.charAt(offset);
+    final char currentLowerChar = Character.toLowerCase(currentChar);
     for (int j = 0; j < count; j++) {
       final Node node = children.data[j];
-      if (node.code == currentChar) {
+      final char nodeC = node.code;
+      if (nodeC == currentChar || Character.toLowerCase(nodeC) == currentLowerChar) {
         if (offset == length - 1) {
           if (node.terminal) {
             return node.frequency;
@@ -247,6 +274,31 @@ public abstract class BTreeDictionary extends EditableDictionary {
         } else {
           if (node.children != null) {
             int frequency = getWordFrequencyRec(node.children, word, offset + 1, length);
+            if (frequency > 0) return frequency;
+          }
+        }
+      }
+    }
+    // no luck, can't find the word
+    return 0;
+  }
+
+  private int getWordFrequencyRec(
+      final NodeArray children, final char[] word, final int offset, final int end) {
+    final int count = children.length;
+    final char currentChar = word[offset];
+    final char currentLowerChar = Character.toLowerCase(currentChar);
+    for (int j = 0; j < count; j++) {
+      final Node node = children.data[j];
+      final char nodeC = node.code;
+      if (nodeC == currentChar || Character.toLowerCase(nodeC) == currentLowerChar) {
+        if (offset == end - 1) {
+          if (node.terminal) {
+            return node.frequency;
+          }
+        } else {
+          if (node.children != null) {
+            int frequency = getWordFrequencyRec(node.children, word, offset + 1, end);
             if (frequency > 0) return frequency;
           }
         }
@@ -396,6 +448,9 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
     if (wordLength == depth + 1) {
       // Terminate this word
+      if (!childNode.terminal) {
+        mWordCount++;
+      }
       childNode.terminal = true;
       childNode.frequency = frequency;
       // words
@@ -410,6 +465,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
   @CallSuper
   protected void resetDictionary() {
     mRoots = new NodeArray(INITIAL_ROOT_CAPACITY);
+    mWordCount = 0;
   }
 
   protected abstract void closeStorage();
