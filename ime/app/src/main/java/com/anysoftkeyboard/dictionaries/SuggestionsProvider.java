@@ -419,11 +419,10 @@ public class SuggestionsProvider {
   }
 
   public void removeWordFromUserDictionary(String word) {
-    boolean inUserDict = allDictionariesIsValid(mUserDictionary, word);
     for (EditableDictionary dictionary : mUserDictionary) {
       dictionary.deleteWord(word);
     }
-    if (!inUserDict || allDictionariesIsValid(mMainDictionary, word)) {
+    if (allDictionariesIsValid(mMainDictionary, word)) {
       ignoreWord(word);
     }
   }
@@ -476,15 +475,10 @@ public class SuggestionsProvider {
 
   public void ignoreWord(String word) {
     if (TextUtils.isEmpty(word)) return;
-    boolean added = false;
     for (int i = 0; i < mMainDictionary.size() && i < mIgnoredWordsDictionary.size(); i++) {
       if (mMainDictionary.get(i).isValidWord(word)) {
         mIgnoredWordsDictionary.get(i).addWord(word, 1);
-        added = true;
       }
-    }
-    if (!added && !mIgnoredWordsDictionary.isEmpty()) {
-      mIgnoredWordsDictionary.get(0).addWord(word, 1);
     }
   }
 

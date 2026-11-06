@@ -536,6 +536,18 @@ public class SuggestionsProviderTest {
   }
 
   @Test
+  public void testRemoveWordFromUserDictionaryDoesNotIgnoreNonMainDictionaryWord() {
+    mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+    TestRxSchedulers.drainAllTasks();
+
+    // Word not in main dictionary
+    Assert.assertFalse(mSuggestionsProvider.isValidWord("nonmainword"));
+    mSuggestionsProvider.removeWordFromUserDictionary("nonmainword");
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("nonmainword"));
+    Assert.assertFalse(mSuggestionsProvider.hasIgnoredWords());
+  }
+
+  @Test
   public void testExternalIgnoredWordsUpdateReflectedImmediatelyInSuggestionsProvider() {
     mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
     TestRxSchedulers.drainAllTasks();

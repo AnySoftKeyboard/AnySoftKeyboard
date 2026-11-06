@@ -45,6 +45,27 @@ public class IgnoredWordsDictionaryTest {
     char[] chars = "some badword here".toCharArray();
     Assert.assertTrue(mDictionary.isIgnored(chars, 5, 7));
     Assert.assertFalse(mDictionary.isIgnored(chars, 0, 4));
+    Assert.assertFalse(mDictionary.isIgnored((char[]) null, 0, 7));
+    Assert.assertFalse(mDictionary.isIgnored((CharSequence) null));
+    Assert.assertFalse(mDictionary.isIgnored(""));
+    Assert.assertFalse(mDictionary.isIgnored(chars, -1, 7));
+    Assert.assertFalse(mDictionary.isIgnored(chars, 5, -1));
+    Assert.assertFalse(mDictionary.isIgnored(chars, 5, 100));
+  }
+
+  @Test
+  public void testTurkishCasingZeroAllocation() {
+    IgnoredWordsDictionary trDict = new IgnoredWordsDictionary(getApplicationContext(), "tr");
+    trDict.loadDictionary();
+    com.anysoftkeyboard.rx.TestRxSchedulers.drainAllTasks();
+
+    trDict.addWord("ılık", 1);
+    Assert.assertTrue(trDict.isIgnored("ılık"));
+    Assert.assertTrue(trDict.isIgnored("ILIK"));
+    char[] trChars = "ILIK".toCharArray();
+    Assert.assertTrue(trDict.isIgnored(trChars, 0, 4));
+
+    trDict.close();
   }
 
   @Test
