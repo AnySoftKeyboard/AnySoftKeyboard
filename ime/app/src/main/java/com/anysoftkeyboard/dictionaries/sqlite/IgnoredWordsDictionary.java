@@ -2,7 +2,6 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
-
 import java.util.Locale;
 
 public class IgnoredWordsDictionary extends SQLiteUserDictionaryBase {

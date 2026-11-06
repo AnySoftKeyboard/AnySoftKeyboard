@@ -464,6 +464,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Benutzerwörterbuch</string>
     <string name="user_dict_editor">Wörtereditor</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Abkürzungseditor</string>
     <string name="abbreviation_dict_editor">Abkürzungseditor</string>
@@ -642,4 +643,5 @@
     <string name="touch_trajectory_correction_title">Korrektur der Touch-Spurführung</string>
     <string name="touch_trajectory_correction_summary_on">Die Genauigkeit beim Tippen verbessern, indem beim schnellen Tippen die Koordinaten beim Anschlagen und Abheben der Finger kombiniert werden</string>
     <string name="touch_trajectory_correction_summary_off">Nur auf die Koordinaten beim Abheben der Finger beziehen</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

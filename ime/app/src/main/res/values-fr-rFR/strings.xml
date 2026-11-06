@@ -467,6 +467,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Dictionnaire utilisateur</string>
     <string name="user_dict_editor">Éditeur de mots</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Éditeur d\'abréviation</string>
     <string name="abbreviation_dict_editor">Éditeur d\'abréviation</string>
@@ -649,4 +650,5 @@
     <string name="wizard_allow_notification_permission">Autoriser les notifications de AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">Dans de rares cas (par exemple en cas de plantage de l\'application), nous voudrions envoyer une notification à l\'appareil. Ceci est recommandé, mais ne pas autoriser les notifications n\'affectera pas le comportement de l\'application.</string>
     <string name="wizard_skip_notification_permission">Ne pas autoriser les notifications</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>
