@@ -164,11 +164,24 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
     public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
       OptionsDialogData dialogData = (OptionsDialogData) data;
       Window window = dialog.getWindow();
-      WindowManager.LayoutParams lp = window.getAttributes();
-      lp.token = ((View) getInputView()).getWindowToken();
-      lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-      window.setAttributes(lp);
-      window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+      if (window != null) {
+        WindowManager.LayoutParams lp = window.getAttributes();
+        View inputView = (View) getInputView();
+        if (inputView != null) {
+          lp.token = inputView.getWindowToken();
+        }
+        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+        // FLAG_NOT_FOCUSABLE: the dialog must NOT steal focus from the target app.
+        // In apps like Chrome/Chromium, when the dialog takes focus, the app detects focus
+        // loss and calls hideSoftInputFromWindow(), causing the IME window to hide and the
+        // attached dialog to dismiss immediately.
+        // Touch events still work on dialog items; WATCH_OUTSIDE_TOUCH detects outside taps.
+        lp.flags |=
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+                | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+        window.setAttributes(lp);
+      }
 
       if (dialogData.mExtraPresenter != null) {
         dialogData.mExtraPresenter.beforeDialogShown(dialog, data);

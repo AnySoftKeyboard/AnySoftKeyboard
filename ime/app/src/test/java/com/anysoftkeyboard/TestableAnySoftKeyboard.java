@@ -357,6 +357,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     mHidden = true;
   }
 
+  // Widens visibility from protected to public so test cases outside this package
+  // (e.g. in com.anysoftkeyboard.ime) can verify close request lifecycle.
+  @Override
+  public boolean handleCloseRequest() {
+    return super.handleCloseRequest();
+  }
+
   public boolean isKeyboardViewHidden() {
     return mHidden;
   }

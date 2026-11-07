@@ -12,6 +12,7 @@ import android.os.Build;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -1103,5 +1104,74 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     Assert.assertFalse(
         mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isFullyVisible());
     Assert.assertTrue(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+  }
+
+  @Test
+  public void testClipboardPopupDialogHasAttachedWindowToken() {
+    // Setup: copy something so clipboard has entries
+    mAnySoftKeyboardUnderTest.simulateTextTyping("test text");
+    mAnySoftKeyboardUnderTest.setSelectedText(0, "test text".length(), true);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+
+    // Trigger the clipboard popup dialog
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+    Assert.assertNotNull("Clipboard popup dialog should be shown", dialog);
+    Assert.assertTrue("Dialog should be showing", dialog.isShowing());
+
+    // Verify window attributes are set for attached dialog (prevents auto-close in Chrome/WebView)
+    final WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+    Assert.assertNotNull("Window token should be set", lp.token);
+    Assert.assertEquals(
+        "Dialog type should be APPLICATION_ATTACHED_DIALOG",
+        WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG,
+        lp.type);
+    Assert.assertTrue(
+        "FLAG_ALT_FOCUSABLE_IM should be set",
+        (lp.flags & WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM) != 0);
+    Assert.assertTrue(
+        "FLAG_NOT_FOCUSABLE must be set so the dialog does not steal focus from the target app "
+            + "(otherwise focus theft makes apps like Chrome call hideSoftInput, hiding the IME "
+            + "window and dismissing this attached dialog)",
+        (lp.flags & WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE) != 0);
+    Assert.assertTrue(
+        "FLAG_WATCH_OUTSIDE_TOUCH should be set",
+        (lp.flags & WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH) != 0);
+  }
+
+  @Test
+  public void testClipboardPopupDialogDismissedOnCloseRequest() {
+    mAnySoftKeyboardUnderTest.simulateTextTyping("test text");
+    mAnySoftKeyboardUnderTest.setSelectedText(0, "test text".length(), true);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+    Assert.assertNotNull("Clipboard popup dialog should be shown", dialog);
+    Assert.assertTrue(dialog.isShowing());
+
+    // Back gesture / close request closes the dialog while keeping keyboard open
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.handleCloseRequest());
+    Assert.assertFalse(dialog.isShowing());
+    Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+  }
+
+  @Test
+  public void testClipboardPopupDialogDismissedOnHideWindow() {
+    mAnySoftKeyboardUnderTest.simulateTextTyping("test text");
+    mAnySoftKeyboardUnderTest.setSelectedText(0, "test text".length(), true);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+    Assert.assertNotNull("Clipboard popup dialog should be shown", dialog);
+    Assert.assertTrue(dialog.isShowing());
+
+    // hideWindow() (e.g. HOME key pressed or app switched) must dismiss popup and hide keyboard
+    mAnySoftKeyboardUnderTest.hideWindow();
+
+    Assert.assertFalse("Popup dialog should be dismissed after hideWindow()", dialog.isShowing());
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
   }
 }
