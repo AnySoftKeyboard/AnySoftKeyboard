@@ -1110,6 +1110,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
   public void testClipboardPopupDialogHasAttachedWindowToken() {
     // Setup: copy something so clipboard has entries
     mAnySoftKeyboardUnderTest.simulateTextTyping("test text");
+    mAnySoftKeyboardUnderTest.setSelectedText(0, "test text".length(), true);
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
 
     // Trigger the clipboard popup dialog
@@ -1119,7 +1120,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     Assert.assertNotNull("Clipboard popup dialog should be shown", dialog);
     Assert.assertTrue("Dialog should be showing", dialog.isShowing());
 
-    // Verify window attributes are set for attached dialog (prevents auto-close in Chrome/OpenChamber)
+    // Verify window attributes are set for attached dialog (prevents auto-close in Chrome/WebView)
     final WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
     Assert.assertNotNull("Window token should be set", lp.token);
     Assert.assertEquals(
@@ -1131,17 +1132,18 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         (lp.flags & WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM) != 0);
     Assert.assertTrue(
         "FLAG_NOT_FOCUSABLE must be set so the dialog does not steal focus from the target app "
-            + "(on Android 16+, focus theft makes the app call hideSoftInput, hiding the IME "
+            + "(otherwise focus theft makes apps like Chrome call hideSoftInput, hiding the IME "
             + "window and dismissing this attached dialog)",
         (lp.flags & WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE) != 0);
+    Assert.assertTrue(
+        "FLAG_WATCH_OUTSIDE_TOUCH should be set",
+        (lp.flags & WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH) != 0);
   }
 
   @Test
-  public void testHideWindowDoesNotDismissShowingClipboardPopup() {
-    // Regression test: in apps like Chrome/WebView, showing the popup steals focus from the
-    // target app, which makes the system call hideWindow() on the IME. hideWindow() must NOT
-    // dismiss our own showing popup (otherwise the popup flashes and closes immediately).
+  public void testClipboardPopupDialogDismissedOnCloseRequest() {
     mAnySoftKeyboardUnderTest.simulateTextTyping("test text");
+    mAnySoftKeyboardUnderTest.setSelectedText(0, "test text".length(), true);
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
 
@@ -1149,11 +1151,27 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     Assert.assertNotNull("Clipboard popup dialog should be shown", dialog);
     Assert.assertTrue(dialog.isShowing());
 
-    // Simulate the system requesting a hide (focus moved to the dialog in Chrome)
+    // Back gesture / close request closes the dialog while keeping keyboard open
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.handleCloseRequest());
+    Assert.assertFalse(dialog.isShowing());
+    Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+  }
+
+  @Test
+  public void testClipboardPopupDialogDismissedOnHideWindow() {
+    mAnySoftKeyboardUnderTest.simulateTextTyping("test text");
+    mAnySoftKeyboardUnderTest.setSelectedText(0, "test text".length(), true);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+    Assert.assertNotNull("Clipboard popup dialog should be shown", dialog);
+    Assert.assertTrue(dialog.isShowing());
+
+    // hideWindow() (e.g. HOME key pressed or app switched) must dismiss popup and hide keyboard
     mAnySoftKeyboardUnderTest.hideWindow();
 
-    Assert.assertTrue(
-        "Popup dialog should still be showing after hideWindow() while it is on screen",
-        dialog.isShowing());
+    Assert.assertFalse("Popup dialog should be dismissed after hideWindow()", dialog.isShowing());
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
   }
 }
