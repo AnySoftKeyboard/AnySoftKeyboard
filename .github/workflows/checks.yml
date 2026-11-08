@@ -139,7 +139,17 @@ jobs:
         with:
           name: linters-reports
           path: collected_reports
+  robolectric-jars:
+    # Single place that downloads the Robolectric jars (when not cached), so the test shards do not hit Maven Central.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6.0.3
+      - uses: ./.github/actions/setup-robolectric
+        with:
+          download-on-miss: 'true'
   tests:
+    needs: [robolectric-jars]
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
@@ -176,7 +186,7 @@ jobs:
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: setup robolectric
-        run: ./scripts/download_robolectric_jars_to_machine.sh
+        uses: ./.github/actions/setup-robolectric
       - name: generate projects list for sharding
         run: ./gradlew projects | grep Project > /tmp/projects.lst
       - name: shard
@@ -286,7 +296,7 @@ jobs:
           name: binaries-dry-run-${{ matrix.shard_type }}
           path: outputs/apk
   all-green-requirement:
-    needs: [static-checks, linters, tests, deploy-dry-run, bazel]
+    needs: [static-checks, linters, robolectric-jars, tests, deploy-dry-run, bazel]
     if: always()
     runs-on: ubuntu-24.04
     steps:
