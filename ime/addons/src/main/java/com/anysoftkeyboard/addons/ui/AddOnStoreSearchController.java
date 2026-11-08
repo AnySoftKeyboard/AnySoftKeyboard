@@ -49,11 +49,11 @@ public class AddOnStoreSearchController {
     mContext = context;
     mMarketKeyword = keyword;
     mDialogController =
-        new GeneralDialogController(context, R.style.Theme_AskAlertDialog, this::setupDialog);
+        new GeneralDialogController(
+            context, net.evendanan.pixel.R.style.Theme_AskAlertDialog, this::setupDialog);
   }
 
-  private void setupDialog(
-      Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+  private void setupDialog(AlertDialog.Builder builder, int optionId, @Nullable Object data) {
     switch (optionId) {
       case LEAVE:
         builder

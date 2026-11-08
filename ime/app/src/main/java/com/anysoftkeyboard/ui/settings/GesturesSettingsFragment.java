@@ -41,11 +41,11 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     addPreferencesFromResource(R.xml.prefs_gestures_prefs);
     mGeneralDialogController =
-        new GeneralDialogController(getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
+        new GeneralDialogController(
+            getActivity(), net.evendanan.pixel.R.style.Theme_AskAlertDialog, this::setupDialog);
   }
 
-  private void setupDialog(
-      Context context, AlertDialog.Builder builder, int optionId, Object data) {
+  private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
     builder
         .setTitle(R.string.gesture_typing_alert_title)
         .setMessage(R.string.gesture_typing_alert_message)
@@ -108,7 +108,10 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
   @Override
   public void onStart() {
     super.onStart();
-    UiUtils.setActivityTitle(this, getString(R.string.unicode_gestures_quick_text_key_name));
+    UiUtils.setActivityTitle(
+        this,
+        getString(
+            com.anysoftkeyboard.addons.quicktext.R.string.unicode_gestures_quick_text_key_name));
 
     final boolean gestureTypingEnabled =
         ((CheckBoxPreference) findPreference(getString(R.string.settings_key_gesture_typing)))

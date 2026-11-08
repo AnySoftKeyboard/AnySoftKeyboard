@@ -1,0 +1,28 @@
+---
+name: "setup-hermetiq"
+description: "Sets up Hermetiq credential helper if HERMETIQ_CRED_HELPER is present"
+inputs:
+  hermetiq_cred_helper:
+    description: "Contents of tools/hermetiq-credential-helper.sh (defaults to HERMETIQ_CRED_HELPER env var)"
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Hermetiq credential helper
+      shell: bash
+      env:
+        INPUT_CRED_HELPER: ${{ inputs.hermetiq_cred_helper }}
+      run: |
+        CRED_HELPER="${INPUT_CRED_HELPER:-${HERMETIQ_CRED_HELPER:-}}"
+        if [ -n "${CRED_HELPER}" ]; then
+          echo "Setting up Hermetiq credential helper in tools/hermetiq-credential-helper.sh..."
+          mkdir -p tools
+          printf '%s\n' "${CRED_HELPER}" | tr -d '\r' > tools/hermetiq-credential-helper.sh
+          chmod +x tools/hermetiq-credential-helper.sh
+        else
+          echo "HERMETIQ_CRED_HELPER is not set. Skipping Hermetiq credential helper setup."
+        fi
+branding:
+  icon: 'key'
+  color: 'blue'

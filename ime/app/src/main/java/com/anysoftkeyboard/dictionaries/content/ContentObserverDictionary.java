@@ -16,6 +16,8 @@ public abstract class ContentObserverDictionary extends BTreeDictionary {
   @Nullable private final Uri mDictionaryChangedUri;
   @NonNull private Disposable mDictionaryReLoaderDisposable = Disposables.empty();
   @NonNull private Disposable mDictionaryChangedDisposable = Disposables.disposed();
+  private final java.util.concurrent.atomic.AtomicInteger mPendingSelfChanges =
+      new java.util.concurrent.atomic.AtomicInteger();
 
   protected ContentObserverDictionary(
       String dictionaryName, Context context, @Nullable Uri dictionaryChangedUri) {
@@ -38,14 +40,31 @@ public abstract class ContentObserverDictionary extends BTreeDictionary {
                   null,
                   true,
                   RxSchedulers.background())
-              .subscribeOn(RxSchedulers.background())
+              .skip(1)
               .observeOn(RxSchedulers.mainThread())
               .forEach(query -> onStorageChanged());
     }
   }
 
-  void onStorageChanged() {
+  protected void notifyStorageChanged() {
+    if (mDictionaryChangedUri != null) {
+      mPendingSelfChanges.incrementAndGet();
+      mContext.getContentResolver().notifyChange(mDictionaryChangedUri, null);
+    }
+  }
+
+  protected void onStorageChanged() {
     if (isClosed()) return;
+    while (true) {
+      int current = mPendingSelfChanges.get();
+      if (current > 0) {
+        if (mPendingSelfChanges.compareAndSet(current, current - 1)) {
+          return;
+        }
+      } else {
+        break;
+      }
+    }
     resetDictionary();
     mDictionaryReLoaderDisposable.dispose();
     mDictionaryReLoaderDisposable = DictionaryBackgroundLoader.reloadDictionaryInBackground(this);
@@ -56,5 +75,6 @@ public abstract class ContentObserverDictionary extends BTreeDictionary {
     super.closeAllResources();
     mDictionaryReLoaderDisposable.dispose();
     mDictionaryChangedDisposable.dispose();
+    mPendingSelfChanges.set(0);
   }
 }

@@ -951,7 +951,8 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
     SharedPrefsHelper.setPrefsValue(
-        R.string.settings_key_auto_pick_suggestion_aggressiveness, "none");
+        com.anysoftkeyboard.nextword.R.string.settings_key_auto_pick_suggestion_aggressiveness,
+        "none");
     TestRxSchedulers.drainAllTasks();
 
     simulateFinishInputFlow();

@@ -35,9 +35,11 @@ public class AnySoftKeyboardTypingCorruptionTest extends AnySoftKeyboardBaseTest
     // auto-pick aggressiveness off, next-word suggestions on, no suggestion restart.
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, true);
     SharedPrefsHelper.setPrefsValue(
-        R.string.settings_key_auto_pick_suggestion_aggressiveness, "none");
+        com.anysoftkeyboard.nextword.R.string.settings_key_auto_pick_suggestion_aggressiveness,
+        "none");
     SharedPrefsHelper.setPrefsValue(
-        R.string.settings_key_next_word_suggestion_aggressiveness, "medium_aggressiveness");
+        com.anysoftkeyboard.nextword.R.string.settings_key_next_word_suggestion_aggressiveness,
+        "medium_aggressiveness");
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, false);
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_quick_fix, false);
     TestRxSchedulers.drainAllTasks();

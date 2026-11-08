@@ -30,7 +30,6 @@ import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +74,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         "Dictionaries",
         "Dictionary",
         "dictionary_",
-        R.xml.english_dictionaries,
+        com.anysoftkeyboard.language.english.pack.R.xml.english_dictionaries,
         0,
         true,
         BuildConfig.TESTING_BUILD);

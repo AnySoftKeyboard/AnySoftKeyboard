@@ -16,7 +16,6 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -165,7 +164,8 @@ public class AnySoftKeyboardPackageChangedTest {
     packageInfoWithAddOns.receivers[0].applicationInfo.enabled = true;
     packageInfoWithAddOns.receivers[0].metaData = new Bundle();
     packageInfoWithAddOns.receivers[0].metaData.putInt(
-        "com.menny.android.anysoftkeyboard.keyboards", R.xml.english_keyboards);
+        "com.menny.android.anysoftkeyboard.keyboards",
+        com.anysoftkeyboard.language.english.pack.R.xml.english_keyboards);
     Shadows.shadowOf(getApplicationContext().getPackageManager())
         .installPackage(packageInfoWithAddOns);
     // package added with addon
@@ -211,7 +211,8 @@ public class AnySoftKeyboardPackageChangedTest {
     packageInfoWithAddOns.receivers[0].enabled = false;
     packageInfoWithAddOns.receivers[0].metaData = new Bundle();
     packageInfoWithAddOns.receivers[0].metaData.putInt(
-        "com.menny.android.anysoftkeyboard.keyboards", R.xml.english_keyboards);
+        "com.menny.android.anysoftkeyboard.keyboards",
+        com.anysoftkeyboard.language.english.pack.R.xml.english_keyboards);
     Shadows.shadowOf(getApplicationContext().getPackageManager())
         .installPackage(packageInfoWithAddOns);
 

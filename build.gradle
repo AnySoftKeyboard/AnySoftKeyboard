@@ -4,8 +4,6 @@ import java.nio.file.Files
 
 System.setProperty("file.encoding", "UTF-8")
 
-def logFile = new File(buildDir.absoluteFile,"build-logging/build-log-${System.currentTimeMillis()}.log")
-gradle.addBuildListener(new BuildLogger(logFile))
 
 buildscript {
     repositories {
@@ -20,7 +18,6 @@ buildscript {
         classpath "com.github.triplet.gradle:play-publisher:${libs.versions.playPublisher.get()}"
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:${libs.versions.errorpronePlugin.get()}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${libs.versions.navigationSafeArgs.get()}"
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:${libs.versions.spotless.get()}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}"
         classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:${libs.versions.kotlin.get()}"
     }
@@ -41,12 +38,6 @@ apply from: "${rootDir}/gradle/fdroid_yaml_output.gradle"
 
 def cleanOthers = tasks.register("cleanOthers", Delete) {
     delete buildDir
-    //we do not want to delete the current log file
-    logFile.parentFile.listFiles().each {
-        if (it != null && it.absolutePath != logFile.absolutePath) {
-            delete it
-        }
-    }
 
     //deleting all beta/production change-logs
     Stream<Path> files = Files.walk(rootDir.toPath())

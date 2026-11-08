@@ -118,7 +118,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest
     Assert.assertTrue(foreground instanceof FrameLayout);
     FrameLayout frameLayout = (FrameLayout) foreground;
     Assert.assertEquals(
-        R.drawable.drop_shadow_for_top,
+        net.evendanan.pixel.R.drawable.drop_shadow_for_top,
         Shadows.shadowOf(frameLayout.getForeground()).getCreatedFromResId());
     Assert.assertEquals(Gravity.TOP | Gravity.FILL_HORIZONTAL, frameLayout.getForegroundGravity());
   }
@@ -133,7 +133,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest
     Assert.assertTrue(foreground instanceof FrameLayout);
     FrameLayout frameLayout = (FrameLayout) foreground;
     Assert.assertEquals(
-        R.drawable.drop_shadow_for_left,
+        net.evendanan.pixel.R.drawable.drop_shadow_for_left,
         Shadows.shadowOf(frameLayout.getForeground()).getCreatedFromResId());
     Assert.assertEquals(Gravity.LEFT | Gravity.FILL_VERTICAL, frameLayout.getForegroundGravity());
   }

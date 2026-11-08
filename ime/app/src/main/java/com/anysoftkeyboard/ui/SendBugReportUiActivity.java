@@ -77,7 +77,8 @@ public class SendBugReportUiActivity extends FragmentActivity {
     sendIntent.setAction(Intent.ACTION_SEND);
     sendIntent.setType("plain/text");
     sendIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
-    sendIntent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_crashed_title));
+    sendIntent.putExtra(
+        Intent.EXTRA_SUBJECT, getText(com.anysoftkeyboard.chewbacca.R.string.ime_crashed_title));
     sendIntent.putExtra(Intent.EXTRA_TEXT, mCrashReportDetails.crashHeader);
     sendIntent.putExtra(Intent.EXTRA_STREAM, fullReportUri);
 

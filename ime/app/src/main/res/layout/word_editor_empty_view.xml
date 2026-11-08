@@ -7,6 +7,7 @@
     android:background="@drawable/transparent_click_feedback_background">
 
     <TextView
+        android:id="@+id/empty_user_words_editor_text"
         style="@style/Ask.Text.SubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

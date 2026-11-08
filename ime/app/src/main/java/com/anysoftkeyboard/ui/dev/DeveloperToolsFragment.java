@@ -70,7 +70,8 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mGeneralDialogController =
-        new GeneralDialogController(getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
+        new GeneralDialogController(
+            getActivity(), net.evendanan.pixel.R.style.Theme_AskAlertDialog, this::setupDialog);
     ((TextView) view.findViewById(R.id.dev_title))
         .setText(DeveloperUtils.getAppDetails(requireContext().getApplicationContext()));
 
@@ -115,8 +116,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
     }
   }
 
-  private void setupDialog(
-      Context context, AlertDialog.Builder builder, int optionId, Object data) {
+  private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
     switch (optionId) {
       case TRACING_ENABLED_DIALOG:
         builder
@@ -187,16 +187,22 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
 
   @Override
   public void onClick(View v) {
-    switch (v.getId()) {
-      case R.id.memory_dump_button -> onUserClickedMemoryDump();
-      case R.id.dev_share_mem_file -> onUserClickedShareMemoryDump(v);
-      case R.id.dev_flip_trace_file -> onUserClickedFlipTracing();
-      case R.id.dev_share_trace_file -> onUserClickedShareTracingFile();
-      case R.id.show_logcat_button -> onUserClickedShowLogCat();
-      case R.id.share_logcat_button -> onUserClickedShareLogCat();
-      default ->
-          throw new IllegalArgumentException(
-              "Failed to handle " + v.getId() + " in DeveloperToolsFragment");
+    final int id = v.getId();
+    if (id == R.id.memory_dump_button) {
+      onUserClickedMemoryDump();
+    } else if (id == R.id.dev_share_mem_file) {
+      onUserClickedShareMemoryDump(v);
+    } else if (id == R.id.dev_flip_trace_file) {
+      onUserClickedFlipTracing();
+    } else if (id == R.id.dev_share_trace_file) {
+      onUserClickedShareTracingFile();
+    } else if (id == R.id.show_logcat_button) {
+      onUserClickedShowLogCat();
+    } else if (id == R.id.share_logcat_button) {
+      onUserClickedShareLogCat();
+    } else {
+      throw new IllegalArgumentException(
+          "Failed to handle " + v.getId() + " in DeveloperToolsFragment");
     }
   }
 

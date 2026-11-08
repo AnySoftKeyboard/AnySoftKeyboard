@@ -295,7 +295,8 @@ public abstract class AnyKeyboard extends Keyboard {
     final boolean disallowGenericRowsOverride =
         KeyboardPrefs.disallowGenericRowOverride(mLocalContext);
     mGenericRowsHeight = 0;
-    if (!mTopRowWasCreated || disallowGenericRowsOverride) {
+    if ((!mTopRowWasCreated || disallowGenericRowsOverride)
+        && topRowPlugin.isCompatible(getKeyboardScope())) {
       Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
       GenericRowKeyboard rowKeyboard =
           new GenericRowKeyboard(
@@ -306,7 +307,8 @@ public abstract class AnyKeyboard extends Keyboard {
               mKeyboardMode);
       fixKeyboardDueToGenericRow(rowKeyboard, true);
     }
-    if (!mBottomRowWasCreated || disallowGenericRowsOverride) {
+    if ((!mBottomRowWasCreated || disallowGenericRowsOverride)
+        && bottomRowPlugin.isCompatible(getKeyboardScope())) {
       Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
       GenericRowKeyboard rowKeyboard =
           new GenericRowKeyboard(
@@ -333,6 +335,13 @@ public abstract class AnyKeyboard extends Keyboard {
   }
 
   public abstract boolean isAlphabetKeyboard();
+
+  @KeyboardExtension.KeyboardExtensionScope
+  public int getKeyboardScope() {
+    return isAlphabetKeyboard()
+        ? KeyboardExtension.SCOPE_ALPHABET
+        : KeyboardExtension.SCOPE_SYMBOLS;
+  }
 
   /**
    * Returns this keyboard's add-on as a {@link KeyboardAddOnAndBuilder}, or {@code null} if the
@@ -787,7 +796,8 @@ public abstract class AnyKeyboard extends Keyboard {
       boolean mShiftCodesAlwaysOverride = false;
 
       final int[] remoteStyleableArrayFromLocal =
-          resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key);
+          resourceMapping.getRemoteStyleableArrayFromLocal(
+              com.anysoftkeyboard.api.R.styleable.KeyboardLayout_Key);
       TypedArray a =
           keyboardContext.obtainStyledAttributes(
               Xml.asAttributeSet(parser), remoteStyleableArrayFromLocal);
@@ -798,48 +808,37 @@ public abstract class AnyKeyboard extends Keyboard {
             resourceMapping.getLocalAttrId(remoteStyleableArrayFromLocal[remoteIndex]);
 
         try {
-          switch (localAttrId) {
-            case R.attr.shiftedCodes:
-              mShiftedCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
-              break;
-            case R.attr.longPressCode:
-              longPressCode = a.getInt(remoteIndex, 0);
-              break;
-            case R.attr.isFunctional:
-              mFunctionalKey = a.getBoolean(remoteIndex, false);
-              break;
-            case R.attr.shiftedKeyLabel:
-              shiftedKeyLabel = a.getString(remoteIndex);
-              break;
-            case R.attr.isShiftAlways:
-              mShiftCodesAlwaysOverride = true;
-              mShiftCodesAlways = a.getBoolean(remoteIndex, false);
-              break;
-            case R.attr.hintLabel:
-              hintLabel = a.getString(remoteIndex);
-              break;
-            case R.attr.showInLayout:
-              //noinspection WrongConstant
-              showKeyInLayout = a.getInt(remoteIndex, SHOW_KEY_ALWAYS);
-              break;
-            case R.attr.tags:
-              String tags = a.getString(remoteIndex);
-              if (!TextUtils.isEmpty(tags)) {
-                mKeyTags = Arrays.asList(tags.split(","));
-              }
-              break;
-            case R.attr.genders:
-              String genders = a.getString(remoteIndex);
-              if (!TextUtils.isEmpty(genders)) {
-                mKeyGenders = stringsToEnum(EmojiUtils.Gender.class, genders);
-              }
-              break;
-            case R.attr.skinTones:
-              String tones = a.getString(remoteIndex);
-              if (!TextUtils.isEmpty(tones)) {
-                mKeySkinTones = stringsToEnum(EmojiUtils.SkinTone.class, tones);
-              }
-              break;
+          if (localAttrId == com.anysoftkeyboard.api.R.attr.shiftedCodes) {
+            mShiftedCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
+          } else if (localAttrId == com.anysoftkeyboard.api.R.attr.longPressCode) {
+            longPressCode = a.getInt(remoteIndex, 0);
+          } else if (localAttrId == com.anysoftkeyboard.api.R.attr.isFunctional) {
+            mFunctionalKey = a.getBoolean(remoteIndex, false);
+          } else if (localAttrId == com.anysoftkeyboard.api.R.attr.shiftedKeyLabel) {
+            shiftedKeyLabel = a.getString(remoteIndex);
+          } else if (localAttrId == com.anysoftkeyboard.api.R.attr.isShiftAlways) {
+            mShiftCodesAlwaysOverride = true;
+            mShiftCodesAlways = a.getBoolean(remoteIndex, false);
+          } else if (localAttrId == com.anysoftkeyboard.api.R.attr.hintLabel) {
+            hintLabel = a.getString(remoteIndex);
+          } else if (localAttrId == com.anysoftkeyboard.api.R.attr.showInLayout) {
+            //noinspection WrongConstant
+            showKeyInLayout = a.getInt(remoteIndex, SHOW_KEY_ALWAYS);
+          } else if (localAttrId == com.anysoftkeyboard.api.R.attr.tags) {
+            String tags = a.getString(remoteIndex);
+            if (!TextUtils.isEmpty(tags)) {
+              mKeyTags = Arrays.asList(tags.split(","));
+            }
+          } else if (localAttrId == com.anysoftkeyboard.api.R.attr.genders) {
+            String genders = a.getString(remoteIndex);
+            if (!TextUtils.isEmpty(genders)) {
+              mKeyGenders = stringsToEnum(EmojiUtils.Gender.class, genders);
+            }
+          } else if (localAttrId == com.anysoftkeyboard.api.R.attr.skinTones) {
+            String tones = a.getString(remoteIndex);
+            if (!TextUtils.isEmpty(tones)) {
+              mKeySkinTones = stringsToEnum(EmojiUtils.SkinTone.class, tones);
+            }
           }
         } catch (Exception e) {
           Logger.w(TAG, "Failed to set data from XML!", e);

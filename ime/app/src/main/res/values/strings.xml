@@ -654,6 +654,11 @@
     <string name="user_dict_settings_titlebar">User dictionary</string>
     <string name="user_dict_editor">Words editor</string>
 
+    <!-- Ignored words dictionary settings -->
+    <string name="ignored_words_dict_settings_titlebar">Ignored words</string>
+    <string name="ignored_words_dict_editor">Ignored words editor</string>
+    <string name="ignored_words_dict_empty_text">You do not have any ignored words in the dictionary.\nYou can add a word to ignore now.</string>
+
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Abbreviation editor</string>
     <string name="abbreviation_dict_editor">Abbreviation editor</string>
@@ -898,6 +903,7 @@
     <string name="user_dict_prefs_provider">User words</string>
     <string name="next_word_dict_prefs_provider">Next words</string>
     <string name="abbreviation_dict_prefs_provider">Abbreviations</string>
+    <string name="ignored_words_dict_prefs_provider">Ignored words</string>
     <string name="pick_prefs_providers_to_backup">What would you like to backup?</string>
     <string name="pick_prefs_providers_to_restore">What would you like to restore?</string>
     <string name="prefs_providers_operation_success">Success</string>
@@ -955,4 +961,20 @@
     <string name="homophone_search_hint_zh_tw">同音字查詢：請輸入一個字</string>
     <string name="homophone_search_hint_zh_cn">同音字查询：请输入一个字</string>
     <string name="homophone_search_hint_ja">同音字検索：文字を入力してください</string>
+
+    <!-- Holiday and Event Public Notices -->
+    <string name="public_notice_thanksgiving_title">Happy Thanksgiving! 🦃</string>
+    <string name="public_notice_thanksgiving_message">Wishing you a warm and wonderful Thanksgiving filled with gratitude and peace.</string>
+
+    <string name="public_notice_halloween_title">Happy Halloween! 🎃👻</string>
+    <string name="public_notice_halloween_message">Have a spooky and fun Halloween from the AnySoftKeyboard team!</string>
+
+    <string name="public_notice_new_year_title">Happy New Year! 🎆✨</string>
+    <string name="public_notice_new_year_message">Wishing you a bright, healthy, and prosperous New Year!</string>
+
+    <string name="public_notice_privacy_day_title">Global Encryption &amp; World Privacy Day 🔒</string>
+    <string name="public_notice_privacy_day_message">AnySoftKeyboard respects your privacy: no tracking, no ads, and total control over your typing data.</string>
+
+    <string name="public_notice_earth_day_title">Happy Earth Day! 🌍🌱</string>
+    <string name="public_notice_earth_day_message">Let\'s care for our planet and celebrate the natural world today and every day.</string>
 </resources>

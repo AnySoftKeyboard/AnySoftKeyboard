@@ -127,6 +127,15 @@
         description=""
         index="14"/>
     <QuickTextKey
+        id="a1701acb-2d97-477c-99aa-45bde48a43c3"
+        nameResId="@string/unicode_currencies_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_currencies"
+        keyIcon="@drawable/ic_quick_text_dark_theme"
+        keyLabel="@string/quick_text_smiley_key_unicode_currencies_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_currencies_output"
+        description=""
+        index="15"/>
+    <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a67"
         nameResId="@string/default_quick_text_key_name"
         popupKeyboard="@xml/popup_default_quick_text"
@@ -134,7 +143,7 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="15"/>
+        index="16"/>
     <QuickTextKey
         id="0077b34d-770f-4083-83e4-081957e06c27"
         nameResId="@string/simley_key_name"
@@ -143,7 +152,7 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="16"/>
+        index="17"/>
     <QuickTextKey
         id="085020ea-f496-4c0c-80cb-45ca50635c59"
         nameResId="@string/short_smiley_key_name"
@@ -152,7 +161,7 @@
         keyLabel="@string/quick_text_short_smiley_key_label"
         keyOutputText="@string/quick_text_short_smiley_key_output"
         description=""
-        index="17"/>
+        index="18"/>
     <QuickTextKey
         id="9493bdf1-ae8e-4d5d-a1e3-065bfdf83b60"
         nameResId="@string/quick_text_kaomoji"
@@ -161,5 +170,5 @@
         keyLabel="@string/quick_text_kaomoji_key_label"
         keyOutputText="@string/quick_text_kaomoji_key_output"
         description=""
-        index="18"/>
+        index="19"/>
 </QuickTextKeys>

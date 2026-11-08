@@ -19,7 +19,8 @@ public class OverlayDataNormalizerTest {
   @Before
   public void setup() {
     mOriginal = Mockito.mock(OverlyDataCreator.class);
-    mUnderTest = new OverlayDataNormalizer(mOriginal, 96);
+    mUnderTest =
+        new OverlayDataNormalizer(mOriginal, OverlayDataNormalizer.DEFAULT_TEXT_COLOR_DIFF);
     mTestComponent = new ComponentName("com.example", "com.example.Activity");
   }
 
@@ -44,7 +45,8 @@ public class OverlayDataNormalizerTest {
 
   @Test
   public void testReturnsFixedIfInvalidButWasAskedToFix() {
-    mUnderTest = new OverlayDataNormalizer(mOriginal, 96);
+    mUnderTest =
+        new OverlayDataNormalizer(mOriginal, OverlayDataNormalizer.DEFAULT_TEXT_COLOR_DIFF);
     OverlayData original = setupOriginal(Color.GRAY, Color.GRAY, Color.GRAY);
     final OverlayData fixed = mUnderTest.createOverlayData(mTestComponent);
     Assert.assertNotSame(original, fixed);
@@ -100,6 +102,22 @@ public class OverlayDataNormalizerTest {
     Assert.assertEquals(183, OverlayDataNormalizer.luminance(Color.GREEN));
     Assert.assertEquals(55, OverlayDataNormalizer.luminance(Color.RED));
     Assert.assertEquals(73, OverlayDataNormalizer.luminance(Color.MAGENTA));
+  }
+
+  @Test
+  public void testNormalizeSecondary() {
+    OverlayData transparent = new OverlayDataImpl();
+    Assert.assertSame(transparent, OverlayDataNormalizer.normalizeSecondary(transparent));
+
+    OverlayData goodContrast =
+        new OverlayDataImpl(Color.GRAY, Color.BLACK, Color.BLACK, Color.WHITE, Color.WHITE);
+    Assert.assertSame(goodContrast, OverlayDataNormalizer.normalizeSecondary(goodContrast));
+
+    OverlayData lowContrast =
+        new OverlayDataImpl(Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
+    OverlayData normalized = OverlayDataNormalizer.normalizeSecondary(lowContrast);
+    Assert.assertNotSame(lowContrast, normalized);
+    Assert.assertEquals(Color.WHITE, normalized.getPrimaryTextColor());
   }
 
   private OverlayData setupOriginal(int primary, int darkPrimary, int textColor) {

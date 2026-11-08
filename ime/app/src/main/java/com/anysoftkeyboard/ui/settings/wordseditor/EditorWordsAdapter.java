@@ -47,18 +47,17 @@ public class EditorWordsAdapter
 
   @Override
   public EditorWordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    switch (viewType) {
-      case R.id.word_editor_view_type_editing_row:
-        return new EditorWordViewHolderEditing(inflateEditingRowView(mLayoutInflater, parent));
-      case R.id.word_editor_view_type_empty_view_row:
-        return new EditorWordViewHolderAddNew(
-            mLayoutInflater.inflate(R.layout.word_editor_empty_view, parent, false));
-      case R.id.word_editor_view_type_add_new_row:
-        return new EditorWordViewHolderAddNew(
-            mLayoutInflater.inflate(R.layout.user_dictionary_word_row_add, parent, false));
-      default:
-        return new EditorWordViewHolderNormal(
-            mLayoutInflater.inflate(R.layout.user_dictionary_word_row, parent, false));
+    if (viewType == R.id.word_editor_view_type_editing_row) {
+      return new EditorWordViewHolderEditing(inflateEditingRowView(mLayoutInflater, parent));
+    } else if (viewType == R.id.word_editor_view_type_empty_view_row) {
+      return new EditorWordViewHolderAddNew(
+          mLayoutInflater.inflate(R.layout.word_editor_empty_view, parent, false));
+    } else if (viewType == R.id.word_editor_view_type_add_new_row) {
+      return new EditorWordViewHolderAddNew(
+          mLayoutInflater.inflate(R.layout.user_dictionary_word_row_add, parent, false));
+    } else {
+      return new EditorWordViewHolderNormal(
+          mLayoutInflater.inflate(R.layout.user_dictionary_word_row, parent, false));
     }
   }
 
@@ -98,6 +97,8 @@ public class EditorWordsAdapter
     wordView.setText(editorWord.word);
   }
 
+  protected void bindEmptyViewText(TextView emptyView) {}
+
   protected void bindEditingWordViewText(
       EditText wordView, UserDictionaryEditorFragment.LoadedWord editorWord) {
     wordView.setText(editorWord.word);
@@ -128,9 +129,20 @@ public class EditorWordsAdapter
   private class EditorWordViewHolderAddNew extends EditorWordViewHolder
       implements View.OnClickListener {
 
+    private final TextView mEmptyTextView;
+
     public EditorWordViewHolderAddNew(View itemView) {
       super(itemView);
+      mEmptyTextView = itemView.findViewById(R.id.empty_user_words_editor_text);
       itemView.setOnClickListener(this);
+    }
+
+    @Override
+    public void bind(UserDictionaryEditorFragment.LoadedWord editorWord) {
+      super.bind(editorWord);
+      if (mEmptyTextView != null) {
+        bindEmptyViewText(mEmptyTextView);
+      }
     }
 
     @Override

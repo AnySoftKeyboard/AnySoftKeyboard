@@ -21,3 +21,6 @@ common --strategy=CopyFile=sandboxed,local
 common --strategy=CopyDirectory=sandboxed,local
 common --strategy=CopyToDirectory=sandboxed,local
 common --strategy=NpmLifecycleHook=sandboxed,local
+
+# Concurrency
+build --jobs=HOST_CPUS*2

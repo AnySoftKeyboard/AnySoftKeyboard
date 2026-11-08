@@ -2,13 +2,21 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
@@ -16,6 +24,7 @@ import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.ThemeableChild;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlayDataImpl;
+import com.anysoftkeyboard.overlay.OverlayDataNormalizer;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
@@ -80,7 +89,35 @@ public class QuickTextPagerView extends LinearLayout
   public void setThemeValues(
       @NonNull KeyboardTheme keyboardTheme,
       float tabTextSize,
+      @NonNull ColorStateList tabTextColor,
+      Drawable closeKeyboardIcon,
+      Drawable backspaceIcon,
+      Drawable settingsIcon,
+      Drawable keyboardDrawable,
+      Drawable mediaInsertionDrawable,
+      Drawable deleteRecentlyUsedDrawable,
+      int bottomPadding,
+      Set<MediaType> supportedMediaTypes) {
+    setThemeValues(
+        keyboardTheme,
+        tabTextSize,
+        tabTextColor,
+        tabTextColor.getDefaultColor(),
+        closeKeyboardIcon,
+        backspaceIcon,
+        settingsIcon,
+        keyboardDrawable,
+        mediaInsertionDrawable,
+        deleteRecentlyUsedDrawable,
+        bottomPadding,
+        supportedMediaTypes);
+  }
+
+  public void setThemeValues(
+      @NonNull KeyboardTheme keyboardTheme,
+      float tabTextSize,
       ColorStateList tabTextColor,
+      @ColorInt int nameTextColor,
       Drawable closeKeyboardIcon,
       Drawable backspaceIcon,
       Drawable settingsIcon,
@@ -91,7 +128,7 @@ public class QuickTextPagerView extends LinearLayout
       Set<MediaType> supportedMediaTypes) {
     mKeyboardTheme = keyboardTheme;
     mTabTitleTextSize = tabTextSize;
-    mTabTitleTextColor = tabTextColor;
+    mTabTitleTextColor = ensureContrastColor(tabTextColor, nameTextColor, keyboardDrawable);
     mCloseKeyboardIcon = closeKeyboardIcon;
     mBackspaceIcon = backspaceIcon;
     mSettingsIcon = settingsIcon;
@@ -101,6 +138,62 @@ public class QuickTextPagerView extends LinearLayout
     findViewById(R.id.quick_keys_popup_quick_keys_insert_media)
         .setVisibility(supportedMediaTypes.isEmpty() ? View.GONE : VISIBLE);
     setBackground(keyboardDrawable);
+    if (mPagerAdapter != null) {
+      mPagerAdapter.setKeyTextColor(mTabTitleTextColor);
+    }
+  }
+
+  @NonNull
+  @VisibleForTesting
+  static ColorStateList ensureContrastColor(
+      @NonNull ColorStateList keyTextColor,
+      @ColorInt int nameTextColor,
+      @Nullable Drawable keyboardDrawable) {
+    final int bgColor = extractDrawableColor(keyboardDrawable);
+    final int bgLum = OverlayDataNormalizer.luminance(bgColor);
+    final int keyTextLum = OverlayDataNormalizer.luminance(keyTextColor.getDefaultColor());
+    final int diff = Math.abs(bgLum - keyTextLum);
+    if (diff >= OverlayDataNormalizer.DEFAULT_TEXT_COLOR_DIFF) {
+      return keyTextColor;
+    }
+    final int nameTextLum = OverlayDataNormalizer.luminance(nameTextColor);
+    final int nameDiff = Math.abs(bgLum - nameTextLum);
+    if (nameDiff >= OverlayDataNormalizer.DEFAULT_TEXT_COLOR_DIFF) {
+      return ColorStateList.valueOf(nameTextColor);
+    }
+    final int fallbackColor = bgLum > OverlayDataNormalizer.GRAY_LUM ? Color.BLACK : Color.WHITE;
+    return ColorStateList.valueOf(fallbackColor);
+  }
+
+  @ColorInt
+  @VisibleForTesting
+  static int extractDrawableColor(@Nullable Drawable drawable) {
+    if (drawable == null) {
+      return Color.BLACK;
+    }
+    if (drawable instanceof ColorDrawable) {
+      final int color = ((ColorDrawable) drawable).getColor();
+      return Color.alpha(color) > 20 ? color : Color.BLACK;
+    }
+    try {
+      Bitmap bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+      Rect originalBounds = drawable.copyBounds();
+      try {
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, 1, 1);
+        drawable.draw(canvas);
+        int pixel = bitmap.getPixel(0, 0);
+        if (Color.alpha(pixel) > 20) {
+          return pixel;
+        }
+      } finally {
+        drawable.setBounds(originalBounds);
+        bitmap.recycle();
+      }
+    } catch (Exception e) {
+      // ignore
+    }
+    return Color.BLACK;
   }
 
   @Override
@@ -130,9 +223,10 @@ public class QuickTextPagerView extends LinearLayout
             mDefaultSkinTonePrefTracker,
             mDefaultGenderPrefTracker,
             mKeyboardTheme,
+            mTabTitleTextColor,
             mBottomPadding);
     if (mOverlayData.isValid()) {
-      mPagerAdapter.setThemeOverlay(mOverlayData);
+      mPagerAdapter.setThemeOverlay(OverlayDataNormalizer.normalizeSecondary(mOverlayData));
     }
 
     final ImageView clearEmojiHistoryIcon =
@@ -190,14 +284,17 @@ public class QuickTextPagerView extends LinearLayout
   public void setThemeOverlay(OverlayData overlay) {
     mOverlayData = overlay;
     if (mPagerAdapter != null) {
-      mPagerAdapter.setThemeOverlay(overlay);
+      mPagerAdapter.setThemeOverlay(
+          mOverlayData.isValid()
+              ? OverlayDataNormalizer.normalizeSecondary(mOverlayData)
+              : mOverlayData);
     }
     applyThemeOverlayToUi();
   }
 
   private void applyThemeOverlayToUi() {
     if (mOverlayData.isValid()) {
-      OverlayData normalizedOverlay = getNormalizedOverlayData(mOverlayData);
+      OverlayData normalizedOverlay = OverlayDataNormalizer.normalizeSecondary(mOverlayData);
       int iconColor = normalizedOverlay.getPrimaryTextColor();
       applyIconColorFilter(R.id.quick_keys_popup_close, iconColor);
       applyIconColorFilter(R.id.quick_keys_popup_backspace, iconColor);
@@ -210,16 +307,6 @@ public class QuickTextPagerView extends LinearLayout
         pagerTabStrip.setTextColor(iconColor);
         pagerTabStrip.setIndicatorColor(iconColor);
       }
-    }
-  }
-
-  private static OverlayData getNormalizedOverlayData(OverlayData overlay) {
-    if (overlay.getPrimaryDarkColor() != android.graphics.Color.TRANSPARENT
-        || overlay.getSecondaryTextColor() != android.graphics.Color.TRANSPARENT) {
-      return com.anysoftkeyboard.overlay.OverlayDataNormalizer.normalize(
-          overlay, 96, overlay.getPrimaryDarkColor(), overlay.getSecondaryTextColor());
-    } else {
-      return overlay;
     }
   }
 

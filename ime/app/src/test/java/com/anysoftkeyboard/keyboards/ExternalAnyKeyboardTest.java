@@ -77,7 +77,9 @@ public class ExternalAnyKeyboardTest {
     Assert.assertEquals("en", keyboard.getDefaultDictionaryLocale());
     Assert.assertEquals("English", keyboard.getKeyboardName());
     Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", keyboard.getKeyboardId());
-    Assert.assertEquals(R.drawable.ic_status_english, keyboard.getKeyboardIconResId());
+    Assert.assertEquals(
+        com.anysoftkeyboard.language.english.pack.R.drawable.ic_status_english,
+        keyboard.getKeyboardIconResId());
     Assert.assertEquals(1, keyboard.getKeyboardMode());
   }
 

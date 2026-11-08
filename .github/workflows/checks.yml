@@ -22,6 +22,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6.0.3
+      - uses: ./.github/actions/setup-hermetiq
+        env:
+          HERMETIQ_CRED_HELPER: ${{ secrets.HERMETIQ_CRED_HELPER }}
       - uses: bazel-contrib/setup-bazel@0.19.0
         with:
           bazelisk-cache: true
@@ -35,9 +38,7 @@ jobs:
       - name: Github Action Linter
         run: bazel run @multitool//tools/actionlint:cwd -- -config-file "${{ github.workspace }}/.github/actionlint.yaml"
       - name: Code formatting
-        run: |
-          bazel run //:format
-          if [[ $(git status --porcelain) ]]; then echo "**** run 'bazel run //:format' to fix formatting errors:\n$(git status)\n$(git diff)"; exit 1; fi
+        run: bazel run //tools:format.check
       - name: ensure all bazel binaries are working
         run: bazel query 'kind('js_binary', //...) union kind('java_binary', //...)' | xargs -I %s bazel run %s -- -h || true
       - name: bazel code-coverage
@@ -204,12 +205,6 @@ jobs:
         with:
           name: tests-${{ matrix.shard_variant }}
           path: collected_reports
-      - uses: actions/upload-artifact@v6.0.0
-        if: always()
-        continue-on-error: true
-        with:
-          name: tests-build-logging-${{ matrix.shard_variant }}
-          path: build/build-logging
   deploy-dry-run:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
@@ -239,7 +234,7 @@ jobs:
       - name: Install NDK
         run: echo "y" | sdkmanager "ndk;29.0.14206865"
       - name: Install ImageMagick
-        run: sudo apt-get install -y imagemagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
       - uses: gradle/actions/setup-gradle@v5
       - name: setup
         run: ./scripts/ci/ci_setup.sh
@@ -296,6 +291,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6.0.3
+      - uses: ./.github/actions/setup-hermetiq
+        env:
+          HERMETIQ_CRED_HELPER: ${{ secrets.HERMETIQ_CRED_HELPER }}
       - uses: bazel-contrib/setup-bazel@0.19.0
         with:
           bazelisk-cache: true

@@ -332,4 +332,33 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     List suggestions = verifyAndCaptureSuggestion(true);
     suggestions.remove("DEMO");
   }
+
+  @Test
+  public void testCurrencyTagsProvided() throws Exception {
+    mAnySoftKeyboardUnderTest.simulateTextTyping(":dollar");
+    List suggestions = verifyAndCaptureSuggestion(true);
+    boolean foundDollar = false;
+    for (Object s : suggestions) {
+      if ("$".contentEquals((CharSequence) s)) {
+        foundDollar = true;
+        break;
+      }
+    }
+    Assert.assertTrue(foundDollar);
+
+    for (int i = 0; i < 7; i++) {
+      mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+    }
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping(":bitcoin");
+    suggestions = verifyAndCaptureSuggestion(true);
+    boolean foundBitcoin = false;
+    for (Object s : suggestions) {
+      if ("₿".contentEquals((CharSequence) s)) {
+        foundBitcoin = true;
+        break;
+      }
+    }
+    Assert.assertTrue(foundBitcoin);
+  }
 }

@@ -64,3 +64,6 @@ scratch/
 buildSrc/.metals/
 .kotlin/
 buildSrc/.kotlin/
+
+# secret Hermetiq credentials helper
+tools/hermetiq-credential-helper.*

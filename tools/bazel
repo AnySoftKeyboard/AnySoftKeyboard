@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HELPER_SCRIPT="${SCRIPT_DIR}/hermetiq-credential-helper.sh"
+
+extra_args=()
+
+# If the helper script file exists on disk, add hermetiq.bazelrc
+if [[ -f "${HELPER_SCRIPT}" ]]; then
+  extra_args+=("--bazelrc=${SCRIPT_DIR}/rc/hermetiq.bazelrc")
+fi
+
+# If in CI, also add ci.bazelrc
+case "${CI:-}" in
+  true|TRUE|1)
+    extra_args+=("--bazelrc=${SCRIPT_DIR}/rc/ci.bazelrc")
+    ;;
+esac
+
+if [[ ${#extra_args[@]} -gt 0 ]]; then
+  exec "${BAZEL_REAL}" "${extra_args[@]}" "$@"
+else
+  exec "${BAZEL_REAL}" "$@"
+fi

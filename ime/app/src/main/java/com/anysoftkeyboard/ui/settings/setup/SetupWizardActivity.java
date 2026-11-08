@@ -81,7 +81,8 @@ public class SetupWizardActivity extends AppCompatActivity {
   protected void onPostCreate(@Nullable Bundle savedInstanceState) {
     super.onPostCreate(savedInstanceState);
     // applying my very own Edge-Effect color
-    EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
+    EdgeEffectHacker.brandGlowEffect(
+        this, ContextCompat.getColor(this, net.evendanan.pixel.R.color.app_accent));
   }
 
   @Override

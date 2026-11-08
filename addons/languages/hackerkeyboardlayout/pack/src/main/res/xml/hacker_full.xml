@@ -26,11 +26,11 @@
         <Key android:codes="@integer/key_code_tab" android:keyEdgeFlags="left"/>
         <Key android:codes="q"/>
         <Key android:codes="w"/>
-        <Key android:codes="e" android:popupCharacters="èéêëęē€"/>
-        <Key android:codes="r"/>
-        <Key android:codes="t"/>
+        <Key android:codes="e" android:popupCharacters="èéêëěęē€"/>
+        <Key android:codes="r" android:popupCharacters="řŕρ"/>
+        <Key android:codes="t" android:popupCharacters="ťțţτ"/>
         <Key android:codes="y" android:popupCharacters="ýÿ¥"/>
-        <Key android:codes="u" android:popupCharacters="ūüûùú"/>
+        <Key android:codes="u" android:popupCharacters="ūüûùúů"/>
         <Key android:codes="i" android:popupCharacters="īïîìí"/>
         <Key android:codes="o" android:popupCharacters="øōöõôòó"/>
         <Key android:codes="p" android:popupCharacters="₱π"/>
@@ -43,7 +43,7 @@
         <Key ask:isFunctional="true" android:codes="@integer/key_code_ctrl" android:isSticky="true" android:keyWidth="10.7142855%p" android:isModifier="true" android:keyEdgeFlags="left"/>
         <Key android:codes="a" android:popupCharacters="áàâãäåāæ" />
         <Key android:codes="s" android:popupCharacters="§ßš"/>
-        <Key android:codes="d" android:popupCharacters="đ"/>
+        <Key android:codes="d" android:popupCharacters="đď"/>
         <Key android:codes="f" android:popupCharacters="₣"/>
         <Key android:codes="g"/>
         <Key android:codes="h"/>
@@ -62,7 +62,7 @@
         <Key android:codes="c" android:popupCharacters="çčć¢"/>
         <Key android:codes="v"/>
         <Key android:codes="b"/>
-        <Key android:codes="n" android:popupCharacters="ñ"/>
+        <Key android:codes="n" android:popupCharacters="ñńň"/>
         <Key android:codes="m" android:popupCharacters="µ"/>
         <Key android:codes="44" ask:isShiftAlways="true" ask:shiftedKeyOutputText="&lt;" android:popupCharacters=";&lt;"/>
         <Key android:codes="." ask:isShiftAlways="true" ask:shiftedKeyOutputText="&gt;" android:popupCharacters=":&gt;"/>

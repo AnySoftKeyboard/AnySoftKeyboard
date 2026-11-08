@@ -495,11 +495,11 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     Assert.assertNotNull(quickTextPopupKey);
     KeyDrawableStateProvider provider =
         new KeyDrawableStateProvider(
-            R.attr.key_type_function,
-            R.attr.key_type_action,
-            R.attr.action_done,
-            R.attr.action_search,
-            R.attr.action_go);
+            com.anysoftkeyboard.api.R.attr.key_type_function,
+            com.anysoftkeyboard.api.R.attr.key_type_action,
+            com.anysoftkeyboard.api.R.attr.action_done,
+            com.anysoftkeyboard.api.R.attr.action_search,
+            com.anysoftkeyboard.api.R.attr.action_go);
     Assert.assertArrayEquals(
         provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
 

@@ -298,14 +298,15 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
             @Override
             public void onSetupDialogRequired(
-                Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+                AlertDialog.Builder builder, int optionId, @Nullable Object data) {
               builder.setNeutralButton(
                   R.string.delete_all_clipboard_entries,
                   (dialog, which) -> {
                     mClipboard.deleteAllEntries();
                     dialog.dismiss();
                   });
-              builder.setAdapter(new ClipboardEntriesAdapter(context, entries), onClickListener);
+              builder.setAdapter(
+                  new ClipboardEntriesAdapter(builder.getContext(), entries), onClickListener);
             }
           });
     }

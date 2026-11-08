@@ -2,6 +2,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools"
            tools:ignore="MissingTranslation">
 
+    <string name="ime_name">AnySoftKeyboard</string>
 
     <string name="default_values_keyboard_theme_name">Default Values Theme</string>
     <string name="fallback_keyboard_theme_id">2a94cf8c-266c-47fd-8c8c-c9c57d28d7dc</string>

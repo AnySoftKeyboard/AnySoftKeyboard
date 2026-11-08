@@ -70,7 +70,9 @@ public class GestureTypingDetectorTest {
     final Context context = ApplicationProvider.getApplicationContext();
     final AnyKeyboard keyboard =
         AnyApplication.getKeyboardFactory(context)
-            .getAddOnById(context.getString(R.string.main_english_keyboard_id))
+            .getAddOnById(
+                context.getString(
+                    com.anysoftkeyboard.language.english.pack.R.string.main_english_keyboard_id))
             .createKeyboard(KEYBOARD_ROW_MODE_NORMAL);
     keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
     TestRxSchedulers.drainAllTasks();

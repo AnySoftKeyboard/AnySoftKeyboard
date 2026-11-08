@@ -211,8 +211,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 powerSavingShowSuggestionsObservable,
                 prefs()
                     .getString(
-                        R.string.settings_key_auto_pick_suggestion_aggressiveness,
-                        R.string.settings_default_auto_pick_suggestion_aggressiveness)
+                        com.anysoftkeyboard.nextword.R.string
+                            .settings_key_auto_pick_suggestion_aggressiveness,
+                        com.anysoftkeyboard.nextword.R.string
+                            .settings_default_auto_pick_suggestion_aggressiveness)
                     .asObservable(),
                 prefs()
                     .getBoolean(
@@ -1109,15 +1111,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     ic.beginBatchEdit();
 
-    // simulating multiple keys
-    final WordComposer initialWordComposer = new WordComposer();
-    mWord.cloneInto(initialWordComposer);
     abortCorrectionAndResetPredictionState(false);
+    if (TextUtils.isEmpty(text)) {
+      ic.endBatchEdit();
+      return;
+    }
     ic.commitText(text, 1);
 
     // this will be the revert
-    mWordRevertLength = initialWordComposer.charCount() + text.length();
-    mPreviousWord = initialWordComposer;
+    mWordRevertLength = text.length();
+    mPreviousWord.reset();
     markExpectingSelectionUpdate();
     ic.endBatchEdit();
   }
@@ -1847,7 +1850,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       mPromotedRadicalCandidate = null;
       mPromotedRadicalBuffer = null;
       final CharSequence typedWord = mWord.getTypedWord();
-      ic.setComposingText(typedWord /* mComposing */, 1);
+      if (typedWord.length() == 0) {
+        ic.setComposingText("", 1);
+        ic.finishComposingText();
+      } else {
+        ic.setComposingText(typedWord /* mComposing */, 1);
+      }
       performUpdateSuggestions();
       if (mJustAutoAddedWord) {
         removeFromUserDictionary(typedWord.toString());

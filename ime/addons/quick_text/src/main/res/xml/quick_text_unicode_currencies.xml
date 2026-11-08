@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyHeight="@integer/key_normal_height"
+    android:keyWidth="20%p">
+  <Row>
+    <Key android:keyLabel="$" android:keyOutputText="$" ask:tags="dollar,usd,peso,cent,money,currency"/>
+    <Key android:keyLabel="€" android:keyOutputText="€" ask:tags="euro,eur,europe,money,currency"/>
+    <Key android:keyLabel="£" android:keyOutputText="£" ask:tags="pound,gbp,sterling,quid,money,currency"/>
+    <Key android:keyLabel="¥" android:keyOutputText="¥" ask:tags="yen,jpy,yuan,cny,rmb,japan,china,money,currency"/>
+    <Key android:keyLabel="₹" android:keyOutputText="₹" ask:tags="rupee,inr,india,money,currency"/>
+    <Key android:keyLabel="₽" android:keyOutputText="₽" ask:tags="ruble,rouble,rub,russia,money,currency"/>
+    <Key android:keyLabel="₿" android:keyOutputText="₿" ask:tags="bitcoin,btc,sats,crypto,money,currency"/>
+    <Key android:keyLabel="¢" android:keyOutputText="¢" ask:tags="cent,cents,money,currency"/>
+    <Key android:keyLabel="₩" android:keyOutputText="₩" ask:tags="won,krw,korea,money,currency"/>
+    <Key android:keyLabel="₪" android:keyOutputText="₪" ask:tags="shekel,sheqel,ils,nis,israel,money,currency"/>
+    <Key android:keyLabel="₺" android:keyOutputText="₺" ask:tags="lira,try,turkey,turkish,money,currency"/>
+    <Key android:keyLabel="₫" android:keyOutputText="₫" ask:tags="dong,vnd,vietnam,money,currency"/>
+    <Key android:keyLabel="฿" android:keyOutputText="฿" ask:tags="baht,thb,thailand,money,currency"/>
+    <Key android:keyLabel="₱" android:keyOutputText="₱" ask:tags="peso,php,philippines,money,currency"/>
+    <Key android:keyLabel="₴" android:keyOutputText="₴" ask:tags="hryvnia,uah,ukraine,money,currency"/>
+    <Key android:keyLabel="₦" android:keyOutputText="₦" ask:tags="naira,ngn,nigeria,money,currency"/>
+    <Key android:keyLabel="₸" android:keyOutputText="₸" ask:tags="tenge,kzt,kazakhstan,money,currency"/>
+    <Key android:keyLabel="֏" android:keyOutputText="֏" ask:tags="dram,amd,armenia,money,currency"/>
+    <Key android:keyLabel="؋" android:keyOutputText="؋" ask:tags="afghani,afn,afghanistan,money,currency"/>
+    <Key android:keyLabel="﷼" android:keyOutputText="﷼" ask:tags="rial,riyal,sar,irr,yer,omr,qbr,money,currency"/>
+    <Key android:keyLabel="₨" android:keyOutputText="₨" ask:tags="rupee,pkr,lkr,npr,money,currency"/>
+    <Key android:keyLabel="৳" android:keyOutputText="৳" ask:tags="taka,bdt,bangladesh,money,currency"/>
+    <Key android:keyLabel="૱" android:keyOutputText="૱" ask:tags="rupee,gujarati,money,currency"/>
+    <Key android:keyLabel="௹" android:keyOutputText="௹" ask:tags="rupee,tamil,money,currency"/>
+    <Key android:keyLabel="៛" android:keyOutputText="៛" ask:tags="riel,khr,cambodia,money,currency"/>
+    <Key android:keyLabel="₡" android:keyOutputText="₡" ask:tags="colon,crc,costa_rica,money,currency"/>
+    <Key android:keyLabel="₲" android:keyOutputText="₲" ask:tags="guarani,pyg,paraguay,money,currency"/>
+    <Key android:keyLabel="₵" android:keyOutputText="₵" ask:tags="cedi,ghs,ghana,money,currency"/>
+    <Key android:keyLabel="₭" android:keyOutputText="₭" ask:tags="kip,lak,laos,money,currency"/>
+    <Key android:keyLabel="₮" android:keyOutputText="₮" ask:tags="tugrik,mnt,mongolia,money,currency"/>
+    <Key android:keyLabel="₼" android:keyOutputText="₼" ask:tags="manat,azn,azerbaijan,money,currency"/>
+    <Key android:keyLabel="₾" android:keyOutputText="₾" ask:tags="lari,gel,georgia,money,currency"/>
+    <Key android:keyLabel="⃀" android:keyOutputText="⃀" ask:tags="som,kgs,kyrgyzstan,money,currency"/>
+    <Key android:keyLabel="ƒ" android:keyOutputText="ƒ" ask:tags="florin,guilder,ang,awg,money,currency"/>
+    <Key android:keyLabel="¤" android:keyOutputText="¤" ask:tags="currency,generic_currency,money"/>
+    <Key android:keyLabel="₠" android:keyOutputText="₠" ask:tags="euro,ecu,currency,money"/>
+    <Key android:keyLabel="₢" android:keyOutputText="₢" ask:tags="cruzeiro,brazil,currency,money"/>
+    <Key android:keyLabel="₣" android:keyOutputText="₣" ask:tags="franc,french_franc,chf,currency,money"/>
+    <Key android:keyLabel="₤" android:keyOutputText="₤" ask:tags="lira,italian_lira,pound,currency,money"/>
+    <Key android:keyLabel="₥" android:keyOutputText="₥" ask:tags="mill,millieme,currency,money"/>
+    <Key android:keyLabel="₧" android:keyOutputText="₧" ask:tags="peseta,spain,currency,money"/>
+    <Key android:keyLabel="₯" android:keyOutputText="₯" ask:tags="drachma,greece,currency,money"/>
+    <Key android:keyLabel="₰" android:keyOutputText="₰" ask:tags="pfennig,penny,germany,currency,money"/>
+    <Key android:keyLabel="₳" android:keyOutputText="₳" ask:tags="austral,argentina,currency,money"/>
+    <Key android:keyLabel="₶" android:keyOutputText="₶" ask:tags="livre,france,currency,money"/>
+    <Key android:keyLabel="₷" android:keyOutputText="₷" ask:tags="spesmilo,esperanto,currency,money"/>
+    <Key android:keyLabel="₻" android:keyOutputText="₻" ask:tags="mark,nordic_mark,currency,money"/>
+    <Key android:keyLabel="ℳ" android:keyOutputText="ℳ" ask:tags="mark,reichsmark,currency,money"/>
+    <Key android:keyLabel="৲" android:keyOutputText="৲" ask:tags="rupee,bengali,currency,money"/>
+    <Key android:keyLabel="৻" android:keyOutputText="৻" ask:tags="ganda,bengali,currency,money"/>
+    <Key android:keyLabel="߾" android:keyOutputText="߾" ask:tags="dorome,nko,currency,money"/>
+    <Key android:keyLabel="߿" android:keyOutputText="߿" ask:tags="taman,nko,currency,money"/>
+    <Key android:keyLabel="꠸" android:keyOutputText="꠸" ask:tags="rupee,sylheti,currency,money"/>
+    <Key android:keyLabel="𑿝" android:keyOutputText="𑿝" ask:tags="kaacu,tamil,currency,money"/>
+    <Key android:keyLabel="𑿞" android:keyOutputText="𑿞" ask:tags="panam,tamil,currency,money"/>
+    <Key android:keyLabel="𑿟" android:keyOutputText="𑿟" ask:tags="pon,tamil,currency,money"/>
+    <Key android:keyLabel="𑿠" android:keyOutputText="𑿠" ask:tags="varaakan,tamil,currency,money"/>
+    <Key android:keyLabel="𞋿" android:keyOutputText="𞋿" ask:tags="ngun,wancho,currency,money"/>
+    <Key android:keyLabel="𞲰" android:keyOutputText="𞲰" ask:tags="rupee,siyaq,currency,money"/>
+    <Key android:keyLabel="﹩" android:keyOutputText="﹩" ask:tags="dollar,small_dollar,currency,money"/>
+    <Key android:keyLabel="＄" android:keyOutputText="＄" ask:tags="dollar,fullwidth_dollar,currency,money"/>
+    <Key android:keyLabel="￠" android:keyOutputText="￠" ask:tags="cent,fullwidth_cent,currency,money"/>
+    <Key android:keyLabel="￡" android:keyOutputText="￡" ask:tags="pound,fullwidth_pound,currency,money"/>
+    <Key android:keyLabel="￥" android:keyOutputText="￥" ask:tags="yen,yuan,fullwidth_yen,currency,money"/>
+    <Key android:keyLabel="￦" android:keyOutputText="￦" ask:tags="won,fullwidth_won,currency,money"/>
+  </Row>
+</Keyboard>

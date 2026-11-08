@@ -248,6 +248,12 @@
     <string name="auto_pick_suggestion_aggressiveness_summary">Stig kröfuhörku: %s</string>
     <string name="use_contacts_dictionary">Orðasafn tengiliða</string>
     <string name="use_contacts_dictionary_on_summary">Stinga upp á nöfnum úr tengiliðalista</string>
+    <string name="radical_overlay_dir_title">Veldu möppu fyrir stofnatöflu (radicals)</string>
+    <string name="radical_overlay_dir_summary_picked">Nota möppuna: %1$s. Ýttu til að nota aðra möppu.</string>
+    <string name="radical_overlay_dir_summary_lost">Valin mappa er ekki lengur aðgengileg. Ýttu til að velja aftur.</string>
+    <string name="radical_overlay_reset_title">Frumstilla á sjálfgefna möppu</string>
+    <string name="radical_overlay_refresh_title">Endurlesa innfluttar stofnatöflur (radicals)</string>
+    <string name="radical_overlay_toast_pick_failed">Tókst ekki að vista val á möppu: %1$s</string>
     <string name="tweaks_group">Sérbreytingar</string>
     <string name="tweak_sound_group">Sérbreytingar tengdar hljóði</string>
     <string name="tweak_physical_keyboard_group">Sérbreytingar lyklaborðs</string>

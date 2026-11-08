@@ -18,13 +18,12 @@ alwaysApply: true
 - Before making any code change, provide a concise (1-2 sentences) explanation to the user of what is being changed and why.
 - don't try to fix linting or formatting issues, we have auto-fixers for that. This is applicable for _all_ code in the codebase.
 - You can run the auto-fixers with `bazel run //:format`. This is applicable for _all_ code in the codebase.
-- for Android code, you should also run `./gradle spotlessApply`, which had additional formating and linting.
 
 # Git Commit Guidelines
 
 Before creating a commit, always:
 
-1. Run formatters and linters: `bazel run //:format`. If the changed code is related to Android, also run `./gradlew spotlessApply`.
+1. Run formatters and linters: `bazel run //:format`.
 2. Run and verify that all relevant unit tests pass.
 
 ## Commit Message

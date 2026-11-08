@@ -13,27 +13,40 @@ public class WordsSQLiteConnectionPrefsProvider implements PrefsProvider {
   private final Context mContext;
   private final String mDatabaseFilename;
   private final Iterable<String> mLocale;
+  private final String mProviderId;
 
   public WordsSQLiteConnectionPrefsProvider(Context context, String databaseFilename) {
+    this(context, databaseFilename, "WordsSQLiteConnectionPrefsProvider");
+  }
+
+  public WordsSQLiteConnectionPrefsProvider(
+      Context context, String databaseFilename, String providerId) {
     this(
         context,
         databaseFilename,
         Observable.fromIterable(AnyApplication.getExternalDictionaryFactory(context).getAllAddOns())
             .map(DictionaryAddOnAndBuilder::getLanguage)
             .distinct()
-            .blockingIterable());
+            .blockingIterable(),
+        providerId);
   }
 
   public WordsSQLiteConnectionPrefsProvider(
       Context context, String databaseFilename, Iterable<String> locale) {
+    this(context, databaseFilename, locale, "WordsSQLiteConnectionPrefsProvider");
+  }
+
+  public WordsSQLiteConnectionPrefsProvider(
+      Context context, String databaseFilename, Iterable<String> locale, String providerId) {
     mContext = context;
     mDatabaseFilename = databaseFilename;
     mLocale = locale;
+    mProviderId = providerId;
   }
 
   @Override
   public String providerId() {
-    return "WordsSQLiteConnectionPrefsProvider";
+    return mProviderId;
   }
 
   @Override

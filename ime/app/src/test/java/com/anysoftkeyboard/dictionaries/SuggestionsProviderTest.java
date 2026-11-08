@@ -1,13 +1,14 @@
 package com.anysoftkeyboard.dictionaries;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-import static com.menny.android.anysoftkeyboard.R.array.english_initial_suggestions;
-import static com.menny.android.anysoftkeyboard.R.integer.anysoftkeyboard_api_version_code;
-import static com.menny.android.anysoftkeyboard.R.xml.english_autotext;
+import static com.anysoftkeyboard.api.R.integer.anysoftkeyboard_api_version_code;
+import static com.anysoftkeyboard.language.english.pack.R.array.english_initial_suggestions;
+import static com.anysoftkeyboard.language.english.pack.R.xml.english_autotext;
 
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
+import com.anysoftkeyboard.dictionaries.sqlite.IgnoredWordsDictionary;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +40,7 @@ public class SuggestionsProviderTest {
 
   @Before
   public void setup() {
+    getApplicationContext().deleteDatabase(IgnoredWordsDictionary.IGNORED_WORDS_DB);
     mMockListener = Mockito.mock(DictionaryBackgroundLoader.Listener.class);
     mTestUserDictionary =
         Mockito.spy(
@@ -66,6 +69,12 @@ public class SuggestionsProviderTest {
     mFakeBuilder = Mockito.spy(new FakeBuilder("hell", "hello", "say", "said", "drink"));
     mFakeBuilders = new ArrayList<>();
     mFakeBuilders.add(mFakeBuilder);
+  }
+
+  @After
+  public void tearDown() {
+    mSuggestionsProvider.close();
+    getApplicationContext().deleteDatabase(IgnoredWordsDictionary.IGNORED_WORDS_DB);
   }
 
   @Test
@@ -475,6 +484,105 @@ public class SuggestionsProviderTest {
     inOrder.verifyNoMoreInteractions();
   }
 
+  @Test
+  public void testIgnoredWordsFilteringFromMainDictionary() {
+    mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+    TestRxSchedulers.drainAllTasks();
+
+    mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hell"));
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hello"));
+    Assert.assertTrue(mSuggestionsProvider.isValidWord("hell"));
+
+    mSuggestionsProvider.ignoreWord("hell");
+    Assert.assertTrue(mSuggestionsProvider.isWordIgnored("hell"));
+    Assert.assertFalse(mSuggestionsProvider.isValidWord("hell"));
+
+    mWordsCallback.wordsReceived.clear();
+    mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+    Assert.assertFalse(mWordsCallback.wordsReceived.contains("hell"));
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hello"));
+
+    // Case-insensitivity test
+    Assert.assertTrue(mSuggestionsProvider.isWordIgnored("HELL"));
+
+    // Un-ignoring / adding to user dictionary restores it
+    mSuggestionsProvider.unignoreWord("hell");
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("hell"));
+    Assert.assertTrue(mSuggestionsProvider.isValidWord("hell"));
+
+    mWordsCallback.wordsReceived.clear();
+    mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hell"));
+  }
+
+  @Test
+  public void testRemoveWordFromUserDictionaryIgnoresMainDictionaryWord() {
+    mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+    TestRxSchedulers.drainAllTasks();
+
+    Assert.assertTrue(mSuggestionsProvider.isValidWord("hello"));
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("hello"));
+
+    // Deleting a word that exists in the main dictionary ignores it
+    mSuggestionsProvider.removeWordFromUserDictionary("hello");
+    Assert.assertTrue(mSuggestionsProvider.isWordIgnored("hello"));
+    Assert.assertFalse(mSuggestionsProvider.isValidWord("hello"));
+
+    // Re-adding it to user dictionary un-ignores it
+    mSuggestionsProvider.addWordToUserDictionary("hello");
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("hello"));
+    Assert.assertTrue(mSuggestionsProvider.isValidWord("hello"));
+  }
+
+  @Test
+  public void testRemoveWordFromUserDictionaryDoesNotIgnoreNonMainDictionaryWord() {
+    mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+    TestRxSchedulers.drainAllTasks();
+
+    // Word not in main dictionary
+    Assert.assertFalse(mSuggestionsProvider.isValidWord("nonmainword"));
+    mSuggestionsProvider.removeWordFromUserDictionary("nonmainword");
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("nonmainword"));
+    Assert.assertFalse(mSuggestionsProvider.hasIgnoredWords());
+  }
+
+  @Test
+  public void testExternalIgnoredWordsUpdateReflectedImmediatelyInSuggestionsProvider() {
+    mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+    TestRxSchedulers.drainAllTasks();
+
+    mWordsCallback.wordsReceived.clear();
+    mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hello"));
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("hello"));
+
+    IgnoredWordsDictionary externalDict = new IgnoredWordsDictionary(getApplicationContext(), "en");
+    externalDict.loadDictionary();
+    externalDict.addWord("hello", 1);
+
+    TestRxSchedulers.drainAllTasks();
+
+    Assert.assertTrue(mSuggestionsProvider.isWordIgnored("hello"));
+    Assert.assertFalse(mSuggestionsProvider.isValidWord("hello"));
+
+    mWordsCallback.wordsReceived.clear();
+    mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+    Assert.assertFalse(mWordsCallback.wordsReceived.contains("hello"));
+
+    externalDict.deleteWord("hello");
+    TestRxSchedulers.drainAllTasks();
+
+    Assert.assertFalse(mSuggestionsProvider.isWordIgnored("hello"));
+    Assert.assertTrue(mSuggestionsProvider.isValidWord("hello"));
+
+    mWordsCallback.wordsReceived.clear();
+    mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+    Assert.assertTrue(mWordsCallback.wordsReceived.contains("hello"));
+
+    externalDict.close();
+  }
+
   private static class WordsHolder implements Dictionary.WordCallback {
     public final List<String> wordsReceived = new ArrayList<>();
 
@@ -503,7 +611,7 @@ public class SuggestionsProviderTest {
           false,
           1,
           "en",
-          R.array.english_words_dict_array,
+          com.anysoftkeyboard.language.english.pack.R.array.english_words_dict_array,
           english_autotext,
           english_initial_suggestions,
           RadicalDictionaryConfig.EMPTY);

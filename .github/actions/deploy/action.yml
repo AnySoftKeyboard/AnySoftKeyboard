@@ -43,7 +43,7 @@ runs:
       run: echo "y" | sdkmanager "ndk;29.0.14206865"
     - name: Install ImageMagick
       shell: bash
-      run: sudo apt-get install -y imagemagick
+      run: sudo apt-get update && sudo apt-get install -y imagemagick
     - shell: bash
       env:
         TERM: dumb

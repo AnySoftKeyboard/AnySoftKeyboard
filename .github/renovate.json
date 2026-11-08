@@ -12,7 +12,6 @@
   "allowedCommands": [
     "^scripts/update_robolectric_jars_versions.sh .*",
     "^scripts/error-prone-auto-patch.sh$",
-    "^./gradlew spotlessApply$",
     "^bazel build //...$",
     "^bazel run //:format$"
   ],
@@ -47,7 +46,7 @@
       "excludePackagePatterns": ["^gradle$", "^org\\.robolectric:robolectric$"],
       "groupName": "Android app dependencies",
       "postUpgradeTasks": {
-        "commands": ["./gradlew spotlessApply", "bazel run //:format"],
+        "commands": ["bazel run //:format"],
         "fileFilters": ["**/*.java", "**/*.kt", "**/*.gradle", "**/*.md"],
         "executionMode": "branch"
       }
@@ -61,15 +60,6 @@
       "description": "Group GitHub Actions updates together",
       "matchManagers": ["github-actions"],
       "groupName": "GitHub Actions"
-    },
-    {
-      "description": "Run spotlessApply after spotless plugin update to reformat code with new version",
-      "matchPackageNames": ["com.diffplug.spotless"],
-      "postUpgradeTasks": {
-        "commands": ["./gradlew spotlessApply", "bazel run //:format"],
-        "fileFilters": ["**/*.java", "**/*.kt", "**/*.gradle", "**/*.md"],
-        "executionMode": "branch"
-      }
     },
     {
       "description": "Run error-prone auto-patch after error-prone updates to fix new warnings",

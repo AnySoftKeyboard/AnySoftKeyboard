@@ -159,6 +159,14 @@ public class EmojiKeyboardsExtractor {
   private static EmojiCollection[] getStaticAddOnCollectors() {
     return new EmojiCollection[] {
       new StaticEmojiCollector(
+          "quick_text_unicode_currencies.xml",
+          "a1701acb-2d97-477c-99aa-45bde48a43c3",
+          "@string/unicode_currencies_quick_text_key_name",
+          "@drawable/ic_quick_text_dark_theme",
+          "@string/quick_text_smiley_key_unicode_currencies_output",
+          "@string/quick_text_smiley_key_unicode_currencies_output",
+          ""),
+      new StaticEmojiCollector(
           "popup_default_quick_text.xml",
           "698b8c20-19df-11e1-bddb-0800200c9a67",
           "@string/default_quick_text_key_name",
