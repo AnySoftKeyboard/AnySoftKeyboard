@@ -19,5 +19,6 @@ for artifact in "${ARTIFACTS[@]}"
 do
   echo "downloading ${artifact}..."
   jar_name="android-all-instrumented-${artifact}-i${PREINSTRUMENTED_VERSION}.jar"
-  wget --tries=5 --waitretry=5 --progress=dot:giga --output-document="${TARGET_FOLDER}/${jar_name}" "${DOWNLOAD_BASE_URL}/${artifact}-i${PREINSTRUMENTED_VERSION}/${jar_name}"
+  # Maven Central may rate-limit (HTTP 429), which wget does not retry by default.
+  wget --tries=8 --waitretry=30 --retry-on-http-error=429,500,502,503,504 --progress=dot:giga --output-document="${TARGET_FOLDER}/${jar_name}" "${DOWNLOAD_BASE_URL}/${artifact}-i${PREINSTRUMENTED_VERSION}/${jar_name}"
 done

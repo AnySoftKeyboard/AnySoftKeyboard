@@ -1,0 +1,42 @@
+---
+name: "setup-robolectric"
+author: "menny"
+description: "Provide the Robolectric android-all jars from the GitHub cache, downloading them only when allowed and missing"
+inputs:
+  download-on-miss:
+    description: "When 'true', download the jars (and save them to the cache) if there is no cache entry. When 'false', fail if there is no cache entry."
+    default: "false"
+    required: false
+runs:
+  using: "composite"
+  steps:
+    # The key is an exact match on purpose (no restore-keys): a stale or partial jar set must never be used.
+    - name: restore or prime robolectric jars cache
+      if: inputs.download-on-miss == 'true'
+      id: prime
+      uses: actions/cache@v6.1.0
+      with:
+        path: .robolectric-android-all-jars
+        key: robolectric-jars-${{ runner.os }}-${{ hashFiles('scripts/robolectric_jars_versions.txt', 'scripts/download_robolectric_jars_to_machine.sh') }}
+    - name: download robolectric jars
+      if: inputs.download-on-miss == 'true' && steps.prime.outputs.cache-hit != 'true'
+      shell: bash
+      run: ./scripts/download_robolectric_jars_to_machine.sh
+    - name: restore robolectric jars cache
+      if: inputs.download-on-miss != 'true'
+      uses: actions/cache/restore@v6.1.0
+      with:
+        path: .robolectric-android-all-jars
+        key: robolectric-jars-${{ runner.os }}-${{ hashFiles('scripts/robolectric_jars_versions.txt', 'scripts/download_robolectric_jars_to_machine.sh') }}
+        fail-on-cache-miss: true
+    - name: verify robolectric jars
+      shell: bash
+      run: |
+        if ! ls .robolectric-android-all-jars/*.jar >/dev/null 2>&1; then
+          echo "::error::No Robolectric jars found in .robolectric-android-all-jars"
+          exit 1
+        fi
+        ls -lh .robolectric-android-all-jars
+branding:
+  icon: 'package'
+  color: 'green'
