@@ -2,7 +2,7 @@
 
 Thank you for the fine contributors:
 
-1. [menny](https://github.com/menny) (7.1k)
+1. [menny](https://github.com/menny) (7.3k)
 1. [anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (0.7k) 🤖
 1. [herrlado](https://github.com/herrlado) (127)
 1. [ArenaL5](https://github.com/ArenaL5) (76)
@@ -21,6 +21,7 @@ Thank you for the fine contributors:
 1. [pokerazor](https://github.com/pokerazor) (13)
 1. [wishawa](https://github.com/wishawa) (13)
 1. [danielrparks](https://github.com/danielrparks) (11)
+1. [dependabot](https://github.com/dependabot) (11) 🤖
 1. [Taknok](https://github.com/Taknok) (10)
 1. [xoomerq](https://github.com/xoomerq) (10)
 1. [Camille019](https://github.com/Camille019) (9)
@@ -56,9 +57,9 @@ Thank you for the fine contributors:
 1. [asereze](https://github.com/asereze) (4)
 1. [ccoreilly](https://github.com/ccoreilly) (4)
 1. [chrbauer](https://github.com/chrbauer) (4)
-1. [dependabot](https://github.com/dependabot) (4) 🤖
 1. [friesenkiwi](https://github.com/friesenkiwi) (4)
 1. [Luan1Carlos2](https://github.com/Luan1Carlos2) (4)
+1. [lwilk0](https://github.com/lwilk0) (4)
 1. [PromyLOPh](https://github.com/PromyLOPh) (4)
 1. [returntrip](https://github.com/returntrip) (4)
 1. [titoBouzout](https://github.com/titoBouzout) (4)
@@ -78,6 +79,7 @@ Thank you for the fine contributors:
 1. [Stasky745](https://github.com/Stasky745) (3)
 1. [steelman](https://github.com/steelman) (3)
 1. [Unpublished](https://github.com/Unpublished) (3)
+1. [winest](https://github.com/winest) (3)
 1. [alex73](https://github.com/alex73) (2)
 1. [AngryHands](https://github.com/AngryHands) (2)
 1. [AnXh3L0](https://github.com/AnXh3L0) (2)
@@ -92,6 +94,7 @@ Thank you for the fine contributors:
 1. [jgkamat](https://github.com/jgkamat) (2)
 1. [kosciCZ](https://github.com/kosciCZ) (2)
 1. [masipcat](https://github.com/masipcat) (2)
+1. [nihal697](https://github.com/nihal697) (2)
 1. [PhieF](https://github.com/PhieF) (2)
 1. [Pippo8291](https://github.com/Pippo8291) (2)
 1. [Raj9039852537](https://github.com/Raj9039852537) (2)
@@ -99,6 +102,3 @@ Thank you for the fine contributors:
 1. [singpolyma](https://github.com/singpolyma) (2)
 1. [suntabu](https://github.com/suntabu) (2)
 1. [1000283](https://github.com/1000283) (1)
-1. [andrewrabert](https://github.com/andrewrabert) (1)
-1. [Andy3153](https://github.com/Andy3153) (1)
-1. [Apflkuacha](https://github.com/Apflkuacha) (1)
