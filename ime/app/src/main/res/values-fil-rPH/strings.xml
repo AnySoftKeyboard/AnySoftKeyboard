@@ -383,6 +383,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Diksyunaryo ng manggagamit</string>
     <string name="user_dict_editor">Editor ng mga salita</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Editor ng daglat</string>
     <string name="abbreviation_dict_editor">Editor ng daglat</string>
@@ -485,4 +486,5 @@
     <string name="setup_wizard_welcome_info_footnote">* Siyempre pa, ang AnySoftKeyboard ay hindi masama. Ikaw ay hinihikayat ng tumingin sa aming source code para mapatunayan ito. Dagdag, wala kaming mga <i>NETWORK</i> na mga permiso, kaya hindi kami nagpapadala ng anumang datus sa iyong aparato.</string>
     <string name="setup_wizard_welcome_privacy_action">Pumunta sa Privacy Policy…</string>
     <string name="clear_all_dictionary_override">Malinaw na napagtungang</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

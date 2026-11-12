@@ -178,6 +178,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">သုံးသူ အဘိဓာန်</string>
     <string name="user_dict_editor">စာလုံးများ တည်ဖျတ်ခြင်း</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
@@ -188,4 +189,5 @@
     <string name="setup_wizard_step_three_action_languages">lang_key_shows_popup</string>
     <string name="setup_wizard_step_download_title">lang_key_shows_popup</string>
     <string name="setup_wizard_step_download_action">lang_key_shows_popup</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

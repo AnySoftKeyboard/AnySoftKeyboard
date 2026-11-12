@@ -529,6 +529,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Ferhenga bikarhêner</string>
     <string name="user_dict_editor">Edîtorê peyvan</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Edîtorê Kurtenavê</string>
     <string name="abbreviation_dict_editor">Edîtoriya kurtavêjiyê</string>
@@ -748,4 +749,5 @@
     <string name="click_me_for_easter_egg_info">ji bo surprîzekê bitikîne</string>
     <string name="delete_all_clipboard_entries">Valakirin</string>
     <string name="tip_swipe_from_backspace_to_clear">Serişte: hûn dikarin ji paşperdeya çepê swip bikin da ku peyvê paqij bikin!</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

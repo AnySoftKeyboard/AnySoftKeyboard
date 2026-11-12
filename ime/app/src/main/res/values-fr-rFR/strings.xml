@@ -239,6 +239,20 @@
     <string name="auto_pick_suggestion_aggressiveness_summary">Niveau d\'agressivité de concordance : %s</string>
     <string name="use_contacts_dictionary">Dictionnaire des contacts</string>
     <string name="use_contacts_dictionary_on_summary">Suggérer les noms de la liste de contacts</string>
+    <string name="radical_overlay_group_title">Saisie du radical en chinois traditionnel (avancée)</string>
+    <string name="radical_overlay_dir_title">Choisir un dossier de table de radicaux</string>
+    <string name="radical_overlay_dir_summary_default">Utilisation du dossier par défaut (stockage externe privé). Appuyer pour choisir un dossier personnalisé modifiable avec n\'importe quel gestionnaire de fichiers.</string>
+    <string name="radical_overlay_dir_summary_picked">Utilisation du dossier : %1$s. Appuyer pour choisir un dossier différent.</string>
+    <string name="radical_overlay_dir_summary_lost">Le dossier sélectionné n\'est plus accessible. Appuyer pour choisir à nouveau.</string>
+    <string name="radical_overlay_reset_title">Réinitialiser au dossier par défaut</string>
+    <string name="radical_overlay_reset_summary">Arrête d\'utiliser le dossier sélectionné ; revient au dossier externe privé par défaut.</string>
+    <string name="radical_overlay_refresh_title">Actualiser les tables de radicaux importés</string>
+    <string name="radical_overlay_refresh_summary">Relit le dossier choisi. Appuyer après avoir chargé les nouveaux fichiers .tab / .liu. Les modifications s\'appliquent au prochain changement de clavier.</string>
+    <string name="radical_overlay_toast_picked">Utilisation des tables de radicaux de %1$s. Changer de clavier une fois pour l\'appliquer.</string>
+    <string name="radical_overlay_toast_pick_failed">Impossible d\'enregistrer la sélection du dossier : %1$s</string>
+    <string name="radical_overlay_toast_no_tables">Aucune table de radicaux trouvée dans %1$s. Tables intégrées conservées. Choisir un dossier contenant liu-uni*.tab, main.tab ou liu.box.</string>
+    <string name="radical_overlay_toast_reset">Rétablissement du dossier de table de radicaux par défaut. Changer de clavier une fois pour l\'appliquer.</string>
+    <string name="radical_overlay_toast_refreshed">Les tables de radicaux se rechargeront au prochain changement de clavier.</string>
     <string name="tweaks_group">Réglages avancés</string>
     <string name="tweak_sound_group">Réglages du son</string>
     <string name="tweak_physical_keyboard_group">Réglages du clavier physique</string>
@@ -467,6 +481,9 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Dictionnaire utilisateur</string>
     <string name="user_dict_editor">Éditeur de mots</string>
+    <!-- Ignored words dictionary settings -->
+    <string name="ignored_words_dict_settings_titlebar">Mots ignorés</string>
+    <string name="ignored_words_dict_empty_text">Il n\'y a aucun mot ignoré dans le dictionnaire.\nIl est possible d\'en ajouter un maintenant.</string>
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Éditeur d\'abréviation</string>
     <string name="abbreviation_dict_editor">Éditeur d\'abréviation</string>
@@ -611,6 +628,7 @@
     <string name="user_dict_prefs_provider">Mots de l’utilisateur</string>
     <string name="next_word_dict_prefs_provider">Mots suivants</string>
     <string name="abbreviation_dict_prefs_provider">Abréviations</string>
+    <string name="ignored_words_dict_prefs_provider">Mots ignorés</string>
     <string name="pick_prefs_providers_to_backup">Que faut-il sauvegarder ?</string>
     <string name="pick_prefs_providers_to_restore">Que faut-il restaurer ?</string>
     <string name="prefs_providers_operation_success">Succès</string>
@@ -624,6 +642,7 @@
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Autoriser les dispositions à remplacer les rangées génériques</string>
     <string name="gesture_typing_settings">Saisie gestuelle ➿</string>
     <string name="gesture_typing_summary">Saisir un mot en glissant un doigt suivant ses lettres</string>
+    <string name="gesture_typing_disabled_low_ram">La saisie gestuelle est désactivée sur les appareils à faible mémoire pour assurer une frappe convenable.</string>
     <string name="gesture_typing_action">Activer la saisie gestuelle (bêta)</string>
     <string name="gesture_typing_alert_title">Fonctionnalité bêta !</string>
     <string name="gesture_typing_alert_message">La fonctionnalité de saisie gestuelle ➿ est au stade <b>bêta</b>. Elle possède quelques bogues, n\'est ni très rapide ni très complète.\nMais pourquoi ne pas l\'essayer ?</string>
@@ -649,4 +668,22 @@
     <string name="wizard_allow_notification_permission">Autoriser les notifications de AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">Dans de rares cas (par exemple en cas de plantage de l\'application), nous voudrions envoyer une notification à l\'appareil. Ceci est recommandé, mais ne pas autoriser les notifications n\'affectera pas le comportement de l\'application.</string>
     <string name="wizard_skip_notification_permission">Ne pas autoriser les notifications</string>
+    <string name="touch_trajectory_correction_title">Correction de la trajectoire tactile</string>
+    <string name="touch_trajectory_correction_summary_on">Améliore la précision de touche en combinant les coordonnées d\'appui et de relachement en frappe rapide</string>
+    <string name="touch_trajectory_correction_summary_off">Se fier strictement aux coordonnées de relachement tactile</string>
+    <string name="homophone_search_hint">Recherche homophone : saisir un caractère</string>
+    <string name="homophone_search_hint_zh_tw">同音字查詢：請輸入一個字</string>
+    <string name="homophone_search_hint_zh_cn">同音字查询：请输入一个字</string>
+    <string name="homophone_search_hint_ja">同音字検索：文字を入力してください</string>
+    <!-- Holiday and Event Public Notices -->
+    <string name="public_notice_thanksgiving_title">Joyeux Thanksgiving !</string>
+    <string name="public_notice_thanksgiving_message">Nous vous souhaitons un chaleureux et merveilleux Thanksgiving rempli de gratitude et de paix.</string>
+    <string name="public_notice_halloween_title">Joyeux Halloween ! 🎃👻</string>
+    <string name="public_notice_halloween_message">Ayez un Halloween effrayant et amusant de la part de l\'équipe AnySoftKeyboard !</string>
+    <string name="public_notice_new_year_title">Bonne année !</string>
+    <string name="public_notice_new_year_message">Nous vous souhaitons une nouvelle année brillante, en bonne santé et prospère !</string>
+    <string name="public_notice_privacy_day_title">Chiffrement global &amp; Journée mondiale de la vie privée 🔒</string>
+    <string name="public_notice_privacy_day_message">AnySoftKeyboard respecte la vie privée : aucun suivi, aucune publicité et aucun contrôle sur les données de frappe.</string>
+    <string name="public_notice_earth_day_title">Bonne journée à tous !</string>
+    <string name="public_notice_earth_day_message">Prenons soin de nous, le reste suivra.</string>
 </resources>

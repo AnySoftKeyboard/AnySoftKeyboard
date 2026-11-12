@@ -539,6 +539,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">მომხმარებლის ლექსიკონი</string>
     <string name="user_dict_editor">სიტყვების შემსწორებელი</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">შემოკლებების შემსწორებელი</string>
     <string name="abbreviation_dict_editor">შემოკლებების შემსწორებელი</string>
@@ -771,4 +772,5 @@
     <string name="touch_trajectory_correction_title">შეხების მიმართულების შესწორება</string>
     <string name="touch_trajectory_correction_summary_on">აუმჯობესებს სიზუსტეს შეხებით დაწოლა-აშვების ურთიერთშეფარდებით სწრაფი აკრეფისას</string>
     <string name="touch_trajectory_correction_summary_off">ეფუძნება უშუალოდ დაწოლა-აშვების ფარდობას</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>
