@@ -229,6 +229,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Dicționarul utilizatorului</string>
     <string name="user_dict_editor">Editorul de cuvinte</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_editor">Editor abreviere</string>
     <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
@@ -273,4 +274,5 @@
     <string name="visit_our_web_site">Vizitează site-ul nostru…</string>
     <string name="setup_wizard_welcome_title">Bine ai venit!</string>
     <string name="prefs_providers_operation_success">Succes</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

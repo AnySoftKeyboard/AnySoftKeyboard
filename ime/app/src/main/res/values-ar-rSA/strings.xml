@@ -458,6 +458,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">قاموس المستخدِم</string>
     <string name="user_dict_editor">محرر الكلمات</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">محرر الكلمات المختصرة</string>
     <string name="abbreviation_dict_editor">محرر الكلمات المختصرة</string>
@@ -591,4 +592,5 @@
     <string name="app_share_title">مرحبا من AnySoftKeyboard</string>
     <string name="click_me_for_easter_egg_info">انقر علي لمفاجأة</string>
     <string name="delete_all_clipboard_entries">تفريغ الحافظة</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

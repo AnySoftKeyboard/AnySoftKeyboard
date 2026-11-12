@@ -513,6 +513,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">පරිශීලක ශබ්ද කෝෂය</string>
     <string name="user_dict_editor">වචන සංස්කාරකය</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">සංක්ෂිප්ත සංස්කාරකය</string>
     <string name="abbreviation_dict_editor">සංක්ෂිප්ත සංස්කාරකය</string>
@@ -728,4 +729,5 @@
     <string name="app_share_menu_title">භාවිතයෙන් AnySoftKeyboard බෙදාගන්න</string>
     <string name="app_share_text">මට විවෘත මූලාශ්‍ර, රහස්‍යතා-අවධානය, නොමිලේ, ඉතා අභිරුචිකරණය කළ හැකි, බහු-භාෂා Android යතුරුපුවරු යෙදුම AnySoftKeyboard නිර්දේශ කිරීමට ඉඩ දෙන්න.\nඑය ලබාගන්න:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en /packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">පුදුමයක් සඳහා මා ක්ලික් කරන්න</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

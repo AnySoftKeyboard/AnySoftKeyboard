@@ -527,6 +527,7 @@ Zmiana
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Słownik użytkownika</string>
     <string name="user_dict_editor">Edytor wyrazów</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Edytor skrótów</string>
     <string name="abbreviation_dict_editor">Edytor skrótów</string>
@@ -752,4 +753,5 @@ Zmiana
     <string name="wizard_allow_notification_permission">Zezwól na powiadomienia od AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">W rzadkich przypadkach (np. awaria aplikacji) będziemy musieli wysłać powiadomienie na urządzenie. Jest to zalecane, ale wyłączenie powiadomień nie wpłynie na zachowanie tej aplikacji.</string>
     <string name="wizard_skip_notification_permission">Nie zezwalaj na powiadomienia</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>
