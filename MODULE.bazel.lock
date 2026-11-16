@@ -366,6 +366,21 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
+    "@@apple_rules_lint+//lint:extensions.bzl%linter": {
+      "general": {
+        "bzlTransitiveDigest": "g7izj5kLCmsajh8IospHh4ZQ35dyM0FIrA8D4HapAsM=",
+        "usagesDigest": "f2EijVXcSr7xRc9XlBuj7JffjKnPMz6Gb5X0VLXQZFA=",
+        "recordedInputs": [],
+        "generatedRepoSpecs": {
+          "apple_linters": {
+            "repoRuleId": "@@apple_rules_lint+//lint/private:register_linters.bzl%register_linters",
+            "attributes": {
+              "linters": {}
+            }
+          }
+        }
+      }
+    },
     "@@aspect_rules_esbuild+//esbuild:extensions.bzl%esbuild": {
       "general": {
         "bzlTransitiveDigest": "LYnKH5ov9JxZ8Y4dFE8akSAyYy9kBlHvR/J00n7b/8I=",
