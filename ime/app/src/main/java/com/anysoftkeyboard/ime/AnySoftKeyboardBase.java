@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.ime;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
@@ -247,7 +248,12 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
   protected void onOrientationChanged(int oldOrientation, int newOrientation) {}
 
   private void updateSoftInputWindowLayoutParameters() {
-    final Window window = getWindow().getWindow();
+    // the soft-input window is created in onCreate, but its Dialog may already be gone or
+    // its DecorView detached (for example after the display was taken over by Android-Auto).
+    // Touching the window in that state throws.
+    final Dialog softInputWindow = getWindow();
+    if (softInputWindow == null || softInputWindow.getWindow() == null) return;
+    final Window window = softInputWindow.getWindow();
     // Override layout parameters to expand {@link SoftInputWindow} to the entire screen.
     // See {@link InputMethodService#setinputView(View)} and
     // {@link SoftInputWindow#updateWidthHeight(WindowManager.LayoutParams)}.
@@ -341,7 +347,19 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     if (mInputViewContainer != null) {
       mInputViewContainer.resetPredictiveBackProgress();
     }
-    super.hideWindow();
+    try {
+      super.hideWindow();
+    } catch (IllegalArgumentException notAttached) {
+      // InputMethodService.hideWindow() re-configures the soft-input window, and
+      // WindowManagerGlobal throws "View ... not attached to window manager" when the
+      // DecorView was never attached (e.g. the IME was asked to show while a car display
+      // was active). The window is unusable in that state, so there is nothing to hide;
+      // swallowing this keeps the IME service (and its onDestroy) alive.
+      Logger.w(
+          TAG,
+          notAttached,
+          "Input window is not attached to the window manager; ignoring hide request");
+    }
   }
 
   @Override
@@ -352,6 +370,25 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
       mInputViewContainer.resetPredictiveBackProgress();
     }
     updateBackCallbackState();
+    Logger.d(TAG, "onWindowHidden: soft-input window attached=%s", isSoftInputWindowAttached());
+  }
+
+  @Override
+  public void onWindowShown() {
+    super.onWindowShown();
+    Logger.d(TAG, "onWindowShown: soft-input window attached=%s", isSoftInputWindowAttached());
+  }
+
+  /**
+   * Whether the soft-input window is currently attached to the window manager. When it is not (for
+   * example, the IME was asked to show while a car display took over), the framework re-configures
+   * a window which was never attached, and WindowManagerGlobal throws.
+   */
+  protected boolean isSoftInputWindowAttached() {
+    final Dialog softInputWindow = getWindow();
+    if (softInputWindow == null || softInputWindow.getWindow() == null) return false;
+    final View decorView = softInputWindow.getWindow().peekDecorView();
+    return decorView != null && decorView.isAttachedToWindow();
   }
 
   @Override
