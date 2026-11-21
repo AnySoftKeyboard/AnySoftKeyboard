@@ -7,11 +7,12 @@ Traditional Chinese:
 | ------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Boshiamy 嘸蝦米** | 繁體 / 简体 / 日本語 (3 layouts) | QWERTY + custom radical chars; supports homophone lookup (同) and radical-candidate-selector keys (`vrsfwlcbkj`). Bundled tables come from the community [Open Xiami 開放蝦米](https://docs.google.com/spreadsheets/d/1_j_O7aS6mew96gYwG58f82i3LCsbc0MmBAX-vxZmbE4/) project (see `NOTICE.md`); the 简体 and 日本語 tables are derived from the 繁體 table. Users who own a Boshiamy license can import their own `liu*.tab` for fuller coverage via the SAF folder picker in Settings -> Dictionary. |
 | **Cangjie 5 倉頡**  | Standard 5th-edition mapping     | QWERTY shape; each key shows its Cangjie radical (日月金木水火土…) as a hint.                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| **Zhuyin 注音**     | 大千 (Dachen) Bopomofo layout    | Each key emits Bopomofo (ㄅㄆㄇㄈ…); secondary popups expose missing initials, finals and tone marks. No homophone lookup (Zhuyin is itself phonetic).                                                                                                                                                                                                                                                                                                                                                |
+| **Zhuyin 注音**     | Standard (大千) Bopomofo layout  | Sentence-level phonetic input: type whole phrases (tones optional, space = 1st tone) and the engine converts them to the most likely Hanzi (ㄋㄧˇㄏㄠˇㄇㄚ˙ → 你好嗎). The strip offers the whole sentence, then words and characters from the start: one tap commits a character, a word or the sentence. ← / → move inside the composition to fix a middle word. Picks are learned (not in incognito).                                                                                              |
 
-All three keyboards reuse the existing `RadicalDictionary` engine in
-`ime/dictionaries/`; this plugin only ships the data tables, drawables and
-keyboard XML.
+Boshiamy and Cangjie reuse the `RadicalDictionary` engine in
+`ime/dictionaries/`; Zhuyin uses the phonetic engine in `ime/phonetic/`
+(lattice + Viterbi over McBopomofo's phrase data). This plugin only ships the
+data tables, drawables and keyboard XML.
 
 ## How to use
 

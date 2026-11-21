@@ -20,6 +20,8 @@ public class GesturesSettingsFragmentTest
   private List<Preference> mAffectedPrefs;
   private List<Preference> mNotAffectedPrefs;
   private CheckBoxPreference mGestureTypingPref;
+  private CheckBoxPreference mSpaceBarSlidePref;
+  private List<Preference> mSpaceBarSwipePrefs;
 
   @Override
   protected int getStartFragmentNavigationId() {
@@ -35,10 +37,14 @@ public class GesturesSettingsFragmentTest
             "settings_key_swipe_down_action",
             "settings_key_swipe_left_action",
             "settings_key_swipe_right_action");
-    mNotAffectedPrefs =
+    mSpaceBarSwipePrefs =
         fragment.findPrefs(
             "settings_key_swipe_left_space_bar_action",
-            "settings_key_swipe_right_space_bar_action",
+            "settings_key_swipe_right_space_bar_action");
+    mSpaceBarSlidePref = fragment.findPreference("settings_key_space_bar_slide_moves_cursor");
+    mNotAffectedPrefs =
+        fragment.findPrefs(
+            "settings_key_space_bar_slide_moves_cursor",
             "settings_key_swipe_left_two_fingers_action",
             "settings_key_swipe_right_two_fingers_action",
             "settings_key_swipe_up_from_spacebar_action",
@@ -150,6 +156,27 @@ public class GesturesSettingsFragmentTest
     }
 
     for (Preference pref : mNotAffectedPrefs) {
+      Assert.assertTrue(pref.isEnabled());
+    }
+  }
+
+  @Test
+  public void testSpaceBarSwipeActionsAreDisabledWhileSlideMovesCursor() {
+    Assert.assertTrue(mSpaceBarSlidePref.isChecked());
+    for (Preference pref : mSpaceBarSwipePrefs) {
+      Assert.assertFalse(pref.isEnabled());
+    }
+
+    ViewTestUtils.performClick(mSpaceBarSlidePref);
+
+    Assert.assertFalse(mSpaceBarSlidePref.isChecked());
+    for (Preference pref : mSpaceBarSwipePrefs) {
+      Assert.assertTrue(pref.isEnabled());
+    }
+
+    // gesture-typing does not change them
+    ViewTestUtils.performClick(mGestureTypingPref);
+    for (Preference pref : mSpaceBarSwipePrefs) {
       Assert.assertTrue(pref.isEnabled());
     }
   }

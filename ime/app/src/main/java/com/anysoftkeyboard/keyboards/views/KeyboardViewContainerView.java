@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
@@ -36,6 +37,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
   private static final boolean SHOW_CLICKS = BuildConfig.DEBUG && false;
 
   private final int mActionStripHeight;
+  @Nullable private StripActionProvider mSoloStripAction;
   private final List<View> mStripActionViews = new ArrayList<>();
   private boolean mShowActionStrip = true;
   private InputViewBinder mStandardKeyboardView;
@@ -194,6 +196,16 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     invalidate();
   }
 
+  /**
+   * While set, {@code provider}'s view is the only action on the strip (at its end); the other
+   * actions keep their state but take no space. Null brings them all back.
+   */
+  public void setSoloStripAction(@Nullable StripActionProvider provider) {
+    if (mSoloStripAction == provider) return;
+    mSoloStripAction = provider;
+    requestLayout();
+  }
+
   public void removeStripAction(@NonNull StripActionProvider provider) {
     for (var stripActionView : mStripActionViews) {
       if (stripActionView.getTag(PROVIDER_TAG_ID) == provider) {
@@ -220,6 +232,9 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
       if (child.getTag(PROVIDER_TAG_ID) == null) {
         child.layout(left, currentTop, right, currentTop + child.getMeasuredHeight());
         currentTop += child.getMeasuredHeight();
+      } else if (mSoloStripAction != null && child.getTag(PROVIDER_TAG_ID) != mSoloStripAction) {
+        // another action owns the strip for now
+        child.layout(0, 0, 0, 0);
       } else {
         // this is an action. It lives on the candidates-view
         child.layout(

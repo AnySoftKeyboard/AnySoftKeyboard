@@ -130,6 +130,7 @@
 
     <string name="settings_key_gesture_typing">settings_key_gesture_typing</string>
     <string name="settings_key_touch_trajectory_correction">settings_key_touch_trajectory_correction</string>
+    <string name="settings_key_space_bar_slide_moves_cursor">settings_key_space_bar_slide_moves_cursor</string>
 
     <string name="settings_key_bool_should_swap_punctuation_and_space">settings_key_bool_should_swap_punctuation_and_space</string>
 

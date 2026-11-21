@@ -44,6 +44,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
   private static final String XML_RADICAL_KEY_CHARACTERS_ATTRIBUTE = "radicalKeyCharacters";
   private static final String XML_RADICAL_CANDIDATE_SELECTOR_KEYS_ATTRIBUTE =
       "radicalCandidateSelectorKeys";
+  private static final String XML_PHONETIC_LAYOUT_ATTRIBUTE = "phoneticLayout";
   private static final String XML_ASCII_ONLY_POPUPS_ATTRIBUTE = "asciiOnlyPopups";
   private static final String XML_SUPPORTS_GESTURE_TYPING_ATTRIBUTE = "supportsGestureTyping";
   private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
@@ -99,6 +100,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
         attrs.getAttributeValue(null, XML_RADICAL_KEY_CHARACTERS_ATTRIBUTE);
     final String radicalCandidateSelectorKeys =
         attrs.getAttributeValue(null, XML_RADICAL_CANDIDATE_SELECTOR_KEYS_ATTRIBUTE);
+    final String phoneticLayout = attrs.getAttributeValue(null, XML_PHONETIC_LAYOUT_ATTRIBUTE);
     final boolean asciiOnlyPopups =
         attrs.getAttributeBooleanValue(null, XML_ASCII_ONLY_POPUPS_ATTRIBUTE, false);
     final boolean supportsGestureTyping =
@@ -151,6 +153,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
           hasRadicalInput,
           radicalKeyCharacters,
           radicalCandidateSelectorKeys,
+          phoneticLayout,
           asciiOnlyPopups,
           supportsGestureTyping,
           keyboardDefault);

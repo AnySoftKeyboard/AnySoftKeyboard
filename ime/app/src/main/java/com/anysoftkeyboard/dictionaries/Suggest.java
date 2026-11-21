@@ -3,6 +3,7 @@ package com.anysoftkeyboard.dictionaries;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import com.anysoftkeyboard.phonetic.PhraseTable;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import java.util.Collections;
 import java.util.List;
@@ -76,6 +77,12 @@ public interface Suggest {
 
   default boolean hasRadicalDictionaries() {
     return false;
+  }
+
+  /** The loaded phonetic (Zhuyin) phrase table, or null if no active dictionary has one. */
+  @Nullable
+  default PhraseTable getPhoneticTable() {
+    return null;
   }
 
   default boolean anyActiveDictionarySupportsGestureTyping() {

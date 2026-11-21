@@ -56,8 +56,18 @@
             android:summary="@string/swipe_right_action_summary"
             android:title="@string/swipe_right_action" />
 
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_space_bar_slide_moves_cursor"
+            android:disableDependentsState="true"
+            android:key="@string/settings_key_space_bar_slide_moves_cursor"
+            android:persistent="true"
+            android:summaryOff="@string/space_bar_slide_moves_cursor_summary_off"
+            android:summaryOn="@string/space_bar_slide_moves_cursor_summary_on"
+            android:title="@string/space_bar_slide_moves_cursor_title" />
+
         <androidx.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_next_symbols"
+            android:dependency="@string/settings_key_space_bar_slide_moves_cursor"
             android:dialogTitle="@string/swipe_left_space_bar_action_title"
             android:entries="@array/swipe_action_types_names"
             android:entryValues="@array/swipe_action_types_values"
@@ -67,6 +77,7 @@
 
         <androidx.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_next_alphabet"
+            android:dependency="@string/settings_key_space_bar_slide_moves_cursor"
             android:dialogTitle="@string/swipe_right_space_bar_action_title"
             android:entries="@array/swipe_action_types_names"
             android:entryValues="@array/swipe_action_types_values"

@@ -388,6 +388,13 @@ public abstract class AnyKeyboard extends Keyboard {
    * Boshiamy's 2nd–10th candidate picks) or {@code null} if this keyboard does not advertise the
    * feature.
    */
+  /** See {@link KeyboardAddOnAndBuilder#getPhoneticLayout()}. */
+  @Nullable
+  public String getPhoneticLayout() {
+    final KeyboardAddOnAndBuilder addOn = asExternalAddOn();
+    return addOn != null ? addOn.getPhoneticLayout() : null;
+  }
+
   @Nullable
   public String getRadicalCandidateSelectorKeys() {
     final KeyboardAddOnAndBuilder addOn = asExternalAddOn();

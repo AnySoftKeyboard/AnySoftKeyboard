@@ -49,4 +49,43 @@
               index="7" defaultEnabled="false" hasRadicalInput="true"
               radicalKeyCharacters="ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩˇˋˊ˙"
               physicalKeyboardMappingResId="@xml/chinese_traditional_physical" />
+
+    <!-- 大千 with ， and 。 at the end of rows 2 and 3 (the plain one has them only in the
+         bottom row). -->
+    <Keyboard nameResId="@string/chinese_traditional_zhuyin_punct_keyboard"
+              iconResId="@drawable/ic_status_chinese_traditional"
+              layoutResId="@xml/qwerty_zhuyin_punct"
+              id="@string/chinese_traditional_zhuyin_punct_keyboard_id"
+              defaultDictionaryLocale="zh-zhuyin"
+              description="@string/chinese_traditional_zhuyin_punct_keyboard_description"
+              index="8" defaultEnabled="false" hasRadicalInput="true"
+              radicalKeyCharacters="ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩˇˋˊ˙"
+              physicalKeyboardMappingResId="@xml/chinese_traditional_physical" />
+
+    <!-- Other common Zhuyin layouts. ETen 41 keys emit Bopomofo like 大千; the 26-key layouts
+         emit Latin letters and the engine resolves shared keys (phoneticLayout). -->
+    <Keyboard nameResId="@string/chinese_traditional_zhuyin_eten_keyboard"
+              iconResId="@drawable/ic_status_chinese_traditional"
+              layoutResId="@xml/qwerty_zhuyin_eten"
+              id="@string/chinese_traditional_zhuyin_eten_keyboard_id"
+              defaultDictionaryLocale="zh-zhuyin"
+              description="@string/chinese_traditional_zhuyin_eten_keyboard_description"
+              index="9" defaultEnabled="false" hasRadicalInput="true"
+              radicalKeyCharacters="ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩˇˋˊ˙" />
+    <Keyboard nameResId="@string/chinese_traditional_zhuyin_hsu_keyboard"
+              iconResId="@drawable/ic_status_chinese_traditional"
+              layoutResId="@xml/qwerty_zhuyin_hsu"
+              id="@string/chinese_traditional_zhuyin_hsu_keyboard_id"
+              defaultDictionaryLocale="zh-zhuyin"
+              description="@string/chinese_traditional_zhuyin_hsu_keyboard_description"
+              index="10" defaultEnabled="false" hasRadicalInput="true" phoneticLayout="hsu"
+              radicalKeyCharacters="abcdefghijklmnoprstuvwxyz" />
+    <Keyboard nameResId="@string/chinese_traditional_zhuyin_eten26_keyboard"
+              iconResId="@drawable/ic_status_chinese_traditional"
+              layoutResId="@xml/qwerty_zhuyin_eten26"
+              id="@string/chinese_traditional_zhuyin_eten26_keyboard_id"
+              defaultDictionaryLocale="zh-zhuyin"
+              description="@string/chinese_traditional_zhuyin_eten26_keyboard_description"
+              index="11" defaultEnabled="false" hasRadicalInput="true" phoneticLayout="eten26"
+              radicalKeyCharacters="abcdefghijklmnopqrstuvwxyz" />
 </Keyboards>

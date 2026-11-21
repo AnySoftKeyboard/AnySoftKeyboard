@@ -355,6 +355,47 @@ public class AnyKeyboardViewBaseTest {
     Assert.assertEquals(0, mUnderTest.mHintTextSizeMultiplier, 0);
   }
 
+  @Test
+  public void testSpaceBarSlideMovesCursorByDefault() {
+    Assert.assertTrue(mUnderTest.mSharedPointerTrackersData.spaceBarSlideMovesCursor);
+    final AnyKeyboard.AnyKey space = requireFindKey(' ');
+    final Point center = ViewTestUtils.getKeyCenterPoint(space);
+    final int step = mUnderTest.mSharedPointerTrackersData.spaceBarSlideStepPx;
+
+    ViewTestUtils.navigateFromTo(
+        mUnderTest, center.x, center.y, center.x + 4 * step + step / 2, center.y, 600, true, true);
+
+    Mockito.verify(mMockKeyboardListener, Mockito.atLeast(3))
+        .onKey(
+            eq(com.anysoftkeyboard.api.KeyCodes.ARROW_RIGHT),
+            any(),
+            Mockito.anyInt(),
+            any(),
+            Mockito.anyBoolean());
+    Mockito.verify(mMockKeyboardListener, Mockito.never())
+        .onKey(eq((int) ' '), any(), Mockito.anyInt(), any(), Mockito.anyBoolean());
+  }
+
+  @Test
+  public void testSpaceBarSlideDisabledDoesNotMoveCursor() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_space_bar_slide_moves_cursor, false);
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertFalse(mUnderTest.mSharedPointerTrackersData.spaceBarSlideMovesCursor);
+    final AnyKeyboard.AnyKey space = requireFindKey(' ');
+    final Point center = ViewTestUtils.getKeyCenterPoint(space);
+
+    ViewTestUtils.navigateFromTo(
+        mUnderTest, center.x, center.y, center.x + 20, center.y, 300, true, true);
+
+    Mockito.verify(mMockKeyboardListener, Mockito.never())
+        .onKey(
+            eq(com.anysoftkeyboard.api.KeyCodes.ARROW_RIGHT),
+            any(),
+            Mockito.anyInt(),
+            any(),
+            Mockito.anyBoolean());
+  }
+
   @NonNull
   protected AnyKeyboard.AnyKey requireFindKey(int codeToFind) {
     AnyKeyboard.AnyKey key = findKey(codeToFind);

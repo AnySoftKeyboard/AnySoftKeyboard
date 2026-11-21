@@ -122,7 +122,9 @@ public class RxSharedPrefsTest {
     new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
 
     Assert.assertFalse(preferences.contains("settings_key_vibrate_on_key_press_duration_int"));
-    Assert.assertEquals(14, preferences.getInt(RxSharedPrefs.CONFIGURATION_VERSION, 0));
+    Assert.assertEquals(
+        RxSharedPrefs.CONFIGURATION_LEVEL_VALUE,
+        preferences.getInt(RxSharedPrefs.CONFIGURATION_VERSION, 0));
   }
 
   @Test
@@ -163,6 +165,47 @@ public class RxSharedPrefsTest {
     new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
 
     Assert.assertEquals(0, preferences.getInt("settings_key_vibrate_on_key_press_duration_int", 0));
+  }
+
+  @Test
+  public void testSpaceBarSlideStaysOffWhenSpaceBarSwipeActionWasSetUp() {
+    SharedPrefsHelper.setPrefsValue(RxSharedPrefs.CONFIGURATION_VERSION, 14);
+    SharedPrefsHelper.setPrefsValue("settings_key_swipe_left_space_bar_action", "clear_input");
+
+    SharedPreferences preferences =
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+    new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
+
+    Assert.assertTrue(preferences.contains("settings_key_space_bar_slide_moves_cursor"));
+    Assert.assertFalse(preferences.getBoolean("settings_key_space_bar_slide_moves_cursor", true));
+  }
+
+  @Test
+  public void testSpaceBarSlideKeepsDefaultWhenSpaceBarSwipeActionsAreDefault() {
+    SharedPrefsHelper.setPrefsValue(RxSharedPrefs.CONFIGURATION_VERSION, 14);
+    SharedPrefsHelper.setPrefsValue("settings_key_swipe_left_space_bar_action", "next_symbols");
+
+    SharedPreferences preferences =
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+    new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
+
+    Assert.assertFalse(preferences.contains("settings_key_space_bar_slide_moves_cursor"));
+  }
+
+  @Test
+  public void testSpaceBarSlideChoiceIsKeptOnUpgrade() {
+    SharedPrefsHelper.setPrefsValue(RxSharedPrefs.CONFIGURATION_VERSION, 14);
+    SharedPrefsHelper.setPrefsValue("settings_key_swipe_right_space_bar_action", "clear_input");
+    SharedPrefsHelper.setPrefsValue("settings_key_space_bar_slide_moves_cursor", true);
+
+    SharedPreferences preferences =
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+    new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
+
+    Assert.assertTrue(preferences.getBoolean("settings_key_space_bar_slide_moves_cursor", false));
   }
 
   @Test
