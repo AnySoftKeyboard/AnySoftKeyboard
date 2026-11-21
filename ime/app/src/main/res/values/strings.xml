@@ -957,7 +957,7 @@
     <string name="touch_trajectory_correction_title">Touch trajectory correction</string>
     <string name="touch_trajectory_correction_summary_on">Improve key accuracy by combining touch-down and lift-off coordinates during fast typing</string>
     <string name="touch_trajectory_correction_summary_off">Rely strictly on touch lift-off coordinates</string>
-    <string name="space_bar_slide_moves_cursor_title">Slide on space bar moves the cursor</string>
+    <string name="space_bar_slide_moves_cursor_title">Space bar slide moves cursor</string>
     <string name="space_bar_slide_moves_cursor_summary_on">Drag along the space bar to move the cursor (replaces the space bar swipe left/right actions)</string>
     <string name="space_bar_slide_moves_cursor_summary_off">Space bar swipes use the swipe left/right actions</string>
     <string name="homophone_search_hint">Homophone search: type a character</string>
