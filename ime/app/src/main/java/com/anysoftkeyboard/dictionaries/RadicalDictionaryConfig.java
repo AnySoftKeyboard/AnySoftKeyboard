@@ -40,6 +40,7 @@ public final class RadicalDictionaryConfig {
   private final int mCharFrequencyResId;
   private final int mCandidateConversionResId;
   private final boolean mSplitMultiCodepointCandidates;
+  private final int mPhoneticTableResId;
 
   private RadicalDictionaryConfig(Builder b) {
     mRadicalDictResId = b.mRadicalDictResId;
@@ -52,6 +53,7 @@ public final class RadicalDictionaryConfig {
     mCharFrequencyResId = b.mCharFrequencyResId;
     mCandidateConversionResId = b.mCandidateConversionResId;
     mSplitMultiCodepointCandidates = b.mSplitMultiCodepointCandidates;
+    mPhoneticTableResId = b.mPhoneticTableResId;
   }
 
   public int getRadicalDictResId() {
@@ -111,8 +113,17 @@ public final class RadicalDictionaryConfig {
     return mSplitMultiCodepointCandidates;
   }
 
+  /**
+   * Raw resource id of the Zhuyin phrase table used by the sentence-level phonetic engine (see
+   * {@code com.anysoftkeyboard.phonetic.PhraseTable}). Such a dictionary needs no radical table.
+   */
+  public int getPhoneticTableResId() {
+    return mPhoneticTableResId;
+  }
+
+  /** True for any CJK input dictionary: one with a radical table or a phonetic phrase table. */
   public boolean hasRadicalDictionary() {
-    return mRadicalDictResId != AddOn.INVALID_RES_ID;
+    return mRadicalDictResId != AddOn.INVALID_RES_ID || mPhoneticTableResId != AddOn.INVALID_RES_ID;
   }
 
   public static final class Builder {
@@ -126,6 +137,7 @@ public final class RadicalDictionaryConfig {
     private int mCharFrequencyResId = AddOn.INVALID_RES_ID;
     private int mCandidateConversionResId = AddOn.INVALID_RES_ID;
     private boolean mSplitMultiCodepointCandidates = false;
+    private int mPhoneticTableResId = AddOn.INVALID_RES_ID;
 
     public Builder radicalDictResId(int v) {
       mRadicalDictResId = v;
@@ -169,6 +181,11 @@ public final class RadicalDictionaryConfig {
 
     public Builder candidateConversionResId(int v) {
       mCandidateConversionResId = v;
+      return this;
+    }
+
+    public Builder phoneticTableResId(int v) {
+      mPhoneticTableResId = v;
       return this;
     }
 

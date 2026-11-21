@@ -270,6 +270,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         mRadicalConfig.getIncludeCharsResId(),
         mRadicalConfig.getCharFrequencyResId(),
         mRadicalConfig.getCandidateConversionResId(),
+        mRadicalConfig.getPhoneticTableResId(),
         mRadicalConfig.splitMultiCodepointCandidates(),
         buildRadicalOverlay());
   }

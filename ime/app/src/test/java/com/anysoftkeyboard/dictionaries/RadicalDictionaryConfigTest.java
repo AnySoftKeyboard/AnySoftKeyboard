@@ -54,4 +54,19 @@ public class RadicalDictionaryConfigTest {
     Assert.assertTrue(cfg.hasRadicalDictionary());
     Assert.assertEquals(123, cfg.getRadicalDictResId());
   }
+
+  @Test
+  public void phoneticOnlyConfig_hasRadicalDictionary() {
+    RadicalDictionaryConfig cfg =
+        new RadicalDictionaryConfig.Builder().phoneticTableResId(321).build();
+    Assert.assertTrue(cfg.hasRadicalDictionary());
+    Assert.assertEquals(321, cfg.getPhoneticTableResId());
+    Assert.assertEquals(AddOn.INVALID_RES_ID, cfg.getRadicalDictResId());
+  }
+
+  @Test
+  public void emptyConfig_hasNoPhoneticTable() {
+    Assert.assertEquals(
+        AddOn.INVALID_RES_ID, RadicalDictionaryConfig.EMPTY.getPhoneticTableResId());
+  }
 }

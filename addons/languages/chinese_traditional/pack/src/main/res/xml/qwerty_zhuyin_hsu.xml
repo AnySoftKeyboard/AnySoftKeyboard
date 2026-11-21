@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Zhuyin 許氏 (Hsu) 26-key layout. Keys emit Latin letters; the engine (KeyLayout.HSU) picks the symbol by context. q is unused by Hsu and types a literal q. -->
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyWidth="10%p"
+    android:keyHeight="@integer/key_normal_height"
+    ask:autoCap="false">
+    <Row>
+        <Key android:codes="113"
+             android:keyLabel="q"
+             android:keyWidth="10%p"
+             android:popupCharacters="qQ"
+             ask:hintLabel="q"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="119"
+             android:keyLabel="ㄠ"
+             android:keyWidth="10%p"
+             android:popupCharacters="wW"
+             ask:hintLabel="w"/>
+        <Key android:codes="101"
+             android:keyLabel="ㄧㄝ"
+             android:keyWidth="10%p"
+             android:popupCharacters="eE"
+             ask:hintLabel="e"/>
+        <Key android:codes="114"
+             android:keyLabel="ㄖ"
+             android:keyWidth="10%p"
+             android:popupCharacters="rR"
+             ask:hintLabel="r"/>
+        <Key android:codes="116"
+             android:keyLabel="ㄊ"
+             android:keyWidth="10%p"
+             android:popupCharacters="tT"
+             ask:hintLabel="t"/>
+        <Key android:codes="121"
+             android:keyLabel="ㄚ"
+             android:keyWidth="10%p"
+             android:popupCharacters="yY"
+             ask:hintLabel="y"/>
+        <Key android:codes="117"
+             android:keyLabel="ㄩ"
+             android:keyWidth="10%p"
+             android:popupCharacters="uU"
+             ask:hintLabel="u"/>
+        <Key android:codes="105"
+             android:keyLabel="ㄞ"
+             android:keyWidth="10%p"
+             android:popupCharacters="iI"
+             ask:hintLabel="i"/>
+        <Key android:codes="111"
+             android:keyLabel="ㄡ"
+             android:keyWidth="10%p"
+             android:popupCharacters="oO"
+             ask:hintLabel="o"/>
+        <Key android:codes="112"
+             android:keyLabel="ㄆ"
+             android:keyWidth="10%p"
+             android:popupCharacters="pP"
+             ask:hintLabel="p"
+             android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="97"
+             android:keyLabel="ㄘㄟ"
+             android:keyWidth="10%p"
+             android:popupCharacters="aA"
+             ask:hintLabel="a"
+             android:horizontalGap="5%p"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="115"
+             android:keyLabel="ㄙ˙"
+             android:keyWidth="10%p"
+             android:popupCharacters="sS"
+             ask:hintLabel="s"/>
+        <Key android:codes="100"
+             android:keyLabel="ㄉˊ"
+             android:keyWidth="10%p"
+             android:popupCharacters="dD"
+             ask:hintLabel="d"/>
+        <Key android:codes="102"
+             android:keyLabel="ㄈˇ"
+             android:keyWidth="10%p"
+             android:popupCharacters="fF"
+             ask:hintLabel="f"/>
+        <Key android:codes="103"
+             android:keyLabel="ㄍㄜ"
+             android:keyWidth="10%p"
+             android:popupCharacters="gG"
+             ask:hintLabel="g"/>
+        <Key android:codes="104"
+             android:keyLabel="ㄏㄛ"
+             android:keyWidth="10%p"
+             android:popupCharacters="hH"
+             ask:hintLabel="h"/>
+        <Key android:codes="106"
+             android:keyLabel="ㄓㄐˋ"
+             android:keyWidth="10%p"
+             android:popupCharacters="jJ"
+             ask:hintLabel="j"/>
+        <Key android:codes="107"
+             android:keyLabel="ㄎㄤ"
+             android:keyWidth="10%p"
+             android:popupCharacters="kK"
+             ask:hintLabel="k"/>
+        <Key android:codes="108"
+             android:keyLabel="ㄌㄥㄦ"
+             android:keyWidth="10%p"
+             android:popupCharacters="lL"
+             ask:hintLabel="l"
+             android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="-1" android:keyWidth="15%p"
+             android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="122"
+             android:keyLabel="ㄗ"
+             android:keyWidth="10%p"
+             android:popupCharacters="zZ"
+             ask:hintLabel="z"/>
+        <Key android:codes="120"
+             android:keyLabel="ㄨ"
+             android:keyWidth="10%p"
+             android:popupCharacters="xX"
+             ask:hintLabel="x"/>
+        <Key android:codes="99"
+             android:keyLabel="ㄕㄒ"
+             android:keyWidth="10%p"
+             android:popupCharacters="cC"
+             ask:hintLabel="c"/>
+        <Key android:codes="118"
+             android:keyLabel="ㄔㄑ"
+             android:keyWidth="10%p"
+             android:popupCharacters="vV"
+             ask:hintLabel="v"/>
+        <Key android:codes="98"
+             android:keyLabel="ㄅ"
+             android:keyWidth="10%p"
+             android:popupCharacters="bB"
+             ask:hintLabel="b"/>
+        <Key android:codes="110"
+             android:keyLabel="ㄋㄣ"
+             android:keyWidth="10%p"
+             android:popupCharacters="nN"
+             ask:hintLabel="n"/>
+        <Key android:codes="109"
+             android:keyLabel="ㄇㄢ"
+             android:keyWidth="10%p"
+             android:popupCharacters="mM"
+             ask:hintLabel="m"/>
+        <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right"
+             android:isRepeatable="true"/>
+    </Row>
+
+    <!-- Chinese punctuation bottom row (provided by the layout). -->
+    <Row android:rowEdgeFlags="bottom" android:keyWidth="10%p"
+         android:keyHeight="@integer/key_normal_height">
+        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_quick_text"
+             ask:longPressCode="@integer/key_code_quick_text_popup" android:keyEdgeFlags="left"/>
+        <Key android:codes="65311" android:keyLabel="？" android:popupCharacters="！\?!"/>
+        <Key android:codes="65292" android:keyLabel="，" android:popupCharacters="、；：,"/>
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_space" android:keyWidth="30%p"/>
+        <Key android:codes="12290" android:keyLabel="。" android:popupCharacters="…～·."/>
+        <Key android:codes="12300" android:keyLabel="「" android:popupCharacters="」『』“”‘’"/>
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_enter" android:keyWidth="15%p"
+             android:keyEdgeFlags="right" ask:longPressCode="@integer/key_code_settings"/>
+    </Row>
+
+</Keyboard>

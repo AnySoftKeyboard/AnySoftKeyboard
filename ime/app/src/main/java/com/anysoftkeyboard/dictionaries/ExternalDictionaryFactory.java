@@ -46,6 +46,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
   private static final String XML_AUTO_TEXT_RESOURCE_ATTRIBUTE = "autoTextResourceId";
   private static final String XML_RADICAL_DICT_RESOURCE_ATTRIBUTE = "radicalDictionaryResId";
   private static final String XML_RADICAL_PHRASES_RESOURCE_ATTRIBUTE = "radicalPhrasesResId";
+  private static final String XML_PHONETIC_TABLE_RESOURCE_ATTRIBUTE = "phoneticTableResId";
   private static final String XML_HOMOPHONES_RESOURCE_ATTRIBUTE = "homophonesResId";
   private static final String XML_CHAR_TO_PHONETIC_RESOURCE_ATTRIBUTE = "charToPhoneticResId";
   private static final String XML_CHAR_TO_RADICAL_RESOURCE_ATTRIBUTE = "charToRadicalResId";
@@ -187,6 +188,9 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
             null, XML_CANDIDATE_CONVERSION_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
     final boolean splitMultiCodepointCandidates =
         attrs.getAttributeBooleanValue(null, XML_SPLIT_MULTI_CODEPOINT_CANDIDATES_ATTRIBUTE, false);
+    final int phoneticTableResId =
+        attrs.getAttributeResourceValue(
+            null, XML_PHONETIC_TABLE_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
     final int initialSuggestionsId =
         attrs.getAttributeResourceValue(
             null, XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
@@ -194,15 +198,17 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     if ((language == null)
         || ((assets == null)
             && (dictionaryResourceId == AddOn.INVALID_RES_ID)
-            && (radicalDictResId == AddOn.INVALID_RES_ID))) {
+            && (radicalDictResId == AddOn.INVALID_RES_ID)
+            && (phoneticTableResId == AddOn.INVALID_RES_ID))) {
       Logger.e(
           TAG,
-          "External dictionary is missing both a binary dictionary and a radical dictionary"
-              + " (language=%s, dictionaryResourceId=%s, radicalDictResId=%s, hasAssets=%s)."
-              + " Will not create dictionary.",
+          "External dictionary is missing a binary, radical or phonetic dictionary"
+              + " (language=%s, dictionaryResourceId=%s, radicalDictResId=%s,"
+              + " phoneticTableResId=%s, hasAssets=%s). Will not create dictionary.",
           language,
           dictionaryResourceId,
           radicalDictResId,
+          phoneticTableResId,
           assets != null);
       return null;
     } else {
@@ -218,6 +224,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
               .charFrequencyResId(charFrequencyResId)
               .candidateConversionResId(candidateConversionResId)
               .splitMultiCodepointCandidates(splitMultiCodepointCandidates)
+              .phoneticTableResId(phoneticTableResId)
               .build();
 
       final boolean supportsGestureTyping =

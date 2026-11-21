@@ -49,6 +49,7 @@ import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.ime.AnySoftKeyboardColorizeNavBar;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.CondenseType;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
@@ -700,10 +701,19 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     final InputConnection ic = getCurrentInputConnection();
     if (ic != null) ic.beginBatchEdit();
     super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-    if (primaryCode > 0) {
-      onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes);
-    } else {
-      onFunctionKey(primaryCode, key, fromUI);
+    // Zhuyin composition owns its keys (Ctrl/Shift combos keep their usual meaning). A key picked
+    // from a long-press popup is typed as it is, so the symbols themselves can be entered.
+    final boolean fromPopup = key != null && key.getKeyboard() instanceof AnyPopupKeyboard;
+    final boolean handledByPhonetic =
+        !mControlKeyState.isActive()
+            && !(primaryCode == KeyCodes.ENTER && mShiftKeyState.isPressed())
+            && handlePhoneticKey(primaryCode, fromPopup);
+    if (!handledByPhonetic) {
+      if (primaryCode > 0) {
+        onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes);
+      } else {
+        onFunctionKey(primaryCode, key, fromUI);
+      }
     }
     if (ic != null) ic.endBatchEdit();
   }
