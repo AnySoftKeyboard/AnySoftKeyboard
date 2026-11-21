@@ -19,6 +19,7 @@ package com.anysoftkeyboard.keyboards.views;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -35,6 +36,12 @@ class PointerTracker {
     int longPressKeyTimeout;
     int multiTapKeyTimeout;
     boolean applyTouchTrajectoryCorrection = true;
+
+    /** Cursor control: dragging along the space bar sends ← / →. */
+    boolean spaceBarSlideMovesCursor = false;
+
+    /** Horizontal distance (px) per cursor step while sliding on the space bar. */
+    int spaceBarSlideStepPx = 30;
   }
 
   interface UIProxy {
@@ -252,9 +259,19 @@ class PointerTracker {
   //        }
   //    }
 
+  /** True while this pointer is dragging along the space bar to move the cursor. */
+  private boolean mSpaceBarSliding;
+
+  /** The down event was on the space bar, and space-bar sliding is enabled. */
+  private boolean mMaySlideOnSpaceBar;
+
+  private int mSpaceBarSlideLastX;
+
   void onDownEvent(int x, int y, long eventTime) {
     mStartX = x;
     mStartY = y;
+    mSpaceBarSliding = false;
+    mSpaceBarSlideLastX = x;
     mDownTime = eventTime;
     int keyIndex = mKeyState.onDownKey(x, y);
     mKeyboardLayoutHasBeenChanged = false;
@@ -262,6 +279,10 @@ class PointerTracker {
     mIsRepeatableKey = false;
     mKeyCodesInPathLength = -1;
     checkMultiTap(eventTime, keyIndex);
+    mMaySlideOnSpaceBar =
+        mSharedPointerTrackersData.spaceBarSlideMovesCursor
+            && isValidKeyIndex(keyIndex)
+            && mKeys[keyIndex].getPrimaryCode() == KeyCodes.SPACE;
     if (mListener != null && isValidKeyIndex(keyIndex)) {
       AnyKey key = (AnyKey) mKeys[keyIndex];
       final int codeAtIndex = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
@@ -297,6 +318,7 @@ class PointerTracker {
   }
 
   void onMoveEvent(int x, int y, long eventTime) {
+    if (handleSpaceBarSlide(x)) return;
     if (mProxy.isAtTwoFingersState()) {
       mKeyCodesInPathLength = -1;
     } else if (canDoGestureTyping()) {
@@ -375,12 +397,48 @@ class PointerTracker {
     showKeyPreviewAndUpdateKey(keyState.getKeyIndex());
   }
 
+  /**
+   * Moves the cursor while the finger slides along the space bar. Returns true while sliding (the
+   * move is consumed: no key changes, no space on release).
+   */
+  private boolean handleSpaceBarSlide(int x) {
+    if (!mMaySlideOnSpaceBar || mProxy.isAtTwoFingersState() || mListener == null) return false;
+    final int step = mSharedPointerTrackersData.spaceBarSlideStepPx;
+    if (!mSpaceBarSliding) {
+      if (Math.abs(x - mStartX) < step) return false;
+      mSpaceBarSliding = true;
+      mHandler.cancelLongPressTimer();
+      mProxy.hidePreview(mKeyState.getKeyIndex(), this);
+    }
+    while (x - mSpaceBarSlideLastX >= step) {
+      mListener.onKey(KeyCodes.ARROW_RIGHT, null, 0, null, true);
+      mSpaceBarSlideLastX += step;
+    }
+    while (mSpaceBarSlideLastX - x >= step) {
+      mListener.onKey(KeyCodes.ARROW_LEFT, null, 0, null, true);
+      mSpaceBarSlideLastX -= step;
+    }
+    return true;
+  }
+
+  boolean isSpaceBarSliding() {
+    return mSpaceBarSliding;
+  }
+
   void onUpEvent(int x, int y, long eventTime) {
     final OnKeyboardActionListener listener = mListener;
     final int oldKeyIndex = mPreviousKey;
     mHandler.cancelAllMessages();
     mProxy.hidePreview(mKeyState.getKeyIndex(), this);
     showKeyPreviewAndUpdateKey(NOT_A_KEY);
+    if (mSpaceBarSliding) {
+      // The slide moved the cursor; releasing it must not type a space.
+      mSpaceBarSliding = false;
+      mMaySlideOnSpaceBar = false;
+      if (listener != null) listener.onRelease(KeyCodes.SPACE);
+      setAlreadyProcessed();
+      return;
+    }
     if (mKeyAlreadyProcessed) {
       return;
     }
@@ -436,6 +494,8 @@ class PointerTracker {
 
   void onCancelEvent() {
     mKeyCodesInPathLength = -1;
+    mSpaceBarSliding = false;
+    mMaySlideOnSpaceBar = false;
     mHandler.cancelAllMessages();
     int keyIndex = mKeyState.getKeyIndex();
     mProxy.hidePreview(keyIndex, this);
