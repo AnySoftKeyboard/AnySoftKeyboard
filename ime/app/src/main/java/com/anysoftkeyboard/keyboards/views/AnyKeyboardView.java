@@ -212,13 +212,12 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
   /**
    * The Y coordinate (in this view's coordinates) below which a downward drag dismisses the
-   * keyboard. Anchored to the keyboard's bottom edge plus a small margin, but always clamped
-   * inside the view's touchable area so the gesture stays reachable even when the bottom padding
-   * is tiny (e.g. edge-to-edge on newer Android where the nav bar doesn't add padding).
+   * keyboard. Anchored to the keyboard's bottom edge plus a small margin, but always clamped inside
+   * the view's touchable area so the gesture stays reachable even when the bottom padding is tiny
+   * (e.g. edge-to-edge on newer Android where the nav bar doesn't add padding).
    */
   private void updateDismissYValue(@Nullable AnyKeyboard keyboard) {
-    final int keyboardBottom =
-        getPaddingTop() + (keyboard != null ? keyboard.getHeight() : 0);
+    final int keyboardBottom = getPaddingTop() + (keyboard != null ? keyboard.getHeight() : 0);
     final int margin = getResources().getDimensionPixelOffset(R.dimen.dismiss_keyboard_point);
     int dismissY = keyboardBottom + margin;
     final int viewHeight = getHeight();
