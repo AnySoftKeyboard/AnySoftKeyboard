@@ -26,6 +26,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -206,9 +207,34 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
     final Keyboard.Key lastKey = newKeyboard.getKeys().get(newKeyboard.getKeys().size() - 1);
     mWatermarkEdgeX = Keyboard.Key.getEndX(lastKey);
-    mDismissYValue =
-        newKeyboard.getHeight()
-            + getResources().getDimensionPixelOffset(R.dimen.dismiss_keyboard_point);
+    updateDismissYValue(newKeyboard);
+  }
+
+  /**
+   * The Y coordinate (in this view's coordinates) below which a downward drag dismisses the
+   * keyboard. Anchored to the keyboard's bottom edge plus a small margin, but always clamped
+   * inside the view's touchable area so the gesture stays reachable even when the bottom padding
+   * is tiny (e.g. edge-to-edge on newer Android where the nav bar doesn't add padding).
+   */
+  private void updateDismissYValue(@Nullable AnyKeyboard keyboard) {
+    final int keyboardBottom =
+        getPaddingTop() + (keyboard != null ? keyboard.getHeight() : 0);
+    final int margin = getResources().getDimensionPixelOffset(R.dimen.dismiss_keyboard_point);
+    int dismissY = keyboardBottom + margin;
+    final int viewHeight = getHeight();
+    if (viewHeight > 0) {
+      // keep at least 1px of touchable space below the keys, but never beyond the view bottom
+      dismissY = Math.min(dismissY, viewHeight - 1);
+      dismissY = Math.max(dismissY, keyboardBottom);
+    }
+    mDismissYValue = dismissY;
+  }
+
+  @Override
+  public void onSizeChanged(int w, int h, int oldw, int oldh) {
+    super.onSizeChanged(w, h, oldw, oldh);
+    // the touchable area changed (rotation, insets, nav bar) - re-anchor the dismiss line
+    updateDismissYValue(getKeyboard());
   }
 
   @Override
