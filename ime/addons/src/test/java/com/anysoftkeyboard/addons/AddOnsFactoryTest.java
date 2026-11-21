@@ -3,17 +3,23 @@ package com.anysoftkeyboard.addons;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
+import android.content.pm.ServiceInfo;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
 import androidx.annotation.StringRes;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Shadows;
+import org.robolectric.shadows.ShadowPackageManager;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AddOnsFactoryTest {
@@ -263,6 +269,31 @@ public class AddOnsFactoryTest {
     var updatedContext = factory.getEnabledAddOn().getPackageContext();
     Assert.assertEquals(2, updatedContext.getResources().getConfiguration().orientation);
     Assert.assertNotSame(originalContext, updatedContext);
+  }
+
+  @Test
+  public void testFindsOtherInputMethodPackages() {
+    final Context context = getApplicationContext();
+    Assert.assertTrue(AddOnsFactory.getOtherInputMethodPackages(context).isEmpty());
+
+    final Intent inputMethodIntent = new Intent("android.view.InputMethod");
+    final ShadowPackageManager shadowPackageManager = Shadows.shadowOf(context.getPackageManager());
+    shadowPackageManager.addResolveInfoForIntent(
+        inputMethodIntent, inputMethodService("com.example.other.keyboard"));
+    shadowPackageManager.addResolveInfoForIntent(
+        inputMethodIntent, inputMethodService(context.getPackageName()));
+
+    Assert.assertEquals(
+        Collections.singleton("com.example.other.keyboard"),
+        AddOnsFactory.getOtherInputMethodPackages(context));
+  }
+
+  private static ResolveInfo inputMethodService(String packageName) {
+    final ResolveInfo resolveInfo = new ResolveInfo();
+    resolveInfo.serviceInfo = new ServiceInfo();
+    resolveInfo.serviceInfo.packageName = packageName;
+    resolveInfo.serviceInfo.name = packageName + ".SoftKeyboard";
+    return resolveInfo;
   }
 
   public static void clearFactoryCache(AddOnsFactory<?> factory) {
