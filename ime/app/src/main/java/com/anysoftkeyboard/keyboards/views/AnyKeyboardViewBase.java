@@ -213,6 +213,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     setWillNotDraw(true /*starting with not-drawing. Once keyboard and theme are set we'll draw*/);
 
     mDisplayDensity = getResources().getDisplayMetrics().density;
+    mSharedPointerTrackersData.spaceBarSlideStepPx = Math.max(1, Math.round(10 * mDisplayDensity));
     mDefaultAddOn = new DefaultAddOn(context, context);
 
     mKeyPressTimingHandler = new KeyPressTimingHandler(this);
@@ -394,6 +395,23 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             .subscribe(
                 value -> mSharedPointerTrackersData.applyTouchTrajectoryCorrection = value,
                 GenericOnError.onError("failed to get settings_key_touch_trajectory_correction")));
+    mDisposables.add(
+        rxSharedPrefs
+            .getBoolean(
+                R.string.settings_key_space_bar_slide_moves_cursor,
+                R.bool.settings_default_space_bar_slide_moves_cursor)
+            .asObservable()
+            .subscribe(
+                value -> mSharedPointerTrackersData.spaceBarSlideMovesCursor = value,
+                GenericOnError.onError("failed to get settings_key_space_bar_slide_moves_cursor")));
+  }
+
+  /**
+   * True when a horizontal swipe that started on the space bar belongs to cursor sliding, not to
+   * the space bar swipe actions.
+   */
+  boolean isHorizontalSpaceBarSwipeTakenBySlide() {
+    return mSharedPointerTrackersData.spaceBarSlideMovesCursor && isFirstDownEventInsideSpaceBar();
   }
 
   protected static boolean isSpaceKey(final AnyKey key) {
