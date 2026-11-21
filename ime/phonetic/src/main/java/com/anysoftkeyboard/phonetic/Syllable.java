@@ -111,6 +111,17 @@ public final class Syllable {
     return EMPTY;
   }
 
+  /** Returns a copy with the slot of {@code symbol} emptied. */
+  public Syllable without(char symbol) {
+    return switch (kindOf(symbol)) {
+      case KIND_INITIAL -> new Syllable(0, mMedial, mFinal, mTone);
+      case KIND_MEDIAL -> new Syllable(mInitial, 0, mFinal, mTone);
+      case KIND_FINAL -> new Syllable(mInitial, mMedial, 0, mTone);
+      case KIND_TONE -> withTone(TONE_NONE);
+      default -> this;
+    };
+  }
+
   /** The highest non-tone slot kind that is filled, or {@link #KIND_NONE}. */
   public int highestFilledKind() {
     if (mFinal != 0) return KIND_FINAL;
@@ -158,6 +169,17 @@ public final class Syllable {
   /** The toneless code, see the class doc. */
   public int base() {
     return (mInitial * 4 + mMedial) * 14 + mFinal;
+  }
+
+  /**
+   * The largest {@link #base()} of the syllables that start with this one: typing more symbols can
+   * only fill the slots after the last filled one, and those are the low part of the code. So the
+   * syllables this one can still become are exactly the bases from {@link #base()} to this value.
+   */
+  public int maxExtensionBase() {
+    if (mFinal != 0) return base();
+    if (mMedial != 0) return base() + FINALS.length();
+    return base() + MEDIALS.length() * (FINALS.length() + 1) + FINALS.length();
   }
 
   @Override

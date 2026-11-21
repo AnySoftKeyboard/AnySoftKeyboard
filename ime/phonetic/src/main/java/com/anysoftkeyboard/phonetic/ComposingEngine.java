@@ -32,13 +32,16 @@ public interface ComposingEngine {
   /** Backspace. Returns false when there is nothing to delete (the IME then deletes normally). */
   boolean onDelete();
 
-  /** Moves the cursor by {@code delta} syllables. Returns false at the edges. */
+  /** Moves the cursor by {@code delta} typed symbols. Returns false at the edges. */
   boolean moveCursor(int delta);
 
   /** Picks a candidate from {@link #candidates()}. */
   void pick(Candidate candidate);
 
-  /** Commits the whole composition (Enter, keyboard switch, field change). */
+  /**
+   * Commits the whole composition as its best conversion, the first candidate (Enter, punctuation,
+   * keyboard switch, field change).
+   */
   void commitAll();
 
   /** Drops the composition without committing anything. */

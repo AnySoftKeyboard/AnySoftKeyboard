@@ -77,4 +77,44 @@ public class PhraseTableTest {
   public void testRejectsGarbage() throws IOException {
     PhraseTable.read(new ByteArrayInputStream(new byte[64]));
   }
+
+  @Test
+  public void testExtensionsOfALoneInitial() {
+    final List<Syllable> open = Arrays.asList(Syllable.EMPTY.with('ㄅ'));
+    final List<Phrase> out = new ArrayList<>();
+    TestTables.zhuyin().lookupExtensions(open, 0, 1, open.get(0), 10, out);
+    assertEquals(10, out.size());
+    assertEquals("不", out.get(0).text);
+    for (int i = 1; i < out.size(); i++) {
+      assertTrue(out.get(i - 1).score >= out.get(i).score);
+    }
+  }
+
+  @Test
+  public void testExtensionsLeaveOutTheExactSyllable() {
+    final List<Syllable> open = Arrays.asList(Syllable.EMPTY.with('ㄋ').with('ㄧ'));
+    final List<Phrase> out = new ArrayList<>();
+    TestTables.zhuyin().lookupExtensions(open, 0, 1, open.get(0), 1000, out);
+    assertTrue(texts(out).contains("年")); // ㄋㄧㄢ
+    assertTrue(texts(out).contains("您")); // ㄋㄧㄣ
+    assertFalse(texts(out).contains("你")); // ㄋㄧ itself: found by lookup()
+    assertFalse(texts(out).contains("那")); // ㄋㄚ: not an extension of ㄋㄧ
+  }
+
+  @Test
+  public void testExtensionsOfThePhraseEnd() {
+    final List<Syllable> typed = Arrays.asList(Syllable.parse("ㄋㄧˇ"), Syllable.EMPTY.with('ㄏ'));
+    final List<Phrase> out = new ArrayList<>();
+    TestTables.zhuyin().lookupExtensions(typed, 0, 2, typed.get(1), 20, out);
+    assertTrue(texts(out).contains("你好"));
+    for (Phrase phrase : out) assertEquals(2, phrase.span);
+  }
+
+  @Test
+  public void testCompleteSyllableHasNoExtensions() {
+    final List<Syllable> open = Arrays.asList(Syllable.parse("ㄋㄧㄢ").withTone(0));
+    final List<Phrase> out = new ArrayList<>();
+    TestTables.zhuyin().lookupExtensions(open, 0, 1, open.get(0), 20, out);
+    assertTrue(out.isEmpty());
+  }
 }

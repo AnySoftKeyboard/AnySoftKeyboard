@@ -139,7 +139,7 @@ public class ZhuyinComposerTest {
   @Test
   public void testCursorPickPinsMiddleAsHanziWithoutCommitting() {
     type(mComposer, "ㄋㄧˇㄏㄠˇㄇㄚ˙");
-    assertTrue(mComposer.moveCursor(-2)); // before ㄏㄠˇ
+    assertTrue(mComposer.moveCursor(-6)); // before ㄏㄠˇ
     assertEquals(3, mComposer.cursorCharOffset());
     mComposer.pick(candidate("郝"));
     assertEquals("", mComposer.takeCommitText());
@@ -151,9 +151,9 @@ public class ZhuyinComposerTest {
   @Test
   public void testPinnedPrefixFlushesWhenHeadIsPicked() {
     type(mComposer, "ㄋㄧˇㄏㄠˇㄇㄚ˙");
-    mComposer.moveCursor(-2);
+    mComposer.moveCursor(-6);
     mComposer.pick(candidate("郝"));
-    mComposer.moveCursor(-2); // to the start
+    mComposer.moveCursor(-4); // over 郝 and ㄋㄧˇ, to the start
     mComposer.pick(candidate("妳"));
     assertEquals("妳郝", mComposer.takeCommitText());
     assertEquals("ㄇㄚ˙", mComposer.composingText());
@@ -162,7 +162,7 @@ public class ZhuyinComposerTest {
   @Test
   public void testTypingAtCursorInsertsSyllable() {
     type(mComposer, "ㄋㄧˇㄇㄚ˙");
-    mComposer.moveCursor(-1);
+    mComposer.moveCursor(-3);
     type(mComposer, "ㄏㄠˇ");
     assertEquals("ㄋㄧˇㄏㄠˇㄇㄚ˙", mComposer.composingText());
     assertEquals(6, mComposer.cursorCharOffset());
@@ -174,8 +174,85 @@ public class ZhuyinComposerTest {
     assertFalse(mComposer.moveCursor(-1));
     type(mComposer, "ㄋㄧˇ");
     assertFalse(mComposer.moveCursor(1));
-    assertTrue(mComposer.moveCursor(-1));
+    assertTrue(mComposer.moveCursor(-3));
     assertFalse(mComposer.moveCursor(-1));
+  }
+
+  @Test
+  public void testCursorMovesSymbolBySymbol() {
+    type(mComposer, "ㄋㄧˇㄏㄠˇ");
+    assertEquals(6, mComposer.cursorCharOffset());
+    for (int offset = 5; offset >= 0; offset--) {
+      assertTrue(mComposer.moveCursor(-1));
+      assertEquals(offset, mComposer.cursorCharOffset());
+    }
+    assertFalse(mComposer.moveCursor(-1));
+    for (int offset = 1; offset <= 6; offset++) {
+      assertTrue(mComposer.moveCursor(1));
+      assertEquals(offset, mComposer.cursorCharOffset());
+    }
+    assertFalse(mComposer.moveCursor(1));
+    assertEquals("ㄋㄧˇㄏㄠˇ", mComposer.composingText());
+  }
+
+  @Test
+  public void testCursorPassesSeparatorWithTheSyllable() {
+    type(mComposer, "ㄐㄧㄣ ㄊㄧㄢ ");
+    // ㄐㄧㄣ + separator + ㄊㄧㄢ: from the end, three steps reach the start of ㄊㄧㄢ.
+    assertTrue(mComposer.moveCursor(-3));
+    assertEquals(4, mComposer.cursorCharOffset());
+    assertTrue(mComposer.moveCursor(-1));
+    assertEquals(2, mComposer.cursorCharOffset());
+  }
+
+  @Test
+  public void testCursorInsideSyllableOffersItsCandidates() {
+    type(mComposer, "ㄋㄧˇㄏㄠˇㄇㄚ˙");
+    assertTrue(mComposer.moveCursor(-4)); // ㄏㄠ|ˇ
+    assertEquals(5, mComposer.cursorCharOffset());
+    mComposer.pick(candidate("郝"));
+    assertEquals("ㄋㄧˇ郝ㄇㄚ˙", mComposer.composingText());
+    assertEquals(4, mComposer.cursorCharOffset());
+  }
+
+  @Test
+  public void testTypingInsideSyllableSetsItsSlot() {
+    type(mComposer, "ㄋㄧˇㄏㄠˇ");
+    assertTrue(mComposer.moveCursor(-5)); // ㄋ|ㄧˇㄏㄠˇ
+    type(mComposer, "ㄨ"); // medial ㄧ → ㄨ
+    assertEquals("ㄋㄨˇㄏㄠˇ", mComposer.composingText());
+    assertEquals(2, mComposer.cursorCharOffset());
+    type(mComposer, "ˋ"); // tone ˇ → ˋ; the cursor is now past the syllable
+    assertEquals("ㄋㄨˋㄏㄠˇ", mComposer.composingText());
+    assertEquals(3, mComposer.cursorCharOffset());
+    mComposer.commitAll();
+    assertEquals("怒好", mComposer.takeCommitText());
+  }
+
+  @Test
+  public void testDeleteInsideSyllableRemovesSymbolBeforeCursor() {
+    type(mComposer, "ㄋㄧㄢˊ");
+    assertTrue(mComposer.moveCursor(-2)); // ㄋㄧ|ㄢˊ
+    assertTrue(mComposer.onDelete());
+    assertEquals("ㄋㄢˊ", mComposer.composingText());
+    assertEquals(1, mComposer.cursorCharOffset());
+    assertTrue(mComposer.onDelete());
+    assertEquals("ㄢˊ", mComposer.composingText());
+    assertEquals(0, mComposer.cursorCharOffset());
+    assertTrue(mComposer.onDelete()); // at the start: consumed, nothing to remove
+    assertEquals("ㄢˊ", mComposer.composingText());
+  }
+
+  @Test
+  public void testCursorStepsOverPickedSegmentPerCharacter() {
+    type(mComposer, "ㄋㄧˇㄏㄠˇㄇㄚ˙");
+    mComposer.moveCursor(-6);
+    mComposer.pick(candidate("郝")); // ㄋㄧˇ郝|ㄇㄚ˙
+    assertEquals(4, mComposer.cursorCharOffset());
+    assertTrue(mComposer.moveCursor(-1));
+    assertEquals(3, mComposer.cursorCharOffset());
+    assertTrue(mComposer.moveCursor(1));
+    assertEquals(4, mComposer.cursorCharOffset());
   }
 
   // --- editing ---
@@ -211,7 +288,7 @@ public class ZhuyinComposerTest {
   @Test
   public void testDeleteAtStartIsConsumed() {
     type(mComposer, "ㄋㄧˇ");
-    mComposer.moveCursor(-1);
+    mComposer.moveCursor(-3);
     assertTrue(mComposer.onDelete());
     assertEquals("ㄋㄧˇ", mComposer.composingText());
   }
@@ -219,7 +296,7 @@ public class ZhuyinComposerTest {
   @Test
   public void testDeleteAfterPinTurnsHanziBackIntoZhuyin() {
     type(mComposer, "ㄋㄧˇㄏㄠˇㄇㄚ˙");
-    mComposer.moveCursor(-2);
+    mComposer.moveCursor(-6);
     mComposer.pick(candidate("郝")); // cursor now right after 郝
     assertTrue(mComposer.onDelete());
     assertEquals("ㄋㄧˇㄏㄠˇㄇㄚ˙", mComposer.composingText());
@@ -375,5 +452,136 @@ public class ZhuyinComposerTest {
     assertFalse(mComposer.isComposing());
     assertEquals("", mComposer.takeCommitText());
     assertTrue(mComposer.candidates().isEmpty());
+  }
+
+  // --- candidates from the first symbol ---
+
+  @Test
+  public void testFirstSymbolOffersCharactersByFrequency() {
+    type(mComposer, "ㄅ");
+    assertEquals("ㄅ", mComposer.composingText());
+    final List<Candidate> candidates = mComposer.candidates();
+    assertEquals("不", candidates.get(0).text);
+    assertEquals(Candidate.Kind.PHRASE, candidates.get(0).kind);
+    // The symbol itself stays available, last.
+    assertEquals("ㄅ", candidates.get(candidates.size() - 1).text);
+    assertEquals(Candidate.Kind.RAW, candidates.get(candidates.size() - 1).kind);
+  }
+
+  @Test
+  public void testPickingForLoneSymbolCommitsIt() {
+    type(mComposer, "ㄅ");
+    mComposer.pick(candidate("不"));
+    assertEquals("不", mComposer.takeCommitText());
+    assertFalse(mComposer.isComposing());
+  }
+
+  @Test
+  public void testExactReadingComesBeforeLongerOnes() {
+    type(mComposer, "ㄋㄧ");
+    final List<Candidate> candidates = mComposer.candidates();
+    assertEquals("你", candidates.get(0).text);
+    candidate("年"); // ㄋㄧㄢ: offered too
+  }
+
+  @Test
+  public void testOpenSyllableCompletesPhrases() {
+    type(mComposer, "ㄋㄧˇㄏ");
+    assertEquals("ㄋㄧˇㄏ", mComposer.composingText());
+    mComposer.pick(candidate("你好"));
+    assertEquals("你好", mComposer.takeCommitText());
+    assertFalse(mComposer.isComposing());
+  }
+
+  @Test
+  public void testSentencePickCommitsWhatIsShown() {
+    type(mComposer, "ㄐㄧㄣ ㄊㄧㄢ ㄊㄧㄢ ㄑㄧˋㄏㄣˇㄏ");
+    final Candidate sentence = mComposer.candidates().get(0);
+    assertEquals(Candidate.Kind.SENTENCE, sentence.kind);
+    assertEquals("今天天氣很好", sentence.text);
+    mComposer.pick(sentence);
+    assertEquals("今天天氣很好", mComposer.takeCommitText());
+    assertFalse(mComposer.isComposing());
+  }
+
+  @Test
+  public void testCommitAllCommitsTheFirstCandidate() {
+    type(mComposer, "ㄋㄧˇㄏ");
+    final String shown = mComposer.candidates().get(0).text;
+    assertEquals("你會", shown);
+    mComposer.commitAll();
+    assertEquals(shown, mComposer.takeCommitText());
+  }
+
+  @Test
+  public void testCommitAllCompletesALoneSymbol() {
+    type(mComposer, "ㄅ");
+    mComposer.commitAll();
+    assertEquals("不", mComposer.takeCommitText());
+  }
+
+  @Test
+  public void testClosedLoneSymbolCommitsAsItself() {
+    type(mComposer, "ㄋㄧˇㄏㄠˇㄅ ");
+    mComposer.commitAll();
+    assertEquals("你好ㄅ", mComposer.takeCommitText());
+  }
+
+  @Test
+  public void testMovingTheCursorMakesALoneSymbolLiteral() {
+    type(mComposer, "ㄅ");
+    assertTrue(mComposer.moveCursor(-1));
+    final List<Candidate> candidates = mComposer.candidates();
+    assertEquals(1, candidates.size());
+    assertEquals("ㄅ", candidates.get(0).text);
+    assertFalse(mComposer.moveCursor(-1)); // leaving the composition: the IME commits it
+    mComposer.commitAll();
+    assertEquals("ㄅ", mComposer.takeCommitText());
+  }
+
+  @Test
+  public void testPickForOpenSyllableInTheMiddle() {
+    type(mComposer, "ㄋㄧˇㄇㄚ˙");
+    assertTrue(mComposer.moveCursor(-3));
+    type(mComposer, "ㄏ");
+    assertEquals("ㄋㄧˇㄏㄇㄚ˙", mComposer.composingText());
+    mComposer.pick(candidate("好"));
+    assertEquals("ㄋㄧˇ好ㄇㄚ˙", mComposer.composingText());
+    mComposer.commitAll();
+    assertEquals("你好嗎", mComposer.takeCommitText());
+  }
+
+  @Test
+  public void testUndoingAPickForAnOpenSyllableShowsWhatWasTyped() {
+    type(mComposer, "ㄋㄧˇㄇㄚ˙");
+    assertTrue(mComposer.moveCursor(-3));
+    type(mComposer, "ㄏ");
+    mComposer.pick(candidate("好"));
+    assertTrue(mComposer.onDelete());
+    assertEquals("ㄋㄧˇㄏ" + SEP + "ㄇㄚ˙", mComposer.composingText());
+  }
+
+  // --- standalone tone marks ---
+
+  @Test
+  public void testLoneToneIsNotConsumed() {
+    assertFalse(mComposer.onKey('ˇ'));
+    assertFalse(mComposer.onKey('˙'));
+    assertFalse(mComposer.isComposing());
+  }
+
+  @Test
+  public void testToneAfterClosedSyllableStillRetones() {
+    type(mComposer, "ㄇㄚˇ");
+    assertTrue(mComposer.onKey('˙'));
+    assertEquals("ㄇㄚ˙", mComposer.composingText());
+  }
+
+  @Test
+  public void testToneAtCompositionStartIsSwallowed() {
+    type(mComposer, "ㄇㄚˇ");
+    assertTrue(mComposer.moveCursor(-3));
+    assertTrue(mComposer.onKey('ˋ'));
+    assertEquals("ㄇㄚˇ", mComposer.composingText());
   }
 }

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- In landscape, four short Bopomofo rows (4 x 27dip on the default theme) take about the
-         same height as three normal letter rows (3 x 35dip), so the Zhuyin keyboard does not
-         cover the input field. -->
-    <integer name="chinese_traditional_zhuyin_key_height">@integer/key_short_height</integer>
-</resources>

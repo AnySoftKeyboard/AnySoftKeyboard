@@ -379,6 +379,19 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
     final List<E> externalAddOns = new ArrayList<>();
 
+    // Other installed AnySoftKeyboard builds (Play, Dev, side-by-side) export their bundled
+    // packs too. Those are keyboards, not add-on packs, and their add-ons share IDs with ours,
+    // which produces duplicate entries that toggle together. Skip any package that is itself
+    // an input method.
+    final java.util.Set<String> otherImePackages = new java.util.HashSet<>();
+    for (final ResolveInfo ime :
+        packageManager.queryIntentServices(new Intent("android.view.InputMethod"), 0)) {
+      if (ime.serviceInfo != null
+          && !mContext.getPackageName().equalsIgnoreCase(ime.serviceInfo.packageName)) {
+        otherImePackages.add(ime.serviceInfo.packageName);
+      }
+    }
+
     for (final ResolveInfo receiver : broadcastReceivers) {
       if (receiver.activityInfo == null) {
         Logger.e(
@@ -397,6 +410,11 @@ public abstract class AddOnsFactory<E extends AddOn> {
       if (!mReadExternalPacksToo
           && !mContext.getPackageName().equalsIgnoreCase(receiver.activityInfo.packageName)) {
         // Skipping external packages
+        continue;
+      }
+      if (otherImePackages.contains(receiver.activityInfo.packageName)) {
+        Logger.d(
+            mTag, "Skipping add-ons of another keyboard app %s", receiver.activityInfo.packageName);
         continue;
       }
       try {

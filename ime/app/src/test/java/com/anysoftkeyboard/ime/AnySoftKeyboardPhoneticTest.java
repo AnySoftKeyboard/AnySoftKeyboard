@@ -1,8 +1,14 @@
 package com.anysoftkeyboard.ime;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
+
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
+import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.CandidatesPanelView;
 import com.anysoftkeyboard.phonetic.PhraseTable;
 import com.menny.android.anysoftkeyboard.R;
@@ -141,9 +147,11 @@ public class AnySoftKeyboardPhoneticTest extends AnySoftKeyboardBaseTest {
   @Test
   public void testCursorPickFixesMiddleWord() {
     type("ㄋㄧˇㄏㄠˇㄇㄚ˙");
-    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
-    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
-    Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
+    // The arrows walk the Bopomofo symbol by symbol: six steps back to the start of ㄏㄠˇ.
+    for (int position = 8; position >= 3; position--) {
+      mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
+      Assert.assertEquals(position, getCurrentTestInputConnection().getCurrentStartPosition());
+    }
     pick("郝");
     Assert.assertEquals("ㄋㄧˇ郝ㄇㄚ˙", text());
     Assert.assertEquals(4, getCurrentTestInputConnection().getCurrentStartPosition());
@@ -185,6 +193,21 @@ public class AnySoftKeyboardPhoneticTest extends AnySoftKeyboardBaseTest {
   public void testSwipeUpWithoutCompositionKeepsStripBehavior() {
     Assert.assertFalse(mAnySoftKeyboardUnderTest.onCandidateStripSwipeUp());
     Assert.assertNull(panel());
+  }
+
+  @Test
+  public void testClosingCandidatesPanelKeepsTheStrip() {
+    type("ㄋㄧˇㄏㄠˇ");
+    final android.view.View strip =
+        mAnySoftKeyboardUnderTest.getInputViewContainer().getCandidateView();
+    Assert.assertEquals(android.view.View.VISIBLE, strip.getVisibility());
+    mAnySoftKeyboardUnderTest.onCandidateStripSwipeUp();
+    final android.view.ViewGroup panel = panel();
+    // ▲ closes the panel.
+    panel.getChildAt(0).performClick();
+    Assert.assertNull(panel());
+    Assert.assertEquals(android.view.View.VISIBLE, strip.getVisibility());
+    Assert.assertEquals("你好", verifyAndCaptureSuggestion(false).get(0).toString());
   }
 
   @Test
@@ -249,6 +272,18 @@ public class AnySoftKeyboardPhoneticTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
+  public void testAppRestartingInputDoesNotCommitConversion() {
+    type("ㄋㄧˇ");
+    // The app restarts the input on the same field (as it does after changing the text itself).
+    simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
+    Assert.assertEquals("ㄋㄧˇ", text());
+    // The old composition is gone: new keys start a fresh one.
+    type("ㄏㄠˇ");
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+    Assert.assertEquals("ㄋㄧˇ好", text());
+  }
+
+  @Test
   public void testSymbolsKeyboardCommitsConversion() {
     type("ㄋㄧˇㄏㄠˇ");
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
@@ -294,9 +329,9 @@ public class AnySoftKeyboardPhoneticTest extends AnySoftKeyboardBaseTest {
   @Test
   public void testBackAndForthThenInsertAndCommit() {
     type("ㄋㄧˇㄇㄚ˙");
-    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
-    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
-    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+    for (int i = 0; i < 5; i++) mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
+    for (int i = 0; i < 2; i++) mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+    Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
     type("ㄏㄠˇ");
     Assert.assertEquals("ㄋㄧˇㄏㄠˇㄇㄚ˙", text());
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
@@ -350,5 +385,139 @@ public class AnySoftKeyboardPhoneticTest extends AnySoftKeyboardBaseTest {
   public void testNonBopomofoWithoutCompositionIsTypedNormally() {
     mAnySoftKeyboardUnderTest.simulateKeyPress('a');
     Assert.assertEquals("a", text());
+  }
+
+  // --- candidates from the first symbol, and typing the symbols themselves ---
+
+  /** A key of the long-press popup that holds {@code popupCharacters}. */
+  private static Keyboard.Key popupKey(String popupCharacters, int code) {
+    final AnyPopupKeyboard popup =
+        new AnyPopupKeyboard(
+            new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+            getApplicationContext(),
+            popupCharacters,
+            SIMPLE_KeyboardDimens,
+            "POP_KEYBOARD");
+    for (Keyboard.Key key : popup.getKeys()) {
+      if (key.getPrimaryCode() == code) return key;
+    }
+    throw new AssertionError("no key " + code + " in popup " + popupCharacters);
+  }
+
+  private void longPressPick(String popupCharacters, int code) {
+    mAnySoftKeyboardUnderTest.onKey(code, popupKey(popupCharacters, code), 0, null, true);
+  }
+
+  @Test
+  public void testFirstSymbolShowsCandidates() {
+    type("ㄅ");
+    Assert.assertEquals("ㄅ", text());
+    Assert.assertEquals("不", verifyAndCaptureSuggestion(false).get(0).toString());
+    pick("不");
+    Assert.assertEquals("不", text());
+  }
+
+  @Test
+  public void testOpenSyllableCompletesPhrase() {
+    type("ㄋㄧˇㄏ");
+    pick("你好");
+    Assert.assertEquals("你好", text());
+  }
+
+  @Test
+  public void testEnterCommitsTheFirstCandidate() {
+    type("ㄋㄧˇㄏ");
+    final String shown = verifyAndCaptureSuggestion(false).get(0).toString();
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+    Assert.assertEquals("你會", shown);
+    Assert.assertEquals(shown, text());
+  }
+
+  @Test
+  public void testPunctuationCommitsTheFirstCandidate() {
+    type("ㄅ");
+    mAnySoftKeyboardUnderTest.simulateKeyPress('，');
+    Assert.assertEquals("不，", text());
+  }
+
+  @Test
+  public void testClosedLoneSymbolStaysItselfOnEnter() {
+    type("ㄅ");
+    mAnySoftKeyboardUnderTest.simulateKeyPress(' '); // closes the syllable as typed
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+    Assert.assertEquals("ㄅ", text());
+  }
+
+  @Test
+  public void testMovingTheCursorKeepsLoneSymbol() {
+    type("ㄅ");
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+    Assert.assertEquals("ㄅ", text());
+    // The composition is over: the next symbol starts a new one after it.
+    type("ㄋㄧˇ");
+    Assert.assertEquals("ㄅㄋㄧˇ", text());
+  }
+
+  @Test
+  public void testEditingInsideASyllableWithTheArrows() {
+    type("ㄋㄧˇㄏㄠˇ");
+    for (int i = 0; i < 5; i++) mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
+    Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+    type("ㄨ"); // ㄋ|ㄧˇ: the medial becomes ㄨ
+    Assert.assertEquals("ㄋㄨˇㄏㄠˇ", text());
+    Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+    Assert.assertEquals("ㄋˇㄏㄠˇ", text());
+    Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+  }
+
+  @Test
+  public void testLongPressTypesSymbolItself() {
+    longPressPick("1ㄅ", 'ㄅ');
+    Assert.assertEquals("ㄅ", text());
+    longPressPick("1ㄅ", 'ㄅ');
+    Assert.assertEquals("ㄅㄅ", text());
+    // Not composing: the next key starts a syllable of its own.
+    type("ㄋㄧˇ");
+    Assert.assertEquals("ㄅㄅㄋㄧˇ", text());
+  }
+
+  @Test
+  public void testLongPressWhileComposingCommitsFirst() {
+    type("ㄋㄧˇㄏㄠˇ");
+    longPressPick("1ㄅ", 'ㄅ');
+    Assert.assertEquals("你好ㄅ", text());
+  }
+
+  @Test
+  public void testLongPressHintStillTypesIt() {
+    type("ㄋㄧˇ");
+    longPressPick("1ㄅ", '1');
+    Assert.assertEquals("你1", text());
+  }
+
+  @Test
+  public void testLoneToneMarkIsTyped() {
+    type("ˇ");
+    Assert.assertEquals("ˇ", text());
+    type("ˊ˙");
+    Assert.assertEquals("ˇˊ˙", text());
+    type("ㄋㄧˇ");
+    Assert.assertEquals("ˇˊ˙ㄋㄧˇ", text());
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+    Assert.assertEquals("ˇˊ˙你", text());
+  }
+
+  @Test
+  public void testLoneToneMarkAfterLatinWordKeepsTheWord() {
+    mAnySoftKeyboardUnderTest.simulateTextTyping("ab");
+    type("ˋ");
+    Assert.assertEquals("abˋ", text());
+  }
+
+  @Test
+  public void testToneAfterSyllableStillRetones() {
+    type("ㄇㄚˇ˙");
+    Assert.assertEquals("ㄇㄚ˙", text());
   }
 }

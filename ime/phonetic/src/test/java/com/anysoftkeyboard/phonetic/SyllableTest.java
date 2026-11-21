@@ -63,4 +63,19 @@ public class SyllableTest {
     assertEquals(Syllable.KIND_NONE, Syllable.kindOf('a'));
     assertEquals(Syllable.KIND_NONE, Syllable.kindOf(' '));
   }
+
+  @Test
+  public void testMaxExtensionBase() {
+    // A final is the last slot: nothing can follow.
+    final Syllable full = Syllable.parse("ㄋㄧㄢ");
+    assertEquals(full.base(), full.maxExtensionBase());
+    // ㄋㄧ can become ㄋㄧㄚ … ㄋㄧㄦ, but not ㄋㄨ.
+    final Syllable ni = Syllable.EMPTY.with('ㄋ').with('ㄧ');
+    assertEquals(Syllable.parse("ㄋㄧㄦ").base(), ni.maxExtensionBase());
+    assertTrue(Syllable.EMPTY.with('ㄋ').with('ㄨ').base() > ni.maxExtensionBase());
+    // ㄋ can become anything up to ㄋㄩㄦ, but not ㄌ.
+    final Syllable n = Syllable.EMPTY.with('ㄋ');
+    assertEquals(Syllable.parse("ㄋㄩㄦ").base(), n.maxExtensionBase());
+    assertTrue(Syllable.EMPTY.with('ㄌ').base() > n.maxExtensionBase());
+  }
 }

@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,6 +47,12 @@ public final class PhraseTable {
 
   /** Typing ˙ also matches the dictionary tone, because McBopomofo stores full tones (覺得). */
   static final float NEUTRAL_TONE_MISMATCH_PENALTY = 3f;
+
+  /**
+   * A phrase offered for a syllable that is still being typed, read as a longer syllable than the
+   * typed one (ㄋㄧ → 年 ㄋㄧㄢ). Keeps exact readings (你) ahead of it.
+   */
+  static final float EXTENSION_PENALTY = 1.5f;
 
   public static final int MAX_PHRASE_SYLLABLES = 6;
 
@@ -83,7 +90,7 @@ public final class PhraseTable {
 
   /** True if some phrase is pronounced as this single (toneless) syllable. */
   public boolean isKnownSyllable(int base) {
-    return findKey(new int[] {base}, 0, 1) >= 0;
+    return findKey(new int[] {base}, 1) >= 0;
   }
 
   /**
@@ -93,37 +100,92 @@ public final class PhraseTable {
   public void lookup(List<Syllable> readings, int from, int length, List<Phrase> out) {
     final int[] bases = new int[length];
     for (int i = 0; i < length; i++) bases[i] = readings.get(from + i).base();
-    final int key = findKey(bases, 0, length);
+    final int key = findKey(bases, length);
     if (key < 0) return;
     final int firstAdded = out.size();
     boolean penalized = false;
     final int end = mData.getInt(mEntryStartsPos + 4 * (key + 1));
     for (int entry = mData.getInt(mEntryStartsPos + 4 * key); entry < end; entry++) {
-      final int pos = mEntriesPos + ENTRY_BYTES * entry;
-      final int tones = mData.getInt(pos);
-      float penalty = 0f;
-      boolean matches = true;
-      for (int i = 0; i < length && matches; i++) {
-        final int typed = readings.get(from + i).tone();
-        final int stored = (tones >>> (3 * i)) & 7;
-        if (typed == Syllable.TONE_NONE || typed == stored) continue;
-        if (typed == Syllable.TONE_NEUTRAL) {
-          penalty += NEUTRAL_TONE_MISMATCH_PENALTY;
-        } else {
-          matches = false;
-        }
-      }
-      if (!matches) continue;
+      final float penalty = tonePenalty(entry, readings, from, length);
+      if (penalty < 0f) continue;
       penalized |= penalty != 0f;
-      final int textOffset = mData.getInt(pos + 4);
-      final int textLength = mData.get(pos + 8) & 0xFF;
-      final float score = -(mData.get(pos + 9) & 0xFF) / SCORE_SCALE - penalty;
-      out.add(new Phrase(text(textOffset, textLength), length, score));
+      out.add(phrase(entry, length, penalty));
     }
     // Stored order is best first; a tone penalty can break it.
     if (penalized) {
       out.subList(firstAdded, out.size()).sort((a, b) -> Float.compare(b.score, a.score));
     }
+  }
+
+  /**
+   * Like {@link #lookup}, for a span whose last syllable is still being typed: appends the best
+   * {@code limit} phrases whose last syllable starts with {@code open} and is not the syllable in
+   * {@code readings} itself (which {@link #lookup} finds). Best first, each with {@link
+   * #EXTENSION_PENALTY}.
+   *
+   * <p>Keys are sorted by (length, bases), so these phrases are one run of keys.
+   */
+  public void lookupExtensions(
+      List<Syllable> readings, int from, int length, Syllable open, int limit, List<Phrase> out) {
+    final int last = length - 1;
+    final int exactBase = readings.get(from + last).base();
+    final int[] bases = new int[length];
+    for (int i = 0; i < last; i++) bases[i] = readings.get(from + i).base();
+    bases[last] = open.base();
+    final int maxBase = open.maxExtensionBase();
+    // Each hit is packed as (penalized stored score << 32 | entry), so sorting puts the best first.
+    long[] hits = new long[64];
+    int count = 0;
+    for (int key = firstKeyNotBelow(bases, length); key < mKeyCount; key++) {
+      final int keyStart = mData.getInt(mKeyOffsetsPos + 4 * key);
+      if (mData.getInt(mKeyOffsetsPos + 4 * (key + 1)) - keyStart != length) break;
+      bases[last] = maxBase;
+      if (compareKey(key, bases, length) > 0) break;
+      if ((mData.getShort(mKeyBlobPos + 2 * (keyStart + last)) & 0xFFFF) == exactBase) continue;
+      final int end = mData.getInt(mEntryStartsPos + 4 * (key + 1));
+      for (int entry = mData.getInt(mEntryStartsPos + 4 * key); entry < end; entry++) {
+        // The open syllable has no tone yet, so only the syllables before it can mismatch.
+        final float penalty = tonePenalty(entry, readings, from, last);
+        if (penalty < 0f) continue;
+        final int score =
+            (mData.get(mEntriesPos + ENTRY_BYTES * entry + 9) & 0xFF)
+                + Math.round((penalty + EXTENSION_PENALTY) * SCORE_SCALE);
+        if (count == hits.length) hits = Arrays.copyOf(hits, count * 2);
+        hits[count++] = ((long) score << 32) | entry;
+      }
+    }
+    Arrays.sort(hits, 0, count);
+    for (int i = 0; i < Math.min(count, limit); i++) {
+      final int entry = (int) hits[i];
+      out.add(new Phrase(entryText(entry), length, -(hits[i] >>> 32) / SCORE_SCALE));
+    }
+  }
+
+  /**
+   * The score penalty of an entry for the typed tones of {@code readings[from, from + length)}: 0
+   * when they all match, negative when the entry does not match at all.
+   */
+  private float tonePenalty(int entry, List<Syllable> readings, int from, int length) {
+    final int tones = mData.getInt(mEntriesPos + ENTRY_BYTES * entry);
+    float penalty = 0f;
+    for (int i = 0; i < length; i++) {
+      final int typed = readings.get(from + i).tone();
+      final int stored = (tones >>> (3 * i)) & 7;
+      if (typed == Syllable.TONE_NONE || typed == stored) continue;
+      if (typed != Syllable.TONE_NEUTRAL) return -1f;
+      penalty += NEUTRAL_TONE_MISMATCH_PENALTY;
+    }
+    return penalty;
+  }
+
+  private Phrase phrase(int entry, int span, float penalty) {
+    final int stored = mData.get(mEntriesPos + ENTRY_BYTES * entry + 9) & 0xFF;
+    return new Phrase(entryText(entry), span, -stored / SCORE_SCALE - penalty);
+  }
+
+  private String entryText(int entry) {
+    final int pos = mEntriesPos + ENTRY_BYTES * entry;
+    return text(mData.getInt(pos + 4), mData.get(pos + 8) & 0xFF);
   }
 
   private String text(int offset, int length) {
@@ -132,30 +194,33 @@ public final class PhraseTable {
     return new String(chars);
   }
 
-  private int findKey(int[] bases, int from, int length) {
-    int low = 0;
-    int high = mKeyCount - 1;
-    while (low <= high) {
-      final int mid = (low + high) >>> 1;
-      final int cmp = compareKey(mid, bases, from, length);
-      if (cmp < 0) {
-        low = mid + 1;
-      } else if (cmp > 0) {
-        high = mid - 1;
-      } else {
-        return mid;
-      }
-    }
-    return -1;
+  private int findKey(int[] bases, int length) {
+    final int key = firstKeyNotBelow(bases, length);
+    return key < mKeyCount && compareKey(key, bases, length) == 0 ? key : -1;
   }
 
-  private int compareKey(int key, int[] bases, int from, int length) {
+  /** The first key that sorts at or after {@code bases[0, length)}; the key count if none. */
+  private int firstKeyNotBelow(int[] bases, int length) {
+    int low = 0;
+    int high = mKeyCount;
+    while (low < high) {
+      final int mid = (low + high) >>> 1;
+      if (compareKey(mid, bases, length) < 0) {
+        low = mid + 1;
+      } else {
+        high = mid;
+      }
+    }
+    return low;
+  }
+
+  private int compareKey(int key, int[] bases, int length) {
     final int start = mData.getInt(mKeyOffsetsPos + 4 * key);
     final int keyLength = mData.getInt(mKeyOffsetsPos + 4 * (key + 1)) - start;
     if (keyLength != length) return Integer.compare(keyLength, length);
     for (int i = 0; i < length; i++) {
       final int stored = mData.getShort(mKeyBlobPos + 2 * (start + i)) & 0xFFFF;
-      if (stored != bases[from + i]) return Integer.compare(stored, bases[from + i]);
+      if (stored != bases[i]) return Integer.compare(stored, bases[i]);
     }
     return 0;
   }

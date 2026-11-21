@@ -25,7 +25,10 @@ import java.util.Set;
  * Sentence-level Zhuyin composition.
  *
  * <p>State: closed syllables ({@code mReadings}), the syllable being typed ({@code mPending}, which
- * sits at the cursor), the cursor (0..n, in syllables) and the user's pins.
+ * sits at the cursor), the cursor and the user's pins. The cursor is a syllable position (0..n)
+ * plus a symbol offset into that syllable, so the arrows walk the Bopomofo symbol by symbol. Inside
+ * a syllable, a typed symbol sets its slot of that syllable and backspace removes the symbol before
+ * the cursor.
  *
  * <p>One rule drives the strip. The <b>anchor</b> is the cursor when it is inside the composition,
  * otherwise the start. Candidates are the phrases starting at the anchor. Picking one pins it and
@@ -62,6 +65,13 @@ public final class ZhuyinComposer implements ComposingEngine {
   private final List<Lattice.Node> mPins = new ArrayList<>();
   private Syllable mPending = Syllable.EMPTY;
   private int mCursor;
+
+  /**
+   * How many symbols of {@code mReadings[mCursor]} are before the cursor; 0 when the cursor is
+   * between syllables. While it is not 0 there is no pending syllable.
+   */
+  private int mSymbolOffset;
+
   private final StringBuilder mCommit = new StringBuilder();
 
   private Lattice mLattice;
@@ -89,6 +99,12 @@ public final class ZhuyinComposer implements ComposingEngine {
   @Override
   public boolean onKey(int codePoint) {
     if (codePoint == ' ') return onSpace();
+    if (mSymbolOffset > 0) {
+      if (Syllable.kindOf(codePoint) != Syllable.KIND_NONE) return editSyllableAtCursor(codePoint);
+      // Not a symbol that has a slot (a 26-key layout's letter, ...): continue after the syllable.
+      mCursor++;
+      mSymbolOffset = 0;
+    }
     final KeyLayout.Edit edit = mLayout.onKey(mPending, codePoint, mTable::isKnownSyllable);
     if (edit == null) return false;
     switch (edit.type) {
@@ -106,11 +122,31 @@ public final class ZhuyinComposer implements ComposingEngine {
         return onKey(codePoint);
       }
       case RETONE -> {
-        // A tone right after a closed syllable (re)sets its tone.
+        // A tone right after a closed syllable (re)sets its tone. With nothing composing, the
+        // key is not ours: the tone mark itself is typed.
         if (mCursor > 0) setReading(mCursor - 1, mReadings.get(mCursor - 1).withTone(edit.tone));
+        return isComposing();
       }
     }
     return true;
+  }
+
+  /** Sets the slot of {@code symbol} in the syllable the cursor is inside of. */
+  private boolean editSyllableAtCursor(int symbol) {
+    final Syllable edited = mReadings.get(mCursor).with(symbol);
+    setReading(mCursor, edited);
+    final String text = edited.toString();
+    mSymbolOffset = text.indexOf((char) symbol) + 1;
+    normalizeCursor();
+    return true;
+  }
+
+  /** A cursor after the last symbol of a syllable is the position before the next one. */
+  private void normalizeCursor() {
+    if (mCursor < mReadings.size() && mSymbolOffset >= mReadings.get(mCursor).toString().length()) {
+      mCursor++;
+      mSymbolOffset = 0;
+    }
   }
 
   private boolean onSpace() {
@@ -132,6 +168,20 @@ public final class ZhuyinComposer implements ComposingEngine {
       return true;
     }
     if (mReadings.isEmpty()) return false;
+    if (mSymbolOffset > 0) {
+      // Inside a syllable: remove the symbol before the cursor.
+      final Syllable syllable = mReadings.get(mCursor);
+      final Syllable edited = syllable.without(syllable.toString().charAt(mSymbolOffset - 1));
+      mSymbolOffset--;
+      if (edited.isEmpty()) {
+        mReadings.remove(mCursor);
+        shiftAfter(mCursor, -1);
+        invalidate();
+      } else {
+        setReading(mCursor, edited);
+      }
+      return true;
+    }
     if (mCursor == 0) return true; // nothing before the cursor inside the composition
     final Lattice.Node pin = pinCovering(mCursor - 1);
     if (pin != null) {
@@ -160,9 +210,35 @@ public final class ZhuyinComposer implements ComposingEngine {
   @Override
   public boolean moveCursor(int delta) {
     if (!mPending.isEmpty()) closePending();
-    final int target = mCursor + delta;
-    if (mReadings.isEmpty() || target < 0 || target > mReadings.size()) return false;
-    mCursor = target;
+    if (mReadings.isEmpty()) return false;
+    for (int step = 0; step < Math.abs(delta); step++) {
+      if (!(delta < 0 ? stepLeft() : stepRight())) return false;
+    }
+    return true;
+  }
+
+  /** One symbol to the left; a picked segment (shown as Hanzi) counts one step per character. */
+  private boolean stepLeft() {
+    if (mSymbolOffset > 0) {
+      mSymbolOffset--;
+      return true;
+    }
+    if (mCursor == 0) return false;
+    mCursor--;
+    if (pinCovering(mCursor) == null) {
+      mSymbolOffset = mReadings.get(mCursor).toString().length() - 1;
+    }
+    return true;
+  }
+
+  private boolean stepRight() {
+    if (mCursor >= mReadings.size()) return false;
+    if (pinCovering(mCursor) != null) {
+      mCursor++;
+    } else {
+      mSymbolOffset++;
+      normalizeCursor();
+    }
     return true;
   }
 
@@ -183,14 +259,18 @@ public final class ZhuyinComposer implements ComposingEngine {
     if (mLearning && candidate.kind != Candidate.Kind.RAW) {
       mUserModel.learn(mReadings, anchor, phrase.span, phrase.text);
     }
-    if (mCursor < mReadings.size()) mCursor = anchor + phrase.span;
+    if (mCursor < mReadings.size()) {
+      mCursor = anchor + phrase.span;
+      mSymbolOffset = 0;
+    }
     invalidate();
     flushPinnedPrefix();
   }
 
   @Override
   public void commitAll() {
-    if (!mPending.isEmpty()) closePending();
+    // The conversion as the strip shows it first. A syllable that is still open is completed
+    // (我想ㄑ → 我想去, ㄅ → 不); to keep it as typed, close it first (space, a cursor move).
     for (Lattice.Node node : path()) mCommit.append(node.phrase.text);
     clear();
   }
@@ -257,6 +337,7 @@ public final class ZhuyinComposer implements ComposingEngine {
         i = pin.end();
       } else {
         final Syllable reading = mReadings.get(i);
+        if (i == mCursor && mSymbolOffset > 0) cursorOffset = sb.length() + mSymbolOffset;
         sb.append(reading);
         i++;
         final boolean somethingFollows =
@@ -379,6 +460,7 @@ public final class ZhuyinComposer implements ComposingEngine {
     for (Lattice.Node pin : mPins) shifted.add(new Lattice.Node(pin.start - span, pin.phrase));
     mPins.clear();
     mPins.addAll(shifted);
+    if (mCursor < span) mSymbolOffset = 0;
     mCursor = Math.max(0, mCursor - span);
     invalidate();
   }
@@ -388,6 +470,7 @@ public final class ZhuyinComposer implements ComposingEngine {
     mPins.clear();
     mPending = Syllable.EMPTY;
     mCursor = 0;
+    mSymbolOffset = 0;
     invalidate();
   }
 
@@ -397,7 +480,12 @@ public final class ZhuyinComposer implements ComposingEngine {
   }
 
   private Lattice lattice() {
-    if (mLattice == null) mLattice = new Lattice(viewReadings(), mTable, mUserModel);
+    if (mLattice == null) {
+      mLattice =
+          hasProvisionalSyllable()
+              ? new Lattice(viewReadings(), mTable, mUserModel, mCursor, mPending)
+              : new Lattice(mReadings, mTable, mUserModel);
+    }
     return mLattice;
   }
 
@@ -407,9 +495,10 @@ public final class ZhuyinComposer implements ComposingEngine {
   }
 
   /**
-   * True while a syllable is being typed. It is converted as if it were closed without a tone, so
-   * candidates show up without typing tones, while it stays open (ㄐㄧ can still become ㄐㄧㄚ). An
-   * incomplete one (a lone ㄅ) converts to its own Bopomofo.
+   * True while a syllable is being typed. It is converted as if it were closed without a tone, and
+   * also as every syllable it can still become (ㄅ → 不 把 …, ㄐㄧ → 幾 and 家), so candidates show up
+   * from the first symbol while it stays open. This is only a view: once closed (space, a tone, a
+   * cursor move) the syllable is exactly what was typed, so a closed lone ㄅ commits as ㄅ.
    */
   private boolean hasProvisionalSyllable() {
     return !mPending.isEmpty();

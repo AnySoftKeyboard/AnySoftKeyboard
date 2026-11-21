@@ -49,7 +49,26 @@ final class Lattice {
   private final int mSize;
   private final List<List<List<Phrase>>> mEdges; // [start][span - 1] -> phrases
 
+  /** How many extension phrases an edge takes for the syllable that is still being typed. */
+  static final int MAX_EXTENSIONS = 64;
+
   Lattice(List<Syllable> readings, PhraseTable table, UserModel userModel) {
+    this(readings, table, userModel, -1, null);
+  }
+
+  /**
+   * @param openIndex the position of the syllable that is still being typed, or -1. Edges ending
+   *     there also hold the phrases whose last syllable starts with {@code open}, so candidates
+   *     show up from the first symbol (ㄅ → 不 把 …).
+   * @param open that syllable as typed (the reading at {@code openIndex} is how the layout would
+   *     finish it).
+   */
+  Lattice(
+      List<Syllable> readings,
+      PhraseTable table,
+      UserModel userModel,
+      int openIndex,
+      Syllable open) {
     mSize = readings.size();
     mEdges = new ArrayList<>(mSize);
     final List<Phrase> found = new ArrayList<>();
@@ -59,8 +78,10 @@ final class Lattice {
       for (int span = 1; span <= maxSpan; span++) {
         found.clear();
         table.lookup(readings, start, span, found);
+        final boolean extended = start + span - 1 == openIndex;
+        if (extended) table.lookupExtensions(readings, start, span, open, MAX_EXTENSIONS, found);
         final List<Phrase> phrases = new ArrayList<>(found.size());
-        boolean boosted = false;
+        boolean boosted = extended && found.size() > 1;
         for (Phrase phrase : found) {
           final float bonus = userModel.bonus(readings, start, span, phrase.text);
           boosted |= bonus != 0f;

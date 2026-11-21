@@ -41,6 +41,7 @@ import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.phonetic.Candidate;
 import com.anysoftkeyboard.phonetic.KeyLayout;
 import com.anysoftkeyboard.phonetic.PhraseTable;
+import com.anysoftkeyboard.phonetic.Syllable;
 import com.anysoftkeyboard.phonetic.UserModel;
 import com.anysoftkeyboard.phonetic.ZhuyinComposer;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -353,6 +354,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     mPromotedRadicalCandidate = null;
     mPromotedRadicalBuffer = null;
 
+    // A Zhuyin composition that is still open was not ended by onFinishInput: the app restarted
+    // the input on its own, after changing the text (it cleared the field, sent the message, ...).
+    // That text is the app's now; committing the conversion would type it into the new text.
+    finishPhoneticComposition(true);
     abortCorrectionAndResetPredictionState(false);
   }
 
@@ -791,11 +796,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
   /**
    * Routes a key to the phonetic composer.
    *
+   * @param literal the key is not offered to the composer (it came from a long-press popup): the
+   *     composition is committed and the character is typed as it is.
    * @return true if the key was fully handled. When false, the key continues down the normal path;
    *     any open composition has then already been committed, so e.g. a punctuation key lands after
    *     the converted text.
    */
-  protected boolean handlePhoneticKey(int primaryCode) {
+  protected boolean handlePhoneticKey(int primaryCode, boolean literal) {
     if (!isPhoneticInputMode()) return false;
     final ZhuyinComposer composer = phoneticComposer();
     if (composer == null) return false;
@@ -813,12 +820,15 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
           // Shift, mode switches, ... keep their normal meaning.
           default ->
               primaryCode > 0
-                  && (composer.onKey(primaryCode)
+                  && ((!literal && composer.onKey(primaryCode))
                       || (wasComposing && commitAndPassThrough(composer)));
         };
-    if (consumed && !wasComposing && !mWord.isEmpty()) {
+    // A Bopomofo symbol the composer did not take (a long-press, or a tone mark with nothing to
+    // put it on) is plain text. It must not reach the radical buffer of the normal path.
+    final boolean plainSymbol = !consumed && Syllable.kindOf(primaryCode) != Syllable.KIND_NONE;
+    if ((consumed || plainSymbol) && !wasComposing && !mWord.isEmpty()) {
       // A word composed the usual way is still open: keep it as typed (and the cursor where it
-      // is), or the new Zhuyin composition would replace it.
+      // is), or the new Zhuyin text would replace it.
       final InputConnection ic = getCurrentInputConnection();
       if (ic != null) ic.finishComposingText();
       prepareWordComposerForNextWord();
@@ -826,7 +836,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       mPhoneticComposingStart = -1;
     }
     if (consumed || wasComposing) syncPhoneticComposition(composer);
-    return consumed;
+    if (plainSymbol) {
+      final InputConnection ic = getCurrentInputConnection();
+      if (ic != null) ic.commitText(String.valueOf((char) primaryCode), 1);
+      mPhoneticComposingStart = -1;
+      clearSuggestions();
+    }
+    return consumed || plainSymbol;
   }
 
   /** Commits the whole composition and returns false, so the key continues on its normal path. */
@@ -937,9 +953,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     if (container == null) return false;
     final View panel = container.findViewById(R.id.candidates_panel_root);
     if (panel == null) return false;
-    container.removeView(panel);
+    // The keyboard comes back first: removing a view makes the container re-check whether the
+    // candidate strip has a visible keyboard to sit on, and it would stay hidden otherwise.
     final View keyboardView = (View) getInputView();
     if (keyboardView != null) keyboardView.setVisibility(View.VISIBLE);
+    container.removeView(panel);
     updateBackCallbackState();
     return true;
   }
@@ -954,7 +972,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     return isCandidatesPanelShown() || super.hasStuffToClose();
   }
 
-  /** The ▼ strip button that opens the all-candidates panel. */
+  /**
+   * The ▼ strip button that opens the all-candidates panel. While it shows it is the only action on
+   * the strip, at its end, exactly as tall as the strip.
+   */
   final class ExpandCandidatesAction implements KeyboardViewContainerView.StripActionProvider {
     @Nullable private TextView mRootView;
     private boolean mVisible;
@@ -965,10 +986,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       view.setText("▼");
       view.setGravity(android.view.Gravity.CENTER);
       final float density = parent.getResources().getDisplayMetrics().density;
-      final int padding = Math.round(14 * density);
-      view.setPadding(padding, 0, padding, 0);
+      final int stripHeight =
+          parent.getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
+      view.setLayoutParams(
+          new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, stripHeight));
       view.setMinWidth(Math.round(56 * density)); // a real touch target, not just the glyph
-      view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 32);
+      view.setIncludeFontPadding(false);
+      view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, stripHeight * 0.6f);
       final View keyboardView = (View) getInputView();
       if (keyboardView instanceof AnyKeyboardView anyKeyboardView) {
         view.setTextColor(
@@ -993,6 +1017,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     void setVisible(boolean visible) {
       mVisible = visible;
       if (mRootView != null) mRootView.setVisibility(visible ? View.VISIBLE : View.GONE);
+      final KeyboardViewContainerView container = getInputViewContainer();
+      if (container != null) container.setSoloStripAction(visible ? this : null);
     }
   }
 
