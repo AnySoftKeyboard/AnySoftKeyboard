@@ -165,9 +165,9 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mDisposables.dispose();
     mSharedPrefsNotToUse.unregisterOnSharedPreferenceChangeListener(
         mGeneralShardPrefChangedListener);
+    super.onDestroy();
   }
 }

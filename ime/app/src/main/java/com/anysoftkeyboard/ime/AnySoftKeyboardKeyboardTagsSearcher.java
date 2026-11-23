@@ -86,8 +86,8 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mSharedPrefsNotToUse.unregisterOnSharedPreferenceChangeListener(mUpdatedPrefKeysListener);
+    super.onDestroy();
   }
 
   @VisibleForTesting

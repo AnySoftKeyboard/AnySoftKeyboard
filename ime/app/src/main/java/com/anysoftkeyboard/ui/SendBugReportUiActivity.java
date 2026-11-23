@@ -97,7 +97,7 @@ public class SendBugReportUiActivity extends FragmentActivity {
 
   @Override
   protected void onDestroy() {
-    super.onDestroy();
     mDisposable.dispose();
+    super.onDestroy();
   }
 }

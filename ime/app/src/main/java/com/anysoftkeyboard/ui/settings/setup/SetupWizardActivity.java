@@ -130,8 +130,8 @@ public class SetupWizardActivity extends AppCompatActivity {
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mSecureSettingsChangedDisposable.dispose();
+    super.onDestroy();
   }
 
   private static class WizardHandler extends Handler {
