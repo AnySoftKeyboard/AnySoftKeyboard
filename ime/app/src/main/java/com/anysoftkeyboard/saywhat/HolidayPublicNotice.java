@@ -22,6 +22,7 @@ import com.anysoftkeyboard.keyboards.views.extradraw.TypingExtraDraw;
 import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -37,7 +38,7 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
   private final HolidayStripAction mStripAction;
   private boolean mIsActive;
   private boolean mShouldShowStrip;
-  @Nullable private KeyboardViewContainerView mAddedToContainer;
+  @Nullable private WeakReference<KeyboardViewContainerView> mAddedToContainer;
   @Nullable private Preference<String> mDismissStatePref;
   private int mCachedYear = Integer.MIN_VALUE;
   private String mCachedPreDismissedValue;
@@ -162,6 +163,11 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
     pref.set(isMainDayActive(now, locale) ? mCachedCompletedValue : mCachedPreDismissedValue);
   }
 
+  @Nullable
+  private KeyboardViewContainerView getAddedToContainer() {
+    return mAddedToContainer != null ? mAddedToContainer.get() : null;
+  }
+
   private void removeStripAction(@Nullable KeyboardViewContainerView container) {
     if (mStripAction == null) {
       return;
@@ -169,8 +175,9 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
     if (container != null) {
       container.removeStripAction(mStripAction);
     }
-    if (mAddedToContainer != null && mAddedToContainer != container) {
-      mAddedToContainer.removeStripAction(mStripAction);
+    final KeyboardViewContainerView addedContainer = getAddedToContainer();
+    if (addedContainer != null && addedContainer != container) {
+      addedContainer.removeStripAction(mStripAction);
     }
     mAddedToContainer = null;
   }
@@ -179,7 +186,7 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
       @NonNull Context context, @Nullable KeyboardViewContainerView container) {
     markDismissed(context, getCurrentCalendar(), getCurrentLocale(context));
     mShouldShowStrip = false;
-    removeStripAction(container != null ? container : mAddedToContainer);
+    removeStripAction(container != null ? container : getAddedToContainer());
   }
 
   private final Paint mDrawPaint = new Paint();
@@ -192,9 +199,9 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
     mShouldShowStrip = mIsActive && !isDismissed(ime, now, locale);
     final KeyboardViewContainerView container = ime.getInputViewContainer();
     if (mShouldShowStrip && mStripAction != null) {
-      if (container != null && mAddedToContainer != container) {
+      if (container != null && getAddedToContainer() != container) {
         container.addStripAction(mStripAction, true);
-        mAddedToContainer = container;
+        mAddedToContainer = new WeakReference<>(container);
       }
     } else if (mAddedToContainer != null) {
       removeStripAction(container);
@@ -230,9 +237,9 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
                 this::adjustPaint));
         if (mShouldShowStrip && mStripAction != null) {
           final KeyboardViewContainerView container = ime.getInputViewContainer();
-          if (container != null && mAddedToContainer != container) {
+          if (container != null && getAddedToContainer() != container) {
             container.addStripAction(mStripAction, true);
-            mAddedToContainer = container;
+            mAddedToContainer = new WeakReference<>(container);
           }
         }
       }
@@ -267,13 +274,15 @@ public abstract class HolidayPublicNotice implements PublicNotice, OnKey, OnVisi
               LayoutInflater.from(context).inflate(R.layout.holiday_strip_action, parent, false);
       root.setText(mEmoji);
       root.setContentDescription(mToastGreeting != null ? mToastGreeting : mEmoji);
-      final KeyboardViewContainerView container =
-          parent instanceof KeyboardViewContainerView ? (KeyboardViewContainerView) parent : null;
       root.setOnClickListener(
           v -> {
             if (mToastGreeting != null) {
               Toast.makeText(v.getContext(), mToastGreeting, Toast.LENGTH_SHORT).show();
             }
+            final KeyboardViewContainerView container =
+                v.getParent() instanceof KeyboardViewContainerView parentContainer
+                    ? parentContainer
+                    : null;
             onStripActionClicked(v.getContext(), container);
           });
       return root;

@@ -39,9 +39,10 @@ public final class HolidayScheduleHelper {
    * Calculates the day of the month for Thanksgiving (4th Thursday of November) in the given year.
    */
   public static int getThanksgivingDayOfMonth(int year) {
-    // Sakamoto's algorithm for Nov 1 (month=11, day=1, t[10]=2); 0=Sunday..6=Saturday.
-    int dayOfWeekIndex = (year + year / 4 - year / 100 + year / 400 + 3) % 7;
-    int dayOfWeek = dayOfWeekIndex + 1; // Calendar.SUNDAY is 1
+    Calendar nov1 = Calendar.getInstance();
+    nov1.clear();
+    nov1.set(year, Calendar.NOVEMBER, 1);
+    int dayOfWeek = nov1.get(Calendar.DAY_OF_WEEK);
     int daysUntilThursday = (Calendar.THURSDAY - dayOfWeek + 7) % 7;
     int firstThursday = 1 + daysUntilThursday;
     return firstThursday + 21;

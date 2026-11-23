@@ -79,6 +79,12 @@ public abstract class PublicNotices extends AnySoftKeyboard {
     notifyHiddenIfVisible();
   }
 
+  @Override
+  public void onDestroy() {
+    notifyHiddenIfVisible();
+    super.onDestroy();
+  }
+
   private void notifyHiddenIfVisible() {
     if (!mIsInputViewVisible) {
       return;

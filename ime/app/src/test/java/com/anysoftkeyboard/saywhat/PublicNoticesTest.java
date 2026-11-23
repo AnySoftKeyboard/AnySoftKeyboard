@@ -179,4 +179,20 @@ public class PublicNoticesTest extends AnySoftKeyboardBaseTest {
     simulateFinishInputFlow();
     Mockito.verify(onVisible, Mockito.times(1)).onHidden(Mockito.any(), Mockito.any());
   }
+
+  @Test
+  public void testOnDestroyDispatchesOnHiddenWhenVisible() {
+    AnyRoboApplication application = getApplicationContext();
+    OnVisible onVisible =
+        (OnVisible)
+            application.getPublicNotices().stream()
+                .filter(p -> p instanceof OnVisible)
+                .findFirst()
+                .orElseThrow();
+
+    Mockito.clearInvocations(onVisible);
+    // Input view is visible from setUp; destroying the service must dispatch onHidden once.
+    mAnySoftKeyboardUnderTest.onDestroy();
+    Mockito.verify(onVisible, Mockito.times(1)).onHidden(Mockito.any(), Mockito.any());
+  }
 }
