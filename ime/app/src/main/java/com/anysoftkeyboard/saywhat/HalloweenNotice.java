@@ -22,4 +22,9 @@ public class HalloweenNotice extends HolidayCardPublicNotice {
   protected boolean isDateActive(@NonNull Calendar now, @NonNull Locale locale) {
     return HolidayScheduleHelper.isHalloweenActive(now, locale);
   }
+
+  @Override
+  protected boolean isMainDayActive(@NonNull Calendar now, @NonNull Locale locale) {
+    return HolidayScheduleHelper.isHalloweenDay(now, locale);
+  }
 }

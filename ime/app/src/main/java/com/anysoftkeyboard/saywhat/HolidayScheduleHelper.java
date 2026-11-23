@@ -11,6 +11,16 @@ public final class HolidayScheduleHelper {
 
   /** Thanksgiving (US only): 4th Thursday of November, active 1 week before through the day of. */
   public static boolean isThanksgivingActive(@NonNull Calendar calendar, @Nullable Locale locale) {
+    return isThanksgivingWindow(calendar, locale, false);
+  }
+
+  /** Thanksgiving Day itself (US only): 4th Thursday of November. */
+  public static boolean isThanksgivingDay(@NonNull Calendar calendar, @Nullable Locale locale) {
+    return isThanksgivingWindow(calendar, locale, true);
+  }
+
+  private static boolean isThanksgivingWindow(
+      @NonNull Calendar calendar, @Nullable Locale locale, boolean dayOfOnly) {
     if (locale == null || !"US".equalsIgnoreCase(locale.getCountry())) {
       return false;
     }
@@ -19,6 +29,9 @@ public final class HolidayScheduleHelper {
     }
     int fourthThursdayDay = getThanksgivingDayOfMonth(calendar.get(Calendar.YEAR));
     int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+    if (dayOfOnly) {
+      return currentDay == fourthThursdayDay;
+    }
     return currentDay >= (fourthThursdayDay - 7) && currentDay <= fourthThursdayDay;
   }
 
@@ -26,10 +39,9 @@ public final class HolidayScheduleHelper {
    * Calculates the day of the month for Thanksgiving (4th Thursday of November) in the given year.
    */
   public static int getThanksgivingDayOfMonth(int year) {
-    Calendar nov1 = Calendar.getInstance();
-    nov1.clear();
-    nov1.set(year, Calendar.NOVEMBER, 1);
-    int dayOfWeek = nov1.get(Calendar.DAY_OF_WEEK);
+    // Sakamoto's algorithm for Nov 1 (month=11, day=1, t[10]=2); 0=Sunday..6=Saturday.
+    int dayOfWeekIndex = (year + year / 4 - year / 100 + year / 400 + 3) % 7;
+    int dayOfWeek = dayOfWeekIndex + 1; // Calendar.SUNDAY is 1
     int daysUntilThursday = (Calendar.THURSDAY - dayOfWeek + 7) % 7;
     int firstThursday = 1 + daysUntilThursday;
     return firstThursday + 21;
@@ -39,6 +51,16 @@ public final class HolidayScheduleHelper {
    * Halloween: Oct 29 through Oct 31 (inclusive). Observing locales: US, CA, GB, IE, AU, NZ, MX.
    */
   public static boolean isHalloweenActive(@NonNull Calendar calendar, @Nullable Locale locale) {
+    return isHalloweenWindow(calendar, locale, false);
+  }
+
+  /** Halloween Day itself: Oct 31 in observing locales. */
+  public static boolean isHalloweenDay(@NonNull Calendar calendar, @Nullable Locale locale) {
+    return isHalloweenWindow(calendar, locale, true);
+  }
+
+  private static boolean isHalloweenWindow(
+      @NonNull Calendar calendar, @Nullable Locale locale, boolean dayOfOnly) {
     if (locale == null || !isHalloweenObservingLocale(locale.getCountry())) {
       return false;
     }
@@ -46,7 +68,7 @@ public final class HolidayScheduleHelper {
       return false;
     }
     int day = calendar.get(Calendar.DAY_OF_MONTH);
-    return day >= 29 && day <= 31;
+    return dayOfOnly ? day == 31 : (day >= 29 && day <= 31);
   }
 
   public static boolean isHalloweenObservingLocale(@Nullable String countryCode) {

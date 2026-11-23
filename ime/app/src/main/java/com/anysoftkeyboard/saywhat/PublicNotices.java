@@ -14,6 +14,7 @@ public abstract class PublicNotices extends AnySoftKeyboard {
 
   private OnKey[] mOnKeyListeners = new OnKey[0];
   private OnVisible[] mOnVisibleListeners = new OnVisible[0];
+  private boolean mIsInputViewVisible;
 
   @Override
   public void onCreate() {
@@ -48,6 +49,7 @@ public abstract class PublicNotices extends AnySoftKeyboard {
   @Override
   public void onStartInputView(EditorInfo attribute, boolean restarting) {
     super.onStartInputView(attribute, restarting);
+    mIsInputViewVisible = true;
     for (int i = 0; i < mOnVisibleListeners.length; i++) {
       final OnVisible onVisibleListener = mOnVisibleListeners[i];
       if (onVisibleListener != null) {
@@ -68,6 +70,20 @@ public abstract class PublicNotices extends AnySoftKeyboard {
   @Override
   public void onFinishInputView(boolean finishingInput) {
     super.onFinishInputView(finishingInput);
+    notifyHiddenIfVisible();
+  }
+
+  @Override
+  public void onWindowHidden() {
+    super.onWindowHidden();
+    notifyHiddenIfVisible();
+  }
+
+  private void notifyHiddenIfVisible() {
+    if (!mIsInputViewVisible) {
+      return;
+    }
+    mIsInputViewVisible = false;
     for (int i = 0; i < mOnVisibleListeners.length; i++) {
       final OnVisible onVisibleListener = mOnVisibleListeners[i];
       if (onVisibleListener != null) {

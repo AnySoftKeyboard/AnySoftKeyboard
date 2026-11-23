@@ -24,6 +24,10 @@ public class HolidayScheduleHelperTest {
     Assert.assertEquals(27, HolidayScheduleHelper.getThanksgivingDayOfMonth(2025));
     // 2026: Nov 26
     Assert.assertEquals(26, HolidayScheduleHelper.getThanksgivingDayOfMonth(2026));
+    // 2027: Nov 25, 2028 (leap): Nov 23, 2029: Nov 22
+    Assert.assertEquals(25, HolidayScheduleHelper.getThanksgivingDayOfMonth(2027));
+    Assert.assertEquals(23, HolidayScheduleHelper.getThanksgivingDayOfMonth(2028));
+    Assert.assertEquals(22, HolidayScheduleHelper.getThanksgivingDayOfMonth(2029));
   }
 
   @Test
@@ -45,6 +49,14 @@ public class HolidayScheduleHelperTest {
     Assert.assertTrue(HolidayScheduleHelper.isThanksgivingActive(dayOf, us));
     Assert.assertFalse(HolidayScheduleHelper.isThanksgivingActive(after, us));
     Assert.assertFalse(HolidayScheduleHelper.isThanksgivingActive(wrongMonth, us));
+
+    // Main day only
+    Assert.assertFalse(HolidayScheduleHelper.isThanksgivingDay(start, us));
+    Assert.assertFalse(HolidayScheduleHelper.isThanksgivingDay(middle, us));
+    Assert.assertTrue(HolidayScheduleHelper.isThanksgivingDay(dayOf, us));
+    Assert.assertFalse(HolidayScheduleHelper.isThanksgivingDay(after, us));
+    Assert.assertFalse(HolidayScheduleHelper.isThanksgivingDay(dayOf, uk));
+    Assert.assertFalse(HolidayScheduleHelper.isThanksgivingDay(dayOf, null));
 
     // Locale check
     Assert.assertFalse(HolidayScheduleHelper.isThanksgivingActive(dayOf, uk));
@@ -73,6 +85,13 @@ public class HolidayScheduleHelperTest {
     Assert.assertTrue(HolidayScheduleHelper.isHalloweenActive(oct30, us));
     Assert.assertTrue(HolidayScheduleHelper.isHalloweenActive(oct31, us));
     Assert.assertFalse(HolidayScheduleHelper.isHalloweenActive(nov1, us));
+
+    Assert.assertFalse(HolidayScheduleHelper.isHalloweenDay(oct29, us));
+    Assert.assertFalse(HolidayScheduleHelper.isHalloweenDay(oct30, us));
+    Assert.assertTrue(HolidayScheduleHelper.isHalloweenDay(oct31, us));
+    Assert.assertFalse(HolidayScheduleHelper.isHalloweenDay(nov1, us));
+    Assert.assertFalse(HolidayScheduleHelper.isHalloweenDay(oct31, Locale.GERMANY));
+    Assert.assertFalse(HolidayScheduleHelper.isHalloweenDay(oct31, null));
 
     Assert.assertFalse(HolidayScheduleHelper.isHalloweenActive(oct31, Locale.GERMANY));
     Assert.assertFalse(HolidayScheduleHelper.isHalloweenActive(oct31, null));

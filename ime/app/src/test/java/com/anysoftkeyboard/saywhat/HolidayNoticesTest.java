@@ -3,9 +3,11 @@ package com.anysoftkeyboard.saywhat;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Calendar;
@@ -253,6 +255,182 @@ public class HolidayNoticesTest extends AnySoftKeyboardBaseTest {
     Assert.assertNotNull(stripAction);
     Assert.assertNotNull(stripAction.getContentDescription());
     Assert.assertEquals("π = 3.1415926535...", stripAction.getContentDescription().toString());
+
+    notice.onHidden(mAnySoftKeyboardUnderTest, null);
+  }
+
+  @Test
+  public void testOnVisibleRemovesStripActionWhenNoticeBecomesInactive() {
+    ThanksgivingNotice notice = new ThanksgivingNotice();
+    notice.setTestLocale(Locale.US);
+
+    Calendar activeCal = Calendar.getInstance();
+    activeCal.set(2025, Calendar.NOVEMBER, 27, 12, 0, 0);
+    notice.setTestCalendar(activeCal);
+
+    var container = mAnySoftKeyboardUnderTest.getInputViewContainer();
+    Assert.assertNotNull(container);
+
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNotNull(container.findViewById(R.id.holiday_strip_action_text));
+
+    // Simulate restarting input after midnight (no onHidden called in between).
+    Calendar afterThanksgiving = Calendar.getInstance();
+    afterThanksgiving.set(2025, Calendar.NOVEMBER, 28, 0, 1, 0);
+    notice.setTestCalendar(afterThanksgiving);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+
+    // Re-activate and test locale change without intervening onHidden.
+    notice.setTestCalendar(activeCal);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNotNull(container.findViewById(R.id.holiday_strip_action_text));
+
+    notice.setTestLocale(Locale.UK);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+  }
+
+  @Test
+  public void testThanksgivingTapToDismissPreWindowAndReshowOnDayOf() {
+    ThanksgivingNotice notice = new ThanksgivingNotice();
+    notice.setTestLocale(Locale.US);
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+    String prefKey = HolidayPublicNotice.PREF_KEY_PREFIX + notice.getName();
+
+    var container = mAnySoftKeyboardUnderTest.getInputViewContainer();
+    Assert.assertNotNull(container);
+
+    // 1. Pre-holiday window (Nov 20, 2025; Thanksgiving is Nov 27, 2025): icon & card show.
+    Calendar preDay1 = Calendar.getInstance();
+    preDay1.set(2025, Calendar.NOVEMBER, 20, 12, 0, 0);
+    notice.setTestCalendar(preDay1);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    View stripAction = container.findViewById(R.id.holiday_strip_action_text);
+    Assert.assertNotNull(stripAction);
+    Assert.assertNotNull(notice.inflateContentView(mContext));
+
+    // 2. Tap to dismiss during pre-holiday -> removes immediately & records pre-dismissed.
+    stripAction.performClick();
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+    Assert.assertEquals("2025:pre-dismissed", prefs.getString(prefKey, ""));
+    Assert.assertNull(notice.inflateContentView(mContext));
+
+    // 3. Subsequent pre-holiday days stay dismissed (onVisible and onKey do not re-add strip icon).
+    Calendar preDay2 = Calendar.getInstance();
+    preDay2.set(2025, Calendar.NOVEMBER, 25, 12, 0, 0);
+    notice.setTestCalendar(preDay2);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+    String triggerWord = "turkey";
+    for (int i = 0; i < triggerWord.length(); i++) {
+      notice.onKey(mAnySoftKeyboardUnderTest, triggerWord.charAt(i), null);
+    }
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+
+    // 4. On Thanksgiving Day itself (Nov 27, 2025): icon & card re-show!
+    Calendar dayOf2025 = Calendar.getInstance();
+    dayOf2025.set(2025, Calendar.NOVEMBER, 27, 9, 0, 0);
+    notice.setTestCalendar(dayOf2025);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    View dayOfStripAction = container.findViewById(R.id.holiday_strip_action_text);
+    Assert.assertNotNull(dayOfStripAction);
+    Assert.assertNotNull(notice.inflateContentView(mContext));
+
+    // 5. Tap to dismiss on Thanksgiving Day -> removes immediately & marks completed for 2025.
+    dayOfStripAction.performClick();
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+    Assert.assertEquals("2025:completed", prefs.getString(prefKey, ""));
+    Assert.assertNull(notice.inflateContentView(mContext));
+
+    // 6. Later on Thanksgiving Day: stays dismissed.
+    Calendar laterDayOf2025 = Calendar.getInstance();
+    laterDayOf2025.set(2025, Calendar.NOVEMBER, 27, 18, 0, 0);
+    notice.setTestCalendar(laterDayOf2025);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+
+    // 7. Next year (Thanksgiving 2026 is Nov 26): shows again in pre-holiday window.
+    Calendar preDay2026 = Calendar.getInstance();
+    preDay2026.set(2026, Calendar.NOVEMBER, 20, 12, 0, 0);
+    notice.setTestCalendar(preDay2026);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNotNull(container.findViewById(R.id.holiday_strip_action_text));
+    Assert.assertNotNull(notice.inflateContentView(mContext));
+
+    notice.onHidden(mAnySoftKeyboardUnderTest, null);
+  }
+
+  @Test
+  public void testHalloweenTapToDismissPreWindowAndReshowOnDayOf() {
+    HalloweenNotice notice = new HalloweenNotice();
+    notice.setTestLocale(Locale.US);
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+    String prefKey = HolidayPublicNotice.PREF_KEY_PREFIX + notice.getName();
+
+    var container = mAnySoftKeyboardUnderTest.getInputViewContainer();
+    Assert.assertNotNull(container);
+
+    // Oct 29 (pre-holiday): shown -> tap -> pre-dismissed.
+    Calendar oct29 = Calendar.getInstance();
+    oct29.set(2025, Calendar.OCTOBER, 29, 12, 0, 0);
+    notice.setTestCalendar(oct29);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    View stripAction = container.findViewById(R.id.holiday_strip_action_text);
+    Assert.assertNotNull(stripAction);
+    stripAction.performClick();
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+    Assert.assertEquals("2025:pre-dismissed", prefs.getString(prefKey, ""));
+
+    // Oct 30: still pre-dismissed.
+    Calendar oct30 = Calendar.getInstance();
+    oct30.set(2025, Calendar.OCTOBER, 30, 12, 0, 0);
+    notice.setTestCalendar(oct30);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+
+    // Oct 31 (Halloween Day): re-shows -> tap -> completed.
+    Calendar oct31 = Calendar.getInstance();
+    oct31.set(2025, Calendar.OCTOBER, 31, 12, 0, 0);
+    notice.setTestCalendar(oct31);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    View halloweenAction = container.findViewById(R.id.holiday_strip_action_text);
+    Assert.assertNotNull(halloweenAction);
+    halloweenAction.performClick();
+    Assert.assertEquals("2025:completed", prefs.getString(prefKey, ""));
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+  }
+
+  @Test
+  public void testSingleDayNoticeTapToDismissGoesStraightToCompleted() {
+    PiDayNotice notice = new PiDayNotice();
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+    String prefKey = HolidayPublicNotice.PREF_KEY_PREFIX + notice.getName();
+
+    var container = mAnySoftKeyboardUnderTest.getInputViewContainer();
+    Assert.assertNotNull(container);
+
+    Calendar piDay2025 = Calendar.getInstance();
+    piDay2025.set(2025, Calendar.MARCH, 14, 10, 0, 0);
+    notice.setTestCalendar(piDay2025);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+
+    View stripAction = container.findViewById(R.id.holiday_strip_action_text);
+    Assert.assertNotNull(stripAction);
+    stripAction.performClick();
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+    Assert.assertEquals("2025:completed", prefs.getString(prefKey, ""));
+
+    // Stays hidden on subsequent onVisible in 2025.
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNull(container.findViewById(R.id.holiday_strip_action_text));
+
+    // Reshows on Pi Day 2026.
+    Calendar piDay2026 = Calendar.getInstance();
+    piDay2026.set(2026, Calendar.MARCH, 14, 10, 0, 0);
+    notice.setTestCalendar(piDay2026);
+    notice.onVisible(mAnySoftKeyboardUnderTest, null, null);
+    Assert.assertNotNull(container.findViewById(R.id.holiday_strip_action_text));
 
     notice.onHidden(mAnySoftKeyboardUnderTest, null);
   }

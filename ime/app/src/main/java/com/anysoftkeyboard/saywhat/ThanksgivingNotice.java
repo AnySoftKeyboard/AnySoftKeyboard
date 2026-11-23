@@ -22,4 +22,9 @@ public class ThanksgivingNotice extends HolidayCardPublicNotice {
   protected boolean isDateActive(@NonNull Calendar now, @NonNull Locale locale) {
     return HolidayScheduleHelper.isThanksgivingActive(now, locale);
   }
+
+  @Override
+  protected boolean isMainDayActive(@NonNull Calendar now, @NonNull Locale locale) {
+    return HolidayScheduleHelper.isThanksgivingDay(now, locale);
+  }
 }
