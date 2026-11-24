@@ -948,6 +948,11 @@ public abstract class AnyKeyboard extends Keyboard {
       return mKeySkinTones;
     }
 
+    @NonNull
+    public List<EmojiUtils.Gender> getGenders() {
+      return mKeyGenders;
+    }
+
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({SHOW_KEY_ALWAYS, SHOW_KEY_IF_APPLICABLE, SHOW_KEY_NEVER})
     public @interface ShowKeyInLayoutType {}

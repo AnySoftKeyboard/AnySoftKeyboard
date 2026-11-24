@@ -411,6 +411,21 @@ public class AnyPopupKeyboardTest {
   }
 
   @Test
+  @Config(sdk = Build.VERSION_CODES.N)
+  public void testKeyboardWithGenderButNoSkinToneDoesNotCrash() throws Exception {
+    // Regression: a gender-only preference (skin-tone left as 'generic') used to throw
+    // "can not have skin-tone set to null!" while the emoji popup was being inflated.
+    AnyPopupKeyboard keyboardWithGender =
+        createAnyPopupKeyboard(
+            com.anysoftkeyboard.addons.quicktext.R.xml.quick_text_unicode_people,
+            null,
+            EmojiUtils.Gender.Woman);
+
+    Assert.assertEquals("\uD83D\uDC85", keyboardWithGender.getKeys().get(1).text);
+    Assert.assertEquals("\uD83D\uDC85", keyboardWithGender.getKeys().get(1).label);
+  }
+
+  @Test
   @Config(sdk = Build.VERSION_CODES.M)
   public void testHidesKeysWithNoGlyph() throws Exception {
     AnyPopupKeyboard keyboard =
