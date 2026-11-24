@@ -503,8 +503,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         }
         break;
       case KeyCodes.CANCEL:
-        if (!handleCloseRequest()) {
-          hideWindow();
+        final boolean closedSomething = handleCloseRequest();
+        if (!closedSomething) {
+          hideKeyboardFromUserGesture();
         }
         break;
       case KeyCodes.SETTINGS:

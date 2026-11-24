@@ -192,7 +192,10 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopTex
 
   @Override
   public void onSwipeDown() {
-    doOnKeyForGesture(mSwipeDownKeyCode);
+    // swipe-down defaults to "hide keyboard"; if the user unset the action (0), still hide
+    // so the gesture never becomes a silent no-op.
+    final int keyCode = mSwipeDownKeyCode != 0 ? mSwipeDownKeyCode : KeyCodes.CANCEL;
+    doOnKeyForGesture(keyCode);
   }
 
   @Override

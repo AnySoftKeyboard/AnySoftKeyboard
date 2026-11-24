@@ -892,8 +892,9 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
 
   private void calculateSwipeDistances() {
     final AnyKeyboard kbd = getKeyboard();
-    if (kbd == null) {
-      mSwipeYDistanceThreshold = 0;
+    if (kbd == null || kbd.getMinWidth() <= 0) {
+      // no keyboard yet - fall back to half the X threshold so a vertical swipe is still detected
+      mSwipeYDistanceThreshold = mSwipeXDistanceThreshold / 2;
     } else {
       mSwipeYDistanceThreshold =
           (int)
@@ -901,7 +902,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                   * (((float) kbd.getHeight()) / ((float) kbd.getMinWidth())));
     }
     mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold / 2;
-    mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;
+    mSwipeYDistanceThreshold = Math.max(mSwipeYDistanceThreshold / 2, 1);
   }
 
   /**

@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
+import android.os.Build;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.view.Gravity;
@@ -342,6 +343,22 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
       mInputViewContainer.resetPredictiveBackProgress();
     }
     super.hideWindow();
+  }
+
+  /**
+   * Hides the keyboard in response to a direct user gesture (e.g. swipe-down-to-hide).
+   *
+   * <p>On Android 11+ this additionally calls {@link #requestHideSelf(int)}, which routes the hide
+   * request through the system so the focused client's soft-input state is updated too. A plain
+   * {@link #hideWindow()} only hides the IME window locally; on Android 15+ (refactored insets
+   * controller) the system then re-shows the IME shortly after, because the client still believes
+   * the IME is visible.
+   */
+  protected void hideKeyboardFromUserGesture() {
+    hideWindow();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      requestHideSelf(0);
+    }
   }
 
   @Override
