@@ -318,7 +318,7 @@ class PointerTracker {
   }
 
   void onMoveEvent(int x, int y, long eventTime) {
-    if (handleSpaceBarSlide(x)) return;
+    if (handleSpaceBarSlide(x, y)) return;
     if (mProxy.isAtTwoFingersState()) {
       mKeyCodesInPathLength = -1;
     } else if (canDoGestureTyping()) {
@@ -401,11 +401,29 @@ class PointerTracker {
    * Moves the cursor while the finger slides along the space bar. Returns true while sliding (the
    * move is consumed: no key changes, no space on release).
    */
-  private boolean handleSpaceBarSlide(int x) {
-    if (!mMaySlideOnSpaceBar || mProxy.isAtTwoFingersState() || mListener == null) return false;
+  private boolean handleSpaceBarSlide(int x, int y) {
+    if (!mMaySlideOnSpaceBar || mKeyAlreadyProcessed || mListener == null) return false;
+    if (mProxy.isAtTwoFingersState()) {
+      // a second finger takes this touch out of cursor sliding, for good.
+      final boolean wasSliding = mSpaceBarSliding;
+      if (wasSliding) {
+        endSpaceBarSlide();
+      } else {
+        mMaySlideOnSpaceBar = false;
+      }
+      return wasSliding;
+    }
     final int step = mSharedPointerTrackersData.spaceBarSlideStepPx;
     if (!mSpaceBarSliding) {
-      if (Math.abs(x - mStartX) < step) return false;
+      final Keyboard.Key currentKey = getKey(mKeyState.getKeyIndex());
+      if (currentKey == null || currentKey.getPrimaryCode() != KeyCodes.SPACE) {
+        // the pointer left the space bar before a slide started: it is tracking another key now.
+        mMaySlideOnSpaceBar = false;
+        return false;
+      }
+      final int distanceX = Math.abs(x - mStartX);
+      // a slide starts with a mostly-horizontal move. Once started, vertical drift is fine.
+      if (distanceX < step || distanceX <= Math.abs(y - mStartY)) return false;
       mSpaceBarSliding = true;
       mHandler.cancelLongPressTimer();
       mProxy.hidePreview(mKeyState.getKeyIndex(), this);
@@ -421,8 +439,14 @@ class PointerTracker {
     return true;
   }
 
-  boolean isSpaceBarSliding() {
-    return mSpaceBarSliding;
+  /** Ends a slide: the pointer is done, it will not type a space or track keys anymore. */
+  private void endSpaceBarSlide() {
+    mSpaceBarSliding = false;
+    mMaySlideOnSpaceBar = false;
+    // un-pressing the space bar now: the key state is frozen once the pointer is processed.
+    showKeyPreviewAndUpdateKey(NOT_A_KEY);
+    if (mListener != null) mListener.onRelease(KeyCodes.SPACE);
+    setAlreadyProcessed();
   }
 
   void onUpEvent(int x, int y, long eventTime) {
@@ -433,12 +457,11 @@ class PointerTracker {
     showKeyPreviewAndUpdateKey(NOT_A_KEY);
     if (mSpaceBarSliding) {
       // The slide moved the cursor; releasing it must not type a space.
-      mSpaceBarSliding = false;
-      mMaySlideOnSpaceBar = false;
-      if (listener != null) listener.onRelease(KeyCodes.SPACE);
-      setAlreadyProcessed();
+      endSpaceBarSlide();
       return;
     }
+    // this may be a release forced by another pointer, with the finger still down.
+    mMaySlideOnSpaceBar = false;
     if (mKeyAlreadyProcessed) {
       return;
     }
