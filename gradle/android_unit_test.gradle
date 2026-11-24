@@ -44,7 +44,8 @@ android {
 
                 systemProperty 'robolectric.resourcesMode', "binary"
 
-                systemProperty 'robolectric.dependency.repo.url', 'https://repo1.maven.org/maven2'
+                // Prefer Google's Maven Central mirror to avoid Maven Central HTTP 429 rate limits on local/fallback runs.
+                systemProperty 'robolectric.dependency.repo.url', 'https://maven-central.storage-download.googleapis.com/maven2'
 
                 if (isCi) {
                     // In CI, we want a much more stable test-runs.
