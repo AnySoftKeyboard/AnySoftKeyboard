@@ -8,6 +8,9 @@ apply plugin: 'java'
 apply plugin: 'java-gradle-plugin'
 
 repositories {
+    // Query Google's Maven Central mirror before mavenCentral() and plugins.gradle.org to avoid
+    // Maven Central HTTP 429 rate limits in CI.
+    maven { url 'https://maven-central.storage-download.googleapis.com/maven2/' }
     mavenCentral()
     maven { url "https://plugins.gradle.org/m2/" }
 }

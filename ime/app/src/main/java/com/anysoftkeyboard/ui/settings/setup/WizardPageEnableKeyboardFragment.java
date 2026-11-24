@@ -157,8 +157,8 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     unregisterSettingsObserverNow();
+    super.onDestroy();
   }
 
   private void unregisterSettingsObserverNow() {

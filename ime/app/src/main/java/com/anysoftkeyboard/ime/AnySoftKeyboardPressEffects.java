@@ -350,10 +350,10 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mKeyPreviewSubject.onComplete();
     mKeyPreviewController.destroy();
     mAudioManager.unloadSoundEffects();
+    super.onDestroy();
   }
 
   @Override

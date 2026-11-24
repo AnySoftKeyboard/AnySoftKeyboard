@@ -216,8 +216,8 @@ public class DictionariesFragment extends PreferenceFragmentCompat
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mDisposable.dispose();
+    super.onDestroy();
   }
 
   @VisibleForTesting

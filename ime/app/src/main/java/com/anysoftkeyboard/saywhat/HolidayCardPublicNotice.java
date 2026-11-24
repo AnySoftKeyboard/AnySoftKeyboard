@@ -50,7 +50,9 @@ public abstract class HolidayCardPublicNotice extends HolidayPublicNotice implem
   @SuppressLint("InflateParams")
   @Nullable
   private View inflateContentViewInternal(@NonNull Context context, @Nullable ViewGroup parent) {
-    if (!isUiActive(getCurrentCalendar(), getCurrentLocale(context))) {
+    final Calendar now = getCurrentCalendar();
+    final Locale locale = getCurrentLocale(context);
+    if (!isUiActive(now, locale) || isDismissed(context, now, locale)) {
       return null;
     }
     final View view =

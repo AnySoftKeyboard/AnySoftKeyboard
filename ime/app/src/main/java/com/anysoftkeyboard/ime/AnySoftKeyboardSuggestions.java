@@ -290,9 +290,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mKeyboardHandler.removeAllMessages();
     mSuggest.destroy();
+    super.onDestroy();
   }
 
   @Override

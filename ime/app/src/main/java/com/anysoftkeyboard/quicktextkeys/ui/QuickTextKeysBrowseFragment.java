@@ -41,9 +41,9 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mSkinToneTracker.dispose();
     mGenderTracker.dispose();
+    super.onDestroy();
   }
 
   @NonNull

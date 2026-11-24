@@ -1,5 +1,8 @@
 buildscript {
     repositories {
+        // Query Google's Maven Central mirror before plugins.gradle.org to avoid Maven Central
+        // HTTP 429 rate limits in CI.
+        maven { url 'https://maven-central.storage-download.googleapis.com/maven2/' }
         maven {
             url "https://plugins.gradle.org/m2/"
         }

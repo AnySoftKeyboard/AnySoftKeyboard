@@ -144,8 +144,8 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopTex
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mSwitchAnimator.onDestroy();
+    super.onDestroy();
   }
 
   private void doOnKeyForGesture(int keyCode) {

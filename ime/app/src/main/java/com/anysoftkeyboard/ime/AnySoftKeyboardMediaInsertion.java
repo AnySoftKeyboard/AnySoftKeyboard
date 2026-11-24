@@ -41,8 +41,8 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mKeyboardRemoteInsertion.destroy();
+    super.onDestroy();
   }
 
   protected RemoteInsertion createRemoteInsertion() {

@@ -227,8 +227,8 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mKeyboardSwitcher.destroy();
     mKeyboardSwitcher = null;
+    super.onDestroy();
   }
 }

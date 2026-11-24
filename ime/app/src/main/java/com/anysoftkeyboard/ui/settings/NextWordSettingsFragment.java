@@ -122,7 +122,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
     mDisposable.dispose();
+    super.onDestroy();
   }
 }
