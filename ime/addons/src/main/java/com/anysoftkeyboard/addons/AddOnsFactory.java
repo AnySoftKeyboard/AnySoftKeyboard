@@ -429,17 +429,17 @@ public abstract class AddOnsFactory<E extends AddOn> {
   /** The packages, other than this app, that are input methods themselves. */
   @VisibleForTesting
   static Set<String> getOtherInputMethodPackages(@NonNull Context context) {
+    final PackageManager packageManager = context.getPackageManager();
+    final String ownPackageName = context.getPackageName();
     final Set<String> packages = new HashSet<>();
     for (final ResolveInfo ime :
-        context
-            .getPackageManager()
-            .queryIntentServices(new Intent("android.view.InputMethod"), 0)) {
+        packageManager.queryIntentServices(new Intent("android.view.InputMethod"), 0)) {
       if (ime.serviceInfo != null
-          && !context.getPackageName().equalsIgnoreCase(ime.serviceInfo.packageName)) {
+          && !ownPackageName.equalsIgnoreCase(ime.serviceInfo.packageName)) {
         packages.add(ime.serviceInfo.packageName);
       }
     }
-    return packages;
+    return Collections.unmodifiableSet(packages);
   }
 
   private List<E> getAddOnsFromLocalResId(int addOnsResId) {
