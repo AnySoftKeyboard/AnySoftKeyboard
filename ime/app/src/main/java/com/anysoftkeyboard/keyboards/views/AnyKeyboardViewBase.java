@@ -408,10 +408,12 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
 
   /**
    * True when a horizontal swipe that started on the space bar belongs to cursor sliding, not to
-   * the space bar swipe actions.
+   * the space bar swipe actions. Two-finger swipes never slide the cursor.
    */
   boolean isHorizontalSpaceBarSwipeTakenBySlide() {
-    return mSharedPointerTrackersData.spaceBarSlideMovesCursor && isFirstDownEventInsideSpaceBar();
+    return mSharedPointerTrackersData.spaceBarSlideMovesCursor
+        && isFirstDownEventInsideSpaceBar()
+        && !isAtTwoFingersState();
   }
 
   protected static boolean isSpaceKey(final AnyKey key) {

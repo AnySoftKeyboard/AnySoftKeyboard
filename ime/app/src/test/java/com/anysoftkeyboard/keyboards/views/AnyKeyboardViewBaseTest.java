@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
@@ -356,8 +357,8 @@ public class AnyKeyboardViewBaseTest {
   }
 
   @Test
-  public void testSpaceBarSlideMovesCursorByDefault() {
-    Assert.assertTrue(mUnderTest.mSharedPointerTrackersData.spaceBarSlideMovesCursor);
+  public void testSpaceBarSlideMovesCursorWhenEnabled() {
+    enableSpaceBarSlide();
     final AnyKeyboard.AnyKey space = requireFindKey(' ');
     final Point center = ViewTestUtils.getKeyCenterPoint(space);
     final int step = mUnderTest.mSharedPointerTrackersData.spaceBarSlideStepPx;
@@ -366,20 +367,13 @@ public class AnyKeyboardViewBaseTest {
         mUnderTest, center.x, center.y, center.x + 4 * step + step / 2, center.y, 600, true, true);
 
     Mockito.verify(mMockKeyboardListener, Mockito.atLeast(3))
-        .onKey(
-            eq(com.anysoftkeyboard.api.KeyCodes.ARROW_RIGHT),
-            any(),
-            Mockito.anyInt(),
-            any(),
-            Mockito.anyBoolean());
+        .onKey(eq(KeyCodes.ARROW_RIGHT), any(), Mockito.anyInt(), any(), Mockito.anyBoolean());
     Mockito.verify(mMockKeyboardListener, Mockito.never())
         .onKey(eq((int) ' '), any(), Mockito.anyInt(), any(), Mockito.anyBoolean());
   }
 
   @Test
-  public void testSpaceBarSlideDisabledDoesNotMoveCursor() {
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_space_bar_slide_moves_cursor, false);
-    TestRxSchedulers.drainAllTasks();
+  public void testSpaceBarSlideDoesNotMoveCursorByDefault() {
     Assert.assertFalse(mUnderTest.mSharedPointerTrackersData.spaceBarSlideMovesCursor);
     final AnyKeyboard.AnyKey space = requireFindKey(' ');
     final Point center = ViewTestUtils.getKeyCenterPoint(space);
@@ -388,12 +382,107 @@ public class AnyKeyboardViewBaseTest {
         mUnderTest, center.x, center.y, center.x + 20, center.y, 300, true, true);
 
     Mockito.verify(mMockKeyboardListener, Mockito.never())
-        .onKey(
-            eq(com.anysoftkeyboard.api.KeyCodes.ARROW_RIGHT),
-            any(),
-            Mockito.anyInt(),
-            any(),
-            Mockito.anyBoolean());
+        .onKey(eq(KeyCodes.ARROW_RIGHT), any(), Mockito.anyInt(), any(), Mockito.anyBoolean());
+  }
+
+  @Test
+  public void testSpaceBarSlideDoesNotStartOnPointerThatWasAlreadyReleased() {
+    enableSpaceBarSlide();
+    final AnyKeyboard.AnyKey space = requireFindKey(' ');
+    final Point center = ViewTestUtils.getKeyCenterPoint(space);
+    final int step = mUnderTest.mSharedPointerTrackersData.spaceBarSlideStepPx;
+    final long time = SystemClock.uptimeMillis();
+
+    final PointerTracker tracker = mUnderTest.getPointerTracker(0);
+    tracker.onDownEvent(center.x, center.y, time);
+    // this is what the pointers-queue does when another pointer forces a release:
+    // the space is typed, while the finger is still down.
+    tracker.onUpEvent(center.x, center.y, time + 10);
+    tracker.setAlreadyProcessed();
+    Mockito.verify(mMockKeyboardListener)
+        .onKey(eq((int) ' '), any(), Mockito.anyInt(), any(), Mockito.anyBoolean());
+
+    tracker.onMoveEvent(center.x + 5 * step, center.y, time + 100);
+    tracker.onMoveEvent(center.x - 5 * step, center.y, time + 200);
+
+    verifyNoArrowKeys();
+  }
+
+  @Test
+  public void testSecondFingerEndsSpaceBarSlide() {
+    enableSpaceBarSlide();
+    final AnyKeyboard.AnyKey space = requireFindKey(' ');
+    final Point center = ViewTestUtils.getKeyCenterPoint(space);
+    final Point otherKey = ViewTestUtils.getKeyCenterPoint(requireFindKey('q'));
+    final int step = mUnderTest.mSharedPointerTrackersData.spaceBarSlideStepPx;
+    final Point slideMiddle = new Point(center.x + 3 * step + step / 2, center.y);
+    final Point slideEnd = new Point(slideMiddle.x + 5 * step, center.y);
+
+    ViewTestUtils.navigateFromTo(mUnderTest, center, slideMiddle, 400, true, false);
+    Mockito.verify(mMockKeyboardListener, Mockito.atLeast(2))
+        .onKey(eq(KeyCodes.ARROW_RIGHT), any(), Mockito.anyInt(), any(), Mockito.anyBoolean());
+    Mockito.verify(mMockKeyboardListener, Mockito.never()).onRelease(KeyCodes.SPACE);
+    Mockito.clearInvocations(mMockKeyboardListener);
+
+    // a second finger goes down on another key, while the first keeps moving
+    ViewTestUtils.navigateFromTo(
+        mUnderTest,
+        Arrays.asList(
+            new ViewTestUtils.Finger(slideMiddle, slideEnd),
+            new ViewTestUtils.Finger(otherKey, otherKey)),
+        100, // shorter than a long-press
+        Arrays.asList(false, true),
+        Arrays.asList(true, true));
+
+    verifyNoArrowKeys();
+    // the slide ended once, and the first finger did not type a space or press other keys
+    Mockito.verify(mMockKeyboardListener).onRelease(KeyCodes.SPACE);
+    Mockito.verify(mMockKeyboardListener, Mockito.never())
+        .onKey(eq((int) ' '), any(), Mockito.anyInt(), any(), Mockito.anyBoolean());
+    Mockito.verify(mMockKeyboardListener).onPress('q');
+    Mockito.verify(mMockKeyboardListener).onPress(Mockito.anyInt());
+  }
+
+  @Test
+  public void testSpaceBarSlideDoesNotStartOnDiagonalMove() {
+    enableSpaceBarSlide();
+    final AnyKeyboard.AnyKey space = requireFindKey(' ');
+    final Point center = ViewTestUtils.getKeyCenterPoint(space);
+    final int step = mUnderTest.mSharedPointerTrackersData.spaceBarSlideStepPx;
+
+    // going up twice as fast as sideways: this is a swipe up, not a slide.
+    ViewTestUtils.navigateFromTo(
+        mUnderTest, center.x, center.y, center.x + 4 * step, center.y - 8 * step, 400, true, true);
+
+    verifyNoArrowKeys();
+  }
+
+  @Test
+  public void testSpaceBarSlideDoesNotStartAfterLeavingSpaceBar() {
+    enableSpaceBarSlide();
+    final AnyKeyboard.AnyKey space = requireFindKey(' ');
+    final Point center = ViewTestUtils.getKeyCenterPoint(space);
+    final Point above = new Point(center.x, center.y - space.height - space.height / 2);
+    // far enough sideways to be a mostly-horizontal move, measured from the down point.
+    final Point aboveAndAside = new Point(above.x + 3 * space.height, above.y);
+
+    ViewTestUtils.navigateFromTo(mUnderTest, center, above, 400, true, false);
+    ViewTestUtils.navigateFromTo(mUnderTest, above, aboveAndAside, 400, false, true);
+
+    verifyNoArrowKeys();
+  }
+
+  private void enableSpaceBarSlide() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_space_bar_slide_moves_cursor, true);
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertTrue(mUnderTest.mSharedPointerTrackersData.spaceBarSlideMovesCursor);
+  }
+
+  private void verifyNoArrowKeys() {
+    Mockito.verify(mMockKeyboardListener, Mockito.never())
+        .onKey(eq(KeyCodes.ARROW_RIGHT), any(), Mockito.anyInt(), any(), Mockito.anyBoolean());
+    Mockito.verify(mMockKeyboardListener, Mockito.never())
+        .onKey(eq(KeyCodes.ARROW_LEFT), any(), Mockito.anyInt(), any(), Mockito.anyBoolean());
   }
 
   @NonNull

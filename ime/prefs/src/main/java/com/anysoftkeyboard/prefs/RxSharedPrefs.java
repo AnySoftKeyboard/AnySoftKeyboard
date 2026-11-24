@@ -46,7 +46,7 @@ import java.util.Set;
 
 public class RxSharedPrefs {
   static final String CONFIGURATION_VERSION = "configurationVersion";
-  static final int CONFIGURATION_LEVEL_VALUE = 15;
+  static final int CONFIGURATION_LEVEL_VALUE = 14;
   private static final String TAG = "ASK_Cfg";
 
   @VisibleForTesting static final String AUTO_APPLY_PREFS_FILENAME = "STARTUP_PREFS_APPLY.xml";
@@ -81,21 +81,6 @@ public class RxSharedPrefs {
     // upgrading should only be done when actually need to be done.
     final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
 
-    if (configurationVersion < 15) {
-      // Sliding on the space bar moves the cursor by default, and takes over the space bar's
-      // swipe left/right actions. A user who has set those actions up keeps them.
-      if (!sp.contains("settings_key_space_bar_slide_moves_cursor")) {
-        final String leftAction =
-            sp.getString("settings_key_swipe_left_space_bar_action", "next_symbols");
-        final String rightAction =
-            sp.getString("settings_key_swipe_right_space_bar_action", "next_alphabet");
-        if (!"next_symbols".equals(leftAction) || !"next_alphabet".equals(rightAction)) {
-          final Editor editor = sp.edit();
-          editor.putBoolean("settings_key_space_bar_slide_moves_cursor", false);
-          editor.apply();
-        }
-      }
-    }
     if (configurationVersion < 14) {
       if (android.os.Build.VERSION.SDK_INT >= 35) {
         final Editor editor = sp.edit();

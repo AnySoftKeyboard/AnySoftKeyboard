@@ -162,6 +162,13 @@ public class GesturesSettingsFragmentTest
 
   @Test
   public void testSpaceBarSwipeActionsAreDisabledWhileSlideMovesCursor() {
+    Assert.assertFalse(mSpaceBarSlidePref.isChecked());
+    for (Preference pref : mSpaceBarSwipePrefs) {
+      Assert.assertTrue(pref.isEnabled());
+    }
+
+    ViewTestUtils.performClick(mSpaceBarSlidePref);
+
     Assert.assertTrue(mSpaceBarSlidePref.isChecked());
     for (Preference pref : mSpaceBarSwipePrefs) {
       Assert.assertFalse(pref.isEnabled());
