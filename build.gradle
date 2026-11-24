@@ -9,6 +9,10 @@ buildscript {
     repositories {
         google()
         mavenLocal()
+        // Query Google's Maven Central mirror before repo1.maven.org and plugins.gradle.org so
+        // CI runners avoid Maven Central HTTP 429 rate limits (Gradle Plugin Portal proxies
+        // non-plugin dependencies back to repo.maven.apache.org).
+        maven { url 'https://maven-central.storage-download.googleapis.com/maven2/' }
         maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/ }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url "https://plugins.gradle.org/m2/" }
@@ -27,8 +31,12 @@ allprojects {
     repositories {
         google()
         mavenLocal()
-        gradlePluginPortal()
+        // Query Google's Maven Central mirror before repo1.maven.org and gradlePluginPortal() so
+        // CI runners avoid Maven Central HTTP 429 rate limits (gradlePluginPortal() redirects
+        // regular dependencies back to repo.maven.apache.org).
+        maven { url 'https://maven-central.storage-download.googleapis.com/maven2/' }
         maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/ }
+        gradlePluginPortal()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
 }
