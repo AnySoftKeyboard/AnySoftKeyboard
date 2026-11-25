@@ -370,25 +370,6 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
       mInputViewContainer.resetPredictiveBackProgress();
     }
     updateBackCallbackState();
-    Logger.d(TAG, "onWindowHidden: soft-input window attached=%s", isSoftInputWindowAttached());
-  }
-
-  @Override
-  public void onWindowShown() {
-    super.onWindowShown();
-    Logger.d(TAG, "onWindowShown: soft-input window attached=%s", isSoftInputWindowAttached());
-  }
-
-  /**
-   * Whether the soft-input window is currently attached to the window manager. When it is not (for
-   * example, the IME was asked to show while a car display took over), the framework re-configures
-   * a window which was never attached, and WindowManagerGlobal throws.
-   */
-  protected boolean isSoftInputWindowAttached() {
-    final Dialog softInputWindow = getWindow();
-    if (softInputWindow == null || softInputWindow.getWindow() == null) return false;
-    final View decorView = softInputWindow.getWindow().peekDecorView();
-    return decorView != null && decorView.isAttachedToWindow();
   }
 
   @Override
