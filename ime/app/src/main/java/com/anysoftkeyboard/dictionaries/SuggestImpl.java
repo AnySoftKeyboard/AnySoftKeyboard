@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.phonetic.PhraseTable;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
 import com.anysoftkeyboard.utils.IMEUtil;
@@ -342,6 +343,12 @@ public class SuggestImpl implements Suggest {
   @Override
   public boolean hasRadicalDictionaries() {
     return mSuggestionsProvider.hasRadicalDictionaries();
+  }
+
+  @Override
+  @Nullable
+  public PhraseTable getPhoneticTable() {
+    return mSuggestionsProvider.getPhoneticTable();
   }
 
   @Override

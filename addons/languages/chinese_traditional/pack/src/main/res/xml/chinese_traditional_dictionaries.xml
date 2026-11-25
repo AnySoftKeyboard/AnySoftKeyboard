@@ -50,16 +50,14 @@
         locale="zh-cangjie"
         nameResId="@string/chinese_traditional_cangjie_dictionary" />
 
-    <!-- Zhuyin 注音 (no homophone search, Zhuyin is itself phonetic).
-         splitMultiCodepointCandidates: source file uses key\tchar1char2.. format so we split. -->
+    <!-- Zhuyin 注音: sentence-level phonetic input. phoneticTableResId is the binary phrase
+         table built by scripts/build_zhuyin_phrases.py and read by ime/phonetic; the phrase
+         rows (radicalPhrasesResId) still drive next-word suggestions after a commit. -->
     <Dictionary
         description="@string/chinese_traditional_zhuyin_dictionary_description"
-        radicalDictionaryResId="@array/chinese_traditional_zhuyin_radicals_dict_array"
-        excludeHomophoneCharsResId="@array/chinese_traditional_exclude_simplified_chars_array"
+        phoneticTableResId="@raw/zhuyin_phrases"
         includeCharsResId="@array/chinese_traditional_trad_chars_array"
         radicalPhrasesResId="@array/chinese_traditional_phrases_array"
-        charFrequencyResId="@array/chinese_traditional_char_frequency_array"
-        splitMultiCodepointCandidates="true"
         id="33e07110-2970-403d-ae96-6043555d74fd"
         locale="zh-zhuyin"
         nameResId="@string/chinese_traditional_zhuyin_dictionary" />

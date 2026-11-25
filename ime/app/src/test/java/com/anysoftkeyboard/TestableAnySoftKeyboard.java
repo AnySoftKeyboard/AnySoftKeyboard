@@ -741,6 +741,12 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
+    @androidx.annotation.Nullable
+    public com.anysoftkeyboard.phonetic.PhraseTable getPhoneticTable() {
+      return mDelegate.getPhoneticTable();
+    }
+
+    @Override
     public boolean anyActiveDictionarySupportsGestureTyping() {
       return mDelegate.anyActiveDictionarySupportsGestureTyping();
     }

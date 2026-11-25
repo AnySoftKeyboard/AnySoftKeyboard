@@ -24,6 +24,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
   - Automatic correction can be customized, or turned off entirely.
   - External packages include word lists that can be freely mixed. You can use a French layout and get suggestions for German and Russian!
 - Gesture typing.
+- Cursor control: slide along the space bar to move the cursor (can be turned on in the gesture settings).
 - Dark mode, automatic (based on system) and manual.
 - Power saving mode, disables various features to save battery.
 - Per-app tint, the keyboard changes color depending on the current app.

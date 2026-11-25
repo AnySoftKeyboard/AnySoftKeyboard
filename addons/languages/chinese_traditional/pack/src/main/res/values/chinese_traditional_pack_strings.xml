@@ -35,4 +35,16 @@
     <string name="chinese_traditional_zhuyin_keyboard">注音</string>
     <string name="chinese_traditional_zhuyin_keyboard_description">Zhuyin (注音) Traditional Chinese</string>
     <string name="chinese_traditional_zhuyin_keyboard_id">e97fa425-bf01-66e8-e8ac-7fa457f5cfad</string>
+    <string name="chinese_traditional_zhuyin_punct_keyboard">注音 ，。</string>
+    <string name="chinese_traditional_zhuyin_punct_keyboard_description">Zhuyin (注音) standard layout with ， and 。 in the letter rows</string>
+    <string name="chinese_traditional_zhuyin_punct_keyboard_id">69635a60-073b-4857-8075-6b11e763c071</string>
+    <string name="chinese_traditional_zhuyin_eten_keyboard">注音 倚天</string>
+    <string name="chinese_traditional_zhuyin_eten_keyboard_description">Zhuyin (注音) ETen 41-key layout</string>
+    <string name="chinese_traditional_zhuyin_eten_keyboard_id">23add002-af64-4dd7-9051-44e479ae9182</string>
+    <string name="chinese_traditional_zhuyin_hsu_keyboard">注音 許氏</string>
+    <string name="chinese_traditional_zhuyin_hsu_keyboard_description">Zhuyin (注音) Hsu 26-key layout</string>
+    <string name="chinese_traditional_zhuyin_hsu_keyboard_id">13759a14-f391-40ca-b011-765d41a0d4ec</string>
+    <string name="chinese_traditional_zhuyin_eten26_keyboard">注音 倚天26</string>
+    <string name="chinese_traditional_zhuyin_eten26_keyboard_description">Zhuyin (注音) ETen 26-key layout</string>
+    <string name="chinese_traditional_zhuyin_eten26_keyboard_id">37fa691a-9b9a-4a40-aa80-77443c34b00e</string>
 </resources>

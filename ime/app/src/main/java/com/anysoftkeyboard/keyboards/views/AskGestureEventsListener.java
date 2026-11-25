@@ -54,7 +54,7 @@ final class AskGestureEventsListener implements AskOnGestureListener {
         scrollYDistance,
         velocityX,
         velocityY);
-    if (velocityX > velocityY) {
+    if (velocityX > velocityY && !mKeyboardView.isHorizontalSpaceBarSwipeTakenBySlide()) {
       Logger.v(TAG, "Scrolling on X axis");
       if (velocityX > mKeyboardView.mSwipeVelocityThreshold) {
         Logger.v(TAG, "Scroll broke the velocity barrier");
@@ -122,6 +122,9 @@ final class AskGestureEventsListener implements AskOnGestureListener {
     }
 
     final boolean isHorizontalFling = Math.abs(velocityX) > Math.abs(velocityY);
+    if (isHorizontalFling && mKeyboardView.isHorizontalSpaceBarSwipeTakenBySlide()) {
+      return false; // the slide already moved the cursor
+    }
 
     float deltaX = me2.getX() - me1.getX();
     float deltaY = me2.getY() - me1.getY();

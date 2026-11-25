@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.phonetic.PhraseTable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,6 +85,15 @@ public class RadicalDictionary extends Dictionary {
   private final boolean mSplitMultiCodepointCandidates;
 
   @NonNull private final RadicalOverlay mOverlay;
+
+  /**
+   * Optional Zhuyin phrase table (raw resource, see {@link PhraseTable}) for sentence-level
+   * phonetic input. A dictionary may have it instead of a radical table: the phonetic engine then
+   * does the lookups and this dictionary still provides next-word phrases.
+   */
+  private final int mPhoneticTableResourceId;
+
+  @Nullable private volatile PhraseTable mPhoneticTable;
 
   /** Snapshot of all radical data, published via a single volatile write of {@link #mData}. */
   private static final class RadicalData {
@@ -210,7 +220,40 @@ public class RadicalDictionary extends Dictionary {
       int candidateConversionResourceId,
       boolean splitMultiCodepointCandidates,
       @NonNull RadicalOverlay overlay) {
+    this(
+        dictionaryName,
+        context,
+        resourceId,
+        phrasesResourceId,
+        homophonesResourceId,
+        charToPhoneticResourceId,
+        charToRadicalResourceId,
+        excludeHomophoneCharsResourceId,
+        includeCharsResourceId,
+        charFrequencyResourceId,
+        candidateConversionResourceId,
+        0,
+        splitMultiCodepointCandidates,
+        overlay);
+  }
+
+  public RadicalDictionary(
+      @NonNull CharSequence dictionaryName,
+      @Nullable Context context,
+      int resourceId,
+      int phrasesResourceId,
+      int homophonesResourceId,
+      int charToPhoneticResourceId,
+      int charToRadicalResourceId,
+      int excludeHomophoneCharsResourceId,
+      int includeCharsResourceId,
+      int charFrequencyResourceId,
+      int candidateConversionResourceId,
+      int phoneticTableResourceId,
+      boolean splitMultiCodepointCandidates,
+      @NonNull RadicalOverlay overlay) {
     super(dictionaryName, false);
+    mPhoneticTableResourceId = phoneticTableResourceId;
     mContext = context;
     mResourceId = resourceId;
     mPhrasesResourceId = phrasesResourceId;
@@ -304,10 +347,18 @@ public class RadicalDictionary extends Dictionary {
 
   @Override
   protected void loadAllResources() {
-    if (mContext == null || mResourceId <= 0) {
+    if (mContext == null || (mResourceId <= 0 && mPhoneticTableResourceId <= 0)) {
       return;
     }
     final Resources res = mContext.getResources();
+
+    if (mPhoneticTableResourceId > 0) {
+      try (InputStream in = res.openRawResource(mPhoneticTableResourceId)) {
+        mPhoneticTable = PhraseTable.read(in);
+      } catch (IOException | Resources.NotFoundException e) {
+        Logger.w(TAG, e, "Failed to load the phonetic phrase table");
+      }
+    }
 
     // Load the per-keyboard include filter first so it's available when parsing
     // the main table (bundled or overlay), keeps both code paths consistent.
@@ -375,7 +426,7 @@ public class RadicalDictionary extends Dictionary {
             includeCharsFor(supplier, includeChars),
             conversionFor(supplier, candidateConversion));
       }
-    } else {
+    } else if (mResourceId > 0) {
       final int[] resIds = resolveResourceIds(res, mResourceId);
       if (resIds == null || resIds.length == 0) {
         Logger.w(TAG, "No radical dictionary resources to load");
@@ -1435,6 +1486,13 @@ public class RadicalDictionary extends Dictionary {
   @Override
   protected void closeAllResources() {
     mData = EMPTY_DATA;
+    mPhoneticTable = null;
+  }
+
+  /** The phonetic phrase table, or null if this dictionary has none (or it is not loaded yet). */
+  @Nullable
+  public PhraseTable getPhoneticTable() {
+    return mPhoneticTable;
   }
 
   /**

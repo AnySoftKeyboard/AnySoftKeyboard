@@ -381,6 +381,11 @@ public abstract class Keyboard {
     /** The mKeyboard that this key belongs to */
     private Keyboard mKeyboard;
 
+    /** The keyboard that this key belongs to (a long-press popup has its own). */
+    public Keyboard getKeyboard() {
+      return mKeyboard;
+    }
+
     public final Row row;
 
     /**
@@ -663,7 +668,7 @@ public abstract class Keyboard {
     } else if (value.type >= TypedValue.TYPE_FIRST_INT
         && value.type <= TypedValue.TYPE_LAST_INT
         && value.data <= 0
-        && value.data >= -3) {
+        && value.data >= -4) {
       return value.data;
     } else {
       Logger.w(TAG, "Key height attribute is incorrectly set! Defaulting to regular height.");

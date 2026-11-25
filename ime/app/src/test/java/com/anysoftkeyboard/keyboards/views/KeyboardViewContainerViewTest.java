@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -382,6 +383,49 @@ public class KeyboardViewContainerViewTest {
 
     Assert.assertEquals(1024, mUnderTest.getMeasuredWidth());
     Assert.assertEquals(1024, mUnderTest.getMeasuredHeight());
+  }
+
+  private View addActionWithWidth(int width, boolean highPriority) {
+    final View view = new View(mUnderTest.getContext());
+    view.setLayoutParams(new ViewGroup.LayoutParams(width, 30));
+    KeyboardViewContainerView.StripActionProvider provider =
+        Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+    Mockito.doReturn(view).when(provider).inflateActionView(any());
+    mUnderTest.addStripAction(provider, highPriority);
+    view.setTag(R.id.keyboard_container_provider_tag_id, provider);
+    return view;
+  }
+
+  private void measureAndLayout() {
+    mUnderTest.measure(
+        View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.EXACTLY),
+        View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.AT_MOST));
+    mUnderTest.layout(0, 0, mUnderTest.getMeasuredWidth(), mUnderTest.getMeasuredHeight());
+  }
+
+  @Test
+  public void testSoloStripActionIsAloneAtTheEnd() {
+    final View first = addActionWithWidth(40, false);
+    final View solo = addActionWithWidth(60, false);
+    measureAndLayout();
+    // Actions stack from the end of the strip, in the order they were added.
+    Assert.assertEquals(1024, first.getRight());
+    Assert.assertEquals(1024 - 40, solo.getRight());
+
+    mUnderTest.setSoloStripAction(
+        (KeyboardViewContainerView.StripActionProvider)
+            solo.getTag(R.id.keyboard_container_provider_tag_id));
+    measureAndLayout();
+    Assert.assertEquals(1024, solo.getRight());
+    Assert.assertEquals(60, solo.getWidth());
+    Assert.assertEquals(0, first.getWidth());
+    Assert.assertEquals(0, first.getHeight());
+
+    mUnderTest.setSoloStripAction(null);
+    measureAndLayout();
+    Assert.assertEquals(1024, first.getRight());
+    Assert.assertEquals(40, first.getWidth());
+    Assert.assertEquals(1024 - 40, solo.getRight());
   }
 
   @Test

@@ -16,7 +16,8 @@ Outputs (UTF-8, tab-separated unless noted) written directly to
   chinese_char_to_zhuyin   <char> <TAB> <zhuyin syllable>
   chinese_homophones       <syllable> <TAB> <chars...>
   cangjie_radicals         <code> <TAB> <chars (in code-point order)>
-  zhuyin_radicals          <bopomofo+tone> <TAB> <chars>
+
+The Zhuyin phrase table (zhuyin_phrases) comes from build_zhuyin_phrases.py.
 """
 import os
 import re
@@ -338,10 +339,5 @@ for ch, codes in char_to_cangjie.items():
 
 write_radicals(os.path.join(OUT, "cangjie_radicals"), cangjie_radicals)
 print(f"cangjie codes (trad-only): {len(cangjie_radicals)}")
-
-# --- Zhuyin radicals ---
-# Same shape as the filtered homophone map (Zhuyin's "radical sequence"
-# IS the Bopomofo syllable, so the candidate list mirrors homophones).
-write_radicals(os.path.join(OUT, "zhuyin_radicals"), _filtered_zhuyin_chars)
 
 print("done.")
