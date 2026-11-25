@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+    "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml 
+    "description"
+    "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale. 
+    "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+    "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+    "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+    "landscapeResId" : an optional reference to a landscape mode layout XML.
+    -->
+
+    <Keyboard
+        nameResId="@string/keyboard_name" description="@string/keyboard_quja_description"
+        iconResId="@drawable/ic_status_klingon" defaultDictionaryLocale="tlh"
+        layoutResId="@xml/quja" defaultEnabled="true"
+        id="067ad4d0-3371-4e3a-9d2d-0722e2b7486a" index="1" />
+
+    <Keyboard
+        nameResId="@string/keyboard_name_slim" description="@string/keyboard_quja_slim_description"
+        iconResId="@drawable/ic_status_klingon" defaultDictionaryLocale="tlh"
+        layoutResId="@xml/quja_slim" defaultEnabled="false"
+        id="067ad4d0-3372-4e3a-9d2d-0722e2b7486a" index="2" />
+
+    <Keyboard
+        nameResId="@string/keyboard_name_piqad" description="@string/keyboard_quja_piqad_description"
+        iconResId="@drawable/ic_status_klingon" defaultDictionaryLocale="tlh"
+        layoutResId="@xml/quja_piqad" defaultEnabled="false"
+        id="067ad4d0-3373-4e3a-9d2d-0722e2b7486a" index="3" />
+
+    <Keyboard
+        nameResId="@string/keyboard_name_piqadu" description="@string/keyboard_quja_piqadu_description"
+        iconResId="@drawable/ic_status_klingon" defaultDictionaryLocale="tlh"
+        layoutResId="@xml/quja_piqad_unicode" defaultEnabled="false"
+        id="067ad4d0-3374-4e3a-9d2d-0722e2b7486a" index="4" />
+        
+    <Keyboard
+        nameResId="@string/keyboard_name_roman" description="@string/keyboard_quja_roman_description"
+        iconResId="@drawable/ic_status_klingon" defaultDictionaryLocale="tlh"
+        layoutResId="@xml/quja_roman" defaultEnabled="false"
+        id="067ad4d0-3375-4e3a-9d2d-0722e2b7486a" index="5" />
+
+</Keyboards>
