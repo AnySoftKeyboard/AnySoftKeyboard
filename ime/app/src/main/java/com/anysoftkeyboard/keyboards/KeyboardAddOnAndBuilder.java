@@ -33,6 +33,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
   private final boolean mHasRadicalInput;
   private final String mRadicalKeyCharacters;
   private final String mRadicalCandidateSelectorKeys;
+  private final String mPhoneticLayout;
   private final boolean mAsciiOnlyPopups;
   private final boolean mSupportsGestureTyping;
   private final boolean mKeyboardDefaultEnabled;
@@ -57,6 +58,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
       boolean hasRadicalInput,
       String radicalKeyCharacters,
       String radicalCandidateSelectorKeys,
+      String phoneticLayout,
       boolean asciiOnlyPopups,
       boolean supportsGestureTyping,
       boolean keyboardDefaultEnabled) {
@@ -77,6 +79,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     mHasRadicalInput = hasRadicalInput;
     mRadicalKeyCharacters = radicalKeyCharacters;
     mRadicalCandidateSelectorKeys = radicalCandidateSelectorKeys;
+    mPhoneticLayout = phoneticLayout;
     mAsciiOnlyPopups = asciiOnlyPopups;
     mSupportsGestureTyping = supportsGestureTyping;
     mKeyboardDefaultEnabled = keyboardDefaultEnabled;
@@ -123,6 +126,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
         hasRadicalInput,
         radicalKeyCharacters,
         radicalCandidateSelectorKeys,
+        null,
         asciiOnlyPopups,
         !hasRadicalInput,
         keyboardDefaultEnabled);
@@ -184,6 +188,14 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
   @Nullable
   public String getRadicalCandidateSelectorKeys() {
     return mRadicalCandidateSelectorKeys;
+  }
+
+  /**
+   * How the keyboard's keys map to Bopomofo for the Zhuyin engine ({@code "hsu"}, {@code
+   * "eten26"}), or null for keys that emit Bopomofo directly.
+   */
+  public String getPhoneticLayout() {
+    return mPhoneticLayout;
   }
 
   /**

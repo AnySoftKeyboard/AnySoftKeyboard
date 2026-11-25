@@ -1,0 +1,53 @@
+// Pure-JVM phonetic (Zhuyin) conversion engine. No Android dependencies, so its tests are plain
+// JUnit and run fast with little memory: ./gradlew :ime:phonetic:test
+apply plugin: 'java-library'
+
+apply from: "${rootDir}/gradle/jacoco.gradle"
+apply from: "${rootDir}/gradle/errorprone.gradle"
+
+// The java plugin creates checkstyleMain by itself (gradle/checkstyle.gradle registers it for
+// Android modules, which would clash here).
+apply plugin: 'checkstyle'
+
+checkstyle {
+    showViolations true
+    toolVersion '10.26.1'
+}
+
+dependencies {
+    testImplementation libs.junit
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(Test).configureEach {
+    maxHeapSize = "256m"
+    // The tests read the pack's phrase table (see TestTables), so a new table re-runs them.
+    inputs.file("${rootDir}/addons/languages/chinese_traditional/pack/src/main/res/raw/zhuyin_phrases")
+}
+
+// CI runs testDebugUnitTest and testDebugUnitTestCoverage on every module that has tests (see
+// scripts/modules_sharder.py). This module has no Android variants, so these names map to the
+// JVM test task and a coverage report in the place the Android modules write theirs.
+tasks.register('testDebugUnitTest') { task ->
+    task.group = "Verification"
+    task.description = "Runs the unit tests (same as 'test')."
+    task.dependsOn tasks.named('test')
+}
+
+tasks.register('testDebugUnitTestCoverage', JacocoReport) { JacocoReport task ->
+    task.group = "Reporting"
+    task.description = "Generate Jacoco coverage reports for the unit tests."
+    task.dependsOn tasks.named('test')
+    task.sourceSets sourceSets.main
+    task.executionData(files("${project.buildDir}/jacoco/test.exec"))
+    task.reports {
+        xml.required = true
+        xml.outputLocation = file("${rootProject.buildDir}/jacoco/jacoco${task.path.replace(':', '-')}Coverage.xml")
+        html.required = true
+        html.outputLocation = file("${project.buildDir}/jacoco/report/html/testDebugUnitTest")
+    }
+}

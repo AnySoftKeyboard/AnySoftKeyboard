@@ -13,6 +13,7 @@ import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.IgnoredWordsDictionary;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
+import com.anysoftkeyboard.phonetic.PhraseTable;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -556,6 +557,16 @@ public class SuggestionsProvider {
 
   public boolean hasRadicalDictionaries() {
     return !mRadicalDictionary.isEmpty();
+  }
+
+  /** The first loaded phonetic phrase table among the radical dictionaries, or null. */
+  @Nullable
+  public PhraseTable getPhoneticTable() {
+    for (RadicalDictionary dict : mRadicalDictionary) {
+      final PhraseTable table = dict.getPhoneticTable();
+      if (table != null) return table;
+    }
+    return null;
   }
 
   public boolean anyActiveDictionarySupportsGestureTyping() {

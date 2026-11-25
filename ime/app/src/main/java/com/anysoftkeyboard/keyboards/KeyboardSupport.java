@@ -79,6 +79,16 @@ public class KeyboardSupport {
       case -3:
         height = keyboardDimens.getLargeKeyHeight();
         break;
+      case -4:
+        // "Compact" height: four rows of these (each with its row gap) take the same
+        // vertical space as three normal rows. The row gap is not scaled by heightFactor,
+        // so it is taken out after scaling.
+        return Math.max(
+            1,
+            Math.round(
+                (3f * keyboardDimens.getNormalKeyHeight() * heightFactor
+                        - keyboardDimens.getRowVerticalGap())
+                    / 4f));
       default:
         height = heightCode >= 0 ? heightCode : keyboardDimens.getNormalKeyHeight();
         break;

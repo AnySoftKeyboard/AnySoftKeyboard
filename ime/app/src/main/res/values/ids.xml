@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="candidates_panel_root" type="id" />
     <item name="keyboard_ui_handler_MSG_UPDATE_SUGGESTIONS" type="id" />
     <item name="keyboard_ui_handler_MSG_RESTART_NEW_WORD_SUGGESTIONS" type="id" />
     <item name="keyboard_ui_handler_MSG_CLOSE_DICTIONARIES" type="id" />

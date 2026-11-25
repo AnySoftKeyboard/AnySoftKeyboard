@@ -475,7 +475,10 @@ public class CandidateView extends View implements ThemeableChild {
       case MotionEvent.ACTION_MOVE:
         // Fling up!?
         // Fling up should be a hacker's way to delete words (user dictionary words)
-        if (y <= 0 && mSelectedString != null) {
+        if (y <= 0 && mService != null && mService.onCandidateStripSwipeUp()) {
+          // While composing Zhuyin, swiping up opens the all-candidates panel.
+          mSelectedString = null;
+        } else if (y <= 0 && mSelectedString != null) {
           Logger.d(
               TAG,
               "Fling up from candidates view. Deleting word at index %d, which is %s",

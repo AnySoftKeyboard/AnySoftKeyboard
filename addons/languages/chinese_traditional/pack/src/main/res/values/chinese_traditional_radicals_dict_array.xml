@@ -12,7 +12,4 @@
     <array name="chinese_traditional_cangjie_radicals_dict_array">
         <item>@raw/cangjie_radicals</item>
     </array>
-    <array name="chinese_traditional_zhuyin_radicals_dict_array">
-        <item>@raw/zhuyin_radicals</item>
-    </array>
 </resources>

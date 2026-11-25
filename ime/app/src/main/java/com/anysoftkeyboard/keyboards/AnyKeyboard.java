@@ -383,6 +383,13 @@ public abstract class AnyKeyboard extends Keyboard {
     return addOn != null && addOn.getAsciiOnlyPopups();
   }
 
+  /** See {@link KeyboardAddOnAndBuilder#getPhoneticLayout()}. */
+  @Nullable
+  public String getPhoneticLayout() {
+    final KeyboardAddOnAndBuilder addOn = asExternalAddOn();
+    return addOn != null ? addOn.getPhoneticLayout() : null;
+  }
+
   /**
    * Returns the per-keyboard candidate-selector key sequence (e.g. {@code "vrsfwlcbkj"} for
    * Boshiamy's 2nd–10th candidate picks) or {@code null} if this keyboard does not advertise the
