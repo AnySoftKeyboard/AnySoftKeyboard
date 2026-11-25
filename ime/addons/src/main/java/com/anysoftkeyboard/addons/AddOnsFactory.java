@@ -36,6 +36,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.annotation.VisibleForTesting;
 import androidx.annotation.XmlRes;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.io.IOException;
@@ -379,6 +380,11 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
     final List<E> externalAddOns = new ArrayList<>();
 
+    // Other installed AnySoftKeyboard builds export their bundled packs too. Those are keyboards,
+    // not add-on packs, and their add-ons share IDs with ours, which produces duplicate entries
+    // that toggle together.
+    final Set<String> otherImePackages = getOtherInputMethodPackages(mContext);
+
     for (final ResolveInfo receiver : broadcastReceivers) {
       if (receiver.activityInfo == null) {
         Logger.e(
@@ -399,6 +405,11 @@ public abstract class AddOnsFactory<E extends AddOn> {
         // Skipping external packages
         continue;
       }
+      if (otherImePackages.contains(receiver.activityInfo.packageName)) {
+        Logger.d(
+            mTag, "Skipping add-ons of another keyboard app %s", receiver.activityInfo.packageName);
+        continue;
+      }
       try {
         final Context externalPackageContext =
             mContext.createPackageContext(
@@ -413,6 +424,22 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
 
     return externalAddOns;
+  }
+
+  /** The packages, other than this app, that are input methods themselves. */
+  @VisibleForTesting
+  static Set<String> getOtherInputMethodPackages(@NonNull Context context) {
+    final PackageManager packageManager = context.getPackageManager();
+    final String ownPackageName = context.getPackageName();
+    final Set<String> packages = new HashSet<>();
+    for (final ResolveInfo ime :
+        packageManager.queryIntentServices(new Intent("android.view.InputMethod"), 0)) {
+      if (ime.serviceInfo != null
+          && !ownPackageName.equalsIgnoreCase(ime.serviceInfo.packageName)) {
+        packages.add(ime.serviceInfo.packageName);
+      }
+    }
+    return Collections.unmodifiableSet(packages);
   }
 
   private List<E> getAddOnsFromLocalResId(int addOnsResId) {
