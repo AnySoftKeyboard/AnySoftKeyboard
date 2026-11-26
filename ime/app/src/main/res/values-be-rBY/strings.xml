@@ -470,6 +470,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Слоўнік карыстальніка</string>
     <string name="user_dict_editor">Рэдактар слоў</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Рэдактар абрэвіятур</string>
     <string name="abbreviation_dict_editor">Рэдактар абрэвіятур</string>
@@ -647,4 +648,5 @@
     <string name="notification_read_contacts_ticker">Неабходны дазвол на доступ да кантактаў</string>
     <string name="wizard_allow_notification_permission">Дазволіць апавяшчэнні ад AnySoftKeyboard</string>
     <string name="wizard_skip_notification_permission">Не дазваляць апавяшчэнні</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

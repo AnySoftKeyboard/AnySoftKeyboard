@@ -469,6 +469,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Erabiltzailearen hiztegia</string>
     <string name="user_dict_editor">Hitzen editorea</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Laburduren editorea</string>
     <string name="abbreviation_dict_editor">Laburduren editorea</string>
@@ -648,4 +649,5 @@
     <string name="wizard_allow_notification_permission">Onartu AnySoftKeyboard-ek bidalitako jakinarazpenak</string>
     <string name="setup_wizard_step_notification_permissions_details">Kasu arraro batzuetan (adibidez aplikazioak huts egiten duenean), gailura jakinarazpena bidaltzeko beharra edukiko genuke. Hau aktibatzea gomendatzen da, baina ez baduzu aktibatzen aplikazioak berdin funtzionatuko du.</string>
     <string name="wizard_skip_notification_permission">Ez onartu jakinarazpenik</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

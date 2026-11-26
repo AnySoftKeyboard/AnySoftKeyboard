@@ -545,6 +545,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">فەرهەنگی بەکارهێنەر</string>
     <string name="user_dict_editor">دەستکاریکردنی ووشە</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">دەستکاریکردنی کورتکراوەکان</string>
     <string name="abbreviation_dict_editor">دەستکاریکردنی کورتکراوەکان</string>
@@ -752,4 +753,5 @@
     <string name="wizard_allow_notification_permission">چالاککردنی ئاگادارکردنەوەکان</string>
     <string name="setup_wizard_step_notification_permissions_details">لەکاتی وەستانی لەناکاوی بەرنامەکەدا لەڕێی ئاگادارکردنەوە زانیاریت پێدەدەرێت، ئەمە پێشنیارکراوە چالاک بکرێت</string>
     <string name="wizard_skip_notification_permission">نا چالاککردن</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

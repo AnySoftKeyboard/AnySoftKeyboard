@@ -517,6 +517,9 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Orðasafn notanda</string>
     <string name="user_dict_editor">Orðaritill</string>
+    <!-- Ignored words dictionary settings -->
+    <string name="ignored_words_dict_settings_titlebar">Hunsuð orð</string>
+    <string name="ignored_words_dict_editor">Ritill fyrir hunsuð orð</string>
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Styttingaritill</string>
     <string name="abbreviation_dict_editor">Styttingaritill</string>
@@ -701,6 +704,7 @@
     <string name="user_dict_prefs_provider">Orð notanda</string>
     <string name="next_word_dict_prefs_provider">Næstu orð</string>
     <string name="abbreviation_dict_prefs_provider">Styttingar</string>
+    <string name="ignored_words_dict_prefs_provider">Hunsuð orð</string>
     <string name="pick_prefs_providers_to_backup">Af hverju viltu taka öryggisafrit?</string>
     <string name="pick_prefs_providers_to_restore">Hvað viltu endurheimta?</string>
     <string name="prefs_providers_operation_success">Tókst</string>
@@ -743,4 +747,9 @@
     <string name="touch_trajectory_correction_title">Leiðrétting snertiferils</string>
     <string name="touch_trajectory_correction_summary_on">Bættu nákvæmni lykla með því að sameina hnit snertingar og lyftingar við hraðan innslátt</string>
     <string name="touch_trajectory_correction_summary_off">Reiða sig einvörðungu á hnit lyftingar</string>
+    <!-- Holiday and Event Public Notices -->
+    <string name="public_notice_thanksgiving_title">Gleðilegan Þakkargjörðardag! 🦃</string>
+    <string name="public_notice_halloween_title">Hryllilega Hrekkjavöku! 🎃👻</string>
+    <string name="public_notice_new_year_title">Gleðilegt nýtt ár! 🎆✨</string>
+    <string name="public_notice_earth_day_title">Gleðilegan Jarðardag! 🌍🌱</string>
 </resources>

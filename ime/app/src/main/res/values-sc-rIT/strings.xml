@@ -470,6 +470,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Ditzionàriu impreadore</string>
     <string name="user_dict_editor">Editore de paràulas</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Editore de abbreviatziones</string>
     <string name="abbreviation_dict_editor">Editore de abbreviatziones</string>
@@ -648,4 +649,5 @@
     <string name="wizard_allow_notification_permission">Permite sas notìficas dae AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">In casos raros (a esèmpiu sas tancaduras improvisas de s\'aplicatzione) diamus pòdere dèpere publicare una notìfica de su dispositivu. Custu est racumandadu ma non permitende sas notìficas no as a mudare su cumportamentu de s\'aplicatzione.</string>
     <string name="wizard_skip_notification_permission">Non permitas sas notìficas</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

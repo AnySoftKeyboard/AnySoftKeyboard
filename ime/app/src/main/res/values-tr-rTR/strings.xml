@@ -468,6 +468,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Kullanıcı sözlüğü</string>
     <string name="user_dict_editor">Kelime düzenleyici</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Kısaltma düzenleyici</string>
     <string name="abbreviation_dict_editor">Kısaltma düzenleyici</string>
@@ -647,4 +648,5 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="wizard_allow_notification_permission">AnySoftKeyboard\'dan bildirimlere izin ver</string>
     <string name="setup_wizard_step_notification_permissions_details">Nadir durumlarda (örneğin uygulama çökmeleri gibi) bildirim göndermemiz gerekebilir. İzin verilmesini öneririz ancak bildirim gönderme izin vermeme uygulamanın davranışını etkilemez.</string>
     <string name="wizard_skip_notification_permission">Bildirimlere izin verme</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

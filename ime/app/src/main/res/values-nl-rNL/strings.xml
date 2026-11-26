@@ -476,6 +476,7 @@ woordenlijst
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Eigen woordenlijst</string>
     <string name="user_dict_editor">Woorden tekstverwerker</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Afkorting editor</string>
     <string name="abbreviation_dict_editor">Afkortingen editor</string>
@@ -654,4 +655,5 @@ woordenlijst
     <string name="wizard_allow_notification_permission">Meldingen van AnySoftKeyboard toestaan</string>
     <string name="setup_wizard_step_notification_permissions_details">In zeldzame gevallen (bijvoorbeeld app-crashes) moeten we een apparaatmelding plaatsen. Dit wordt aanbevolen, maar het niet toestaan van meldingen heeft geen invloed op het gedrag van deze app.</string>
     <string name="wizard_skip_notification_permission">Meldingen niet toestaan</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

@@ -473,6 +473,7 @@ simplistas    </string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Dicionário do usuário</string>
     <string name="user_dict_editor">Editor de palavras</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Editor de abreviatura</string>
     <string name="abbreviation_dict_editor">Editor de abreviatura</string>
@@ -661,4 +662,5 @@ simplistas    </string>
     <string name="app_share_menu_title">Compartilhar AnySoftKeyboard via</string>
     <string name="app_share_text">Deixe-me recomendar um app de teclado - AnySoftKeyboard para Android, ele é de software livre, focado na privacidade, gratuito, personalizável, e multilíngue.\nBaixe na:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clique aqui para uma surpresa</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>
