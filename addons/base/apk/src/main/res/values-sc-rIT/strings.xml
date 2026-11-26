@@ -12,5 +12,7 @@
     <string name="open_ask_in_vending">Bae a su Play Store</string>
     <string name="ask_installed">AnySoftKeyboard est installadu. Lu dias pòdere dèpere cunfigurare pro incumintzare a impreare custu pachete de espansione.</string>
     <string name="open_ask_main_settings">Aberi AnySoftKeyboard</string>
+    <string name="hide_launcher_icon_action">Cua s\'icona dae s\'aviadore</string>
+    <string name="launcher_icon_hidden_toast">Icona de su cumplementu in s\'aviadore cuada.</string>
     <string name="test_add_on_description">Custa est una descritzione de proa pro sas estensiones, podet èssere cale si siat cosa</string>
 </resources>

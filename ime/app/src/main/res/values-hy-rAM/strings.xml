@@ -82,6 +82,7 @@
     <string name="user_dictionary_select_locale">Լեզու՝</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Օգտագործողի բառարան</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
@@ -97,4 +98,5 @@
     <string name="settings_key_hint_size_big">Մեծ</string>
     <string name="gesture_typing_alert_button">Հասկացա</string>
     <string name="app_share_title">Բարև AnySoftKeyboard֊ից</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

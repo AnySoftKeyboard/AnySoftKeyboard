@@ -403,6 +403,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Brukerordliste</string>
     <string name="user_dict_editor">Ordredigering</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Forkortelsesredigering</string>
     <string name="abbreviation_dict_editor">Forkortelsesredigering</string>
@@ -532,4 +533,5 @@
     <string name="aosp_dark_theme_description">AOSP-inspirert tastaturtema med mørke farger</string>
     <string name="aosp_light_theme_name">Lyst AOSP-tema</string>
     <string name="aosp_light_theme_description">AOSP-inspirert tastaturtema med lyse farger</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

@@ -461,6 +461,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Словарь пользователя</string>
     <string name="user_dict_editor">Редактор слов</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Редактор аббревиатур</string>
     <string name="abbreviation_dict_editor">Редактор аббревиатур</string>
@@ -635,4 +636,5 @@
     <string name="wizard_allow_notification_permission">Разрешить уведомления от AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">В редких случаях (например, сбои приложения) нам необходимо опубликовать уведомление об устройстве. Это рекомендуется, но запрет на уведомление не повлияет на поведение этого приложения.</string>
     <string name="wizard_skip_notification_permission">Запретить уведомления</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

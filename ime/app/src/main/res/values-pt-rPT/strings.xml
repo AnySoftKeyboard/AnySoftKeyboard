@@ -499,6 +499,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Dicionário do utilizador</string>
     <string name="user_dict_editor">Editor de palavras</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Editor de abreviatura</string>
     <string name="abbreviation_dict_editor">Editor de abreviatura</string>
@@ -704,4 +705,5 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="wizard_allow_notification_permission">Permitir notificações do AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">Em casos raros (por exemplo, falhas na aplicação) precisaremos publicar uma notificação do dispositivo. Isto é recomendado mas a desativação da notificação não afetará o comportamento desta aplicação.</string>
     <string name="wizard_skip_notification_permission">Não permitir notificações</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>

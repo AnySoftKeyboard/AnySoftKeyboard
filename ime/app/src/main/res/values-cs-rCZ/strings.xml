@@ -433,6 +433,7 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Uživatelský slovník</string>
     <string name="user_dict_editor">Editor slov</string>
+    <!-- Ignored words dictionary settings -->
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Editor zkratek</string>
     <string name="abbreviation_dict_editor">Editor zkratek</string>
@@ -531,4 +532,5 @@
     <string name="aosp_light_theme_name">Světlý motiv AOSP</string>
     <string name="aosp_light_theme_description">Světlá ve stylu AOSP</string>
     <string name="delete_all_clipboard_entries">Prázdná schránka</string>
+    <!-- Holiday and Event Public Notices -->
 </resources>
